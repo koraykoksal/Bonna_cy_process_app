@@ -1,5 +1,5 @@
 import {auth} from "../auth/firebase.js"
-import { createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,updateProfile } from "firebase/auth";
 import {useNavigate} from "react-router-dom"
 import {useDispatch} from "react-redux"
 import { fetchFail, fetchStart, loginSuccess, logoutSuccess, registerSuccess } from "../features/authSlice";
@@ -7,31 +7,37 @@ import {toastSuccessNotify,toastErrorNotify} from "../helpers/ToastNotify"
 
 const useAuthCall=()=>{
 
-    const navi=useNavigate()
+    const navigate=useNavigate()
     const dispatch = useDispatch()
 
     //* REGISTER
-    const signUp= async ({email,password})=>{
-
+    const signUp= async ({email,password,displayName})=>{
 
 
         dispatch(fetchStart())
 
-        try {
+        createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
             
-            let {userData}= await createUserWithEmailAndPassword(auth, email, password);
+            
 
-            console.log(userData)
+            const user = userCredential.user;
 
-            dispatch(registerSuccess(userData))
+       
+            dispatch(registerSuccess(user))
 
-            navi('/proses')
+            updateProfile(auth.currentUser,{displayName:displayName})
+
+            navigate('/proses')
             toastSuccessNotify("Register Success ✅")
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            dispatch(fetchFail(error))
+            toastErrorNotify(`${error.code} ❌`)
+        });
 
-        } catch (error) {
-            dispatch(fetchFail())
-            toastErrorNotify('Register Fault ! ❌')
-        }
 
         
     }
@@ -39,24 +45,26 @@ const useAuthCall=()=>{
     //* LOGIN
     const signIn= async ({email,password})=>{
 
-
         dispatch(fetchStart())
 
-        try {
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          
+            const user = userCredential.user;
+
+            dispatch(loginSuccess(user))
             
-            let {userData}= await signInWithEmailAndPassword(auth, email, password);
-
-            console.log(userData)
-
-            dispatch(loginSuccess(userData))
-
-            navi('/proses')
+            navigate('/proses')
             toastSuccessNotify("Login Success ✅")
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            dispatch(fetchFail(error))
+            toastErrorNotify(`${error.code} ❌`)
+        });
 
-        } catch (error) {
-            dispatch(fetchFail())
-            toastErrorNotify('Login Fault ! ❌')
-        }
+
 
         
     }
@@ -71,7 +79,7 @@ const useAuthCall=()=>{
             
            await signOut(auth)
 
-            navi('/')
+            navigate('/')
             toastSuccessNotify("Logout Success ✅")
 
         } catch (error) {

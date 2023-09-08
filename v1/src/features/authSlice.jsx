@@ -19,22 +19,24 @@ const authSlice=createSlice({
             state.loading = true;
             state.error = false;
           },
-          loginSuccess: (state, action) => {
+          loginSuccess: (state, {payload}) => {
             state.loading = false;
-            state.currentUser = action.payload?.user?.username;
-            state.isAdmin = action.payload?.user?.is_superuser;
-            state.token = action.payload?.key;
+            state.currentUser = payload?.displayName;
+            state.isAdmin = false;
+            state.token = payload?.accessToken;
           },
           logoutSuccess: (state) => {
             state.loading = false;
             state.currentUser = null;
             state.token = null;
           },
-          registerSuccess: (state, { payload }) => {
+          registerSuccess: (state, {payload}) => {
+      
             state.loading = false;
-            state.currentUser = payload?.username;
-            state.token = payload?.token;
+            state.currentUser = payload?.displayName;
+            state.token = payload?.accessToken;
             state.error = false;
+
           },
           fetchFail: (state) => {
             state.loading = false;

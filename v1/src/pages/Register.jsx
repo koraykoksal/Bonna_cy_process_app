@@ -10,11 +10,13 @@ import { Link } from "react-router-dom"
 import RegisterForm, { registerSchema } from "../components/RegisterForm"
 import { Formik } from "formik"
 import useAuthCall from '../hooks/useAuthCall'
+import { useSelector } from 'react-redux'
 
 const Register = () => {
 
 
   const {signUp} = useAuthCall()
+
 
   return (
     
@@ -66,7 +68,7 @@ const Register = () => {
             validationSchema={registerSchema}
             
             onSubmit={(values,actions)=>{
-              signUp({...values,password2:values.password})
+              signUp({...values,password2:values.password,displayName: values.first_name+" "+values.last_name})
               actions.resetForm()
               actions.setSubmitting(false)
             }}
