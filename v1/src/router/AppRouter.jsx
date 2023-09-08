@@ -24,6 +24,7 @@ import Dekorlama from '../pages/Dekorlama'
 import Dijitalbaski from '../pages/Dijitalbaski'
 import Nihaiurunkontrol from '../pages/Nihaiurunkontrol'
 import Ayaktaslama from '../pages/Ayaktaslama'
+import NotFound from '../pages/NotFound'
 
 
 const AppRouter = () => {
@@ -64,6 +65,8 @@ const AppRouter = () => {
           
         </Route>
 
+        <Route path='*' element={<NotFound/>}/>
+        
       </Routes>
     </BrowserRouter>
 
