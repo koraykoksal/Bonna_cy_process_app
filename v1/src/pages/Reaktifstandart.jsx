@@ -1,14 +1,13 @@
 import { Typography } from '@mui/material'
 import React from 'react'
 
-const Uygunsuzluk = () => {
+const Reaktifstandart = () => {
   return (
     
-
     <Typography sx={{mt:10}}>
-      uygunsuzluk
+        reakrif standart
     </Typography>
   )
 }
 
-export default Uygunsuzluk
+export default Reaktifstandart

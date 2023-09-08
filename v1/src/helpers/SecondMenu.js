@@ -20,7 +20,7 @@ export const secondMenu=[
     {
         icon:<BrightnessLowIcon/>,
         title:"Otomatik Torna",
-        url:"/proses/otomaiktorna"
+        url:"/proses/otomatiktorna"
     },
     {
         icon:<BrightnessLowIcon/>,
