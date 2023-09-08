@@ -18,8 +18,6 @@ const useAuthCall=()=>{
 
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            
-            
 
             const user = userCredential.user;
 
@@ -53,7 +51,7 @@ const useAuthCall=()=>{
             const user = userCredential.user;
 
             dispatch(loginSuccess(user))
-            
+
             navigate('/proses')
             toastSuccessNotify("Login Success ✅")
         })

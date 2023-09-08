@@ -4,10 +4,12 @@ import React from 'react'
 const Uygunsuzluk = () => {
   return (
     
-
-    <Typography sx={{mt:10}}>
+    <>
+    <Typography sx={{mt:'30px',color:'purple'}}>
       uygunsuzluk
     </Typography>
+    </>
+    
   )
 }
 

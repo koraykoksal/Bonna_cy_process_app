@@ -7,7 +7,7 @@ const PrivateRouter = () => {
 
   // const currentUser = true;
 
-  const currentUser = useSelector((state)=>state.auth)
+  const {currentUser} = useSelector((state)=>state.auth)
 
   
 

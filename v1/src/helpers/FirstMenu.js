@@ -14,17 +14,18 @@ export const firstMenu=[
     {
         icon:<DashboardIcon/>,
         title:"Dashboard",
-        url:"/proses"
+        url:"/proses/"
     },
     {
         icon:<DisabledByDefaultIcon/>,
         title:"Uygunsuzluk",
-        url:"/proses/uygunsuzluk"
+        url:"/proses/uygunsuzluk/"
     },
     {
         icon:<BubbleChartIcon/>,
         title:"Reaktif Standartlar",
-        url:"/proses/reaktifstandart"
+        // url:"/proses/reaktifstandart"
+        url:"www.youtube.com.tr"
     }
 ]
 

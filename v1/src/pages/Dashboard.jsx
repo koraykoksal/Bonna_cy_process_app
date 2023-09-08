@@ -18,12 +18,13 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import { useNavigate } from 'react-router-dom'
 import { Container } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import useAuthCall from '../hooks/useAuthCall';
 import FirstMenu from '../helpers/FirstMenu';
 import SecondMenu from '../helpers/SecondMenu';
+import { useSelector } from 'react-redux';
+import Button from "@mui/material/Button"
 
 const drawerWidth = 270;
 
@@ -95,9 +96,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const Dashboard = () => {
 
-    
-  const navigate=useNavigate()
-  
+  const {currentUser} = useSelector((state)=>state.auth)
+
   const {logout} = useAuthCall()
   
     const theme = useTheme();
@@ -138,9 +138,17 @@ const Dashboard = () => {
             Proses Kontrol
           </Typography>
 
-          <IconButton onClick={()=>logout()}>
+          <Box sx={{display:'flex',flexWrap:'wrap',justifyContent:'center',gap:2,alignItems:'center'}}>
+            <Typography>
+              {currentUser}
+            </Typography>
+
+            <Button color="inherit" onClick={()=>logout()}>Logout</Button>
+          {/* <IconButton onClick={()=>logout()}>
             <LogoutIcon sx={{'&hover':{cursor:'pointer'},color:'#000000'}}/>
-          </IconButton>
+          </IconButton> */}
+          </Box>
+          
 
       </Toolbar>
       
@@ -175,12 +183,12 @@ const Dashboard = () => {
 
     </Drawer>
 
-    <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+    {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
       <DrawerHeader />
       <Typography paragraph>
         Lorem ipsum dolor sit amet
       </Typography>
-    </Box>
+    </Box> */}
   </Box>
 
   )
