@@ -1,10 +1,18 @@
 import AppRouter from "./router/AppRouter";
+import store from "./app/store"
+import { Provider } from "react-redux";
+import {ToastContainer} from "react-toastify"
+
 
 function App() {
   return (
     <>
 
-        <AppRouter/>
+      <Provider store={store}>
+      <AppRouter/>
+      <ToastContainer/>
+      </Provider>
+        
 
     </>
   );

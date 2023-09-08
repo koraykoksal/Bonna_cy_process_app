@@ -9,8 +9,13 @@ import Box from "@mui/material/Box"
 import { Link } from "react-router-dom"
 import RegisterForm, { registerSchema } from "../components/RegisterForm"
 import { Formik } from "formik"
+import useAuthCall from '../hooks/useAuthCall'
 
 const Register = () => {
+
+
+  const {signUp} = useAuthCall()
+
   return (
     
     <Container maxWidth="lg">
@@ -59,13 +64,17 @@ const Register = () => {
               password: "",
             }}
             validationSchema={registerSchema}
-            onSubmit={(values, actions) => {
-            //   register({ ...values, password2: values.password })
+            
+            onSubmit={(values,actions)=>{
+              signUp({...values,password2:values.password})
               actions.resetForm()
               actions.setSubmitting(false)
             }}
+
             component={(props) => <RegisterForm {...props} />}
-          ></Formik>
+          >
+
+          </Formik>
 
           <Box sx={{ textAlign: "center", mt: 2 }}>
             <Link to="/">Do you have an account?</Link>

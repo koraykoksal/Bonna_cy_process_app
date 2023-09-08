@@ -22,15 +22,16 @@ const AppRouter = () => {
 
       <Routes>
         <Route path='/' element={<Login/>}/>
-       <Route path='register' element={<Register/>}/>
+        <Route path='register' element={<Register/>}/>
        
         <Route path='proses' element={<PrivateRouter/>}>
           <Route path='' element={<Dashboard/>}>
           <Route index element={<Home/>}/>
           <Route path='uygunsuzluk' element={<Uygunsuzluk/>}/>
           </Route>
-
+          
         </Route>
+
       </Routes>
     </BrowserRouter>
 

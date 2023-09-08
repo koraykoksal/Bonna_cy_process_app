@@ -11,7 +11,7 @@ const Home = () => {
   return (
     
     <div>
-        <Typography>
+        <Typography mt={10}>
             Dashboard
         </Typography>
     </div>
