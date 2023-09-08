@@ -22,6 +22,7 @@ import {firstMenu,secondMenu} from "../helpers/MenuListItem"
 import { useNavigate } from 'react-router-dom'
 import { Container } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
+import useAuthCall from '../hooks/useAuthCall';
 
 const drawerWidth = 270;
 
@@ -95,7 +96,8 @@ const Dashboard = () => {
 
     
   const navigate=useNavigate()
-    
+  
+  const {logout} = useAuthCall()
   
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -135,7 +137,7 @@ const Dashboard = () => {
             Proses Kontrol
           </Typography>
 
-          <IconButton>
+          <IconButton onClick={()=>logout()}>
             <LogoutIcon sx={{'&hover':{cursor:'pointer'},color:'#FE0000'}}/>
           </IconButton>
 

@@ -1,8 +1,8 @@
 import {auth} from "../auth/firebase.js"
-import { createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut } from "firebase/auth";
 import {useNavigate} from "react-router-dom"
 import {useDispatch} from "react-redux"
-import { fetchFail, fetchStart, loginSuccess, registerSuccess } from "../features/authSlice";
+import { fetchFail, fetchStart, loginSuccess, logoutSuccess, registerSuccess } from "../features/authSlice";
 import {toastSuccessNotify,toastErrorNotify} from "../helpers/ToastNotify"
 
 const useAuthCall=()=>{
@@ -51,7 +51,28 @@ const useAuthCall=()=>{
             dispatch(loginSuccess(userData))
 
             navi('/proses')
-            toastSuccessNotify("Register Success ✅")
+            toastSuccessNotify("Login Success ✅")
+
+        } catch (error) {
+            dispatch(fetchFail())
+            toastErrorNotify('Login Fault ! ❌')
+        }
+
+        
+    }
+
+     //* LOGOUT
+     const logout= async ()=>{
+
+
+        dispatch(fetchStart())
+
+        try {
+            
+           await signOut(auth)
+
+            navi('/')
+            toastSuccessNotify("Logout Success ✅")
 
         } catch (error) {
             dispatch(fetchFail())
@@ -63,7 +84,7 @@ const useAuthCall=()=>{
 
     
 
-    return {signUp,signIn}
+    return {signUp,signIn,logout}
 }
 
 
