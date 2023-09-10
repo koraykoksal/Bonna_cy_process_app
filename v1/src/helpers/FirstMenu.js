@@ -9,6 +9,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import { Button } from '@mui/material';
 
 export const firstMenu=[
     {
@@ -19,13 +20,12 @@ export const firstMenu=[
     {
         icon:<DisabledByDefaultIcon/>,
         title:"Uygunsuzluk",
-        url:"/proses/uygunsuzluk/"
+        url:"/proses/uygunsuzluk"
     },
     {
         icon:<BubbleChartIcon/>,
         title:"Reaktif Standartlar",
-        // url:"/proses/reaktifstandart"
-        url:"www.youtube.com.tr"
+        url:"/proses/reaktifstandart"
     }
 ]
 
@@ -60,6 +60,7 @@ const FirstMenu = () => {
             </ListItemButton>
           </ListItem>
         ))}
+
     </List>
 
     </div>

@@ -3,7 +3,6 @@ import {  Route, Routes } from 'react-router-dom'
 import { BrowserRouter } from 'react-router-dom'
 import Login from '../pages/Login'
 import Home from '../pages/Home'
-import Dashboard from '../pages/Dashboard'
 import Uygunsuzluk from '../pages/Uygunsuzluk'
 import PrivateRouter from './PrivateRouter'
 import Register from '../pages/Register'
@@ -25,6 +24,8 @@ import Dijitalbaski from '../pages/Dijitalbaski'
 import Nihaiurunkontrol from '../pages/Nihaiurunkontrol'
 import Ayaktaslama from '../pages/Ayaktaslama'
 import NotFound from '../pages/NotFound'
+import Dashboard from '../pages/Dashboard'
+
 
 
 const AppRouter = () => {

@@ -25,6 +25,8 @@ import FirstMenu from '../helpers/FirstMenu';
 import SecondMenu from '../helpers/SecondMenu';
 import { useSelector } from 'react-redux';
 import Button from "@mui/material/Button"
+import { Outlet, useNavigate } from 'react-router-dom';
+import MenuItem from '@mui/material/MenuItem';
 
 const drawerWidth = 270;
 
@@ -96,6 +98,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const Dashboard = () => {
 
+  const navigate = useNavigate()
+
   const {currentUser} = useSelector((state)=>state.auth)
 
   const {logout} = useAuthCall()
@@ -143,7 +147,7 @@ const Dashboard = () => {
               {currentUser}
             </Typography>
 
-            <Button color="inherit" onClick={()=>logout()}>Logout</Button>
+            <Button variant='contained' color='error' onClick={()=>logout()}>Logout</Button>
           {/* <IconButton onClick={()=>logout()}>
             <LogoutIcon sx={{'&hover':{cursor:'pointer'},color:'#000000'}}/>
           </IconButton> */}
@@ -167,7 +171,7 @@ const Dashboard = () => {
       {/* ÇİZGİ */}
       <Divider />
       
-      <List sx={{background:'#000000'}}>
+      <List sx={{background:'#000000'}}>        
         <FirstMenu/>
       </List>
 
@@ -183,13 +187,24 @@ const Dashboard = () => {
 
     </Drawer>
 
-    {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-      <DrawerHeader />
-      <Typography paragraph>
-        Lorem ipsum dolor sit amet
-      </Typography>
-    </Box> */}
-  </Box>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 2,
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+        }}
+      >
+        {/* <Toolbar /> */}
+        {/* burada kullanılan outlet dashboard içinde çağırılan sayfaların route işlemini yapıyor.
+        nested olarak kullanılan yapılarda outlet bilgisini belirtmek gerekiyor. Outlet tagi onclick yapılacak yere yazılır. */}
+        <Outlet />
+      </Box>
+
+    </Box>
+
+
+
 
   )
 }

@@ -5,8 +5,8 @@ const Uygunsuzluk = () => {
   return (
     
     <>
-    <Typography sx={{mt:'30px',color:'purple'}}>
-      uygunsuzluk
+    <Typography sx={{color:'#000000',marginTop:'3rem'}}>
+      uygunsuzluk regergererg gergergergerg
     </Typography>
     </>
     
