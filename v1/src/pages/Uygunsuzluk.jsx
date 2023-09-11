@@ -3,6 +3,7 @@ import React from 'react'
 import {typoStyle} from "../styles/globalStyle"
 import { Box, Button } from '@mui/material';
 import UygunsuzlukModal from '../components/modals/UygunsuzlukModal';
+import { Formik } from 'formik';
 
 
 const Uygunsuzluk = () => {
@@ -19,7 +20,7 @@ const Uygunsuzluk = () => {
         </Typography>
 
         <Box sx={{overflow:'scroll'}}>
-        <UygunsuzlukModal open={open} setOpen={setOpen} handleOpen={handleOpen}/>
+        <UygunsuzlukModal open={open} setOpen={setOpen} handleOpen={handleOpen}/> 
         </Box>
         
     </div>

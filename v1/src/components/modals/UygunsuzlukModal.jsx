@@ -13,6 +13,8 @@ import { sorunTipi,aksiyonSahibi } from '../../helpers/ProcessData';
 import Textarea from '@mui/joy/Textarea';
 import CloseIcon from '@mui/icons-material/Close';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { useState ,useEffect} from 'react';
+
 
 const style = {
   position: 'absolute',
@@ -31,8 +33,48 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
 
   const handleClose = () => setOpen(false);
 
+  const handleChange=(e)=>{
+    setUygunsuzlukData({...uygunsuzlukData,[e.target.name]:e.target.value})
+  }
 
-  
+  const nowData=new Date()
+  const currentdatetime = nowData.getDate() +"-"+(nowData.getMonth()+1)+"-"+nowData.getFullYear()
+
+  let getVardiya = 0;
+
+  const getShift=()=>{
+    const now=new Date().getHours()
+
+    if(now > 8 && now < 16){
+        getVardiya = 2
+    }
+    else if(now > 16 && now < 23){
+        getVardiya = 3
+    }
+    else{
+        getVardiya = 1
+    }
+
+    return getVardiya
+
+  }
+
+  const [uygunsuzlukData, setUygunsuzlukData] = useState({
+    is_merkezi:"",
+    renk_kodu:"",
+    urun_kodu:"",
+    sorun_tipi:"",
+    uygunsuz_deger:"",
+    standart_deger:"",
+    aksiyon_sahibi:"",
+    aciklama:"",
+    aksiyon:"",
+    vardiya:getShift(),
+    date:currentdatetime.toString()
+  })
+
+
+
 
   return (
     <div>
@@ -57,18 +99,18 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
             </IconButton>
         </Box>
           
-        
-           <Formik>
             
             <Box sx={{mt:3,display:'flex',flexDirection:'column',gap:2}} component='form'>
                 
 
-            {/* <div style={{display:'flex',gap:3}}>
+            {/* <div style={{display:'flex',gap:3,margin:'auto'}}>
             <TextField
             sx={{width:'200px'}}
             name="date"
             id="date"
             type="date"
+            value={uygunsuzlukData.date}
+            onChange={handleChange}
             />
 
             <FormControl sx={{width:'180px'}}>
@@ -78,6 +120,8 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
                 id="vardiya"
                 name='vardiya'
                 label="vardiya"
+                value={uygunsuzlukData.vardiya}
+                onChange={handleChange}
                 >
                 <MenuItem value={1}>1</MenuItem>
                 <MenuItem value={2}>2</MenuItem>
@@ -93,10 +137,12 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
                 id="is_merkezi"
                 name='is_merkezi'
                 label="is_merkezi"
+                value={uygunsuzlukData.is_merkezi}
+                onChange={handleChange}
                 >
-                <MenuItem value={1}>SK-KP1</MenuItem>
-                <MenuItem value={2}>SK-KP2</MenuItem>
-                <MenuItem value={3}>SK-KP3</MenuItem>
+                <MenuItem value="SK-KP1">SK-KP1</MenuItem>
+                <MenuItem value="SK-KP2">SK-KP2</MenuItem>
+                <MenuItem value="SK-KP3">SK-KP3</MenuItem>
                 </Select>
             </FormControl>
 
@@ -107,10 +153,12 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
                 id="renk_kodu"
                 name='renk_kodu'
                 label="renk_kodu"
+                value={uygunsuzlukData.renk_kodu}
+                onChange={handleChange}
                 >
-                <MenuItem value={1}>ASC</MenuItem>
-                <MenuItem value={2}>ASD</MenuItem>
-                <MenuItem value={3}>ASF</MenuItem>
+                <MenuItem value="ASC">ASC</MenuItem>
+                <MenuItem value="ASD">ASD</MenuItem>
+                <MenuItem value="ASF">ASF</MenuItem>
                 </Select>
             </FormControl>
 
@@ -121,10 +169,12 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
                 id="urun_kodu"
                 name='urun_kodu'
                 label="urun_kodu"
+                value={uygunsuzlukData.urun_kodu}
+                onChange={handleChange}
                 >
-                <MenuItem value={1}>GRM23DZ</MenuItem>
-                <MenuItem value={2}>BNC02CT</MenuItem>
-                <MenuItem value={3}>VNT22KS</MenuItem>
+                <MenuItem value="GRM23DZ">GRM23DZ</MenuItem>
+                <MenuItem value="BNC02CT">BNC02CT</MenuItem>
+                <MenuItem value="VNT22KS">VNT22KS</MenuItem>
                 </Select>
             </FormControl>
 
@@ -135,6 +185,8 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
                 id="sorun_tipi"
                 name='sorun_tipi'
                 label="sorun_tipi"
+                value={uygunsuzlukData.sorun_tipi}
+                onChange={handleChange}
                 >
                 {
                     sorunTipi.map((item)=>(
@@ -153,6 +205,8 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
             type="text"
             variant="outlined"
             sx={{overflow:'flo'}}
+            value={uygunsuzlukData.uygunsuz_deger}
+            onChange={handleChange}
             />
 
             <TextField
@@ -162,6 +216,8 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
             id="standart_deger"
             type="text"
             variant="outlined"
+            value={uygunsuzlukData.standart_deger}
+            onChange={handleChange}
             />
 
             <FormControl fullWidth>
@@ -171,6 +227,8 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
                 id="aksiyon_sahibi"
                 name='aksiyon_sahibi'
                 label="aksiyon_sahibi"
+                value={uygunsuzlukData.aksiyon_sahibi}
+                onChange={handleChange}
                 >
                 {
                     aksiyonSahibi.map((item)=>(
@@ -182,19 +240,25 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
             </FormControl>
 
             <Textarea
+            name='aciklama'
             fullWidth
             placeholder='Açıklama'
             minRows={3}
             maxRows={3}
             sx={{overflow:'auto'}}
+            value={uygunsuzlukData?.aciklama}
+            onChange={handleChange}
             />
 
             <Textarea
+            name='aksiyon'
             fullWidth
             placeholder='Aksiyon'
             minRows={3}
             maxRows={3}
             sx={{overflow:'auto'}}
+            value={uygunsuzlukData.aksiyon}
+            onChange={handleChange}
             />
 
             <Button
@@ -207,8 +271,6 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
 
 
             </Box>
-
-           </Formik>
 
           
         </Box>
