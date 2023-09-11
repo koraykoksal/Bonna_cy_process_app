@@ -4,13 +4,15 @@ import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Formik,Form } from 'formik';
-import { Container, TextField, TextareaAutosize } from '@mui/material';
+import { Container, IconButton, TextField, TextareaAutosize } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { sorunTipi,aksiyonSahibi } from '../../helpers/ProcessData';
 import Textarea from '@mui/joy/Textarea';
+import CloseIcon from '@mui/icons-material/Close';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 const style = {
   position: 'absolute',
@@ -22,11 +24,15 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+
 };
 
 const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
 
   const handleClose = () => setOpen(false);
+
+
+  
 
   return (
     <div>
@@ -39,18 +45,25 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
         aria-describedby="keep-mounted-modal-description"
       >
         <Box sx={style}>
-          <Typography id="keep-mounted-modal-title" variant="h6" component="h2" color="#C70039">
-            Uygunsuzluk
-          </Typography>
 
+        <Box sx={{display:'flex',flexWrap:'wrap',justifyContent:'space-between',alignItems:'center'}}>
+
+            <Typography id="keep-mounted-modal-title" variant="h6" component="h2" color="#000000">
+                Uygunsuzluk
+            </Typography>
+
+            <IconButton onClick={()=>handleClose()}>
+                <HighlightOffIcon sx={{color:'#C70039',fontSize:'28px'}}/>
+            </IconButton>
+        </Box>
+          
         
            <Formik>
-
-            <Form>
             
-            <Box sx={{mt:3,display:'flex',flexWrap:'wrap',gap:2}}>
+            <Box sx={{mt:3,display:'flex',flexDirection:'column',gap:2}} component='form'>
+                
 
-            <div style={{display:'flex',gap:3}}>
+            {/* <div style={{display:'flex',gap:3}}>
             <TextField
             sx={{width:'200px'}}
             name="date"
@@ -71,7 +84,7 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
                 <MenuItem value={3}>3</MenuItem>
                 </Select>
             </FormControl>
-            </div>
+            </div> */}
 
             <FormControl fullWidth>
                 <InputLabel id="is_merkezi">Makine</InputLabel>
@@ -139,6 +152,7 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
             id="uygunsuz_deger"
             type="text"
             variant="outlined"
+            sx={{overflow:'flo'}}
             />
 
             <TextField
@@ -168,20 +182,25 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
             </FormControl>
 
             <Textarea
-            sx={{width:'100vh'}}
+            fullWidth
             placeholder='Açıklama'
             minRows={3}
+            maxRows={3}
+            sx={{overflow:'auto'}}
             />
 
             <Textarea
-            sx={{width:'100vh'}}
+            fullWidth
             placeholder='Aksiyon'
             minRows={3}
+            maxRows={3}
+            sx={{overflow:'auto'}}
             />
 
             <Button
             variant='contained'
             fullWidth
+            type='submit'
             >
                 Save
             </Button>
@@ -189,7 +208,6 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
 
             </Box>
 
-            </Form>
            </Formik>
 
           
