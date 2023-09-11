@@ -1,12 +1,17 @@
-import { Typography } from '@mui/material'
+import Typography from '@mui/material/Typography';
 import React from 'react'
+import {typoStyle} from "../styles/globalStyle"
+
 
 const Reaktifstandart = () => {
   return (
     
-    <Typography sx={{mt:10}}>
-        reakrif standart
-    </Typography>
+    <div>
+        <Typography mt={8} align='center' variant='subtitle1' sx={typoStyle}>
+            Reaktif Standart
+        </Typography>
+    </div>
+
   )
 }
 

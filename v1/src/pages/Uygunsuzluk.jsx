@@ -1,14 +1,26 @@
-import { Typography } from '@mui/material'
+import Typography from '@mui/material/Typography';
 import React from 'react'
+import {typoStyle} from "../styles/globalStyle"
+import { Box, Button } from '@mui/material';
+import UygunsuzlukModal from '../components/modals/UygunsuzlukModal';
+
 
 const Uygunsuzluk = () => {
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+
+
   return (
     
-    <>
-    <Typography sx={{color:'#000000',marginTop:'3rem'}}>
-      uygunsuzluk regergererg gergergergerg
-    </Typography>
-    </>
+    <div>
+        <Typography mt={8} align='center' variant='subtitle1' sx={typoStyle}>
+            Uygunsuzluk
+        </Typography>
+
+        <UygunsuzlukModal open={open} setOpen={setOpen} handleOpen={handleOpen}/>
+    </div>
+
     
   )
 }
