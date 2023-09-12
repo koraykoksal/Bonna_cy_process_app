@@ -162,7 +162,7 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
 
             {/* sorun tipi */}
             <FormControl fullWidth>
-                <InputLabel id="urun_kodu">Sorun Tipi</InputLabel>
+                <InputLabel id="sorun_tipi">Sorun Tipi</InputLabel>
                 <Select
                 labelId="sorun_tipi"
                 id="sorun_tipi"

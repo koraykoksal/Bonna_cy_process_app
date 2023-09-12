@@ -71,3 +71,27 @@ export const aksiyonSahibi=[
         text:"SIRLAMA"
     },
 ]
+
+export const izostatikUygunsuzlukTipi=[
+    {
+        text:"Ayak Kırığı",
+    },
+    {
+        text:"Çapak",
+    },
+    {
+        text:"Eksen Farkı",
+    },
+    {
+        text:"Eksenel Çatlak",
+    },
+    {
+        text:"Spot İzi",
+    },
+    {
+        text:"Taban Çatlağı",
+    },
+    {
+        text:"Ürün Kimlik Kartı Uygunsuzluğu",
+    },
+]

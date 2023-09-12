@@ -19,7 +19,7 @@ const Uygunsuzluk = () => {
             Uygunsuzluk
         </Typography>
 
-        <Box sx={{overflow:'scroll'}}>
+        <Box>
         <UygunsuzlukModal open={open} setOpen={setOpen} handleOpen={handleOpen}/> 
         </Box>
         
