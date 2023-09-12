@@ -72,7 +72,7 @@ export const aksiyonSahibi=[
     },
 ]
 
-export const izostatikUygunsuzlukTipi=[
+export const uygunsuzlukTipi=[
     {
         text:"Ayak Kırığı",
     },
