@@ -192,7 +192,7 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
             id="uygunsuz_deger"
             type="text"
             variant="outlined"
-            sx={{overflow:'flo'}}
+            
             value={uygunsuzlukData.uygunsuz_deger}
             onChange={handleChange}
             />

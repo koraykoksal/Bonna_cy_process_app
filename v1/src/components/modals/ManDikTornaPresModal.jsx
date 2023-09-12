@@ -36,7 +36,7 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
   const handleClose = () => setOpen(false);
 
   const handleChange=(e)=>{
-    setOtomatiktornaData({...otomatiktornaData,[e.target.name]:e.target.value})
+    setmandiktornaData({...mandiktornaData,[e.target.name]:e.target.value})
   }
 
   const nowData=new Date()
@@ -64,7 +64,7 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
 
   }
 
-  const [otomatiktornaData, setOtomatiktornaData] = useState({
+  const [mandiktornaData, setmandiktornaData] = useState({
     is_merkezi:"",
     agirlik:"",
     taban:"",
@@ -88,7 +88,7 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
   })
 
 
-  console.log(otomatiktornaData)
+  console.log(mandiktornaData)
 
 
   return (
@@ -128,7 +128,7 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
                 id="is_merkezi"
                 name='is_merkezi'
                 label="is_merkezi"
-                value={otomatiktornaData.is_merkezi}
+                value={mandiktornaData.is_merkezi}
                 onChange={handleChange}
                 >
                 <MenuItem value="SK-KP1">SK-KP1</MenuItem>
@@ -145,7 +145,7 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
                 id="urun_kodu"
                 name='urun_kodu'
                 label="urun_kodu"
-                value={otomatiktornaData.urun_kodu}
+                value={mandiktornaData.urun_kodu}
                 onChange={handleChange}
                 >
                 <MenuItem value="GRM23DZ">GRM23DZ</MenuItem>
@@ -165,8 +165,8 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
             id="agirlik"
             type="text"
             variant="outlined"
-            sx={{overflow:'flo'}}
-            value={otomatiktornaData.agirlik}
+            
+            value={mandiktornaData.agirlik}
             onChange={handleChange}
             />
             <TextField
@@ -176,8 +176,8 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
             id="taban"
             type="text"
             variant="outlined"
-            sx={{overflow:'flo'}}
-            value={otomatiktornaData.taban}
+            
+            value={mandiktornaData.taban}
             onChange={handleChange}
             />
             <TextField
@@ -187,8 +187,8 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
             id="kenar"
             type="text"
             variant="outlined"
-            sx={{overflow:'flo'}}
-            value={otomatiktornaData.kenar}
+            
+            value={mandiktornaData.kenar}
             onChange={handleChange}
             />
             <TextField
@@ -198,8 +198,8 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
             id="camursertlik"
             type="text"
             variant="outlined"
-            sx={{overflow:'flo'}}
-            value={otomatiktornaData.camursertlik}
+            
+            value={mandiktornaData.camursertlik}
             onChange={handleChange}
             />
             </Box>
@@ -212,8 +212,8 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
             id="pkenar"
             type="text"
             variant="outlined"
-            sx={{overflow:'flo'}}
-            value={otomatiktornaData.pkenar}
+            
+            value={mandiktornaData.pkenar}
             onChange={handleChange}
             />
             <TextField
@@ -223,8 +223,8 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
             id="sucukcap"
             type="text"
             variant="outlined"
-            sx={{overflow:'flo'}}
-            value={otomatiktornaData.sucukcap}
+            
+            value={mandiktornaData.sucukcap}
             onChange={handleChange}
             />
             <TextField
@@ -234,8 +234,8 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
             id="aynacap"
             type="text"
             variant="outlined"
-            sx={{overflow:'flo'}}
-            value={otomatiktornaData.aynacap}
+            
+            value={mandiktornaData.aynacap}
             onChange={handleChange}
             />
             </Box>
@@ -251,7 +251,7 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
                 id="havakontrol"
                 name='havakontrol'
                 label="havakontrol"
-                value={otomatiktornaData.havakontrol}
+                value={mandiktornaData.havakontrol}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -266,7 +266,7 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
                 id="catlakkontrol"
                 name='catlakkontrol'
                 label="catlakkontrol"
-                value={otomatiktornaData.catlakkontrol}
+                value={mandiktornaData.catlakkontrol}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -281,7 +281,7 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
                 id="rotuskontrol"
                 name='rotuskontrol'
                 label="rotuskontrol"
-                value={otomatiktornaData.rotuskontrol}
+                value={mandiktornaData.rotuskontrol}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -296,7 +296,7 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
                 id="yuzeykontrol"
                 name='yuzeykontrol'
                 label="yuzeykontrol"
-                value={otomatiktornaData.yuzeykontrol}
+                value={mandiktornaData.yuzeykontrol}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -314,7 +314,7 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
                 id="uygunsuzluktipi"
                 name='uygunsuzluktipi'
                 label="uygunsuzluktipi"
-                value={otomatiktornaData.uygunsuzluktipi}
+                value={mandiktornaData.uygunsuzluktipi}
                 onChange={handleChange}
                 >
                 {
@@ -334,7 +334,7 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
             minRows={3}
             maxRows={3}
             sx={{overflow:'auto'}}
-            value={otomatiktornaData?.aciklama}
+            value={mandiktornaData?.aciklama}
             onChange={handleChange}
             />
 
@@ -345,8 +345,8 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
             id="vardiyasorumlusu"
             type="text"
             variant="outlined"
-            sx={{overflow:'flo'}}
-            value={otomatiktornaData.vardiyasorumlusu}
+            
+            value={mandiktornaData.vardiyasorumlusu}
             onChange={handleChange}
             />
 

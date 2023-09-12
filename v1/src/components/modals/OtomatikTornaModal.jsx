@@ -169,7 +169,7 @@ const OtomatikTornaModal=({open,setOpen,handleOpen})=>{
             id="agirlik"
             type="text"
             variant="outlined"
-            sx={{overflow:'flo'}}
+            
             value={otomatiktornaData.agirlik}
             onChange={handleChange}
             />
@@ -180,7 +180,7 @@ const OtomatikTornaModal=({open,setOpen,handleOpen})=>{
             id="taban"
             type="text"
             variant="outlined"
-            sx={{overflow:'flo'}}
+            
             value={otomatiktornaData.taban}
             onChange={handleChange}
             />
@@ -191,7 +191,7 @@ const OtomatikTornaModal=({open,setOpen,handleOpen})=>{
             id="kenar"
             type="text"
             variant="outlined"
-            sx={{overflow:'flo'}}
+            
             value={otomatiktornaData.kenar}
             onChange={handleChange}
             />
@@ -205,7 +205,7 @@ const OtomatikTornaModal=({open,setOpen,handleOpen})=>{
             id="pkenar"
             type="text"
             variant="outlined"
-            sx={{overflow:'flo'}}
+            
             value={otomatiktornaData.pkenar}
             onChange={handleChange}
             />
@@ -216,7 +216,7 @@ const OtomatikTornaModal=({open,setOpen,handleOpen})=>{
             id="cap"
             type="text"
             variant="outlined"
-            sx={{overflow:'flo'}}
+            
             value={otomatiktornaData.cap}
             onChange={handleChange}
             />
@@ -227,7 +227,7 @@ const OtomatikTornaModal=({open,setOpen,handleOpen})=>{
             id="aynacap"
             type="text"
             variant="outlined"
-            sx={{overflow:'flo'}}
+            
             value={otomatiktornaData.aynacap}
             onChange={handleChange}
             />
@@ -241,7 +241,7 @@ const OtomatikTornaModal=({open,setOpen,handleOpen})=>{
             id="kulpbunye"
             type="text"
             variant="outlined"
-            sx={{overflow:'flo'}}
+            
             value={otomatiktornaData.kulpbunye}
             onChange={handleChange}
             />
@@ -252,7 +252,7 @@ const OtomatikTornaModal=({open,setOpen,handleOpen})=>{
             id="kesilensucuk"
             type="text"
             variant="outlined"
-            sx={{overflow:'flo'}}
+            
             value={otomatiktornaData.kesilensucuk}
             onChange={handleChange}
             />
@@ -263,7 +263,7 @@ const OtomatikTornaModal=({open,setOpen,handleOpen})=>{
             id="kirpintimiktar"
             type="text"
             variant="outlined"
-            sx={{overflow:'flo'}}
+            
             value={otomatiktornaData.kirpintimiktar}
             onChange={handleChange}
             />
@@ -280,7 +280,7 @@ const OtomatikTornaModal=({open,setOpen,handleOpen})=>{
             id="camursert"
             type="text"
             variant="outlined"
-            sx={{overflow:'flo'}}
+            
             value={otomatiktornaData.camursert}
             onChange={handleChange}
             />
@@ -409,7 +409,7 @@ const OtomatikTornaModal=({open,setOpen,handleOpen})=>{
             id="vardiyasorumlusu"
             type="text"
             variant="outlined"
-            sx={{overflow:'flo'}}
+            
             value={otomatiktornaData.vardiyasorumlusu}
             onChange={handleChange}
             />

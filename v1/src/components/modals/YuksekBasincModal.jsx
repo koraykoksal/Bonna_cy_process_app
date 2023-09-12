@@ -17,6 +17,7 @@ import { useState ,useEffect} from 'react';
 import {uygunsuzlukTipi} from "../../helpers/ProcessData"
 import {useSelector} from "react-redux"
 
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -30,16 +31,16 @@ const style = {
 
 };
 
-const IzostatikPresModal=({open,setOpen,handleOpen})=>{
+const YuksekBasincModal=({open,setOpen,handleOpen})=>{
 
   const handleClose = () => setOpen(false);
 
   const handleChange=(e)=>{
-    setIzostatikData({...izostatikData,[e.target.name]:e.target.value})
+    setyuksekbasincData({...yuksekbasincData,[e.target.name]:e.target.value})
   }
 
   const nowData=new Date()
-  const currentdatetime = nowData.getDate() +"-"+(nowData.getMonth()+1)+"-"+nowData.getFullYear()
+  const currentdate = nowData.getDate() +"-"+(nowData.getMonth()+1)+"-"+nowData.getFullYear()
   const currentTime = nowData.getHours() +":"+nowData.getMinutes()
 
   const {currentUser} = useSelector((state) => state.auth)
@@ -63,33 +64,33 @@ const IzostatikPresModal=({open,setOpen,handleOpen})=>{
 
   }
 
-  const [izostatikData, setIzostatikData] = useState({
+  const [yuksekbasincData, setyuksekbasincData] = useState({
     is_merkezi:"",
     agirlik:"",
     taban:"",
     kenar:"",
     pkenar:"",
-    cap:"",
-    izobasinc:"",
-    kapamabasinc:"",
-    vakumdegeri:"",
-    dolumsuresi:"",
-    urun_kodu:"",
+    yogunluk:"",
+    v1:"",
+    v2:"",
+    camursicakligi:"",
+    basinc:"",
+    havakontrol:"",
     catlakkontrol:"",
     rotuskontrol:"",
     yuzeykontrol:"",
-    hamurunistif:"",
     uygunsuzluktipi:"",
     aciklama:"",
     vardiyasorumlusu:"",
+    urun_kodu:"",
     vardiya:getShift(),
-    date:currentdatetime.toString(),
+    date:currentdate.toString(),
     time:currentTime.toString(),
     kontroleden_kisi:currentUser
   })
 
 
-  console.log(izostatikData)
+  console.log(yuksekbasincData)
 
 
   return (
@@ -107,7 +108,7 @@ const IzostatikPresModal=({open,setOpen,handleOpen})=>{
         <Box sx={{display:'flex',flexWrap:'wrap',justifyContent:'space-between',alignItems:'center'}}>
 
             <Typography id="keep-mounted-modal-title" variant="h6" component="h2" color="#000000">
-                İzostatik Pres
+                Yüksek Basınç
             </Typography>
 
             <IconButton onClick={()=>handleClose()}>
@@ -119,8 +120,6 @@ const IzostatikPresModal=({open,setOpen,handleOpen})=>{
             <Box sx={{mt:3,display:'flex',flexDirection:'column',gap:2}} component='form'>
                 
 
-            
-
             <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
 
               {/* makine */}
@@ -131,7 +130,7 @@ const IzostatikPresModal=({open,setOpen,handleOpen})=>{
                 id="is_merkezi"
                 name='is_merkezi'
                 label="is_merkezi"
-                value={izostatikData.is_merkezi}
+                value={yuksekbasincData.is_merkezi}
                 onChange={handleChange}
                 >
                 <MenuItem value="SK-KP1">SK-KP1</MenuItem>
@@ -148,7 +147,7 @@ const IzostatikPresModal=({open,setOpen,handleOpen})=>{
                 id="urun_kodu"
                 name='urun_kodu'
                 label="urun_kodu"
-                value={izostatikData.urun_kodu}
+                value={yuksekbasincData.urun_kodu}
                 onChange={handleChange}
                 >
                 <MenuItem value="GRM23DZ">GRM23DZ</MenuItem>
@@ -163,26 +162,76 @@ const IzostatikPresModal=({open,setOpen,handleOpen})=>{
             <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
             <TextField
             fullWidth
-            label="Ağırlık (gr)"
-            name="agirlik"
-            id="agirlik"
+            label="Yoğunluk (g/L)"
+            name="yogunluk"
+            id="yogunluk"
             type="text"
             variant="outlined"
-            
-            value={izostatikData.agirlik}
+            value={yuksekbasincData.yogunluk}
             onChange={handleChange}
             />
             <TextField
             fullWidth
-            label="Taban (mm) "
+            label="V1 (°G)"
+            name="v1"
+            id="v1"
+            type="text"
+            variant="outlined"
+            value={yuksekbasincData.v1}
+            onChange={handleChange}
+            />
+            <TextField
+            fullWidth
+            label="V2 (°G)"
+            name="v2"
+            id="v2"
+            type="text"
+            variant="outlined"
+            value={yuksekbasincData.v2}
+            onChange={handleChange}
+            />
+            
+            </Box>
+
+            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
+
+            <TextField
+            fullWidth
+            label="Çamur (°C)"
+            name="camursicakligi"
+            id="camursicakligi"
+            type="text"
+            variant="outlined"
+            value={yuksekbasincData.camursicakligi}
+            onChange={handleChange}
+            />
+
+            <TextField
+            fullWidth
+            label="Ağırlık (g)"
+            name="agirlik"
+            id="agirlik"
+            type="text"
+            variant="outlined"
+            value={yuksekbasincData.agirlik}
+            onChange={handleChange}
+            />
+            <TextField
+            fullWidth
+            label="Taban (mm)"
             name="taban"
             id="taban"
             type="text"
             variant="outlined"
             
-            value={izostatikData.taban}
+            value={yuksekbasincData.taban}
             onChange={handleChange}
             />
+            
+            </Box>
+
+            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
+
             <TextField
             fullWidth
             label="Kenar (mm)"
@@ -191,12 +240,10 @@ const IzostatikPresModal=({open,setOpen,handleOpen})=>{
             type="text"
             variant="outlined"
             
-            value={izostatikData.kenar}
+            value={yuksekbasincData.kenar}
             onChange={handleChange}
             />
-            </Box>
 
-            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
             <TextField
             fullWidth
             label="P.Kenar (mm)"
@@ -205,87 +252,43 @@ const IzostatikPresModal=({open,setOpen,handleOpen})=>{
             type="text"
             variant="outlined"
             
-            value={izostatikData.pkenar}
+            value={yuksekbasincData.pkenar}
             onChange={handleChange}
             />
+
             <TextField
             fullWidth
-            label="Çap (mm)"
-            name="cap"
-            id="cap"
+            label="Basınç"
+            name="basinc"
+            id="basinc"
             type="text"
             variant="outlined"
             
-            value={izostatikData.cap}
+            value={yuksekbasincData.basinc}
             onChange={handleChange}
             />
-            <TextField
-            fullWidth
-            label="İzostatik Basınç (bar)"
-            name="izobasinc"
-            id="izobasinc"
-            type="text"
-            variant="outlined"
-            
-            value={izostatikData.izobasinc}
-            onChange={handleChange}
-            />
+
             </Box>
-
-            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
-            <TextField
-            fullWidth
-            label="Kapama Basınç (bar)"
-            name="kapamabasinc"
-            id="kapamabasinc"
-            type="text"
-            variant="outlined"
             
-            value={izostatikData.kapamabasinc}
-            onChange={handleChange}
-            />
-            <TextField
-            fullWidth
-            label="Vakum Değeri"
-            name="vakumdegeri"
-            id="vakumdegeri"
-            type="text"
-            variant="outlined"
-            
-            value={izostatikData.vakumdegeri}
-            onChange={handleChange}
-            />
-            <TextField
-            fullWidth
-            label="Dolum Süresi (sn)"
-            name="dolumsuresi"
-            id="dolumsuresi"
-            type="text"
-            variant="outlined"
-            
-            value={izostatikData.dolumsuresi}
-            onChange={handleChange}
-            />
-            </Box>
 
 
-
-            {/* granül türü */}
-            <TextField
-            fullWidth
-            label="Granül Türü / BigBag Kodu"
-            name="granulturu"
-            id="granulturu"
-            type="text"
-            variant="outlined"
-            
-            value={izostatikData.granulturu}
-            onChange={handleChange}
-            />
-
-
-              {/* uygunsuz işlem - standart değer */}
+            {/* uygunsuz işlem - standart değer */}
             <Box sx={{display:'flex',justifyContent:'space-between',gap:2}}>
+
+            <FormControl fullWidth>
+                <InputLabel id="havakontrol">HK</InputLabel>
+                <Select
+                labelId="havakontrol"
+                id="havakontrol"
+                name='havakontrol'
+                label="havakontrol"
+                value={yuksekbasincData.havakontrol}
+                onChange={handleChange}
+                >
+                <MenuItem value="OK">OK</MenuItem>
+                <MenuItem value="NOK">NOK</MenuItem>
+                </Select>
+            </FormControl>
 
             <FormControl fullWidth>
                 <InputLabel id="catlakkontrol">ÇK</InputLabel>
@@ -294,7 +297,7 @@ const IzostatikPresModal=({open,setOpen,handleOpen})=>{
                 id="catlakkontrol"
                 name='catlakkontrol'
                 label="catlakkontrol"
-                value={izostatikData.catlakkontrol}
+                value={yuksekbasincData.catlakkontrol}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -309,7 +312,7 @@ const IzostatikPresModal=({open,setOpen,handleOpen})=>{
                 id="rotuskontrol"
                 name='rotuskontrol'
                 label="rotuskontrol"
-                value={izostatikData.rotuskontrol}
+                value={yuksekbasincData.rotuskontrol}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -324,22 +327,7 @@ const IzostatikPresModal=({open,setOpen,handleOpen})=>{
                 id="yuzeykontrol"
                 name='yuzeykontrol'
                 label="yuzeykontrol"
-                value={izostatikData.yuzeykontrol}
-                onChange={handleChange}
-                >
-                <MenuItem value="OK">OK</MenuItem>
-                <MenuItem value="NOK">NOK</MenuItem>
-                </Select>
-            </FormControl>
-
-            <FormControl fullWidth>
-                <InputLabel id="hamurunistif">HUİ</InputLabel>
-                <Select
-                labelId="hamurunistif"
-                id="hamurunistif"
-                name='hamurunistif'
-                label="hamurunistif"
-                value={izostatikData.hamurunistif}
+                value={yuksekbasincData.yuzeykontrol}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -357,7 +345,7 @@ const IzostatikPresModal=({open,setOpen,handleOpen})=>{
                 id="uygunsuzluktipi"
                 name='uygunsuzluktipi'
                 label="uygunsuzluktipi"
-                value={izostatikData.uygunsuzluktipi}
+                value={yuksekbasincData.uygunsuzluktipi}
                 onChange={handleChange}
                 >
                 {
@@ -377,7 +365,7 @@ const IzostatikPresModal=({open,setOpen,handleOpen})=>{
             minRows={3}
             maxRows={3}
             sx={{overflow:'auto'}}
-            value={izostatikData?.aciklama}
+            value={yuksekbasincData?.aciklama}
             onChange={handleChange}
             />
 
@@ -389,7 +377,7 @@ const IzostatikPresModal=({open,setOpen,handleOpen})=>{
             type="text"
             variant="outlined"
             
-            value={izostatikData.vardiyasorumlusu}
+            value={yuksekbasincData.vardiyasorumlusu}
             onChange={handleChange}
             />
 
@@ -413,4 +401,4 @@ const IzostatikPresModal=({open,setOpen,handleOpen})=>{
   );
 }
 
-export default IzostatikPresModal
+export default YuksekBasincModal
