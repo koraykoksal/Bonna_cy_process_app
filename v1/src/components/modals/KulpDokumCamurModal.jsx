@@ -31,7 +31,7 @@ const style = {
 
 };
 
-const YuksekBasincModal=({open,setOpen,handleOpen})=>{
+const KulpDokumCamurModal=({open,setOpen,handleOpen})=>{
 
   const handleClose = () => setOpen(false);
 
@@ -71,14 +71,13 @@ const YuksekBasincModal=({open,setOpen,handleOpen})=>{
     kenar:"",
     pkenar:"",
     yogunluk:"",
-    v1:"",
-    v2:"",
-    camursicakligi:"",
-    basinc:"",
-    havakontrol:"",
-    catlakkontrol:"",
-    rotuskontrol:"",
-    yuzeykontrol:"",
+    t1:"",
+    t2:"",
+    t1t2:"",
+    tankaristirmahizi:"",
+    istifsayisi:"",
+    redkabul:"",
+    kulpuyumu:"",
     uygunsuzluktipi:"",
     aciklama:"",
     vardiyasorumlusu:"",
@@ -108,7 +107,7 @@ const YuksekBasincModal=({open,setOpen,handleOpen})=>{
         <Box sx={{display:'flex',flexWrap:'wrap',justifyContent:'space-between',alignItems:'center'}}>
 
             <Typography id="keep-mounted-modal-title" variant="h6" component="h2" color="#000000">
-                Yüksek Basınç
+                Kulp Döküm Çamuru
             </Typography>
 
             <IconButton onClick={()=>handleClose()}>
@@ -158,7 +157,6 @@ const YuksekBasincModal=({open,setOpen,handleOpen})=>{
             
             </Box>
 
-            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
             <TextField
             fullWidth
             label="Yoğunluk (g/L)"
@@ -169,119 +167,77 @@ const YuksekBasincModal=({open,setOpen,handleOpen})=>{
             value={yuksekbasincData.yogunluk}
             onChange={handleChange}
             />
-            <TextField
-            fullWidth
-            label="V1 (°G)"
-            name="v1"
-            id="v1"
-            type="text"
-            variant="outlined"
-            value={yuksekbasincData.v1}
-            onChange={handleChange}
-            />
-            <TextField
-            fullWidth
-            label="V2 (°G)"
-            name="v2"
-            id="v2"
-            type="text"
-            variant="outlined"
-            value={yuksekbasincData.v2}
-            onChange={handleChange}
-            />
-            
-            </Box>
 
+            <Box>
+
+              <Typography variant='subtitle1' align='center'>
+              Tiksotropi
+              </Typography>
+            
             <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
 
             <TextField
             fullWidth
-            label="Çamur (°C)"
-            name="camursicakligi"
-            id="camursicakligi"
+            label="t1"
+            name="t1"
+            id="t1"
             type="text"
             variant="outlined"
-            value={yuksekbasincData.camursicakligi}
+            value={yuksekbasincData.t1}
+            onChange={handleChange}
+            />
+            <TextField
+            fullWidth
+            label="t2"
+            name="t2"
+            id="t2"
+            type="text"
+            variant="outlined"
+            value={yuksekbasincData.t2}
             onChange={handleChange}
             />
 
             <TextField
             fullWidth
-            label="Ağırlık (g)"
-            name="agirlik"
-            id="agirlik"
+            label="t1-t2"
+            name="t1t2"
+            id="t1t2"
             type="text"
             variant="outlined"
-            value={yuksekbasincData.agirlik}
-            onChange={handleChange}
-            />
-            <TextField
-            fullWidth
-            label="Taban (mm)"
-            name="taban"
-            id="taban"
-            type="text"
-            variant="outlined"
-            
-            value={yuksekbasincData.taban}
-            onChange={handleChange}
-            />
-            
-            </Box>
-
-            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
-
-            <TextField
-            fullWidth
-            label="Kenar (mm)"
-            name="kenar"
-            id="kenar"
-            type="text"
-            variant="outlined"
-            
-            value={yuksekbasincData.kenar}
-            onChange={handleChange}
-            />
-
-            <TextField
-            fullWidth
-            label="P.Kenar (mm)"
-            name="pkenar"
-            id="pkenar"
-            type="text"
-            variant="outlined"
-            
-            value={yuksekbasincData.pkenar}
-            onChange={handleChange}
-            />
-
-            <TextField
-            fullWidth
-            label="Basınç"
-            name="basinc"
-            id="basinc"
-            type="text"
-            variant="outlined"
-            
-            value={yuksekbasincData.basinc}
+            value={yuksekbasincData.t1t2}
             onChange={handleChange}
             />
 
             </Box>
             
+            
+            </Box>
+
+            <TextField
+            fullWidth
+            label="Tank Karıştırma Hızı"
+            name="tankaristirmahizi"
+            id="tankaristirmahizi"
+            type="text"
+            variant="outlined"
+            value={yuksekbasincData.tankaristirmahizi}
+            onChange={handleChange}
+            />
 
 
             {/* uygunsuz işlem - standart değer */}
             <Box sx={{display:'flex',justifyContent:'space-between',gap:2}}>
 
+            
+
             <FormControl fullWidth>
-                <InputLabel id="havakontrol">HK</InputLabel>
+                <InputLabel id="istifsayisi">İstaf Sayısı</InputLabel>
                 <Select
-                labelId="havakontrol"
-                id="havakontrol"
-                name='havakontrol'
-                label="havakontrol"
-                value={yuksekbasincData.havakontrol}
+                labelId="istifsayisi"
+                id="istifsayisi"
+                name='istifsayisi'
+                label="istifsayisi"
+                value={yuksekbasincData.istifsayisi}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -290,43 +246,13 @@ const YuksekBasincModal=({open,setOpen,handleOpen})=>{
             </FormControl>
 
             <FormControl fullWidth>
-                <InputLabel id="catlakkontrol">ÇK</InputLabel>
+                <InputLabel id="kulpuyumu">Kulp Uyumu</InputLabel>
                 <Select
-                labelId="catlakkontrol"
-                id="catlakkontrol"
-                name='catlakkontrol'
-                label="catlakkontrol"
-                value={yuksekbasincData.catlakkontrol}
-                onChange={handleChange}
-                >
-                <MenuItem value="OK">OK</MenuItem>
-                <MenuItem value="NOK">NOK</MenuItem>
-                </Select>
-            </FormControl>
-
-            <FormControl fullWidth>
-                <InputLabel id="rotuskontrol">RK</InputLabel>
-                <Select
-                labelId="rotuskontrol"
-                id="rotuskontrol"
-                name='rotuskontrol'
-                label="rotuskontrol"
-                value={yuksekbasincData.rotuskontrol}
-                onChange={handleChange}
-                >
-                <MenuItem value="OK">OK</MenuItem>
-                <MenuItem value="NOK">NOK</MenuItem>
-                </Select>
-            </FormControl>
-
-            <FormControl fullWidth>
-                <InputLabel id="yuzeykontrol">YK</InputLabel>
-                <Select
-                labelId="yuzeykontrol"
-                id="yuzeykontrol"
-                name='yuzeykontrol'
-                label="yuzeykontrol"
-                value={yuksekbasincData.yuzeykontrol}
+                labelId="kulpuyumu"
+                id="kulpuyumu"
+                name='kulpuyumu'
+                label="kulpuyumu"
+                value={yuksekbasincData.kulpuyumu}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -336,7 +262,7 @@ const YuksekBasincModal=({open,setOpen,handleOpen})=>{
 
             </Box>
 
-            {/* aksiyon sahibi */}
+          
             <FormControl fullWidth>
                 <InputLabel id="uygunsuzluktipi">Uygunsuzluk Tipi</InputLabel>
                 <Select
@@ -353,6 +279,22 @@ const YuksekBasincModal=({open,setOpen,handleOpen})=>{
                     ))
                 }
                 
+                </Select>
+            </FormControl>
+
+            <FormControl fullWidth>
+                <InputLabel id="redkabul">Red/Kabul/Şartlı Kabul</InputLabel>
+                <Select
+                labelId="redkabul"
+                id="redkabul"
+                name='redkabul'
+                label="redkabul"
+                value={yuksekbasincData.redkabul}
+                onChange={handleChange}
+                >
+                <MenuItem value="RED">RED</MenuItem>
+                <MenuItem value="KABUL">KABUL</MenuItem>
+                <MenuItem value="ŞARTLI KABUL">ŞARTLI KABUL</MenuItem>
                 </Select>
             </FormControl>
 
@@ -400,4 +342,4 @@ const YuksekBasincModal=({open,setOpen,handleOpen})=>{
   );
 }
 
-export default YuksekBasincModal
+export default KulpDokumCamurModal
