@@ -21,7 +21,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 500,
+  width: 525,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -103,33 +103,11 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
             <Box sx={{mt:3,display:'flex',flexDirection:'column',gap:2}} component='form'>
                 
 
-            {/* <div style={{display:'flex',gap:3,margin:'auto'}}>
-            <TextField
-            sx={{width:'200px'}}
-            name="date"
-            id="date"
-            type="date"
-            value={uygunsuzlukData.date}
-            onChange={handleChange}
-            />
+            
 
-            <FormControl sx={{width:'180px'}}>
-                <InputLabel id="vardiya">Vardiya</InputLabel>
-                <Select
-                labelId="vardiya"
-                id="vardiya"
-                name='vardiya'
-                label="vardiya"
-                value={uygunsuzlukData.vardiya}
-                onChange={handleChange}
-                >
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
-                </Select>
-            </FormControl>
-            </div> */}
+            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
 
+              {/* makine */}
             <FormControl fullWidth>
                 <InputLabel id="is_merkezi">Makine</InputLabel>
                 <Select
@@ -146,6 +124,7 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
                 </Select>
             </FormControl>
 
+            {/* renk kodu */}
             <FormControl fullWidth>
                 <InputLabel id="renk_kodu">Renk Kodu</InputLabel>
                 <Select
@@ -161,7 +140,8 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
                 <MenuItem value="ASF">ASF</MenuItem>
                 </Select>
             </FormControl>
-
+            
+            {/* ürün kodu */}
             <FormControl fullWidth>
                 <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
                 <Select
@@ -177,7 +157,10 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
                 <MenuItem value="VNT22KS">VNT22KS</MenuItem>
                 </Select>
             </FormControl>
+            
+            </Box>
 
+            {/* sorun tipi */}
             <FormControl fullWidth>
                 <InputLabel id="urun_kodu">Sorun Tipi</InputLabel>
                 <Select
@@ -196,6 +179,11 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
                 
                 </Select>
             </FormControl>
+
+
+
+              {/* uygunsuz işlem - standart değer */}
+            <Box sx={{display:'flex',justifyContent:'space-between',gap:2}}>
 
             <TextField
             fullWidth
@@ -220,6 +208,14 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
             onChange={handleChange}
             />
 
+            </Box>
+
+
+            
+
+
+
+              {/* aksiyon sahibi */}
             <FormControl fullWidth>
                 <InputLabel id="aksiyon_sahibi">Aksiyon Sahibi Bölüm</InputLabel>
                 <Select

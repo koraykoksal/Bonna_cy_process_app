@@ -172,14 +172,14 @@ const Dashboard = () => {
       <Divider />
       
       <List sx={{background:'#000000'}}>        
-        <FirstMenu/>
+        <FirstMenu handleDrawerClose={handleDrawerClose}/>
       </List>
 
       {/* ÇİZGİ */}
       <Divider />
 
       <List sx={{background:'#000000'}}>
-        <SecondMenu/>
+        <SecondMenu handleDrawerClose={handleDrawerClose}/>
       </List>
       
 

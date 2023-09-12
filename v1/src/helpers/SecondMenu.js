@@ -94,7 +94,7 @@ export const secondMenu=[
 ]
 
 
-const SecondMenu = () => {
+const SecondMenu = ({handleDrawerClose}) => {
 
     const navigate = useNavigate()
 
@@ -109,6 +109,7 @@ const SecondMenu = () => {
                 item.url.includes("http" || "www")
                     ? window.open(item.url, "_blank")
                     : navigate(item.url)
+                    handleDrawerClose()
                 }}
                 sx={{
                 color: "#ffffff",
