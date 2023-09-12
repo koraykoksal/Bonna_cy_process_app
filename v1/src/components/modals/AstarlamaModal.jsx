@@ -31,12 +31,12 @@ const style = {
 
 };
 
-const KulpDokumCamurModal=({open,setOpen,handleOpen})=>{
+const AstarlamaModal=({open,setOpen,handleOpen})=>{
 
   const handleClose = () => setOpen(false);
 
   const handleChange=(e)=>{
-    setkulpdokumcamurData({...kulpdokumcamurData,[e.target.name]:e.target.value})
+    setastarlamaData({...astarlamaData,[e.target.name]:e.target.value})
   }
 
   const nowData=new Date()
@@ -64,23 +64,16 @@ const KulpDokumCamurModal=({open,setOpen,handleOpen})=>{
 
   }
 
-  const [kulpdokumcamurData, setkulpdokumcamurData] = useState({
+  const [astarlamaData, setastarlamaData] = useState({
     is_merkezi:"",
-    agirlik:"",
-    taban:"",
-    kenar:"",
-    pkenar:"",
     yogunluk:"",
-    t1:"",
-    t2:"",
-    t1t2:"",
-    tankaristirmahizi:"",
-    istifsayisi:"",
-    redkabul:"",
-    kulpuyumu:"",
-    uygunsuzluktipi:"",
+    nozzlecap:"",
+    kasetsicaklik:"",
+    tankbasinc:"",
+    asterkalinlik:"",
+    astarlamayapankisi:"",
     aciklama:"",
-    vardiyasorumlusu:"",
+    redkabul:"",
     urun_kodu:"",
     vardiya:getShift(),
     date:currentdate.toString(),
@@ -89,7 +82,7 @@ const KulpDokumCamurModal=({open,setOpen,handleOpen})=>{
   })
 
 
-  console.log(kulpdokumcamurData)
+  console.log(astarlamaData)
 
 
   return (
@@ -107,7 +100,7 @@ const KulpDokumCamurModal=({open,setOpen,handleOpen})=>{
         <Box sx={{display:'flex',flexWrap:'wrap',justifyContent:'space-between',alignItems:'center'}}>
 
             <Typography id="keep-mounted-modal-title" variant="h6" component="h2" color="#000000">
-                Kulp Döküm Çamuru
+                Astarlama
             </Typography>
 
             <IconButton onClick={()=>handleClose()}>
@@ -129,7 +122,7 @@ const KulpDokumCamurModal=({open,setOpen,handleOpen})=>{
                 id="is_merkezi"
                 name='is_merkezi'
                 label="is_merkezi"
-                value={kulpdokumcamurData.is_merkezi}
+                value={astarlamaData.is_merkezi}
                 onChange={handleChange}
                 >
                 <MenuItem value="SK-KP1">SK-KP1</MenuItem>
@@ -146,7 +139,7 @@ const KulpDokumCamurModal=({open,setOpen,handleOpen})=>{
                 id="urun_kodu"
                 name='urun_kodu'
                 label="urun_kodu"
-                value={kulpdokumcamurData.urun_kodu}
+                value={astarlamaData.urun_kodu}
                 onChange={handleChange}
                 >
                 <MenuItem value="GRM23DZ">GRM23DZ</MenuItem>
@@ -157,130 +150,81 @@ const KulpDokumCamurModal=({open,setOpen,handleOpen})=>{
             
             </Box>
 
+            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
+
+            
             <TextField
             fullWidth
-            label="Yoğunluk (g/L)"
+            label="Yoğunluk"
             name="yogunluk"
             id="yogunluk"
             type="text"
             variant="outlined"
-            value={kulpdokumcamurData.yogunluk}
+            value={astarlamaData.yogunluk}
             onChange={handleChange}
             />
 
-            <Box>
 
-              <Typography variant='subtitle1' align='center'>
-              Tiksotropi
-              </Typography>
-            
+            <TextField
+            fullWidth
+            label="Nozzle Çapı"
+            name="nozzlecap"
+            id="nozzlecap"
+            type="text"
+            variant="outlined"
+            value={astarlamaData.nozzlecap}
+            onChange={handleChange}
+            />
+
+            <TextField
+            fullWidth
+            label="Kaset Sıcaklığı"
+            name="kasetsicaklik"
+            id="kasetsicaklik"
+            type="text"
+            variant="outlined"
+            value={astarlamaData.kasetsicaklik}
+            onChange={handleChange}
+            />
+            </Box>
+
             <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
 
+            
             <TextField
             fullWidth
-            label="t1"
-            name="t1"
-            id="t1"
+            label="Tank Basınç"
+            name="tankbasinc"
+            id="tankbasinc"
             type="text"
             variant="outlined"
-            value={kulpdokumcamurData.t1}
-            onChange={handleChange}
-            />
-            <TextField
-            fullWidth
-            label="t2"
-            name="t2"
-            id="t2"
-            type="text"
-            variant="outlined"
-            value={kulpdokumcamurData.t2}
+            value={astarlamaData.tankbasinc}
             onChange={handleChange}
             />
 
+
             <TextField
             fullWidth
-            label="t1-t2"
-            name="t1t2"
-            id="t1t2"
+            label="Astar Kalinlik"
+            name="asterkalinlik"
+            id="asterkalinlik"
             type="text"
             variant="outlined"
-            value={kulpdokumcamurData.t1t2}
+            value={astarlamaData.asterkalinlik}
             onChange={handleChange}
             />
-
-            </Box>
-            
-            
             </Box>
 
             <TextField
             fullWidth
-            label="Tank Karıştırma Hızı"
-            name="tankaristirmahizi"
-            id="tankaristirmahizi"
+            label="Astarlama Yapan Kişi"
+            name="astarlamayapankisi"
+            id="astarlamayapankisi"
             type="text"
             variant="outlined"
-            value={kulpdokumcamurData.tankaristirmahizi}
+            value={astarlamaData.astarlamayapankisi}
             onChange={handleChange}
             />
-
-
-            {/* uygunsuz işlem - standart değer */}
-            <Box sx={{display:'flex',justifyContent:'space-between',gap:2}}>
-
-            
-
-            <FormControl fullWidth>
-                <InputLabel id="istifsayisi">İstaf Sayısı</InputLabel>
-                <Select
-                labelId="istifsayisi"
-                id="istifsayisi"
-                name='istifsayisi'
-                label="istifsayisi"
-                value={kulpdokumcamurData.istifsayisi}
-                onChange={handleChange}
-                >
-                <MenuItem value="OK">OK</MenuItem>
-                <MenuItem value="NOK">NOK</MenuItem>
-                </Select>
-            </FormControl>
-
-            <FormControl fullWidth>
-                <InputLabel id="kulpuyumu">Kulp Uyumu</InputLabel>
-                <Select
-                labelId="kulpuyumu"
-                id="kulpuyumu"
-                name='kulpuyumu'
-                label="kulpuyumu"
-                value={kulpdokumcamurData.kulpuyumu}
-                onChange={handleChange}
-                >
-                <MenuItem value="OK">OK</MenuItem>
-                <MenuItem value="NOK">NOK</MenuItem>
-                </Select>
-            </FormControl>
-
-            </Box>
-
-          
-            <FormControl fullWidth>
-                <InputLabel id="uygunsuzluktipi">Uygunsuzluk Tipi</InputLabel>
-                <Select
-                labelId="uygunsuzluktipi"
-                id="uygunsuzluktipi"
-                name='uygunsuzluktipi'
-                label="uygunsuzluktipi"
-                value={kulpdokumcamurData.uygunsuzluktipi}
-                onChange={handleChange}
-                >
-                {
-                    uygunsuzlukTipi.map((item)=>(
-                        <MenuItem value={item.text}>{item.text}</MenuItem>
-                    ))
-                }
-                
-                </Select>
-            </FormControl>
 
             <FormControl fullWidth>
                 <InputLabel id="redkabul">Red/Kabul/Şartlı Kabul</InputLabel>
@@ -289,7 +233,7 @@ const KulpDokumCamurModal=({open,setOpen,handleOpen})=>{
                 id="redkabul"
                 name='redkabul'
                 label="redkabul"
-                value={kulpdokumcamurData.redkabul}
+                value={astarlamaData.redkabul}
                 onChange={handleChange}
                 >
                 <MenuItem value="RED">RED</MenuItem>
@@ -306,23 +250,9 @@ const KulpDokumCamurModal=({open,setOpen,handleOpen})=>{
             minRows={3}
             maxRows={3}
             sx={{overflow:'auto'}}
-            value={kulpdokumcamurData?.aciklama}
+            value={astarlamaData?.aciklama}
             onChange={handleChange}
             />
-
-            <TextField
-            fullWidth
-            label="Vardiya Sorumlusu veya Operatör"
-            name="vardiyasorumlusu"
-            id="vardiyasorumlusu"
-            type="text"
-            variant="outlined"
-            
-            value={kulpdokumcamurData.vardiyasorumlusu}
-            onChange={handleChange}
-            />
-
-
 
             <Button
             variant='contained'
@@ -342,4 +272,4 @@ const KulpDokumCamurModal=({open,setOpen,handleOpen})=>{
   );
 }
 
-export default KulpDokumCamurModal
+export default AstarlamaModal

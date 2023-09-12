@@ -36,7 +36,7 @@ const GranulKontrolModal=({open,setOpen,handleOpen})=>{
   const handleClose = () => setOpen(false);
 
   const handleChange=(e)=>{
-    setyuksekbasincData({...yuksekbasincData,[e.target.name]:e.target.value})
+    setgranulkontrolData({...granulkontrolData,[e.target.name]:e.target.value})
   }
 
   const nowData=new Date()
@@ -64,7 +64,7 @@ const GranulKontrolModal=({open,setOpen,handleOpen})=>{
 
   }
 
-  const [yuksekbasincData, setyuksekbasincData] = useState({
+  const [granulkontrolData, setgranulkontrolData] = useState({
     is_merkezi:"",
     hammaddenem:"",
     prosesnem:"",
@@ -82,7 +82,7 @@ const GranulKontrolModal=({open,setOpen,handleOpen})=>{
   })
 
 
-  console.log(yuksekbasincData)
+  console.log(granulkontrolData)
 
 
   return (
@@ -122,7 +122,7 @@ const GranulKontrolModal=({open,setOpen,handleOpen})=>{
                 id="is_merkezi"
                 name='is_merkezi'
                 label="is_merkezi"
-                value={yuksekbasincData.is_merkezi}
+                value={granulkontrolData.is_merkezi}
                 onChange={handleChange}
                 >
                 <MenuItem value="SK-KP1">SK-KP1</MenuItem>
@@ -139,7 +139,7 @@ const GranulKontrolModal=({open,setOpen,handleOpen})=>{
                 id="urun_kodu"
                 name='urun_kodu'
                 label="urun_kodu"
-                value={yuksekbasincData.urun_kodu}
+                value={granulkontrolData.urun_kodu}
                 onChange={handleChange}
                 >
                 <MenuItem value="GRM23DZ">GRM23DZ</MenuItem>
@@ -158,7 +158,7 @@ const GranulKontrolModal=({open,setOpen,handleOpen})=>{
             id="granulkodu"
             type="text"
             variant="outlined"
-            value={yuksekbasincData.granulkodu}
+            value={granulkontrolData.granulkodu}
             onChange={handleChange}
             />
 
@@ -170,7 +170,7 @@ const GranulKontrolModal=({open,setOpen,handleOpen})=>{
             id="bigbagkodu"
             type="text"
             variant="outlined"
-            value={yuksekbasincData.bigbagkodu}
+            value={granulkontrolData.bigbagkodu}
             onChange={handleChange}
             />
             </Box>
@@ -181,7 +181,7 @@ const GranulKontrolModal=({open,setOpen,handleOpen})=>{
             id="bigbagtarih"
             type="date"
             variant="outlined"
-            value={yuksekbasincData.bigbagtarih}
+            value={granulkontrolData.bigbagtarih}
             onChange={handleChange}
             />
 
@@ -193,7 +193,7 @@ const GranulKontrolModal=({open,setOpen,handleOpen})=>{
             id="hammaddenem"
             type="text"
             variant="outlined"
-            value={yuksekbasincData.hammaddenem}
+            value={granulkontrolData.hammaddenem}
             onChange={handleChange}
             />
 
@@ -204,7 +204,7 @@ const GranulKontrolModal=({open,setOpen,handleOpen})=>{
             id="prosesnem"
             type="text"
             variant="outlined"
-            value={yuksekbasincData.prosesnem}
+            value={granulkontrolData.prosesnem}
             onChange={handleChange}
             />
             </Box>
@@ -219,7 +219,7 @@ const GranulKontrolModal=({open,setOpen,handleOpen})=>{
                 id="redkabul"
                 name='redkabul'
                 label="redkabul"
-                value={yuksekbasincData.redkabul}
+                value={granulkontrolData.redkabul}
                 onChange={handleChange}
                 >
                 <MenuItem value="RED">RED</MenuItem>
@@ -236,7 +236,7 @@ const GranulKontrolModal=({open,setOpen,handleOpen})=>{
             minRows={3}
             maxRows={3}
             sx={{overflow:'auto'}}
-            value={yuksekbasincData?.aciklama}
+            value={granulkontrolData?.aciklama}
             onChange={handleChange}
             />
 
@@ -248,7 +248,7 @@ const GranulKontrolModal=({open,setOpen,handleOpen})=>{
             type="text"
             variant="outlined"
             
-            value={yuksekbasincData.vardiyasorumlusu}
+            value={granulkontrolData.vardiyasorumlusu}
             onChange={handleChange}
             />
 
