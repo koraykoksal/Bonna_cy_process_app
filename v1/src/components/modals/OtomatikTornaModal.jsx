@@ -15,6 +15,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useState ,useEffect} from 'react';
 import {uygunsuzlukTipi} from "../../helpers/ProcessData"
+import {useSelector} from "react-redux"
+
 
 const style = {
   position: 'absolute',
@@ -39,6 +41,9 @@ const OtomatikTornaModal=({open,setOpen,handleOpen})=>{
 
   const nowData=new Date()
   const currentdatetime = nowData.getDate() +"-"+(nowData.getMonth()+1)+"-"+nowData.getFullYear()
+  const currentTime = nowData.getHours() +":"+nowData.getMinutes()
+
+  const {currentUser} = useSelector((state) => state.auth)
 
   let getVardiya = 0;
 
@@ -74,14 +79,16 @@ const OtomatikTornaModal=({open,setOpen,handleOpen})=>{
     catlakkontrol:"",
     rotuskontrol:"",
     yuzeykontrol:"",
-    uygunsuzluktipi:"",
+    uygunsuzluktipi:"", 
     aciklama:"",
     vardiyasorumlusu:"",
     kelepenozulkontrol:"",
     havakontrol:"",
     urun_kodu:"",
     vardiya:getShift(),
-    date:currentdatetime.toString()
+    date:currentdatetime.toString(),
+    time:currentTime.toString(),
+    kontroleden_kisi:currentUser
   })
 
 
@@ -103,7 +110,7 @@ const OtomatikTornaModal=({open,setOpen,handleOpen})=>{
         <Box sx={{display:'flex',flexWrap:'wrap',justifyContent:'space-between',alignItems:'center'}}>
 
             <Typography id="keep-mounted-modal-title" variant="h6" component="h2" color="#000000">
-                İzostatik Pres
+                Otomatik Torna
             </Typography>
 
             <IconButton onClick={()=>handleClose()}>

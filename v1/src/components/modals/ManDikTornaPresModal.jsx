@@ -15,6 +15,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useState ,useEffect} from 'react';
 import {uygunsuzlukTipi} from "../../helpers/ProcessData"
+import {useSelector} from "react-redux"
+
 
 const style = {
   position: 'absolute',
@@ -38,7 +40,10 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
   }
 
   const nowData=new Date()
-  const currentdatetime = nowData.getDate() +"-"+(nowData.getMonth()+1)+"-"+nowData.getFullYear()
+  const currentdate = nowData.getDate() +"-"+(nowData.getMonth()+1)+"-"+nowData.getFullYear()
+  const currentTime = nowData.getHours() +":"+nowData.getMinutes()
+
+  const {currentUser} = useSelector((state) => state.auth)
 
   let getVardiya = 0;
 
@@ -65,23 +70,21 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
     taban:"",
     kenar:"",
     pkenar:"",
-    cap:"",
+    sucukcap:"",
     aynacap:"",
-    kulpbunye:"",
-    kesilensucuk:"",
-    kirpintimiktar:"",
-    camursert:"",
+    camursertlik:"",
     catlakkontrol:"",
     rotuskontrol:"",
     yuzeykontrol:"",
     uygunsuzluktipi:"",
     aciklama:"",
     vardiyasorumlusu:"",
-    kelepenozulkontrol:"",
     havakontrol:"",
     urun_kodu:"",
     vardiya:getShift(),
-    date:currentdatetime.toString()
+    date:currentdate.toString(),
+    time:currentTime.toString(),
+    kontroleden_kisi:currentUser
   })
 
 
@@ -103,7 +106,7 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
         <Box sx={{display:'flex',flexWrap:'wrap',justifyContent:'space-between',alignItems:'center'}}>
 
             <Typography id="keep-mounted-modal-title" variant="h6" component="h2" color="#000000">
-                İzostatik Pres
+                Man-Dik Torna / Pres
             </Typography>
 
             <IconButton onClick={()=>handleClose()}>
@@ -188,6 +191,17 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
             value={otomatiktornaData.kenar}
             onChange={handleChange}
             />
+            <TextField
+            fullWidth
+            label="Çamur Sertlik"
+            name="camursertlik"
+            id="camursertlik"
+            type="text"
+            variant="outlined"
+            sx={{overflow:'flo'}}
+            value={otomatiktornaData.camursertlik}
+            onChange={handleChange}
+            />
             </Box>
 
             <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
@@ -204,13 +218,13 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
             />
             <TextField
             fullWidth
-            label="Çap (mm)"
-            name="cap"
-            id="cap"
+            label="Sucuk Çap (mm)"
+            name="sucukcap"
+            id="sucukcap"
             type="text"
             variant="outlined"
             sx={{overflow:'flo'}}
-            value={otomatiktornaData.cap}
+            value={otomatiktornaData.sucukcap}
             onChange={handleChange}
             />
             <TextField
@@ -226,72 +240,9 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
             />
             </Box>
 
-            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
-            <TextField
-            fullWidth
-            label="Kulp-Bünye % Nem"
-            name="kulpbunye"
-            id="kulpbunye"
-            type="text"
-            variant="outlined"
-            sx={{overflow:'flo'}}
-            value={otomatiktornaData.kulpbunye}
-            onChange={handleChange}
-            />
-            <TextField
-            fullWidth
-            label="Kesilen Sucuk (gr)"
-            name="kesilensucuk"
-            id="kesilensucuk"
-            type="text"
-            variant="outlined"
-            sx={{overflow:'flo'}}
-            value={otomatiktornaData.kesilensucuk}
-            onChange={handleChange}
-            />
-            <TextField
-            fullWidth
-            label="% Kırpıntı Miktarı"
-            name="kirpintimiktar"
-            id="kirpintimiktar"
-            type="text"
-            variant="outlined"
-            sx={{overflow:'flo'}}
-            value={otomatiktornaData.kirpintimiktar}
-            onChange={handleChange}
-            />
 
-            
-            </Box>
-
-            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
-
-            <TextField
-            fullWidth
-            label="Çamur Sertlik"
-            name="camursert"
-            id="camursert"
-            type="text"
-            variant="outlined"
-            sx={{overflow:'flo'}}
-            value={otomatiktornaData.camursert}
-            onChange={handleChange}
-            />
-
-            <FormControl fullWidth>
-                <InputLabel id="kelepenozulkontrol">KNK</InputLabel>
-                <Select
-                labelId="kelepenozulkontrol"
-                id="kelepenozulkontrol"
-                name='kelepenozulkontrol'
-                label="kelepenozulkontrol"
-                value={otomatiktornaData.kelepenozulkontrol}
-                onChange={handleChange}
-                >
-                <MenuItem value="OK">OK</MenuItem>
-                <MenuItem value="NOK">NOK</MenuItem>
-                </Select>
-            </FormControl>
+            {/* uygunsuz işlem - standart değer */}
+            <Box sx={{display:'flex',justifyContent:'space-between',gap:2}}>
 
             <FormControl fullWidth>
                 <InputLabel id="havakontrol">HK</InputLabel>
@@ -307,14 +258,6 @@ const ManDikTornaPresModal=({open,setOpen,handleOpen})=>{
                 <MenuItem value="NOK">NOK</MenuItem>
                 </Select>
             </FormControl>
-
-            </Box>
-
-
-            {/* uygunsuz işlem - standart değer */}
-            <Box sx={{display:'flex',justifyContent:'space-between',gap:2}}>
-
-            
 
             <FormControl fullWidth>
                 <InputLabel id="catlakkontrol">ÇK</InputLabel>

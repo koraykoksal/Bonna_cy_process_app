@@ -15,6 +15,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useState ,useEffect} from 'react';
 import {uygunsuzlukTipi} from "../../helpers/ProcessData"
+import {useSelector} from "react-redux"
 
 const style = {
   position: 'absolute',
@@ -39,6 +40,9 @@ const IzostatikPresModal=({open,setOpen,handleOpen})=>{
 
   const nowData=new Date()
   const currentdatetime = nowData.getDate() +"-"+(nowData.getMonth()+1)+"-"+nowData.getFullYear()
+  const currentTime = nowData.getHours() +":"+nowData.getMinutes()
+
+  const {currentUser} = useSelector((state) => state.auth)
 
   let getVardiya = 0;
 
@@ -79,7 +83,9 @@ const IzostatikPresModal=({open,setOpen,handleOpen})=>{
     aciklama:"",
     vardiyasorumlusu:"",
     vardiya:getShift(),
-    date:currentdatetime.toString()
+    date:currentdatetime.toString(),
+    time:currentTime.toString(),
+    kontroleden_kisi:currentUser
   })
 
 

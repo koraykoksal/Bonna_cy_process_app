@@ -2,7 +2,7 @@ import React from 'react'
 import {typoStyle} from "../styles/globalStyle"
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
-import OtomatikTornaModal from '../components/modals/OtomatikTornaModal copy';
+import OtomatikTornaModal from '../components/modals/OtomatikTornaModal';
 
 
 
