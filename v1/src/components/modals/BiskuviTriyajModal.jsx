@@ -49,9 +49,13 @@ const BiskuviTriyajModal=({open,setOpen,handleOpen})=>{
       ayakCatlagiYuzdesi:(Number(triyajData.ayakcatlagi) / Number(triyajData.kontroledilenAdet)).toFixed(2),
       kenarCatlagiYuzdesi:(Number(triyajData.kenarCatlagi) / Number(triyajData.kontroledilenAdet)).toFixed(2),
       ayakCatlagiYuzdesi:(Number(triyajData.ayakcatlagi) / Number(triyajData.kontroledilenAdet)).toFixed(2),
+
       firinKirigiYuzdesi:(Number(triyajData.firinKirigi) / Number(triyajData.kontroledilenAdet)).toFixed(2),
       digerYuzdesi:(Number(triyajData.diger) / Number(triyajData.kontroledilenAdet)).toFixed(2),
+
       }
+
+
     )
   }
   
@@ -92,15 +96,15 @@ const BiskuviTriyajModal=({open,setOpen,handleOpen})=>{
     karantina:"",
     firinkodu:"",
     biskuvifirinSorumlusu:"",
-    ayakcatlagi:"",
-    kenarCatlagi:"",
-    firinKirigi:"",
-    diger:"",
-    hataliUrunYuzdesi:"",
-    ayakCatlagiYuzdesi:"",
-    kenarCatlagiYuzdesi:"",
-    firinKirigiYuzdesi:"",
-    digerYuzdesi:"",
+    ayakcatlagi:0,
+    kenarCatlagi:0,
+    firinKirigi:0,
+    diger:0,
+    hataliUrunYuzdesi:0,
+    ayakCatlagiYuzdesi:0,
+    kenarCatlagiYuzdesi:0,
+    firinKirigiYuzdesi:0,
+    digerYuzdesi:0,
     vardiya:getShift(),
     date:currentdate.toString(),
     time:currentTime.toString(),
@@ -195,6 +199,7 @@ const BiskuviTriyajModal=({open,setOpen,handleOpen})=>{
 
             
             <TextField
+            required
             fullWidth
             label="Toplam Adet"
             name="toplamAdet"
@@ -207,8 +212,9 @@ const BiskuviTriyajModal=({open,setOpen,handleOpen})=>{
 
 
             <TextField
+            required
             fullWidth
-            label="Kontrol Edilen Adet"
+            label="Kontrol Edilen"
             name="kontroledilenAdet"
             id="kontroledilenAdet"
             type="text"
@@ -218,8 +224,9 @@ const BiskuviTriyajModal=({open,setOpen,handleOpen})=>{
             />
 
             <TextField
+            required
             fullWidth
-            label="Hatalı Urun Sayısı"
+            label="Hatalı Urun"
             name="hataliUrunSayisi"
             id="hataliUrunSayisi"
             type="text"
