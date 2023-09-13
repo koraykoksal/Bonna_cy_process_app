@@ -31,12 +31,12 @@ const style = {
 
 };
 
-const DekorlamaModal=({open,setOpen,handleOpen})=>{
+const DijitalBaskiModal=({open,setOpen,handleOpen})=>{
 
   const handleClose = () => setOpen(false);
 
   const handleChange=(e)=>{
-    setdekolamaData({...dekolamaData,[e.target.name]:e.target.value})
+    setdijitalBaskiData({...dijitalBaskiData,[e.target.name]:e.target.value})
     
   }
 
@@ -66,16 +66,23 @@ const DekorlamaModal=({open,setOpen,handleOpen})=>{
 
   }
 
-  const [dekolamaData, setdekolamaData] = useState({
+  const [dijitalBaskiData, setdijitalBaskiData] = useState({
     urun_kodu:"",
-
+    banthizi:"",
+    voltaj:"",
+    basinc:"",
+    mavi:"",
+    pembe:"",
+    sari:"",
+    kahverengi:"",
+    yesil:"",
+    siyah:"",
+    reaktif:"",
+    beyaz:"",
+    desenGorseli:"",
+    hataTanimi:"",
     aciklama:"",
-    silimsunger:"",
-    silimsuyu:"",
-    urunsilim:"",
-    boya_etiketi:"",
-    boya_cokme:"",
-    boya_lekesi:"",
+
     vardiya:getShift(),
     date:currentdate.toString(),
     time:currentTime.toString(),
@@ -83,10 +90,7 @@ const DekorlamaModal=({open,setOpen,handleOpen})=>{
   })
 
 
-  
- 
-
-  console.log(dekolamaData)
+  console.log(dijitalBaskiData)
 
 
   
@@ -105,7 +109,7 @@ const DekorlamaModal=({open,setOpen,handleOpen})=>{
         <Box sx={{display:'flex',flexWrap:'wrap',justifyContent:'space-between',alignItems:'center'}}>
 
             <Typography id="keep-mounted-modal-title" variant="h6" component="h2" color="#000000">
-                Dekorlama
+                Dijital Baskı
             </Typography>
 
             <IconButton onClick={()=>handleClose()}>
@@ -126,7 +130,7 @@ const DekorlamaModal=({open,setOpen,handleOpen})=>{
                 id="urun_kodu"
                 name='urun_kodu'
                 label="urun_kodu"
-                value={dekolamaData.urun_kodu}
+                value={dijitalBaskiData.urun_kodu}
                 onChange={handleChange}
                 >
                 <MenuItem value="GRM23DZ">GRM23DZ</MenuItem>
@@ -144,13 +148,13 @@ const DekorlamaModal=({open,setOpen,handleOpen})=>{
             <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
 
               <FormControl fullWidth>
-                <InputLabel id="silimsunger">Silim Sünger</InputLabel>
+                <InputLabel id="banthizi">Bant Hızı</InputLabel>
                 <Select
-                labelId="silimsunger"
-                id="silimsunger"
-                name='silimsunger'
-                label="silimsunger"
-                value={dekolamaData.silimsunger}
+                labelId="banthizi"
+                id="banthizi"
+                name='banthizi'
+                label="banthizi"
+                value={dijitalBaskiData.banthizi}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -159,13 +163,28 @@ const DekorlamaModal=({open,setOpen,handleOpen})=>{
             </FormControl>
 
             <FormControl fullWidth>
-                <InputLabel id="silimsuyu">Silim Suyu</InputLabel>
+                <InputLabel id="silimsvoltajuyu">Voltaj</InputLabel>
                 <Select
-                labelId="silimsuyu"
-                id="silimsuyu"
-                name='silimsuyu'
-                label="silimsuyu"
-                value={dekolamaData.silimsuyu}
+                labelId="voltaj"
+                id="voltaj"
+                name='voltaj'
+                label="voltaj"
+                value={dijitalBaskiData.voltaj}
+                onChange={handleChange}
+                >
+                <MenuItem value="OK">OK</MenuItem>
+                <MenuItem value="NOT">NOT</MenuItem>
+                </Select>
+            </FormControl>
+
+            <FormControl fullWidth>
+                <InputLabel id="basinc">Basınç</InputLabel>
+                <Select
+                labelId="basinc"
+                id="basinc"
+                name='basinc'
+                label="basinc"
+                value={dijitalBaskiData.basinc}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -177,48 +196,119 @@ const DekorlamaModal=({open,setOpen,handleOpen})=>{
 
             <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
 
-              <FormControl fullWidth>
-                <InputLabel id="urunsilim">Ürün Silimi</InputLabel>
-                <Select
-                labelId="urunsilim"
-                id="urunsilim"
-                name='urunsilim'
-                label="urunsilim"
-                value={dekolamaData.urunsilim}
-                onChange={handleChange}
-                >
-                <MenuItem value="OK">OK</MenuItem>
-                <MenuItem value="NOT">NOT</MenuItem>
-                </Select>
-            </FormControl>
+            <TextField
+            sx={{backgroundColor:'#78C1F3'}}
+            fullWidth
+            label="Mavi"
+            name="mavi"
+            id="mavi"
+            type="text"
+            variant="outlined"
+            value={dijitalBaskiData.mavi}
+            onChange={handleChange}
+            />
 
-            <FormControl fullWidth>
-                <InputLabel id="boya_etiketi">Boya Etiketi</InputLabel>
-                <Select
-                labelId="boya_etiketi"
-                id="boya_etiketi"
-                name='boya_etiketi'
-                label="boya_etiketi"
-                value={dekolamaData.boya_etiketi}
-                onChange={handleChange}
-                >
-                <MenuItem value="OK">OK</MenuItem>
-                <MenuItem value="NOT">NOT</MenuItem>
-                </Select>
-            </FormControl>
+            <TextField
+            sx={{backgroundColor:'#EDB7ED'}}
+            fullWidth
+            label="Pembe"
+            name="pembe"
+            id="pembe"
+            type="text"
+            variant="outlined"
+            value={dijitalBaskiData.pembe}
+            onChange={handleChange}
+            />
+
+            <TextField
+            sx={{backgroundColor:'#F2F7A1'}}
+            fullWidth
+            label="Sarı"
+            name="sari"
+            id="sari"
+            type="text"
+            variant="outlined"
+            value={dijitalBaskiData.sari}
+            onChange={handleChange}
+            />
+
 
             </Box>
 
             <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
 
+            <TextField
+            sx={{backgroundColor:'#DFA878'}}
+            fullWidth
+            label="Kahverengi"
+            name="kahverengi"
+            id="kahverengi"
+            type="text"
+            variant="outlined"
+            value={dijitalBaskiData.kahverengi}
+            onChange={handleChange}
+            />
+
+            <TextField
+            sx={{backgroundColor:'#A2C579'}}
+            fullWidth
+            label="Yeşil"
+            name="yesil"
+            id="yesil"
+            type="text"
+            variant="outlined"
+            value={dijitalBaskiData.yesil}
+            onChange={handleChange}
+            />
+
+            <TextField
+            sx={{backgroundColor:'#61677A'}}
+            fullWidth
+            label="Siyah"
+            name="siyah"
+            id="siyah"
+            type="text"
+            variant="outlined"
+            value={dijitalBaskiData.siyah}
+            onChange={handleChange}
+            />
+
+
+            </Box>
+
+
+            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
+
+            <TextField
+            fullWidth
+            label="Reaktif"
+            name="reaktif"
+            id="reaktif"
+            type="text"
+            variant="outlined"
+            value={dijitalBaskiData.reaktif}
+            onChange={handleChange}
+            />
+
+            <TextField
+            fullWidth
+            label="Beyaz"
+            name="beyaz"
+            id="beyaz"
+            type="text"
+            variant="outlined"
+            value={dijitalBaskiData.beyaz}
+            onChange={handleChange}
+            />
+
             <FormControl fullWidth>
-                <InputLabel id="boya_cokme">Boya Çökme</InputLabel>
+                <InputLabel id="desenGorseli">Görsel</InputLabel>
                 <Select
-                labelId="boya_cokme"
-                id="boya_cokme"
-                name='boya_cokme'
-                label="boya_cokme"
-                value={dekolamaData.boya_cokme}
+                labelId="desenGorseli"
+                id="desenGorseli"
+                name='desenGorseli'
+                label="desenGorseli"
+                value={dijitalBaskiData.desenGorseli}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -226,32 +316,35 @@ const DekorlamaModal=({open,setOpen,handleOpen})=>{
                 </Select>
             </FormControl>
 
-            <FormControl fullWidth>
-                <InputLabel id="boya_lekesi">Boya Lekesi</InputLabel>
-                <Select
-                labelId="boya_lekesi"
-                id="boya_lekesi"
-                name='boya_lekesi'
-                label="boya_lekesi"
-                value={dekolamaData.boya_lekesi}
-                onChange={handleChange}
-                >
-                <MenuItem value="OK">OK</MenuItem>
-                <MenuItem value="NOT">NOT</MenuItem>
-                </Select>
-            </FormControl>
+
 
             </Box>
 
 
             <TextField
+            multiline
+            fullWidth
+            label="Hata Tanımı"
+            name="hataTanimi"
+            id="hataTanimi"
+            type="text"
+            variant="outlined"
+            value={dijitalBaskiData.hataTanimi}
+            onChange={handleChange}
+            />
+
+            
+
+
+            <TextField
+            multiline
             fullWidth
             label="Açıklama"
             name="aciklama"
             id="aciklama"
             type="text"
             variant="outlined"
-            value={dekolamaData.aciklama}
+            value={dijitalBaskiData.aciklama}
             onChange={handleChange}
             />
 
@@ -276,4 +369,4 @@ const DekorlamaModal=({open,setOpen,handleOpen})=>{
   );
 }
 
-export default DekorlamaModal
+export default DijitalBaskiModal
