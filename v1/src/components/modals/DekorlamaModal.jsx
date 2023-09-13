@@ -245,6 +245,7 @@ const DekorlamaModal=({open,setOpen,handleOpen})=>{
 
 
             <TextField
+            multiline
             fullWidth
             label="Açıklama"
             name="aciklama"

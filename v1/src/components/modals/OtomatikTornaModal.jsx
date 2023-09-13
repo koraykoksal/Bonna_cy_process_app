@@ -391,14 +391,17 @@ const OtomatikTornaModal=({open,setOpen,handleOpen})=>{
             </FormControl>
 
 
-            <Textarea
-            name='aciklama'
+        
+
+            <TextField
+            multiline
             fullWidth
-            placeholder='Açıklama/Aksiyon'
-            minRows={3}
-            maxRows={3}
-            sx={{overflow:'auto'}}
-            value={otomatiktornaData?.aciklama}
+            label="Açıklama"
+            name="aciklama"
+            id="aciklama"
+            type="text"
+            variant="outlined"
+            value={otomatiktornaData.aciklama}
             onChange={handleChange}
             />
 

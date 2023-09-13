@@ -316,6 +316,7 @@ const DijitalLogoKontrolModal=({open,setOpen,handleOpen})=>{
             />
 
             <TextField
+            multiline
             fullWidth
             label="Açıklama"
             name="aciklama"
@@ -325,6 +326,7 @@ const DijitalLogoKontrolModal=({open,setOpen,handleOpen})=>{
             value={dijitalLogoData.aciklama}
             onChange={handleChange}
             />
+
 
             
 

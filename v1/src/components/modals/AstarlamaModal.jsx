@@ -243,14 +243,16 @@ const AstarlamaModal=({open,setOpen,handleOpen})=>{
             </FormControl>
 
 
-            <Textarea
-            name='aciklama'
+         
+            <TextField
+            multiline
             fullWidth
-            placeholder='Açıklama/Aksiyon'
-            minRows={3}
-            maxRows={3}
-            sx={{overflow:'auto'}}
-            value={astarlamaData?.aciklama}
+            label="Açıklama/Aksiyon"
+            name="aciklama"
+            id="aciklama"
+            type="text"
+            variant="outlined"
+            value={astarlamaData.aciklama}
             onChange={handleChange}
             />
 
