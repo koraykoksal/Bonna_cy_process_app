@@ -197,7 +197,7 @@ const DijitalBaskiModal=({open,setOpen,handleOpen})=>{
             <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
 
             <TextField
-            sx={{backgroundColor:'#78C1F3'}}
+            sx={{backgroundColor:'#78C1F3',label:{color:'#000000'}}}
             fullWidth
             label="Mavi"
             name="mavi"
@@ -209,7 +209,7 @@ const DijitalBaskiModal=({open,setOpen,handleOpen})=>{
             />
 
             <TextField
-            sx={{backgroundColor:'#EDB7ED'}}
+            sx={{backgroundColor:'#EDB7ED',label:{color:'#000000'}}}
             fullWidth
             label="Pembe"
             name="pembe"
@@ -221,7 +221,7 @@ const DijitalBaskiModal=({open,setOpen,handleOpen})=>{
             />
 
             <TextField
-            sx={{backgroundColor:'#F2F7A1'}}
+            sx={{backgroundColor:'#F2F7A1',label:{color:'#000000'}}}
             fullWidth
             label="Sarı"
             name="sari"
@@ -238,7 +238,7 @@ const DijitalBaskiModal=({open,setOpen,handleOpen})=>{
             <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
 
             <TextField
-            sx={{backgroundColor:'#DFA878'}}
+            sx={{backgroundColor:'#DFA878',label:{color:'#000000'}}}
             fullWidth
             label="Kahverengi"
             name="kahverengi"
@@ -250,7 +250,7 @@ const DijitalBaskiModal=({open,setOpen,handleOpen})=>{
             />
 
             <TextField
-            sx={{backgroundColor:'#A2C579'}}
+            sx={{backgroundColor:'#A2C579',label:{color:'#000000'}}}
             fullWidth
             label="Yeşil"
             name="yesil"
@@ -262,7 +262,7 @@ const DijitalBaskiModal=({open,setOpen,handleOpen})=>{
             />
 
             <TextField
-            sx={{backgroundColor:'#61677A'}}
+            sx={{backgroundColor:'#61677A',label:{color:'#000000'}}}
             fullWidth
             label="Siyah"
             name="siyah"
