@@ -9,85 +9,101 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import CompressIcon from '@mui/icons-material/Compress';
+import CoffeeMakerIcon from '@mui/icons-material/CoffeeMaker';
+import IronIcon from '@mui/icons-material/Iron';
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
+import ExtensionIcon from '@mui/icons-material/Extension';
+import FormatPaintIcon from '@mui/icons-material/FormatPaint';
+import ColorLensIcon from '@mui/icons-material/ColorLens';
+import WebStoriesIcon from '@mui/icons-material/WebStories';
+import LineStyleIcon from '@mui/icons-material/LineStyle';
+import ImageIcon from '@mui/icons-material/Image';
+import CoffeeIcon from '@mui/icons-material/Coffee';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import ShapeLineIcon from '@mui/icons-material/ShapeLine';
+import CameraIcon from '@mui/icons-material/Camera';
+import InvertColorsIcon from '@mui/icons-material/InvertColors';
+import PatternIcon from '@mui/icons-material/Pattern';
 
 export const secondMenu=[
 
     {
-        icon:<BrightnessLowIcon/>,
+        icon:<CompressIcon/>,
         title:"İzo Statik Pres",
         url:"/proses/izostatikpres"
     },
     {
-        icon:<BrightnessLowIcon/>,
+        icon:<IronIcon/>,
         title:"Otomatik Torna",
         url:"/proses/otomatiktorna"
     },
     {
-        icon:<BrightnessLowIcon/>,
+        icon:<CoffeeMakerIcon/>,
         title:"Man Torna, Dik Torna-Pres",
         url:"/proses/mandiktornapres"
     },
     {
-        icon:<BrightnessLowIcon/>,
+        icon:<CompareArrowsIcon/>,
         title:"Yüksek Basınç",
         url:"/proses/yuksekbasinc"
     },
     {
-        icon:<BrightnessLowIcon/>,
+        icon:<PatternIcon/>,
         title:"Döküm Hattı",
         url:"/proses/dokumhatti"
     },
     {
-        icon:<BrightnessLowIcon/>,
+        icon:<ExtensionIcon/>,
         title:"Kulp Döküm Çamuru",
         url:"/proses/kulpdokum"
     },
     {
-        icon:<BrightnessLowIcon/>,
+        icon:<ShapeLineIcon/>,
         title:"Hammadde Granül Kontrol",
         url:"/proses/granulkontrol"
     },
     {
-        icon:<BrightnessLowIcon/>,
+        icon:<FormatPaintIcon/>,
         title:"Astarlama",
         url:"/proses/astarlama"
     },
     {
-        icon:<BrightnessLowIcon/>,
+        icon:<InvertColorsIcon/>,
         title:"Reaktif",
         url:"/proses/reaktif"
     },{
-        icon:<BrightnessLowIcon/>,
+        icon:<ErrorOutlineIcon/>,
         title:"Biskuvi Triyaj",
         url:"/proses/triyaj"
     },
     {
-        icon:<BrightnessLowIcon/>,
+        icon:<ColorLensIcon/>,
         title:"Sırlama",
         url:"/proses/sirlama"
     },
     {
-        icon:<BrightnessLowIcon/>,
+        icon:<WebStoriesIcon/>,
         title:"Dijital Logo Kontrol",
         url:"/proses/dijitallogo"
     },
     {
-        icon:<BrightnessLowIcon/>,
+        icon:<LineStyleIcon/>,
         title:"Dekorlama",
         url:"/proses/dekorlama"
     },
     {
-        icon:<BrightnessLowIcon/>,
+        icon:<ImageIcon/>,
         title:"Dijital Baskı Kontrol",
         url:"/proses/dijitalbaski"
     },
     {
-        icon:<BrightnessLowIcon/>,
+        icon:<CoffeeIcon/>,
         title:"Nihai Ürün Kontrol",
         url:"/proses/nihaiurunkontrol"
     },
     {
-        icon:<BrightnessLowIcon/>,
+        icon:<CameraIcon/>,
         title:"Ayak Taşlama",
         url:"/proses/ayaktaslama"
     },

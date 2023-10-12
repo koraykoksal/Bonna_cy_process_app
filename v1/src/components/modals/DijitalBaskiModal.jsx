@@ -145,7 +145,7 @@ const DijitalBaskiModal=({open,setOpen,handleOpen})=>{
 
 
   
-            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
+            <Box sx={{display:'flex',justifyContent:'center',gap:2,overflow:'scroll',maxHeight:'600px'}}>
 
               <FormControl fullWidth>
                 <InputLabel id="banthizi">Bant Hızı</InputLabel>

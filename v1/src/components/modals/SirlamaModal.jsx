@@ -134,7 +134,7 @@ const SirlamaModal=({open,setOpen,handleOpen})=>{
         </Box>
           
             
-            <Box sx={{mt:3,display:'flex',flexDirection:'column',gap:2,overflow:'scroll',maxHeight:'650px'}} component='form'>
+            <Box sx={{mt:3,display:'flex',flexDirection:'column',gap:2,overflow:'scroll',maxHeight:'600px'}} component='form'>
                 
 
             <Box sx={{display:'flex',justifyContent:'center',gap:2}}>

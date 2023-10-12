@@ -100,7 +100,7 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
         </Box>
           
             
-            <Box sx={{mt:3,display:'flex',flexDirection:'column',gap:2}} component='form'>
+            <Box sx={{mt:3,display:'flex',flexDirection:'column',gap:2,overflow:'scroll',maxHeight:'600px'}} component='form'>
                 
 
             
