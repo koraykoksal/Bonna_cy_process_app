@@ -27,6 +27,8 @@ import { useSelector } from 'react-redux';
 import Button from "@mui/material/Button"
 import { Outlet, useNavigate } from 'react-router-dom';
 import MenuItem from '@mui/material/MenuItem';
+import useArge from '../hooks/useArge';
+import { useEffect } from 'react';
 
 const drawerWidth = 270;
 
@@ -101,6 +103,8 @@ const Dashboard = () => {
   const navigate = useNavigate()
 
   const {currentUser} = useSelector((state)=>state.auth)
+  const {getDesenCode} = useArge()
+  const {designCode} = useSelector((state)=>state.arge)
 
   const {logout} = useAuthCall()
   
@@ -115,6 +119,12 @@ const Dashboard = () => {
       setOpen(false);
     };
 
+    useEffect(() => {
+      getDesenCode()
+    }, [])
+    
+
+    console.log(designCode[100].DESENKODU)
 
   return (
     
