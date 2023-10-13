@@ -28,7 +28,7 @@ import Button from "@mui/material/Button"
 import { Outlet, useNavigate } from 'react-router-dom';
 import MenuItem from '@mui/material/MenuItem';
 import useArge from '../hooks/useArge';
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 
 const drawerWidth = 270;
 
@@ -103,8 +103,10 @@ const Dashboard = () => {
   const navigate = useNavigate()
 
   const {currentUser} = useSelector((state)=>state.auth)
-  const {getDesenCode} = useArge()
+  const {getDesenCode,getWorkCenter} = useArge()
   const {designCode} = useSelector((state)=>state.arge)
+
+ 
 
   const {logout} = useAuthCall()
   
@@ -119,12 +121,19 @@ const Dashboard = () => {
       setOpen(false);
     };
 
+    //? sayfa ilk yuklendiğinde desen kodlarını erp den çek
     useEffect(() => {
+
       getDesenCode()
+      getWorkCenter()
+
+      //designCode.map((item)=>console.log(item.DESENKODU))
+
     }, [])
     
 
-    console.log(designCode[100].DESENKODU)
+   
+    
 
   return (
     

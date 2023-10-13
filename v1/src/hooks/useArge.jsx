@@ -7,6 +7,7 @@ const useArge=()=>{
 
     const BASE_ADDRESS = `${process.env.REACT_APP_BASEADDRESS}`
     const desen = 2
+    const workcenter = 3
 
     const dispatch=useDispatch(9)
 
@@ -16,7 +17,8 @@ const useArge=()=>{
             
             axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${desen}`)
             .then((res)=>{
-                //console.log(res.data)
+
+                // console.log(res)
                 dispatch(designDataSuccess(res.data))
 
             })
@@ -33,8 +35,32 @@ const useArge=()=>{
 
     }
 
+    const getWorkCenter= async ()=>{
 
-    return {getDesenCode}
+        try {
+            
+            axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${workcenter}`)
+            .then((res)=>{
+
+                console.log(res)
+                // dispatch(designDataSuccess(res.data))
+
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+
+         
+
+        } catch (error) {
+            console.log('hata : ',error)
+        }
+       
+
+    }
+
+
+    return {getDesenCode,getWorkCenter}
 
 }
 

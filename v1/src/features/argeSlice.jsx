@@ -21,7 +21,7 @@ const argeSlice=createSlice({
             state.error = false;
         },
         designDataSuccess: (state, {payload}) => {
-  
+ 
             state.loading = false;
             state.error = false;
             state.designCode = payload
