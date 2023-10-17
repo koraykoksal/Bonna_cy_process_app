@@ -127,12 +127,12 @@ const Dashboard = () => {
       getDesenCode()
       getWorkCenter()
 
-      //designCode.map((item)=>console.log(item.DESENKODU))
+      // designCode.map((item)=>console.log(item.DESENKODU))
 
     }, [])
     
 
-   
+
     
 
   return (
