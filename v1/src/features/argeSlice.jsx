@@ -38,6 +38,8 @@ const argeSlice=createSlice({
   
             state.loading = false;
             state.error = false;
+
+            state.materialCode = payload
             
         },
         fetchFail: (state) => {

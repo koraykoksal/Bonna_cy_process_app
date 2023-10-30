@@ -28,7 +28,7 @@ import Button from "@mui/material/Button"
 import { Outlet, useNavigate } from 'react-router-dom';
 import MenuItem from '@mui/material/MenuItem';
 import useArge from '../hooks/useArge';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const drawerWidth = 270;
 
@@ -102,107 +102,105 @@ const Dashboard = () => {
 
   const navigate = useNavigate()
 
-  const {currentUser} = useSelector((state)=>state.auth)
-  const {getDesenCode,getWorkCenter} = useArge()
-  const {workCenterCode} = useSelector((state)=>state.arge)
+  const { currentUser } = useSelector((state) => state.auth)
+  const { getDesenCode, getWorkCenter } = useArge()
+  const { workCenterCode, designCode } = useSelector((state) => state.arge)
 
- 
 
-  const {logout} = useAuthCall()
-  
-    const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
-  
-    const handleDrawerOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleDrawerClose = () => {
-      setOpen(false);
-    };
 
-    //? sayfa ilk yuklendiğinde desen kodlarını erp den çek
-    useEffect(() => {
+  const { logout } = useAuthCall()
 
-      getDesenCode()
-      getWorkCenter()
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
 
-      workCenterCode.map((item)=>console.log(item.ISMERKEZI))
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
 
-    }, [])
-    
-    
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  //? sayfa ilk yuklendiğinde desen kodlarını erp den çek
+  useEffect(() => {
+
+    getDesenCode()
+    getWorkCenter()
+
+  }, [])
+
+
 
   return (
-    
+
     <Box sx={{ display: 'flex' }}>
-    <CssBaseline />
-    <AppBar position="fixed" open={open}>
+      <CssBaseline />
+      <AppBar position="fixed" open={open}>
 
-      <Toolbar >
+        <Toolbar >
 
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          edge="start"
-          sx={{
-            marginRight: 5,
-            ...(open && { display: 'none' }),
-          }}
-          
-        >
-          <MenuIcon />
-        </IconButton>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{
+              marginRight: 5,
+              ...(open && { display: 'none' }),
+            }}
+
+          >
+            <MenuIcon />
+          </IconButton>
 
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             Proses Kontrol
           </Typography>
 
-          <Box sx={{display:'flex',flexWrap:'wrap',justifyContent:'center',gap:2,alignItems:'center'}}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 2, alignItems: 'center' }}>
             <Typography>
               {currentUser}
             </Typography>
 
-            <Button variant='contained' color='error' onClick={()=>logout()}>Logout</Button>
-          {/* <IconButton onClick={()=>logout()}>
+            <Button variant='contained' color='error' onClick={() => logout()}>Logout</Button>
+            {/* <IconButton onClick={()=>logout()}>
             <LogoutIcon sx={{'&hover':{cursor:'pointer'},color:'#000000'}}/>
           </IconButton> */}
           </Box>
-          
 
-      </Toolbar>
-      
-    </AppBar>
 
-    
+        </Toolbar>
 
-    <Drawer variant="permanent" open={open} >
-
-      <DrawerHeader sx={{background:'#000000'}}>
-        <IconButton onClick={handleDrawerClose} >
-          {theme.direction === 'rtl' ? <ChevronRightIcon sx={{background:'#ffffff'}} /> : <ChevronLeftIcon sx={{background:'#ffffff'}} />}
-        </IconButton>
-      </DrawerHeader>
-
-      {/* ÇİZGİ */}
-      <Divider />
-      
-      <List sx={{background:'#000000'}}>        
-        <FirstMenu handleDrawerClose={handleDrawerClose}/>
-      </List>
-
-      {/* ÇİZGİ */}
-      <Divider />
-
-      <List sx={{background:'#000000'}}>
-        <SecondMenu handleDrawerClose={handleDrawerClose}/>
-      </List>
-      
+      </AppBar>
 
 
 
-    </Drawer>
+      <Drawer variant="permanent" open={open} >
+
+        <DrawerHeader sx={{ background: '#000000' }}>
+          <IconButton onClick={handleDrawerClose} >
+            {theme.direction === 'rtl' ? <ChevronRightIcon sx={{ background: '#ffffff' }} /> : <ChevronLeftIcon sx={{ background: '#ffffff' }} />}
+          </IconButton>
+        </DrawerHeader>
+
+        {/* ÇİZGİ */}
+        <Divider />
+
+        <List sx={{ background: '#000000' }}>
+          <FirstMenu handleDrawerClose={handleDrawerClose} />
+        </List>
+
+        {/* ÇİZGİ */}
+        <Divider />
+
+        <List sx={{ background: '#000000' }}>
+          <SecondMenu handleDrawerClose={handleDrawerClose} />
+        </List>
+
+
+
+
+      </Drawer>
 
       <Box
         component="main"

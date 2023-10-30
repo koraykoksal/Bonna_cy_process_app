@@ -30,7 +30,7 @@ const style = {
 
 };
 
-const IzostatikPresModal=({open,setOpen,handleOpen})=>{
+const IzostatikPresModal=({open,setOpen,handleOpen,workCenterCode,materialCode})=>{
 
   const handleClose = () => setOpen(false);
 
@@ -89,9 +89,6 @@ const IzostatikPresModal=({open,setOpen,handleOpen})=>{
   })
 
 
-  console.log(izostatikData)
-
-
   return (
     <div>
       <Button onClick={handleOpen} variant='outlined'>New</Button>
@@ -124,6 +121,7 @@ const IzostatikPresModal=({open,setOpen,handleOpen})=>{
               {/* makine */}
             <FormControl fullWidth>
                 <InputLabel id="is_merkezi">Makine</InputLabel>
+                
                 <Select
                 labelId="is_merkezi"
                 id="is_merkezi"
@@ -132,10 +130,13 @@ const IzostatikPresModal=({open,setOpen,handleOpen})=>{
                 value={izostatikData.is_merkezi}
                 onChange={handleChange}
                 >
-                <MenuItem value="SK-KP1">SK-KP1</MenuItem>
-                <MenuItem value="SK-KP2">SK-KP2</MenuItem>
-                <MenuItem value="SK-KP3">SK-KP3</MenuItem>
+                {
+                  workCenterCode.filter(data=>data.ISMERKEZI.includes('SK')).map(({ISMERKEZI,index})=>(
+                    <MenuItem key={index} value={ISMERKEZI}>{ISMERKEZI}</MenuItem>
+                  ))
+                }
                 </Select>
+
             </FormControl>
             
             {/* ürün kodu */}
@@ -149,9 +150,11 @@ const IzostatikPresModal=({open,setOpen,handleOpen})=>{
                 value={izostatikData.urun_kodu}
                 onChange={handleChange}
                 >
-                <MenuItem value="GRM23DZ">GRM23DZ</MenuItem>
-                <MenuItem value="BNC02CT">BNC02CT</MenuItem>
-                <MenuItem value="VNT22KS">VNT22KS</MenuItem>
+                {
+                  materialCode.map(({MALZEMEKODU,index})=>(
+                    <MenuItem key={index} value={MALZEMEKODU}>{MALZEMEKODU}</MenuItem>
+                  ))
+                }
                 </Select>
             </FormControl>
             

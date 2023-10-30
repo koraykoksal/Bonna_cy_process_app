@@ -4,17 +4,26 @@ import {typoStyle} from "../styles/globalStyle"
 import IzostatikPresModal from '../components/modals/IzostatikPresModal';
 import useArge from '../hooks/useArge';
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 const Izostatikpres = () => {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
 
-  const {getDesenCode,getWorkCenter} = useArge()
 
+  const { getMaterialCenter, getWorkCenter } = useArge()
+  const { workCenterCode, materialCode } = useSelector((state) => state.arge)
+
+
+  //? sayfa ilk yuklendiğinde desen kodlarını erp den çek
   useEffect(() => {
+
+    getMaterialCenter()
     getWorkCenter()
+
   }, [])
+
   
 
   return (
@@ -25,7 +34,7 @@ const Izostatikpres = () => {
         </Typography>
 
       <Box>
-        <IzostatikPresModal open={open} handleOpen={handleOpen} setOpen={setOpen}/>
+        <IzostatikPresModal open={open} handleOpen={handleOpen} setOpen={setOpen} workCenterCode={workCenterCode} materialCode={materialCode}/>
       </Box>
 
     </div>
