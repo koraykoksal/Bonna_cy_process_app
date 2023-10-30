@@ -1,6 +1,6 @@
-import axios from 'axios'
+import axios, { formToJSON } from 'axios'
 import { useDispatch } from 'react-redux'
-import { designDataSuccess } from '../features/argeSlice'
+import { designDataSuccess,workCenterDataSuccess } from '../features/argeSlice'
 
 
 const useArge=()=>{
@@ -37,24 +37,23 @@ const useArge=()=>{
 
     const getWorkCenter= async ()=>{
 
+      
+            
         try {
             
-            axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${workcenter}`)
-            .then((res)=>{
+            const data = await axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${workcenter}`)
 
-                console.log(res)
-                // dispatch(designDataSuccess(res.data))
+            const result = data.data.filter(item => item.ISMERKEZI.includes('SK'))
 
-            })
-            .catch((err)=>{
-                console.log(err)
-            })
+           
+            dispatch(workCenterDataSuccess(result))
 
-         
-
-        } catch (error) {
-            console.log('hata : ',error)
+        } catch (err) {
+            console.log(err)
+            
         }
+
+
        
 
     }

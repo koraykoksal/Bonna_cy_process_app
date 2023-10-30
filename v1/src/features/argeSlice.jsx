@@ -31,6 +31,7 @@ const argeSlice=createSlice({
   
             state.loading = false;
             state.error = false;
+            state.workCenterCode=payload
             
         },
         materialDataSuccess: (state, {payload}) => {

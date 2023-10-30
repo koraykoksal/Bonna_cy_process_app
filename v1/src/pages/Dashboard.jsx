@@ -104,7 +104,7 @@ const Dashboard = () => {
 
   const {currentUser} = useSelector((state)=>state.auth)
   const {getDesenCode,getWorkCenter} = useArge()
-  const {designCode} = useSelector((state)=>state.arge)
+  const {workCenterCode} = useSelector((state)=>state.arge)
 
  
 
@@ -127,12 +127,10 @@ const Dashboard = () => {
       getDesenCode()
       getWorkCenter()
 
-      // designCode.map((item)=>console.log(item.DESENKODU))
+      workCenterCode.map((item)=>console.log(item.ISMERKEZI))
 
     }, [])
     
-
-
     
 
   return (
