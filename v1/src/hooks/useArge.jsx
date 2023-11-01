@@ -2,6 +2,8 @@ import axios, { formToJSON } from 'axios'
 import { useDispatch } from 'react-redux'
 import { designDataSuccess,fetchFail,fetchStart,materialDataSuccess,workCenterDataSuccess } from '../features/argeSlice'
 import { toastErrorNotify } from '../helpers/ToastNotify'
+import { doc, setDoc, Timestamp } from "firebase/firestore"; 
+import {db} from "firebase/database"
 
 
 const useArge=()=>{
@@ -11,7 +13,7 @@ const useArge=()=>{
     const desen = 2
     const workcenter = 3
 
-    const dispatch=useDispatch(9)
+    const dispatch=useDispatch()
 
     const getDesenCode= async ()=>{
 
@@ -83,6 +85,20 @@ const useArge=()=>{
 
        
 
+    }
+
+
+    const setIzoStatikPresData=async (info)=>{
+
+        try {
+            
+            // const result = await setDoc(doc(db,"izo_statik_pres","l4wWSo3wGyRpXYSQXyj1"),info)
+
+            // console.log(result)
+            
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 
