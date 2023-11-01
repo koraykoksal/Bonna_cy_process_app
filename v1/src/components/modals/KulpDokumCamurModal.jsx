@@ -31,9 +31,9 @@ const style = {
 
 };
 
-const KulpDokumCamurModal=({open,setOpen,handleOpen,workCenterCode, materialCode})=>{
+const KulpDokumCamurModal=({open,handleClose,handleOpen,workCenterCode, materialCode})=>{
 
-  const handleClose = () => setOpen(false);
+  
 
   const handleChange=(e)=>{
     setkulpdokumcamurData({...kulpdokumcamurData,[e.target.name]:e.target.value})
@@ -98,7 +98,32 @@ const KulpDokumCamurModal=({open,setOpen,handleOpen,workCenterCode, materialCode
       <Modal
         keepMounted
         open={open}
-        onClose={handleClose}
+        onClose={()=>{
+          setkulpdokumcamurData({
+            is_merkezi:"",
+            agirlik:"",
+            taban:"",
+            kenar:"",
+            pkenar:"",
+            yogunluk:"",
+            t1:"",
+            t2:"",
+            t1t2:"",
+            tankaristirmahizi:"",
+            istifsayisi:"",
+            redkabul:"",
+            kulpuyumu:"",
+            uygunsuzluktipi:"",
+            aciklama:"",
+            vardiyasorumlusu:"",
+            urun_kodu:"",
+            vardiya:getShift(),
+            date:currentdate.toString(),
+            time:currentTime.toString(),
+            kontroleden_kisi:currentUser
+          })
+          handleClose()
+        }}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >

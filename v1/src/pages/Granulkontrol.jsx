@@ -6,13 +6,13 @@ import GranulKontrolModal from '../components/modals/GranulKontrolModal';
 import { useSelector } from 'react-redux';
 import useArge from '../hooks/useArge';
 import { useEffect } from 'react';
-
+import Button from '@mui/material/Button';
 
 const Granulkontrol = () => {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-
+  const handleClose = () => setOpen(false);
 
   const { getMaterialCenter, getWorkCenter } = useArge()
   const { workCenterCode, materialCode } = useSelector((state) => state.arge)
@@ -34,8 +34,10 @@ const Granulkontrol = () => {
             Granül Kontrol
         </Typography>
 
+        <Button onClick={handleOpen} variant='outlined'>New</Button>
+
         <Box>
-          <GranulKontrolModal open={open} setOpen={setOpen} handleOpen={handleOpen} workCenterCode={workCenterCode} materialCode={materialCode}/>
+          <GranulKontrolModal open={open} handleClose={handleClose} setOpen={setOpen} handleOpen={handleOpen} workCenterCode={workCenterCode} materialCode={materialCode}/>
         </Box>
     </div>
 

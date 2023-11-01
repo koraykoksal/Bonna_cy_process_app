@@ -31,9 +31,9 @@ const style = {
 
 };
 
-const DekorlamaModal=({open,setOpen,handleOpen,materialCode})=>{
+const DekorlamaModal=({open,handleClose,handleOpen,materialCode})=>{
 
-  const handleClose = () => setOpen(false);
+  
 
   const handleChange=(e)=>{
     setdekolamaData({...dekolamaData,[e.target.name]:e.target.value})
@@ -86,11 +86,28 @@ const DekorlamaModal=({open,setOpen,handleOpen,materialCode})=>{
 
   return (
     <div>
-      <Button onClick={handleOpen} variant='outlined'>New</Button>
+      
       <Modal
         keepMounted
         open={open}
-        onClose={handleClose}
+        onClose={()=>{
+          setdekolamaData({
+            urun_kodu:"",
+        
+            aciklama:"",
+            silimsunger:"",
+            silimsuyu:"",
+            urunsilim:"",
+            boya_etiketi:"",
+            boya_cokme:"",
+            boya_lekesi:"",
+            vardiya:getShift(),
+            date:currentdate.toString(),
+            time:currentTime.toString(),
+            kontroleden_kisi:currentUser
+          })
+          handleClose()
+        }}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >

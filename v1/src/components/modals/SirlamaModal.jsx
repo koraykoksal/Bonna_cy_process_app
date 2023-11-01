@@ -33,7 +33,6 @@ const style = {
 
 const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})=>{
 
-  // const handleClose = () => setOpen(false);
 
   const handleChange=(e)=>{
     setnihaiUrunData({...nihaiUrunData,[e.target.name]:e.target.value})

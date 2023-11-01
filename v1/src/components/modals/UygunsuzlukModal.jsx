@@ -29,9 +29,9 @@ const style = {
 
 };
 
-const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
+const UygunsuzlukModal=({open,handleClose,handleOpen})=>{
 
-  const handleClose = () => setOpen(false);
+  
 
   const handleChange=(e)=>{
     setUygunsuzlukData({...uygunsuzlukData,[e.target.name]:e.target.value})
@@ -78,11 +78,26 @@ const UygunsuzlukModal=({open,setOpen,handleOpen})=>{
 
   return (
     <div>
-      <Button onClick={handleOpen} variant='outlined'>New</Button>
+      
       <Modal
         keepMounted
         open={open}
-        onClose={handleClose}
+        onClose={()=>{
+          setUygunsuzlukData({
+            is_merkezi:"",
+            renk_kodu:"",
+            urun_kodu:"",
+            sorun_tipi:"",
+            uygunsuz_deger:"",
+            standart_deger:"",
+            aksiyon_sahibi:"",
+            aciklama:"",
+            aksiyon:"",
+            vardiya:getShift(),
+            date:currentdatetime.toString()
+          })
+          handleClose()
+        }}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >

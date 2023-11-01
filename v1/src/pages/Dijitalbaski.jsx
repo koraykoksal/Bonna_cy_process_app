@@ -6,13 +6,14 @@ import DijitalBaskiModal from '../components/modals/DijitalBaskiModal';
 import useArge from '../hooks/useArge';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-
+import Button from '@mui/material/Button';
 
 
 const Dijitalbaski = () => {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const { getMaterialCenter, getWorkCenter,getDesenCode } = useArge()
   const { workCenterCode, materialCode, designCode } = useSelector((state) => state.arge)
@@ -33,8 +34,10 @@ const Dijitalbaski = () => {
             Dijital Baskı
         </Typography>
 
+        <Button onClick={handleOpen} variant='outlined'>New</Button>
+
         <Box>
-          <DijitalBaskiModal open={open} setOpen={setOpen} handleOpen={handleOpen} materialCode={materialCode} designCode={designCode}/>
+          <DijitalBaskiModal open={open} handleClose={handleClose} setOpen={setOpen} handleOpen={handleOpen} materialCode={materialCode} designCode={designCode}/>
         </Box>
     </div>
 

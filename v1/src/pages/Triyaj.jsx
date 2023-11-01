@@ -6,13 +6,14 @@ import BiskuviTriyajModal from '../components/modals/BiskuviTriyajModal';
 import useArge from '../hooks/useArge';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import Button from '@mui/material/Button';
 
 
 const Triyaj = () => {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-
+  const handleClose = () => setOpen(false);
 
   const { getMaterialCenter, getWorkCenter } = useArge()
   const { workCenterCode, materialCode } = useSelector((state) => state.arge)
@@ -33,8 +34,10 @@ const Triyaj = () => {
             Biskuvi Triyaj
         </Typography>
 
+        <Button onClick={handleOpen} variant='outlined'>New</Button>
+
         <Box>
-          <BiskuviTriyajModal open={open} setOpen={setOpen} handleOpen={handleOpen} materialCode={materialCode}/>
+          <BiskuviTriyajModal open={open} handleClose={handleClose} setOpen={setOpen} handleOpen={handleOpen} materialCode={materialCode}/>
         </Box>
     </div>
 

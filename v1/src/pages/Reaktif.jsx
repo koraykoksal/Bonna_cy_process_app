@@ -6,12 +6,14 @@ import ReaktifModal from '../components/modals/ReaktifModal';
 import useArge from '../hooks/useArge';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import Button from '@mui/material/Button';
+
 
 const Reaktif = () => {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-
+  const handleClose = () => setOpen(false);
   const { getMaterialCenter, getWorkCenter } = useArge()
   const { workCenterCode, materialCode } = useSelector((state) => state.arge)
 
@@ -30,8 +32,10 @@ const Reaktif = () => {
             Reaktif
         </Typography>
 
+        <Button onClick={handleOpen} variant='outlined'>New</Button>
+
         <Box>
-          <ReaktifModal open={open} setOpen={setOpen} handleOpen={handleOpen} materialCode={materialCode}/>
+          <ReaktifModal open={open} handleClose={handleClose} setOpen={setOpen} handleOpen={handleOpen} materialCode={materialCode}/>
         </Box>
     </div>
 

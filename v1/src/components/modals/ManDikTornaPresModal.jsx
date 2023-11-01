@@ -31,9 +31,9 @@ const style = {
 
 };
 
-const ManDikTornaPresModal = ({ open, setOpen, handleOpen, workCenterCode, materialCode }) => {
+const ManDikTornaPresModal = ({ open, handleClose, handleOpen, workCenterCode, materialCode }) => {
 
-  const handleClose = () => setOpen(false);
+  
 
   const handleChange = (e) => {
     setmandiktornaData({ ...mandiktornaData, [e.target.name]: e.target.value })
@@ -91,11 +91,35 @@ const ManDikTornaPresModal = ({ open, setOpen, handleOpen, workCenterCode, mater
 
   return (
     <div>
-      <Button onClick={handleOpen} variant='outlined'>New</Button>
+      
       <Modal
         keepMounted
         open={open}
-        onClose={handleClose}
+        onClose={()=>{
+          setmandiktornaData({
+            is_merkezi: "",
+            agirlik: "",
+            taban: "",
+            kenar: "",
+            pkenar: "",
+            sucukcap: "",
+            aynacap: "",
+            camursertlik: "",
+            catlakkontrol: "",
+            rotuskontrol: "",
+            yuzeykontrol: "",
+            uygunsuzluktipi: "",
+            aciklama: "",
+            vardiyasorumlusu: "",
+            havakontrol: "",
+            urun_kodu: "",
+            vardiya: getShift(),
+            date: currentdate.toString(),
+            time: currentTime.toString(),
+            kontroleden_kisi: currentUser
+          })
+          handleClose()
+        }}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >

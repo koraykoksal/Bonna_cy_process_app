@@ -6,13 +6,13 @@ import DekorlamaModal from '../components/modals/DekorlamaModal';
 import { useSelector } from 'react-redux';
 import useArge from '../hooks/useArge';
 import { useEffect } from 'react';
-
+import Button from '@mui/material/Button';
 
 const Dekorlama = () => {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-
+  const handleClose = () => setOpen(false);
 
   const { getMaterialCenter, getWorkCenter } = useArge()
   const { workCenterCode, materialCode } = useSelector((state) => state.arge)
@@ -32,8 +32,10 @@ const Dekorlama = () => {
             Dekorlama
         </Typography>
 
+        <Button onClick={handleOpen} variant='outlined'>New</Button>
+
         <Box>
-          <DekorlamaModal open={open} setOpen={setOpen} handleOpen={handleOpen} materialCode={materialCode}/>
+          <DekorlamaModal open={open} handleClose={handleClose} setOpen={setOpen} handleOpen={handleOpen} materialCode={materialCode}/>
         </Box>
     </div>
 

@@ -5,12 +5,13 @@ import IzostatikPresModal from '../components/modals/IzostatikPresModal';
 import useArge from '../hooks/useArge';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import Button from '@mui/material/Button';
 
 const Izostatikpres = () => {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-
+  const handleClose = () => setOpen(false);
 
   const { getMaterialCenter, getWorkCenter } = useArge()
   const { workCenterCode, materialCode } = useSelector((state) => state.arge)
@@ -33,8 +34,10 @@ const Izostatikpres = () => {
             İzostatik Pres
         </Typography>
 
+        <Button onClick={handleOpen} variant='outlined'>New</Button>
+
       <Box>
-        <IzostatikPresModal open={open} handleOpen={handleOpen} setOpen={setOpen} workCenterCode={workCenterCode} materialCode={materialCode}/>
+        <IzostatikPresModal open={open} handleClose={handleClose} handleOpen={handleOpen} setOpen={setOpen} workCenterCode={workCenterCode} materialCode={materialCode}/>
       </Box>
 
     </div>

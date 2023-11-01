@@ -31,9 +31,9 @@ const style = {
 
 };
 
-const NihaiUrunKontrolModal = ({ open, setOpen, handleOpen, materialCode, designCode }) => {
+const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, designCode }) => {
 
-  const handleClose = () => setOpen(false);
+  
 
   const handleChange = (e) => {
     setnihaiUrunData({ ...nihaiUrunData, [e.target.name]: e.target.value })
@@ -110,11 +110,39 @@ const NihaiUrunKontrolModal = ({ open, setOpen, handleOpen, materialCode, design
 
   return (
     <div>
-      <Button onClick={handleOpen} variant='outlined'>New</Button>
+      
       <Modal
         keepMounted
         open={open}
-        onClose={handleClose}
+        onClose={()=>{
+          setnewValue({
+            renkKodu: "",
+            aciklama: "",
+            urun_kodu: "",
+            olculenNumuneSayisi: "",
+            agirlik: "",
+            cap_ab: "",
+            cap_cd: "",
+            cap_e1e2: "",
+            yukseklik_a: "",
+            yukseklik_b: "",
+            yukseklik_c: "",
+            yukseklik_d: "",
+            icYukseklik: "",
+            dudak_a: "",
+            dudak_b: "",
+            dudak_c: "",
+            dudak_d: "",
+            ayakYuksekligi: "",
+            bombeCokme: "",
+            duzlemdenSapma: "",
+            vardiya: getShift(),
+            date: currentdate.toString(),
+            time: currentTime.toString(),
+            kontroleden_kisi: currentUser
+          })
+          handleClose()
+        }}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >

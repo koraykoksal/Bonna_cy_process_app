@@ -6,13 +6,13 @@ import YuksekBasincModal from '../components/modals/YuksekBasincModal';
 import useArge from '../hooks/useArge';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-
+import Button from '@mui/material/Button';
 
 const Yuksekbasinc = () => {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-
+  const handleClose = () => setOpen(false);
   const { getMaterialCenter, getWorkCenter } = useArge()
   const { workCenterCode, materialCode } = useSelector((state) => state.arge)
 
@@ -33,8 +33,10 @@ const Yuksekbasinc = () => {
             Yüksek Basınç
         </Typography>
 
+        <Button onClick={handleOpen} variant='outlined'>New</Button>
+
         <Box>
-          <YuksekBasincModal open={open} setOpen={setOpen} handleOpen={handleOpen} workCenterCode={workCenterCode} materialCode={materialCode}/>
+          <YuksekBasincModal open={open} handleClose={handleClose} setOpen={setOpen} handleOpen={handleOpen} workCenterCode={workCenterCode} materialCode={materialCode}/>
         </Box>
     </div>
 

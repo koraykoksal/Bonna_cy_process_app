@@ -31,9 +31,9 @@ const style = {
 
 };
 
-const ReaktifModal=({open,setOpen,handleOpen,materialCode})=>{
+const ReaktifModal=({open,handleClose,handleOpen,materialCode})=>{
 
-  const handleClose = () => setOpen(false);
+  
 
   const handleChange=(e)=>{
     setastarlamaData({...astarlamaData,[e.target.name]:e.target.value})
@@ -69,10 +69,8 @@ const ReaktifModal=({open,setOpen,handleOpen,materialCode})=>{
     boyasarjno:"",
     boyayogunluk:"",
     boyamiktari:"",
-    
     aciklama:"",
     redkabul:"",
-    
     vardiya:getShift(),
     date:currentdate.toString(),
     time:currentTime.toString(),
@@ -80,16 +78,27 @@ const ReaktifModal=({open,setOpen,handleOpen,materialCode})=>{
   })
 
 
-  console.log(astarlamaData)
-
-
   return (
     <div>
-      <Button onClick={handleOpen} variant='outlined'>New</Button>
+      
       <Modal
         keepMounted
         open={open}
-        onClose={handleClose}
+        onClose={()=>{
+          setastarlamaData({
+            urun_kodu:"",
+            boyasarjno:"",
+            boyayogunluk:"",
+            boyamiktari:"",
+            aciklama:"",
+            redkabul:"",
+            vardiya:getShift(),
+            date:currentdate.toString(),
+            time:currentTime.toString(),
+            kontroleden_kisi:currentUser
+          })
+          handleClose()
+        }}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >

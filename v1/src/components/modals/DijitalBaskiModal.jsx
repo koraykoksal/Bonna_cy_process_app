@@ -31,9 +31,9 @@ const style = {
 
 };
 
-const DijitalBaskiModal = ({ open, setOpen, handleOpen, materialCode, designCode }) => {
+const DijitalBaskiModal = ({ open, handleClose, handleOpen, materialCode, designCode }) => {
 
-  const handleClose = () => setOpen(false);
+  
 
   const handleChange = (e) => {
     setdijitalBaskiData({ ...dijitalBaskiData, [e.target.name]: e.target.value })
@@ -108,11 +108,36 @@ const DijitalBaskiModal = ({ open, setOpen, handleOpen, materialCode, designCode
 
   return (
     <div>
-      <Button onClick={handleOpen} variant='outlined'>New</Button>
+      
       <Modal
         keepMounted
         open={open}
-        onClose={handleClose}
+        onClose={()=>{
+          setdijitalBaskiData({
+            urun_kodu: "",
+            tasarim_kodu: "",
+            banthizi: "",
+            voltaj: "",
+            basinc: "",
+            mavi: "",
+            pembe: "",
+            sari: "",
+            kahverengi: "",
+            yesil: "",
+            siyah: "",
+            reaktif: "",
+            beyaz: "",
+            desenGorseli: "",
+            hataTanimi: "",
+            aciklama: "",
+        
+            vardiya: getShift(),
+            date: currentdate.toString(),
+            time: currentTime.toString(),
+            kontroleden_kisi: currentUser
+          })
+          handleClose()
+        }}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >

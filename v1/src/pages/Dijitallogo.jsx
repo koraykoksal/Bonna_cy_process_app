@@ -6,13 +6,13 @@ import DijitalLogoKontrolModal from '../components/modals/DijitalLogoKontrolModa
 import { useSelector } from 'react-redux';
 import useArge from '../hooks/useArge';
 import { useEffect } from 'react';
-
+import Button from '@mui/material/Button';
 
 const Dijitallogo = () => {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-
+  const handleClose = () => setOpen(false);
   const { getMaterialCenter, getWorkCenter } = useArge()
   const { workCenterCode, materialCode } = useSelector((state) => state.arge)
 
@@ -33,8 +33,10 @@ const Dijitallogo = () => {
             Dijital Logo
         </Typography>
 
+        <Button onClick={handleOpen} variant='outlined'>New</Button>
+
         <Box>
-          <DijitalLogoKontrolModal open={open} setOpen={setOpen} handleOpen={handleOpen} materialCode={materialCode}/>
+          <DijitalLogoKontrolModal open={open} handleClose={handleClose} setOpen={setOpen} handleOpen={handleOpen} materialCode={materialCode}/>
         </Box>
     </div>
 

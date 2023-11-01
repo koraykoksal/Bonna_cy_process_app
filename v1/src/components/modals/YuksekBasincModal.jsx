@@ -31,9 +31,9 @@ const style = {
 
 };
 
-const YuksekBasincModal=({open,setOpen,handleOpen,workCenterCode, materialCode})=>{
+const YuksekBasincModal=({open,handleClose,handleOpen,workCenterCode, materialCode})=>{
 
-  const handleClose = () => setOpen(false);
+  
 
   const handleChange=(e)=>{
     setyuksekbasincData({...yuksekbasincData,[e.target.name]:e.target.value})
@@ -92,11 +92,37 @@ const YuksekBasincModal=({open,setOpen,handleOpen,workCenterCode, materialCode})
 
   return (
     <div>
-      <Button onClick={handleOpen} variant='outlined'>New</Button>
+      
       <Modal
         keepMounted
         open={open}
-        onClose={handleClose}
+        onClose={()=>{
+          setyuksekbasincData({
+            is_merkezi:"",
+            agirlik:"",
+            taban:"",
+            kenar:"",
+            pkenar:"",
+            yogunluk:"",
+            v1:"",
+            v2:"",
+            camursicakligi:"",
+            basinc:"",
+            havakontrol:"",
+            catlakkontrol:"",
+            rotuskontrol:"",
+            yuzeykontrol:"",
+            uygunsuzluktipi:"",
+            aciklama:"",
+            vardiyasorumlusu:"",
+            urun_kodu:"",
+            vardiya:getShift(),
+            date:currentdate.toString(),
+            time:currentTime.toString(),
+            kontroleden_kisi:currentUser
+          })
+          handleClose()
+        }}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >

@@ -4,7 +4,7 @@ import { typoStyle } from "../styles/globalStyle"
 import useArge from '../hooks/useArge';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-
+import Button from '@mui/material/Button';
 
 const Home = () => {
 

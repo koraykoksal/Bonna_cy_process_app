@@ -6,13 +6,13 @@ import KulpDokumCamurModal from '../components/modals/KulpDokumCamurModal';
 import { useSelector } from 'react-redux';
 import useArge from '../hooks/useArge';
 import { useEffect } from 'react';
-
+import Button from '@mui/material/Button';
 
 const Kulpdokum = () => {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-
+  const handleClose = () => setOpen(false);
   const { getMaterialCenter, getWorkCenter } = useArge()
   const { workCenterCode, materialCode } = useSelector((state) => state.arge)
 
@@ -34,7 +34,7 @@ const Kulpdokum = () => {
         </Typography>
 
         <Box>
-          <KulpDokumCamurModal open={open} setOpen={setOpen} handleOpen={handleOpen} materialCode={materialCode} workCenterCode={workCenterCode}/>
+          <KulpDokumCamurModal open={open} handleClose={handleClose} setOpen={setOpen} handleOpen={handleOpen} materialCode={materialCode} workCenterCode={workCenterCode}/>
         </Box>
     </div>
 

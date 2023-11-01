@@ -31,9 +31,9 @@ const style = {
 
 };
 
-const DijitalLogoKontrolModal=({open,setOpen,handleOpen,materialCode})=>{
+const DijitalLogoKontrolModal=({open,handleClose,handleOpen,materialCode})=>{
 
-  const handleClose = () => setOpen(false);
+  
 
   const handleChange=(e)=>{
     setdijitalLogoData({...dijitalLogoData,[e.target.name]:e.target.value})
@@ -111,11 +111,30 @@ const DijitalLogoKontrolModal=({open,setOpen,handleOpen,materialCode})=>{
 
   return (
     <div>
-      <Button onClick={handleOpen} variant='outlined'>New</Button>
+      
       <Modal
         keepMounted
         open={open}
-        onClose={handleClose}
+        onClose={()=>{
+          setdijitalLogoData({
+            urun_kodu:"",
+            kontroledilenAdet:"",
+            hataliUrunSayisi:"",
+            aciklama:"",
+            banthizi:"",
+            merkezleme:"",
+            besleme:"",
+            toplama:"",
+            logosonrasi_istif:"",
+            hatatanimi:"",
+            hataliUrunYuzdesi:0,
+            vardiya:getShift(),
+            date:currentdate.toString(),
+            time:currentTime.toString(),
+            kontroleden_kisi:currentUser
+          })
+          handleClose()
+        }}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >

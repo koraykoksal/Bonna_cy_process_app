@@ -31,9 +31,9 @@ const style = {
 
 };
 
-const BiskuviTriyajModal=({open,setOpen,handleOpen,materialCode})=>{
+const BiskuviTriyajModal=({open,handleClose,handleOpen,materialCode})=>{
 
-  const handleClose = () => setOpen(false);
+  
 
   const handleChange=(e)=>{
     settriyajData({...triyajData,[e.target.name]:e.target.value})
@@ -124,21 +124,41 @@ const BiskuviTriyajModal=({open,setOpen,handleOpen,materialCode})=>{
     triyajData.diger
     ])
   
- 
 
-  console.log(triyajData)
-
-  
-
-
-  
   return (
     <div>
-      <Button onClick={handleOpen} variant='outlined'>New</Button>
+      
       <Modal
         keepMounted
         open={open}
-        onClose={handleClose}
+        onClose={()=>{
+          settriyajData({
+            urun_kodu:"",
+            sekillendirmeYontemi:"",
+            toplamAdet:"",
+            kontroledilenAdet:"",
+            hataliUrunSayisi:"",
+            aciklama:"",
+            aksiyon:"",
+            karantina:"",
+            firinkodu:"",
+            biskuvifirinSorumlusu:"",
+            ayakcatlagi:0,
+            kenarCatlagi:0,
+            firinKirigi:0,
+            diger:0,
+            hataliUrunYuzdesi:0,
+            ayakCatlagiYuzdesi:0,
+            kenarCatlagiYuzdesi:0,
+            firinKirigiYuzdesi:0,
+            digerYuzdesi:0,
+            vardiya:getShift(),
+            date:currentdate.toString(),
+            time:currentTime.toString(),
+            kontroleden_kisi:currentUser
+          })
+          handleClose()
+        }}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >

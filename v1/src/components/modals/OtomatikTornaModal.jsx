@@ -31,9 +31,9 @@ const style = {
 
 };
 
-const OtomatikTornaModal = ({ open, setOpen, handleOpen, workCenterCode, materialCode }) => {
+const OtomatikTornaModal = ({ open, handleClose, handleOpen, workCenterCode, materialCode }) => {
 
-  const handleClose = () => setOpen(false);
+  
 
   const handleChange = (e) => {
     setOtomatiktornaData({ ...otomatiktornaData, [e.target.name]: e.target.value })
@@ -94,11 +94,39 @@ const OtomatikTornaModal = ({ open, setOpen, handleOpen, workCenterCode, materia
 
   return (
     <div>
-      <Button onClick={handleOpen} variant='outlined'>New</Button>
+      
       <Modal
         keepMounted
         open={open}
-        onClose={handleClose}
+        onClose={()=>{
+          setOtomatiktornaData({
+            is_merkezi: "",
+            agirlik: "",
+            taban: "",
+            kenar: "",
+            pkenar: "",
+            cap: "",
+            aynacap: "",
+            kulpbunye: "",
+            kesilensucuk: "",
+            kirpintimiktar: "",
+            camursert: "",
+            catlakkontrol: "",
+            rotuskontrol: "",
+            yuzeykontrol: "",
+            uygunsuzluktipi: "",
+            aciklama: "",
+            vardiyasorumlusu: "",
+            kelepenozulkontrol: "",
+            havakontrol: "",
+            urun_kodu: "",
+            vardiya: getShift(),
+            date: currentdatetime.toString(),
+            time: currentTime.toString(),
+            kontroleden_kisi: currentUser
+          })
+          handleClose()
+        }}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >

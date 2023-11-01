@@ -31,9 +31,9 @@ const style = {
 
 };
 
-const GranulKontrolModal = ({ open, setOpen, handleOpen, workCenterCode, materialCode }) => {
+const GranulKontrolModal = ({ open, handleClose, handleOpen, workCenterCode, materialCode }) => {
 
-  const handleClose = () => setOpen(false);
+  
 
   const handleChange = (e) => {
     setgranulkontrolData({ ...granulkontrolData, [e.target.name]: e.target.value })
@@ -87,11 +87,29 @@ const GranulKontrolModal = ({ open, setOpen, handleOpen, workCenterCode, materia
 
   return (
     <div>
-      <Button onClick={handleOpen} variant='outlined'>New</Button>
+      
       <Modal
         keepMounted
         open={open}
-        onClose={handleClose}
+        onClose={()=>{
+          setgranulkontrolData({
+            is_merkezi: "",
+            hammaddenem: "",
+            prosesnem: "",
+            bigbagtarih: "",
+            bigbagkodu: "",
+            granulkodu: "",
+            redkabul: "",
+            aciklama: "",
+            vardiyasorumlusu: "",
+            urun_kodu: "",
+            vardiya: getShift(),
+            date: currentdate.toString(),
+            time: currentTime.toString(),
+            kontroleden_kisi: currentUser
+          })
+          handleClose()
+        }}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >

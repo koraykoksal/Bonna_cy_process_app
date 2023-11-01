@@ -6,12 +6,14 @@ import ManDikTornaPresModal from '../components/modals/ManDikTornaPresModal';
 import { useSelector } from 'react-redux';
 import useArge from '../hooks/useArge';
 import { useEffect } from 'react';
+import Button from '@mui/material/Button';
+
 
 const Mandiktornapres = () => {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-
+  const handleClose = () => setOpen(false);
   const { getMaterialCenter, getWorkCenter } = useArge()
   const { workCenterCode, materialCode } = useSelector((state) => state.arge)
 
@@ -32,8 +34,10 @@ const Mandiktornapres = () => {
             Manuel Torna - Dik Torna - Dik Pres
         </Typography>
 
+        <Button onClick={handleOpen} variant='outlined'>New</Button>
+
         <Box>
-          <ManDikTornaPresModal open={open} setOpen={setOpen} handleOpen={handleOpen} workCenterCode={workCenterCode} materialCode={materialCode} />
+          <ManDikTornaPresModal open={open} handleClose={handleClose} setOpen={setOpen} handleOpen={handleOpen} workCenterCode={workCenterCode} materialCode={materialCode} />
         </Box>
     </div>
 

@@ -30,9 +30,9 @@ const style = {
 
 };
 
-const IzostatikPresModal=({open,setOpen,handleOpen,workCenterCode,materialCode})=>{
+const IzostatikPresModal=({open,handleClose,handleOpen,workCenterCode,materialCode})=>{
 
-  const handleClose = () => setOpen(false);
+  
 
   const handleChange=(e)=>{
     setIzostatikData({...izostatikData,[e.target.name]:e.target.value})
@@ -92,11 +92,37 @@ const IzostatikPresModal=({open,setOpen,handleOpen,workCenterCode,materialCode})
 
   return (
     <div>
-      <Button onClick={handleOpen} variant='outlined'>New</Button>
+      
       <Modal
         keepMounted
         open={open}
-        onClose={handleClose}
+        onClose={()=>{
+          setIzostatikData({
+            is_merkezi:"",
+            agirlik:"",
+            taban:"",
+            kenar:"",
+            pkenar:"",
+            cap:"",
+            izobasinc:"",
+            kapamabasinc:"",
+            vakumdegeri:"",
+            dolumsuresi:"",
+            urun_kodu:"",
+            catlakkontrol:"",
+            rotuskontrol:"",
+            yuzeykontrol:"",
+            hamurunistif:"",
+            uygunsuzluktipi:"",
+            aciklama:"",
+            vardiyasorumlusu:"",
+            vardiya:getShift(),
+            date:currentdatetime.toString(),
+            time:currentTime.toString(),
+            kontroleden_kisi:currentUser
+          })
+          handleClose()
+        }}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >

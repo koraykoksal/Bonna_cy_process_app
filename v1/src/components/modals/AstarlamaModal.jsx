@@ -31,9 +31,9 @@ const style = {
 
 };
 
-const AstarlamaModal=({open,setOpen,handleOpen})=>{
+const AstarlamaModal=({open,handleClose,handleOpen})=>{
 
-  const handleClose = () => setOpen(false);
+  
 
   const handleChange=(e)=>{
     setastarlamaData({...astarlamaData,[e.target.name]:e.target.value})
@@ -82,16 +82,33 @@ const AstarlamaModal=({open,setOpen,handleOpen})=>{
   })
 
 
-  console.log(astarlamaData)
-
+ 
 
   return (
     <div>
-      <Button onClick={handleOpen} variant='outlined'>New</Button>
+      
       <Modal
         keepMounted
         open={open}
-        onClose={handleClose}
+        onClose={()=>{
+          setastarlamaData({
+            is_merkezi:"",
+            yogunluk:"",
+            nozzlecap:"",
+            kasetsicaklik:"",
+            tankbasinc:"",
+            asterkalinlik:"",
+            astarlamayapankisi:"",
+            aciklama:"",
+            redkabul:"",
+            urun_kodu:"",
+            vardiya:getShift(),
+            date:currentdate.toString(),
+            time:currentTime.toString(),
+            kontroleden_kisi:currentUser
+          })
+          handleClose()
+        }}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >

@@ -31,9 +31,9 @@ const style = {
 
 };
 
-const AyakTaslamaModal=({open,setOpen,handleOpen,materialCode, designCode})=>{
+const AyakTaslamaModal=({open,handleClose,handleOpen,materialCode, designCode})=>{
 
-  const handleClose = () => setOpen(false);
+  
 
   const handleChange=(e)=>{
     setayakTaslamaData({...ayakTaslamaData,[e.target.name]:e.target.value})
@@ -122,11 +122,26 @@ const AyakTaslamaModal=({open,setOpen,handleOpen,materialCode, designCode})=>{
 
   return (
     <div>
-      <Button onClick={handleOpen} variant='outlined'>New</Button>
+      
       <Modal
         keepMounted
         open={open}
-        onClose={handleClose}
+        onClose={()=>{
+          setayakTaslamaData({
+            urun_kodu:"",
+            renkkodu:"",
+            kontrolAdet:"",
+            uygunsuzAdet:"",
+            uygunsuzlukOrani:0,
+            makineParametreKontrolu:"",
+            aciklama:"",
+            vardiya:getShift(),
+            date:currentdate.toString(),
+            time:currentTime.toString(),
+            kontroleden_kisi:currentUser
+          })
+          handleClose()
+        }}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >
