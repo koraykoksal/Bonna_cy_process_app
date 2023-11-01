@@ -31,7 +31,7 @@ const style = {
 
 };
 
-const DijitalLogoKontrolModal=({open,setOpen,handleOpen})=>{
+const DijitalLogoKontrolModal=({open,setOpen,handleOpen,materialCode})=>{
 
   const handleClose = () => setOpen(false);
 
@@ -106,14 +106,9 @@ const DijitalLogoKontrolModal=({open,setOpen,handleOpen})=>{
     dijitalLogoData.kontroledilenAdet
     ])
   
- 
 
-  console.log(dijitalLogoData)
+    console.log(materialCode)
 
-  
-
-
-  
   return (
     <div>
       <Button onClick={handleOpen} variant='outlined'>New</Button>
@@ -153,9 +148,11 @@ const DijitalLogoKontrolModal=({open,setOpen,handleOpen})=>{
                 value={dijitalLogoData.urun_kodu}
                 onChange={handleChange}
                 >
-                <MenuItem value="GRM23DZ">GRM23DZ</MenuItem>
-                <MenuItem value="BNC02CT">BNC02CT</MenuItem>
-                <MenuItem value="VNT22KS">VNT22KS</MenuItem>
+                {
+                  materialCode?.map(({MALZEMEKODU,index})=>(
+                    <MenuItem key={index} value={MALZEMEKODU}>{MALZEMEKODU}</MenuItem>
+                  ))
+                }
                 </Select>
             </FormControl>
 

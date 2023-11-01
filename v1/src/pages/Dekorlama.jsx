@@ -3,6 +3,9 @@ import {typoStyle} from "../styles/globalStyle"
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 import DekorlamaModal from '../components/modals/DekorlamaModal';
+import { useSelector } from 'react-redux';
+import useArge from '../hooks/useArge';
+import { useEffect } from 'react';
 
 
 const Dekorlama = () => {
@@ -10,6 +13,17 @@ const Dekorlama = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
 
+
+  const { getMaterialCenter, getWorkCenter } = useArge()
+  const { workCenterCode, materialCode } = useSelector((state) => state.arge)
+
+
+  //? sayfa ilk yuklendiğinde desen kodlarını erp den çek
+  useEffect(() => {
+
+    getMaterialCenter()
+
+  }, [])
 
   return (
     
@@ -19,7 +33,7 @@ const Dekorlama = () => {
         </Typography>
 
         <Box>
-          <DekorlamaModal open={open} setOpen={setOpen} handleOpen={handleOpen}/>
+          <DekorlamaModal open={open} setOpen={setOpen} handleOpen={handleOpen} materialCode={materialCode}/>
         </Box>
     </div>
 

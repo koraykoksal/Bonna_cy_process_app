@@ -8,13 +8,14 @@ import { useEffect, useState } from 'react';
 
 const Home = () => {
 
-  const { getDesenCode, getWorkCenter } = useArge()
+  const { getDesenCode, getWorkCenter,getMaterialCenter } = useArge()
   const { workCenterCode, designCode } = useSelector((state) => state.arge)
 
 
   //? sayfa ilk yuklendiğinde desen kodlarını erp den çek
   useEffect(() => {
 
+    getMaterialCenter()
     getDesenCode()
     getWorkCenter()
 

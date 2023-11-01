@@ -120,7 +120,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
     
   }, [designCode])
 
-  console.log(nihaiUrunData)
+
 
   return (
     <div>

@@ -31,7 +31,7 @@ const style = {
 
 };
 
-const AyakTaslamaModal=({open,setOpen,handleOpen})=>{
+const AyakTaslamaModal=({open,setOpen,handleOpen,materialCode, designCode})=>{
 
   const handleClose = () => setOpen(false);
 
@@ -104,13 +104,22 @@ const AyakTaslamaModal=({open,setOpen,handleOpen})=>{
     ])
   
  
+    const [newValue, setnewValue] = useState([])
 
-  console.log(ayakTaslamaData)
-
+    useEffect(() => {
   
-
-
+      //designCode array içinde value bilgileri tek bir array içine alınır
+      const data1 = designCode.map(item => item.DESENKODU)
   
+      //array içindeki bilgileri alfabetik sıraya göre listelenir
+      const data2 = data1.sort()
+  
+      setnewValue(data2)
+  
+    }, [designCode])
+
+
+
   return (
     <div>
       <Button onClick={handleOpen} variant='outlined'>New</Button>
@@ -150,9 +159,11 @@ const AyakTaslamaModal=({open,setOpen,handleOpen})=>{
                 value={ayakTaslamaData.urun_kodu}
                 onChange={handleChange}
                 >
-                <MenuItem value="GRM23DZ">GRM23DZ</MenuItem>
-                <MenuItem value="BNC02CT">BNC02CT</MenuItem>
-                <MenuItem value="VNT22KS">VNT22KS</MenuItem>
+                {
+                    materialCode?.map(({ MALZEMEKODU, index }) => (
+                      <MenuItem key={index} value={MALZEMEKODU}>{MALZEMEKODU}</MenuItem>
+                    ))
+                  }
                 </Select>
             </FormControl>
 
@@ -166,9 +177,11 @@ const AyakTaslamaModal=({open,setOpen,handleOpen})=>{
                 value={ayakTaslamaData.renkkodu}
                 onChange={handleChange}
                 >
-                <MenuItem value="ASC">ASC</MenuItem>
-                <MenuItem value="ASD">ASD</MenuItem>
-                <MenuItem value="ASF">ASF</MenuItem>
+                {
+                    newValue?.map((item, index) => (
+                      <MenuItem key={index} value={item}>{item}</MenuItem>
+                    ))
+                  }
                 </Select>
             </FormControl>
 

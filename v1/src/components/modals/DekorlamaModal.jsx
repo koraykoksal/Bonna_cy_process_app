@@ -31,7 +31,7 @@ const style = {
 
 };
 
-const DekorlamaModal=({open,setOpen,handleOpen})=>{
+const DekorlamaModal=({open,setOpen,handleOpen,materialCode})=>{
 
   const handleClose = () => setOpen(false);
 
@@ -83,13 +83,7 @@ const DekorlamaModal=({open,setOpen,handleOpen})=>{
   })
 
 
-  
- 
 
-  console.log(dekolamaData)
-
-
-  
   return (
     <div>
       <Button onClick={handleOpen} variant='outlined'>New</Button>
@@ -129,9 +123,11 @@ const DekorlamaModal=({open,setOpen,handleOpen})=>{
                 value={dekolamaData.urun_kodu}
                 onChange={handleChange}
                 >
-                <MenuItem value="GRM23DZ">GRM23DZ</MenuItem>
-                <MenuItem value="BNC02CT">BNC02CT</MenuItem>
-                <MenuItem value="VNT22KS">VNT22KS</MenuItem>
+                {
+                  materialCode?.map(({MALZEMEKODU,index})=>(
+                    <MenuItem key={index} value={MALZEMEKODU}>{MALZEMEKODU}</MenuItem>
+                  ))
+                }
                 </Select>
             </FormControl>
 
