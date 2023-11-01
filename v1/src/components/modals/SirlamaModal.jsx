@@ -31,7 +31,7 @@ const style = {
 
 };
 
-const SirlamaModal=({open,setOpen,handleOpen})=>{
+const SirlamaModal=({open,setOpen,handleOpen,workCenterCode, materialCode, designCode})=>{
 
   const handleClose = () => setOpen(false);
 
@@ -106,8 +106,20 @@ const SirlamaModal=({open,setOpen,handleOpen})=>{
     kontroleden_kisi:currentUser
   })
 
+  const [newValue, setnewValue] = useState([])
 
-  console.log(nihaiUrunData)
+  useEffect(() => {
+
+    //designCode array içinde value bilgileri tek bir array içine alınır
+    const data1 = designCode.map(item=>item.DESENKODU)
+
+    //array içindeki bilgileri alfabetik sıraya göre listelenir
+    const data2 = data1.sort()
+
+    setnewValue(data2)
+    
+  }, [designCode])
+
 
 
   return (
@@ -150,9 +162,11 @@ const SirlamaModal=({open,setOpen,handleOpen})=>{
                 value={nihaiUrunData.uretimyeri}
                 onChange={handleChange}
                 >
-                <MenuItem value="SR-OT1">SR-OT1</MenuItem>
-                <MenuItem value="SR-OT2">SR-OT2</MenuItem>
-                <MenuItem value="SR-OT3">SR-OT3</MenuItem>
+                {
+                  workCenterCode?.filter(data=>data.ISMERKEZI.includes('SR')).map(({ISMERKEZI,index})=>(
+                    <MenuItem key={index} value={ISMERKEZI}>{ISMERKEZI}</MenuItem>
+                  ))
+                }
                 </Select>
             </FormControl>
             
@@ -167,9 +181,11 @@ const SirlamaModal=({open,setOpen,handleOpen})=>{
                 value={nihaiUrunData.urun_kodu}
                 onChange={handleChange}
                 >
-                <MenuItem value="GRM23DZ">GRM23DZ</MenuItem>
-                <MenuItem value="BNC02CT">BNC02CT</MenuItem>
-                <MenuItem value="VNT22KS">VNT22KS</MenuItem>
+                {
+                  materialCode?.map(({MALZEMEKODU,index})=>(
+                    <MenuItem key={index} value={MALZEMEKODU}>{MALZEMEKODU}</MenuItem>
+                  ))
+                }
                 </Select>
             </FormControl>
 
@@ -184,9 +200,11 @@ const SirlamaModal=({open,setOpen,handleOpen})=>{
                 value={nihaiUrunData.renkKodu}
                 onChange={handleChange}
                 >
-                <MenuItem value="ASD">ASD</MenuItem>
-                <MenuItem value="ADF">ADF</MenuItem>
-                <MenuItem value="ASS">ASS</MenuItem>
+                {
+                  newValue?.map((item,index)=>(
+                    <MenuItem key={index} value={item}>{item}</MenuItem>
+                  ))
+                }
                 </Select>
             </FormControl>
             

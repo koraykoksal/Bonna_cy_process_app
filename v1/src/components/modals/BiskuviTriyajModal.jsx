@@ -31,7 +31,7 @@ const style = {
 
 };
 
-const BiskuviTriyajModal=({open,setOpen,handleOpen})=>{
+const BiskuviTriyajModal=({open,setOpen,handleOpen,materialCode})=>{
 
   const handleClose = () => setOpen(false);
 
@@ -171,9 +171,11 @@ const BiskuviTriyajModal=({open,setOpen,handleOpen})=>{
                 value={triyajData.urun_kodu}
                 onChange={handleChange}
                 >
-                <MenuItem value="GRM23DZ">GRM23DZ</MenuItem>
-                <MenuItem value="BNC02CT">BNC02CT</MenuItem>
-                <MenuItem value="VNT22KS">VNT22KS</MenuItem>
+                 {
+                    materialCode?.map(({ MALZEMEKODU, index }) => (
+                      <MenuItem key={index} value={MALZEMEKODU}>{MALZEMEKODU}</MenuItem>
+                    ))
+                  }
                 </Select>
             </FormControl>
 

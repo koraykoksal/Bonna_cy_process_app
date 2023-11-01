@@ -31,7 +31,7 @@ const style = {
 
 };
 
-const KulpDokumCamurModal=({open,setOpen,handleOpen})=>{
+const KulpDokumCamurModal=({open,setOpen,handleOpen,workCenterCode, materialCode})=>{
 
   const handleClose = () => setOpen(false);
 
@@ -132,9 +132,11 @@ const KulpDokumCamurModal=({open,setOpen,handleOpen})=>{
                 value={kulpdokumcamurData.is_merkezi}
                 onChange={handleChange}
                 >
-                <MenuItem value="SK-KP1">SK-KP1</MenuItem>
-                <MenuItem value="SK-KP2">SK-KP2</MenuItem>
-                <MenuItem value="SK-KP3">SK-KP3</MenuItem>
+                {
+                    workCenterCode?.filter(data => data.ISMERKEZI.includes('SK-KD')).map(({ ISMERKEZI, index }) => (
+                      <MenuItem key={index} value={ISMERKEZI}>{ISMERKEZI}</MenuItem>
+                    ))
+                  }
                 </Select>
             </FormControl>
             
@@ -149,9 +151,11 @@ const KulpDokumCamurModal=({open,setOpen,handleOpen})=>{
                 value={kulpdokumcamurData.urun_kodu}
                 onChange={handleChange}
                 >
-                <MenuItem value="GRM23DZ">GRM23DZ</MenuItem>
-                <MenuItem value="BNC02CT">BNC02CT</MenuItem>
-                <MenuItem value="VNT22KS">VNT22KS</MenuItem>
+                {
+                    materialCode?.map(({ MALZEMEKODU, index }) => (
+                      <MenuItem key={index} value={MALZEMEKODU}>{MALZEMEKODU}</MenuItem>
+                    ))
+                  }
                 </Select>
             </FormControl>
             

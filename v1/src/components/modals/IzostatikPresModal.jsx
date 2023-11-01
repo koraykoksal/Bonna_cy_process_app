@@ -89,6 +89,7 @@ const IzostatikPresModal=({open,setOpen,handleOpen,workCenterCode,materialCode})
   })
 
 
+
   return (
     <div>
       <Button onClick={handleOpen} variant='outlined'>New</Button>
@@ -131,7 +132,7 @@ const IzostatikPresModal=({open,setOpen,handleOpen,workCenterCode,materialCode})
                 onChange={handleChange}
                 >
                 {
-                  workCenterCode.filter(data=>data.ISMERKEZI.includes('SK')).map(({ISMERKEZI,index})=>(
+                  workCenterCode?.filter(data=>data.ISMERKEZI.includes('SK-KP')).map(({ISMERKEZI,index})=>(
                     <MenuItem key={index} value={ISMERKEZI}>{ISMERKEZI}</MenuItem>
                   ))
                 }
@@ -151,7 +152,7 @@ const IzostatikPresModal=({open,setOpen,handleOpen,workCenterCode,materialCode})
                 onChange={handleChange}
                 >
                 {
-                  materialCode.map(({MALZEMEKODU,index})=>(
+                  materialCode?.map(({MALZEMEKODU,index})=>(
                     <MenuItem key={index} value={MALZEMEKODU}>{MALZEMEKODU}</MenuItem>
                   ))
                 }

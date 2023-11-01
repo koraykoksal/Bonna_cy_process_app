@@ -115,7 +115,7 @@ const AstarlamaModal=({open,setOpen,handleOpen})=>{
             <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
 
               {/* makine */}
-            <FormControl fullWidth>
+            {/* <FormControl fullWidth>
                 <InputLabel id="is_merkezi">Makine</InputLabel>
                 <Select
                 labelId="is_merkezi"
@@ -129,10 +129,10 @@ const AstarlamaModal=({open,setOpen,handleOpen})=>{
                 <MenuItem value="SK-KP2">SK-KP2</MenuItem>
                 <MenuItem value="SK-KP3">SK-KP3</MenuItem>
                 </Select>
-            </FormControl>
+            </FormControl> */}
             
             {/* ürün kodu */}
-            <FormControl fullWidth>
+            {/* <FormControl fullWidth>
                 <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
                 <Select
                 labelId="urun_kodu"
@@ -146,7 +146,7 @@ const AstarlamaModal=({open,setOpen,handleOpen})=>{
                 <MenuItem value="BNC02CT">BNC02CT</MenuItem>
                 <MenuItem value="VNT22KS">VNT22KS</MenuItem>
                 </Select>
-            </FormControl>
+            </FormControl> */}
             
             </Box>
 
