@@ -31,9 +31,9 @@ const style = {
 
 };
 
-const SirlamaModal=({open,setOpen,handleOpen,workCenterCode, materialCode, designCode})=>{
+const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})=>{
 
-  const handleClose = () => setOpen(false);
+  // const handleClose = () => setOpen(false);
 
   const handleChange=(e)=>{
     setnihaiUrunData({...nihaiUrunData,[e.target.name]:e.target.value})
@@ -120,15 +120,58 @@ const SirlamaModal=({open,setOpen,handleOpen,workCenterCode, materialCode, desig
     
   }, [designCode])
 
-
+  console.log(nihaiUrunData)
 
   return (
     <div>
-      <Button onClick={handleOpen} variant='outlined'>New</Button>
+      
       <Modal
         keepMounted
         open={open}
-        onClose={handleClose}
+        onClose={()=>{
+          setnihaiUrunData({
+            renkKodu:"",
+            urun_kodu:"",
+            uretimyeri:"",
+            yogunluk:"",
+            sirSicaklik:"",
+            viskozite:"",
+            viskozite_v1:"",
+            viskozite_v2:"",
+            viskozite_v1v2:"",
+            tankKazan_KaristirmaHizi:"",
+            balerinTurnetHizi:"",
+            balerinGobekHizi:"",
+            pompaBasinci:"",
+            aktifNozulSayisi_alt:"",
+            aktifNozulSayisi_ust:"",
+            sirGramaji:"",
+            sirKalinligi_taban:"",
+            sirKalinligi_kenar:"",
+            sirKalinligi_orta:"",
+            biskuviKontrol:"",
+            biskuviSilimi_silimSuyu:"",
+            biskuviSilimi_silimSungeri:"",
+            biskuviSilimi_urunSilimi:"",
+            makineYikanmasi:"",
+            manyetikYikanmasi:"",
+            kazandaCokme:"",
+            receteKontrolu:"",
+            ayakSilimi_silimSungeri:"",
+            ayakSilimi_urunAyakSilimi:"",
+            sirliUrunYuzeyKontrolu:"",
+            auraBoyaLekesiKontrol:"",
+            auraBeklemeSuresiKontrol:"",
+            uygunsuzlukTipi:"",
+            aciklama:"",
+            operator:"",
+            vardiya:getShift(),
+            date:currentdate.toString(),
+            time:currentTime.toString(),
+            kontroleden_kisi:currentUser
+          })
+          handleClose()
+        }}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >
