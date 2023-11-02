@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { designDataSuccess,fetchFail,fetchStart,materialDataSuccess,workCenterDataSuccess } from '../features/argeSlice'
 import { toastErrorNotify } from '../helpers/ToastNotify'
 import { doc, setDoc, Timestamp } from "firebase/firestore"; 
-import {db} from "firebase/database"
+import {auth} from "../auth/firebase.js"
 
 
 const useArge=()=>{
@@ -92,9 +92,9 @@ const useArge=()=>{
 
         try {
             
-            // const result = await setDoc(doc(db,"izo_statik_pres","l4wWSo3wGyRpXYSQXyj1"),info)
+            const result = await setDoc(doc(auth,"izo_statik_pres","l4wWSo3wGyRpXYSQXyj1"),info)
 
-            // console.log(result)
+            console.log(result)
             
         } catch (error) {
             console.log(error)
@@ -102,7 +102,7 @@ const useArge=()=>{
     }
 
 
-    return {getDesenCode,getWorkCenter,getMaterialCenter}
+    return {getDesenCode,getWorkCenter,getMaterialCenter,setIzoStatikPresData}
 
 }
 

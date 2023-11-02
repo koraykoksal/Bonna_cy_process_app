@@ -44,6 +44,8 @@ const IzostatikPresModal=({open,handleClose,handleOpen,workCenterCode,materialCo
 
   const {currentUser} = useSelector((state) => state.auth)
 
+  const {setIzoStatikPresData} = useSelector((state)=>state.arge)
+
   let getVardiya = 0;
 
   const getShift=()=>{
@@ -88,7 +90,12 @@ const IzostatikPresModal=({open,handleClose,handleOpen,workCenterCode,materialCo
     kontroleden_kisi:currentUser
   })
 
+  const handleSubmit=(e)=>{
+    e.preventDefault()
+    setIzoStatikPresData(izostatikData)
+  }
 
+  console.log(izostatikData)
 
   return (
     <div>
@@ -429,6 +436,7 @@ const IzostatikPresModal=({open,handleClose,handleOpen,workCenterCode,materialCo
             variant='contained'
             fullWidth
             type='submit'
+            onClick={handleSubmit}
             >
                 Save
             </Button>
