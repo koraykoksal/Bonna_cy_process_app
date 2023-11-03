@@ -31,13 +31,14 @@ const style = {
 
 };
 
-const OtomatikTornaModal = ({ open, handleClose, handleOpen, workCenterCode, materialCode }) => {
+const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, materialCode }) => {
 
-  
 
   const handleChange = (e) => {
     setOtomatiktornaData({ ...otomatiktornaData, [e.target.name]: e.target.value })
   }
+
+
 
   const nowData = new Date()
   const currentdatetime = nowData.getDate() + "-" + (nowData.getMonth() + 1) + "-" + nowData.getFullYear()
@@ -63,6 +64,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen, workCenterCode, mat
     return getVardiya
 
   }
+
 
   const [otomatiktornaData, setOtomatiktornaData] = useState({
     is_merkezi: "",

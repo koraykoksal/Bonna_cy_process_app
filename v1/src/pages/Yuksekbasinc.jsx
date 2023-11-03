@@ -23,7 +23,7 @@ const Yuksekbasinc = () => {
     getMaterialCenter()
     getWorkCenter()
 
-  }, [])
+  }, [!workCenterCode, !materialCode])
 
   
   return (

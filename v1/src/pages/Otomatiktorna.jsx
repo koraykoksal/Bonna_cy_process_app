@@ -23,7 +23,7 @@ const Otomatiktorna = () => {
     getMaterialCenter()
     getWorkCenter()
 
-  }, [])
+  }, [!workCenterCode, !materialCode])
 
 
   return (

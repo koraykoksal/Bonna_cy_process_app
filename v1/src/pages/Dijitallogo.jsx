@@ -13,8 +13,8 @@ const Dijitallogo = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { getMaterialCenter, getWorkCenter } = useArge()
-  const { workCenterCode, materialCode } = useSelector((state) => state.arge)
+  const { getMaterialCenter } = useArge()
+  const { materialCode } = useSelector((state) => state.arge)
 
 
   //? sayfa ilk yuklendiğinde desen kodlarını erp den çek
@@ -22,7 +22,7 @@ const Dijitallogo = () => {
 
     getMaterialCenter()
 
-  }, [])
+  }, [!materialCode])
 
 
   return (

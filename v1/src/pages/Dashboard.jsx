@@ -30,7 +30,7 @@ import MenuItem from '@mui/material/MenuItem';
 import useArge from '../hooks/useArge';
 import { useEffect, useState } from 'react';
 
-const drawerWidth = 270;
+const drawerWidth = 280;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -103,10 +103,6 @@ const Dashboard = () => {
   const navigate = useNavigate()
 
   const { currentUser } = useSelector((state) => state.auth)
-  const { getDesenCode, getWorkCenter } = useArge()
-  const { workCenterCode, designCode } = useSelector((state) => state.arge)
-
-
 
   const { logout } = useAuthCall()
 
@@ -120,14 +116,6 @@ const Dashboard = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
-  //? sayfa ilk yuklendiğinde desen kodlarını erp den çek
-  useEffect(() => {
-
-    getDesenCode()
-    getWorkCenter()
-
-  }, [])
 
 
 
@@ -213,7 +201,11 @@ const Dashboard = () => {
         {/* <Toolbar /> */}
         {/* burada kullanılan outlet dashboard içinde çağırılan sayfaların route işlemini yapıyor.
         nested olarak kullanılan yapılarda outlet bilgisini belirtmek gerekiyor. Outlet tagi onclick yapılacak yere yazılır. */}
+
+
         <Outlet />
+        
+
       </Box>
 
     </Box>

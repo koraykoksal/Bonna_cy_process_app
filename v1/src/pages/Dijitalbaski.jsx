@@ -15,17 +15,16 @@ const Dijitalbaski = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const { getMaterialCenter, getWorkCenter,getDesenCode } = useArge()
-  const { workCenterCode, materialCode, designCode } = useSelector((state) => state.arge)
+  const { getMaterialCenter,getDesenCode } = useArge()
+  const {materialCode, designCode } = useSelector((state) => state.arge)
 
 
   //? sayfa ilk yuklendiğinde desen kodlarını erp den çek
   useEffect(() => {
 
     getMaterialCenter()
-    getWorkCenter()
     getDesenCode()
-  }, [])
+  }, [!materialCode && !designCode ])
 
   return (
     

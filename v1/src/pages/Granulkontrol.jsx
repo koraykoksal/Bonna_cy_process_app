@@ -24,7 +24,7 @@ const Granulkontrol = () => {
     getMaterialCenter()
     getWorkCenter()
 
-  }, [])
+  }, [!workCenterCode, !materialCode])
 
 
   return (

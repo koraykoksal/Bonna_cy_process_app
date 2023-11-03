@@ -24,7 +24,7 @@ const Mandiktornapres = () => {
     getMaterialCenter()
     getWorkCenter()
 
-  }, [])
+  }, [!workCenterCode, !materialCode])
 
 
   return (

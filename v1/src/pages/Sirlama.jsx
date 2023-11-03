@@ -24,7 +24,7 @@ const Sirlama = () => {
     getMaterialCenter()
     getWorkCenter()
     getDesenCode()
-  }, [])
+  }, [!workCenterCode, !materialCode, !designCode])
 
 
   return (

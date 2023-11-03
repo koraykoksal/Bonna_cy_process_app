@@ -16,6 +16,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useState ,useEffect} from 'react';
 import {uygunsuzlukTipi} from "../../helpers/ProcessData"
 import {useSelector} from "react-redux"
+import useArge from '../../hooks/useArge';
 
 const style = {
   position: 'absolute',
@@ -30,9 +31,7 @@ const style = {
 
 };
 
-const IzostatikPresModal=({open,handleClose,handleOpen,workCenterCode,materialCode})=>{
-
-  
+const IzostatikPresModal=({open,handleClose,handleOpen,workCenterCode, materialCode})=>{
 
   const handleChange=(e)=>{
     setIzostatikData({...izostatikData,[e.target.name]:e.target.value})
@@ -45,6 +44,8 @@ const IzostatikPresModal=({open,handleClose,handleOpen,workCenterCode,materialCo
   const {currentUser} = useSelector((state) => state.auth)
 
   const {setIzoStatikPresData} = useSelector((state)=>state.arge)
+
+
 
   let getVardiya = 0;
 
@@ -95,7 +96,7 @@ const IzostatikPresModal=({open,handleClose,handleOpen,workCenterCode,materialCo
     setIzoStatikPresData(izostatikData)
   }
 
-  console.log(izostatikData)
+
 
   return (
     <div>
@@ -165,7 +166,7 @@ const IzostatikPresModal=({open,handleClose,handleOpen,workCenterCode,materialCo
                 onChange={handleChange}
                 >
                 {
-                  workCenterCode?.filter(data=>data.ISMERKEZI.includes('SK-KP')).map(({ISMERKEZI,index})=>(
+                  workCenterCode?.filter(data=>data?.ISMERKEZI?.includes('SK-KP')).map(({ISMERKEZI,index})=>(
                     <MenuItem key={index} value={ISMERKEZI}>{ISMERKEZI}</MenuItem>
                   ))
                 }

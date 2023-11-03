@@ -23,7 +23,7 @@ const Kulpdokum = () => {
     getMaterialCenter()
     getWorkCenter()
 
-  }, [])
+  }, [!workCenterCode, !materialCode])
 
 
   return (

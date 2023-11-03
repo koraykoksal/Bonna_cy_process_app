@@ -16,6 +16,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useState, useEffect } from 'react';
 import { uygunsuzlukTipi } from "../../helpers/ProcessData"
 import { useSelector } from "react-redux"
+import useArge from '../../hooks/useArge';
 
 
 const style = {
@@ -34,7 +35,6 @@ const style = {
 const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materialCode }) => {
 
   
-
   const handleChange = (e) => {
     setdokumHattiData({ ...dokumHattiData, [e.target.name]: e.target.value })
   }
@@ -44,6 +44,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
   const currentTime = nowData.getHours() + ":" + nowData.getMinutes()
 
   const { currentUser } = useSelector((state) => state.auth)
+
 
   let getVardiya = 0;
 

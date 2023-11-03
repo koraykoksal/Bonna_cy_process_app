@@ -24,7 +24,7 @@ const Dokumhatti = () => {
     getMaterialCenter()
     getWorkCenter()
 
-  }, [])
+  }, [!workCenterCode && !workCenterCode])
 
 
   return (

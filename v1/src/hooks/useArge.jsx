@@ -102,7 +102,7 @@ const useArge=()=>{
     }
 
 
-    return {getDesenCode,getWorkCenter,getMaterialCenter,setIzoStatikPresData}
+    return {getDesenCode,getWorkCenter,getMaterialCenter}
 
 }
 

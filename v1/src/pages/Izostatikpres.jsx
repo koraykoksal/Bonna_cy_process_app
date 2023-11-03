@@ -23,7 +23,7 @@ const Izostatikpres = () => {
     getMaterialCenter()
     getWorkCenter()
 
-  }, [])
+  }, [!workCenterCode && !materialCode])
 
   
 
@@ -37,7 +37,7 @@ const Izostatikpres = () => {
         <Button onClick={handleOpen} variant='outlined'>New</Button>
 
       <Box>
-        <IzostatikPresModal open={open} handleClose={handleClose} handleOpen={handleOpen} setOpen={setOpen} workCenterCode={workCenterCode} materialCode={materialCode}/>
+        <IzostatikPresModal open={open} handleClose={handleClose} handleOpen={handleOpen} setOpen={setOpen} materialCode={materialCode} workCenterCode={workCenterCode}/>
       </Box>
 
     </div>
