@@ -1,10 +1,9 @@
 import axios, { formToJSON } from 'axios'
 import { useDispatch } from 'react-redux'
 import { designDataSuccess,fetchFail,fetchStart,materialDataSuccess,workCenterDataSuccess } from '../features/argeSlice'
-import { toastErrorNotify } from '../helpers/ToastNotify'
-import { doc, setDoc, Timestamp } from "firebase/firestore"; 
-import {auth} from "../auth/firebase.js"
-
+import { toastErrorNotify, toastSuccessNotify } from '../helpers/ToastNotify'
+import { doc, setDoc, Timestamp,collection,addDoc } from "firebase/firestore"; 
+import {db} from "../db/firebase_db"
 
 const useArge=()=>{
 
@@ -88,13 +87,18 @@ const useArge=()=>{
     }
 
 
-    const setIzoStatikPresData=async (info)=>{
+    const postIzoStatikPresData=async (info)=>{
 
         try {
-            
-            const result = await setDoc(doc(auth,"izo_statik_pres","l4wWSo3wGyRpXYSQXyj1"),info)
 
-            console.log(result)
+            const res = await addDoc(collection(db,'izo_statik_pres'),info)
+
+            if(res?._key?.path?.segments[1]){
+                toastSuccessNotify('Success ✅')
+            }
+            else{
+                toastSuccessNotify('Error ❌')
+            }
             
         } catch (error) {
             console.log(error)
@@ -102,9 +106,13 @@ const useArge=()=>{
     }
 
 
-    return {getDesenCode,getWorkCenter,getMaterialCenter}
+
+
+    return {getDesenCode,getWorkCenter,getMaterialCenter,postIzoStatikPresData}
 
 }
+
+
 
 
 export default useArge
