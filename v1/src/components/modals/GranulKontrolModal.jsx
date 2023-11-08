@@ -31,7 +31,7 @@ const style = {
 
 };
 
-const GranulKontrolModal = ({ open, handleClose, handleOpen, workCenterCode, materialCode }) => {
+const GranulKontrolModal = ({ open, handleClose, handleOpen, workCenterCode, hammaddeCode }) => {
 
   
 
@@ -82,7 +82,7 @@ const GranulKontrolModal = ({ open, handleClose, handleOpen, workCenterCode, mat
   })
 
 
-  console.log(granulkontrolData)
+  console.log(hammaddeCode.HAMMADDEKODU)
 
 
   return (
@@ -164,11 +164,11 @@ const GranulKontrolModal = ({ open, handleClose, handleOpen, workCenterCode, mat
                 >
 
                   {/* hammadde malzemeleri gelecek */}
-                  {/* {
-                    materialCode?.map(({ MALZEMEKODU, index }) => (
-                      <MenuItem key={index} value={MALZEMEKODU}>{MALZEMEKODU}</MenuItem>
+                  {
+                    hammaddeCode?.map(({ HAMMADDEKODU, index }) => (
+                      <MenuItem key={index} value={HAMMADDEKODU}>{HAMMADDEKODU}</MenuItem>
                     ))
-                } */}
+                }
                 </Select>
               </FormControl>
 

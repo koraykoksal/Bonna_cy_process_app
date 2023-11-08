@@ -1,6 +1,6 @@
 import axios, { formToJSON } from 'axios'
 import { useDispatch } from 'react-redux'
-import { designDataSuccess,fetchFail,fetchStart,materialDataSuccess,workCenterDataSuccess } from '../features/argeSlice'
+import { designDataSuccess,fetchFail,fetchStart,materialDataSuccess,workCenterDataSuccess,hammaddeDataSuccess } from '../features/argeSlice'
 import { toastErrorNotify, toastSuccessNotify } from '../helpers/ToastNotify'
 import { doc, setDoc, Timestamp,collection,addDoc } from "firebase/firestore"; 
 import {db} from "../db/firebase_db"
@@ -11,6 +11,7 @@ const useArge=()=>{
     const material = 1
     const desen = 2
     const workcenter = 3
+    const argeMaterial = 4
 
     const dispatch=useDispatch()
 
@@ -107,8 +108,34 @@ const useArge=()=>{
 
 
 
+    const hammaddeMaterialCode=async()=>{
 
-    return {getDesenCode,getWorkCenter,getMaterialCenter,postIzoStatikPresData}
+        dispatch(fetchStart())
+
+        try {
+
+            const data =await axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${argeMaterial}`)
+            
+            const result = data.data
+
+            dispatch(hammaddeDataSuccess(result))
+            
+        } catch (err) {
+            dispatch(fetchFail())
+            console.log("hamamdde material hata : ",err)
+            toastErrorNotify(err)
+        }
+
+    }
+
+
+    return {
+        getDesenCode,
+        getWorkCenter,
+        getMaterialCenter,
+        postIzoStatikPresData,
+        hammaddeMaterialCode
+    }
 
 }
 

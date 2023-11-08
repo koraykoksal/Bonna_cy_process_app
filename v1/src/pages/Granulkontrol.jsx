@@ -14,17 +14,17 @@ const Granulkontrol = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const { getMaterialCenter, getWorkCenter } = useArge()
-  const { workCenterCode, materialCode } = useSelector((state) => state.arge)
+  const { getWorkCenter,hammaddeMaterialCode } = useArge()
+  const { workCenterCode, hammaddeCode } = useSelector((state) => state.arge)
 
 
   //? sayfa ilk yuklendiğinde desen kodlarını erp den çek
   useEffect(() => {
 
-    getMaterialCenter()
+    hammaddeMaterialCode()
     getWorkCenter()
 
-  }, [!workCenterCode, !materialCode])
+  }, [!workCenterCode, !hammaddeCode])
 
 
   return (
@@ -37,7 +37,7 @@ const Granulkontrol = () => {
         <Button onClick={handleOpen} variant='outlined'>New</Button>
 
         <Box>
-          <GranulKontrolModal open={open} handleClose={handleClose} setOpen={setOpen} handleOpen={handleOpen} workCenterCode={workCenterCode} materialCode={materialCode}/>
+          <GranulKontrolModal open={open} handleClose={handleClose} setOpen={setOpen} handleOpen={handleOpen} workCenterCode={workCenterCode} hammaddeCode={hammaddeCode}/>
         </Box>
     </div>
 

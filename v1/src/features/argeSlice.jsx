@@ -6,7 +6,8 @@ const initialState={
     error:false,
     designCode:[],
     materialCode:[],
-    workCenterCode:[]
+    workCenterCode:[],
+    hammaddeCode:[]
 }
 
 
@@ -42,6 +43,14 @@ const argeSlice=createSlice({
             state.materialCode = payload
             
         },
+        hammaddeDataSuccess: (state, {payload}) => {
+  
+            state.loading = false;
+            state.error = false;
+
+            state.hammaddeCode = payload
+            
+        },
         fetchFail: (state) => {
             state.loading = false;
             state.error = true;
@@ -57,6 +66,8 @@ export const {
     designDataSuccess,
     workCenterDataSuccess,
     materialDataSuccess,
+    hammaddeDataSuccess
+
 }=argeSlice.actions
 
 export default argeSlice.reducer
