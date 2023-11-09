@@ -1,8 +1,17 @@
 import axios, { formToJSON } from 'axios'
 import { useDispatch } from 'react-redux'
-import { designDataSuccess,fetchFail,fetchStart,materialDataSuccess,workCenterDataSuccess,hammaddeDataSuccess } from '../features/argeSlice'
+import { 
+    designDataSuccess,
+    fetchFail,
+    fetchStart,
+    materialDataSuccess,
+    workCenterDataSuccess
+    ,hammaddeDataSuccess ,
+    fetchIzoStatikPresData
+
+} from '../features/argeSlice'
 import { toastErrorNotify, toastSuccessNotify } from '../helpers/ToastNotify'
-import { doc, setDoc, Timestamp,collection,addDoc } from "firebase/firestore"; 
+import { doc, setDoc, Timestamp,collection,addDoc,getDocs } from "firebase/firestore"; 
 import {db} from "../db/firebase_db"
 
 const useArge=()=>{
@@ -87,27 +96,6 @@ const useArge=()=>{
 
     }
 
-
-    const postIzoStatikPresData=async (info)=>{
-
-        try {
-
-            const res = await addDoc(collection(db,'izo_statik_pres'),info)
-
-            if(res?._key?.path?.segments[1]){
-                toastSuccessNotify('Success ✅')
-            }
-            else{
-                toastSuccessNotify('Error ❌')
-            }
-            
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-
-
     const hammaddeMaterialCode=async()=>{
 
         dispatch(fetchStart())
@@ -129,12 +117,62 @@ const useArge=()=>{
     }
 
 
+    //! firebase data gönder
+    const postIzoStatikPresData=async (info)=>{
+
+        try {
+
+            const res = await addDoc(collection(db,'izo_statik_pres'),info)
+
+            console.log(res)
+
+            // if(res?._key?.path?.segments[1]){
+            //     toastSuccessNotify('Success ✅')
+            // }
+            // else{
+            //     toastSuccessNotify('Error ❌')
+            // }
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    //! firebase data çek
+    const getIzoStatikPresData=async ()=>{
+
+        dispatch(fetchStart())
+
+        try {
+
+            const res = await getDocs(collection(db,'izo_statik_pres'),)
+
+            res.forEach((doc) => {
+
+                dispatch(fetchIzoStatikPresData(doc.data()))
+            });
+
+            
+            
+        } catch (error) {
+            console.log(error)
+            toastSuccessNotify('İzo Statik Pres Data Error ❌')
+        }
+    }
+
+
+
+   
+
+
     return {
         getDesenCode,
         getWorkCenter,
         getMaterialCenter,
+        hammaddeMaterialCode,
         postIzoStatikPresData,
-        hammaddeMaterialCode
+        getIzoStatikPresData,
     }
 
 }

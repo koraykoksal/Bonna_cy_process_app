@@ -43,7 +43,7 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen, workCenterCode, mat
 
   const { currentUser } = useSelector((state) => state.auth)
 
-  const { postIzoStatikPresData } = useArge()
+  const { postIzoStatikPresData} = useArge()
 
 
 
@@ -85,7 +85,7 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen, workCenterCode, mat
     uygunsuzluktipi: "",
     aciklama: "",
     vardiyasorumlusu: "",
-    vardiya: getShift(),
+    vardiya: getShift().toString(),
     date: currentdatetime.toString(),
     time: currentTime.toString(),
     kontroleden_kisi: currentUser
@@ -94,8 +94,12 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen, workCenterCode, mat
   const handleSubmit = (e) => {
     e.preventDefault()
     postIzoStatikPresData(izostatikData)
+    
 
   }
+
+
+  
 
   return (
     <div>

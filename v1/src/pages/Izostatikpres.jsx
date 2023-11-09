@@ -6,6 +6,9 @@ import useArge from '../hooks/useArge';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
+import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid"
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever"
+import EditIcon from "@mui/icons-material/Edit"
 
 const Izostatikpres = () => {
 
@@ -13,8 +16,8 @@ const Izostatikpres = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const { getMaterialCenter, getWorkCenter } = useArge()
-  const { workCenterCode, materialCode } = useSelector((state) => state.arge)
+  const { getMaterialCenter, getWorkCenter,getIzoStatikPresData } = useArge()
+  const { workCenterCode, materialCode,izoStatikPresData } = useSelector((state) => state.arge)
 
 
   //? sayfa ilk yuklendiğinde desen kodlarını erp den çek
@@ -25,7 +28,12 @@ const Izostatikpres = () => {
 
   }, [!workCenterCode && !materialCode])
 
+  useEffect(() => {
+    getIzoStatikPresData()
+  }, [])
   
+  
+
 
   return (
 
