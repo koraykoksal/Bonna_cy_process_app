@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
     currentUser: null,
+    userID:"",
     loading: false,
     error: false,
     isAdmin: false,
@@ -24,6 +25,8 @@ const authSlice=createSlice({
             state.currentUser = payload?.displayName;
             state.isAdmin = false;
             state.token = payload?.accessToken;
+            state.userID=payload?.uid
+           
             
           },
           logoutSuccess: (state) => {

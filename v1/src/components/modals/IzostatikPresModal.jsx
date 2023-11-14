@@ -18,6 +18,7 @@ import { uygunsuzlukTipi } from "../../helpers/ProcessData"
 import { useSelector } from "react-redux"
 import useArge from '../../hooks/useArge';
 
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -31,23 +32,20 @@ const style = {
 
 };
 
-const IzostatikPresModal = ({ open, handleClose, handleOpen, workCenterCode, materialCode }) => {
+const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
 
   const handleChange = (e) => {
     setIzostatikData({ ...izostatikData, [e.target.name]: e.target.value })
   }
 
+  let getVardiya = 0;
   const nowData = new Date()
   const currentdatetime = nowData.getDate() + "-" + (nowData.getMonth() + 1) + "-" + nowData.getFullYear()
   const currentTime = nowData.getHours() + ":" + nowData.getMinutes()
 
   const { currentUser } = useSelector((state) => state.auth)
 
-  const { postIzoStatikPresData} = useArge()
-
-
-
-  let getVardiya = 0;
+  const { postIzoStatikPresData } = useArge()
 
   const getShift = () => {
     const now = new Date().getHours()
@@ -91,15 +89,59 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen, workCenterCode, mat
     kontroleden_kisi: currentUser
   })
 
+
+
   const handleSubmit = (e) => {
+
     e.preventDefault()
     postIzoStatikPresData(izostatikData)
-    
+    getIzoStatikPresData()
+
+    setIzostatikData({
+      is_merkezi: "",
+      agirlik: "",
+      taban: "",
+      kenar: "",
+      pkenar: "",
+      cap: "",
+      izobasinc: "",
+      kapamabasinc: "",
+      vakumdegeri: "",
+      dolumsuresi: "",
+      urun_kodu: "",
+      catlakkontrol: "",
+      rotuskontrol: "",
+      yuzeykontrol: "",
+      hamurunistif: "",
+      uygunsuzluktipi: "",
+      aciklama: "",
+      vardiyasorumlusu: "",
+      vardiya: getShift().toString(),
+      date: currentdatetime.toString(),
+      time: currentTime.toString(),
+      kontroleden_kisi: currentUser
+    })
+
+    handleClose()
 
   }
 
+  const { getMaterialCenter, getWorkCenter, getIzoStatikPresData } = useArge()
+  const { workCenterCode, materialCode } = useSelector((state) => state.arge)
 
-  
+
+
+  //? sayfa ilk yuklendiğinde desen kodlarını erp den çek
+  useEffect(() => {
+
+    getMaterialCenter()
+    getWorkCenter()
+
+  }, [])
+
+
+
+
 
   return (
     <div>
@@ -135,6 +177,7 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen, workCenterCode, mat
                 <InputLabel id="is_merkezi">Makine</InputLabel>
 
                 <Select
+                required
                   labelId="is_merkezi"
                   id="is_merkezi"
                   name='is_merkezi'
@@ -153,8 +196,10 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen, workCenterCode, mat
 
               {/* ürün kodu */}
               <FormControl fullWidth>
+                
                 <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
                 <Select
+                required
                   labelId="urun_kodu"
                   id="urun_kodu"
                   name='urun_kodu'

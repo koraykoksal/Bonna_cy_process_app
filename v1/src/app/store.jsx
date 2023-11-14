@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit"
+import { configureStore,getDefaultMiddleware } from "@reduxjs/toolkit"
 import authReducer from "../features/authSlice"
 import argeReducer from "../features/argeSlice"
 import { persistStore, persistReducer } from 'redux-persist'
@@ -17,7 +17,11 @@ const store = configureStore({
     auth: persistedReducer,
     arge:persistedReducer2
   },
-  devTools: process.env.NODE_ENV !== "production"
+  devTools: process.env.NODE_ENV !== "production",
+  //consolda çıkan serileştirme hatasını göstermiyor
+  middleware: getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 })
 
 export const persistor = persistStore(store)

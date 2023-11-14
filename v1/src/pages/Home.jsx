@@ -9,8 +9,6 @@ import Button from '@mui/material/Button';
 const Home = () => {
 
   const { getDesenCode, getWorkCenter,getMaterialCenter } = useArge()
-  const { workCenterCode, designCode } = useSelector((state) => state.arge)
-
 
   //? sayfa ilk yuklendiğinde desen kodlarını erp den çek
   useEffect(() => {
@@ -21,7 +19,7 @@ const Home = () => {
 
   }, [])
 
-
+  
   
 
   return (
