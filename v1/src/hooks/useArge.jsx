@@ -13,7 +13,7 @@ import {
 import { toastErrorNotify, toastSuccessNotify } from '../helpers/ToastNotify'
 import { doc, setDoc, Timestamp, collection, addDoc, getDocs, getDoc } from "firebase/firestore";
 import { db } from "../db/firebase_db"
-import { getDatabase, onValue, ref, remove, set } from "firebase/database";
+import { getDatabase, onValue, ref, remove, set, update } from "firebase/database";
 import { uid } from "uid";
 import { useState } from 'react';
 
@@ -62,8 +62,14 @@ const useArge = () => {
         try {
 
             const res = await axios.get(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${workcenter}`)
-
-            dispatch(workCenterDataSuccess(res?.data))
+            // console.log("hook workcenter",res)
+            if(res?.data == null || res?.data == undefined){
+                console.log("workcenter code not found")
+            }
+            else{
+                dispatch(workCenterDataSuccess(res?.data))
+            }
+            
 
         } catch (err) {
             dispatch(fetchFail())
@@ -88,7 +94,7 @@ const useArge = () => {
 
             // const result = data.data.filter(item => item.ISMERKEZI.includes('SK'))
             const result = data?.data
-
+            // console.log("hook material code",result)
             dispatch(materialDataSuccess(result))
 
         } catch (err) {
@@ -112,7 +118,7 @@ const useArge = () => {
             const data = await axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${argeMaterial}`)
 
             const result = data?.data
-
+            // console.log("hook  material code:",result)
             dispatch(hammaddeDataSuccess(result))
 
         } catch (err) {
@@ -127,15 +133,15 @@ const useArge = () => {
     //! firebase data gönder
     const postIzoStatikPresData = async (info) => {
 
-        console.log("info",info)
-        
+        console.log("info", info)
+
         dispatch(fetchStart())
 
         try {
 
-            const userId = uid()
+            const uID = uid()
             const db = getDatabase();
-            set(ref(db, 'IzoStatikPresData/' + userId), info);
+            set(ref(db, 'IzoStatikPresData/' + uID), info);
             toastSuccessNotify('Data Added ✅')
 
         } catch (error) {
@@ -152,36 +158,55 @@ const useArge = () => {
         dispatch(fetchStart())
 
         try {
-            
+
             const db = getDatabase();
             const starCountRef = ref(db, 'IzoStatikPresData/');
             onValue(starCountRef, (snapshot) => {
                 const data = snapshot.val();
-                dispatch(fetchIzoStatikPresData(data))
-                // updateStarCount(postElement, data);
+                if(data == null || data == undefined){
+                    console.log("pres datası null geliyor:",data)
+                }
+                else{
+                    dispatch(fetchIzoStatikPresData(data))
+                }
+                
+
             });
 
         } catch (error) {
             toastErrorNotify('No Get Izo Press Data ❌')
         }
-       
+
 
     }
 
+    const putFireData=(address,info)=>{
+
+        try {
+            
+            const db = getDatabase()
+            update(ref(db,`${address}/`+info.id),info)
+            toastSuccessNotify('Updated Data ✅')
+
+        } catch (error) {
+            console.log("Update error :",error)
+            toastErrorNotify('Not OK Update ❌')
+        }
+    }
 
     //! firebase data silme
-    const removeFirebaseData=(info)=>{
-        
+    const removeFirebaseData = async (id) => {
+
         try {
             const db = getDatabase();
-            remove(ref(db,`IzoStatikPresData/${info.id}`))
+            remove(ref(db, `IzoStatikPresData/${id}`))
             toastSuccessNotify('Data Deleted ✅')
         } catch (error) {
             toastErrorNotify('No Delete Data ❌')
         }
     }
 
-    
+
 
     return {
         getDesenCode,
@@ -191,6 +216,7 @@ const useArge = () => {
         postIzoStatikPresData,
         getIzoStatikPresData,
         removeFirebaseData,
+        putFireData
     }
 
 }

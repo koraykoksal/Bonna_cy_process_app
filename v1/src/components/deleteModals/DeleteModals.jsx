@@ -19,7 +19,7 @@ const style = {
 
 
 
-const DeleteModals = ({ delOpen, delHandleClose, delHandleOpen, item }) => {
+const DeleteModals = ({ delOpen, delHandleClose, info }) => {
 
 
     const { removeFirebaseData, getIzoStatikPresData } = useArge()
@@ -27,11 +27,11 @@ const DeleteModals = ({ delOpen, delHandleClose, delHandleOpen, item }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        removeFirebaseData(item)
+        removeFirebaseData(info.id)
+        getIzoStatikPresData()
         delHandleClose()
     }
 
-    console.log(item)
 
     return (
 
@@ -46,6 +46,8 @@ const DeleteModals = ({ delOpen, delHandleClose, delHandleOpen, item }) => {
                 aria-describedby="keep-mounted-modal-description"
             >
                 <Box sx={style}>
+
+                    
 
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
 

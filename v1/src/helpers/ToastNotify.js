@@ -33,3 +33,14 @@ export const toastErrorNotify = (msg) => {
     progress: undefined,
   });
 };
+
+export const toastInfoNotify = (msg) => {
+  toast.info(msg, {
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+};

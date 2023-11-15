@@ -17,7 +17,7 @@ import { useState, useEffect } from 'react';
 import { uygunsuzlukTipi } from "../../helpers/ProcessData"
 import { useSelector } from "react-redux"
 import useArge from '../../hooks/useArge';
-
+import { uid } from 'uid';
 
 const style = {
   position: 'absolute',
@@ -32,116 +32,38 @@ const style = {
 
 };
 
-const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
+const IzostatikPresModal = ({ open, handleClose,info,setInfo }) => {
 
   const handleChange = (e) => {
-    setIzostatikData({ ...izostatikData, [e.target.name]: e.target.value })
+    setInfo({ ...info, [e.target.name]: e.target.value })
   }
 
-  let getVardiya = 0;
-  const nowData = new Date()
-  const currentdatetime = nowData.getDate() + "-" + (nowData.getMonth() + 1) + "-" + nowData.getFullYear()
-  const currentTime = nowData.getHours() + ":" + nowData.getMinutes()
 
-  const { currentUser } = useSelector((state) => state.auth)
+  const { getIzoStatikPresData,putFireData } = useArge()
+  const { workCenterCode, materialCode } = useSelector((state) => state.arge)
+
 
   const { postIzoStatikPresData } = useArge()
 
-  const getShift = () => {
-    const now = new Date().getHours()
-
-    if (now > 8 && now < 16) {
-      getVardiya = 2
-    }
-    else if (now > 16 && now < 23) {
-      getVardiya = 3
-    }
-    else {
-      getVardiya = 1
-    }
-
-    return getVardiya
-
-  }
-
-  const [izostatikData, setIzostatikData] = useState({
-    is_merkezi: "",
-    agirlik: "",
-    taban: "",
-    kenar: "",
-    pkenar: "",
-    cap: "",
-    izobasinc: "",
-    kapamabasinc: "",
-    vakumdegeri: "",
-    dolumsuresi: "",
-    urun_kodu: "",
-    catlakkontrol: "",
-    rotuskontrol: "",
-    yuzeykontrol: "",
-    hamurunistif: "",
-    uygunsuzluktipi: "",
-    aciklama: "",
-    vardiyasorumlusu: "",
-    vardiya: getShift().toString(),
-    date: currentdatetime.toString(),
-    time: currentTime.toString(),
-    kontroleden_kisi: currentUser
-  })
-
-
-
+  
   const handleSubmit = (e) => {
 
     e.preventDefault()
-    postIzoStatikPresData(izostatikData)
-    getIzoStatikPresData()
-
-    setIzostatikData({
-      is_merkezi: "",
-      agirlik: "",
-      taban: "",
-      kenar: "",
-      pkenar: "",
-      cap: "",
-      izobasinc: "",
-      kapamabasinc: "",
-      vakumdegeri: "",
-      dolumsuresi: "",
-      urun_kodu: "",
-      catlakkontrol: "",
-      rotuskontrol: "",
-      yuzeykontrol: "",
-      hamurunistif: "",
-      uygunsuzluktipi: "",
-      aciklama: "",
-      vardiyasorumlusu: "",
-      vardiya: getShift().toString(),
-      date: currentdatetime.toString(),
-      time: currentTime.toString(),
-      kontroleden_kisi: currentUser
-    })
+    
+    if(info.id){
+      putFireData('IzoStatikPresData',info)
+      getIzoStatikPresData()
+    }
+    else{
+      postIzoStatikPresData(info)
+      getIzoStatikPresData()
+    }
 
     handleClose()
 
   }
 
-  const { getMaterialCenter, getWorkCenter, getIzoStatikPresData } = useArge()
-  const { workCenterCode, materialCode } = useSelector((state) => state.arge)
-
-
-
-  //? sayfa ilk yuklendiğinde desen kodlarını erp den çek
-  useEffect(() => {
-
-    getMaterialCenter()
-    getWorkCenter()
-
-  }, [])
-
-
-
-
+  console.log(workCenterCode)
 
   return (
     <div>
@@ -149,9 +71,9 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
       <Modal
         keepMounted
         open={open}
-        onClose={handleClose}
-        aria-labelledby="keep-mounted-modal-title"
-        aria-describedby="keep-mounted-modal-description"
+        onClose={()=>handleClose()}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
 
@@ -182,7 +104,7 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
                   id="is_merkezi"
                   name='is_merkezi'
                   label="is_merkezi"
-                  value={izostatikData.is_merkezi}
+                  value={info.is_merkezi}
                   onChange={handleChange}
                 >
                   {
@@ -204,7 +126,7 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
                   id="urun_kodu"
                   name='urun_kodu'
                   label="urun_kodu"
-                  value={izostatikData.urun_kodu}
+                  value={info.urun_kodu}
                   onChange={handleChange}
                 >
                   {
@@ -227,7 +149,7 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
                 type="text"
                 variant="outlined"
 
-                value={izostatikData.agirlik}
+                value={info.agirlik}
                 onChange={handleChange}
               />
               <TextField
@@ -238,7 +160,7 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
                 type="text"
                 variant="outlined"
 
-                value={izostatikData.taban}
+                value={info.taban}
                 onChange={handleChange}
               />
               <TextField
@@ -249,7 +171,7 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
                 type="text"
                 variant="outlined"
 
-                value={izostatikData.kenar}
+                value={info.kenar}
                 onChange={handleChange}
               />
             </Box>
@@ -263,7 +185,7 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
                 type="text"
                 variant="outlined"
 
-                value={izostatikData.pkenar}
+                value={info.pkenar}
                 onChange={handleChange}
               />
               <TextField
@@ -274,7 +196,7 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
                 type="text"
                 variant="outlined"
 
-                value={izostatikData.cap}
+                value={info.cap}
                 onChange={handleChange}
               />
               <TextField
@@ -285,7 +207,7 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
                 type="text"
                 variant="outlined"
 
-                value={izostatikData.izobasinc}
+                value={info.izobasinc}
                 onChange={handleChange}
               />
             </Box>
@@ -299,7 +221,7 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
                 type="text"
                 variant="outlined"
 
-                value={izostatikData.kapamabasinc}
+                value={info.kapamabasinc}
                 onChange={handleChange}
               />
               <TextField
@@ -310,7 +232,7 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
                 type="text"
                 variant="outlined"
 
-                value={izostatikData.vakumdegeri}
+                value={info.vakumdegeri}
                 onChange={handleChange}
               />
               <TextField
@@ -321,7 +243,7 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
                 type="text"
                 variant="outlined"
 
-                value={izostatikData.dolumsuresi}
+                value={info.dolumsuresi}
                 onChange={handleChange}
               />
             </Box>
@@ -337,7 +259,7 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
               type="text"
               variant="outlined"
 
-              value={izostatikData.granulturu}
+              value={info.granulturu}
               onChange={handleChange}
             />
 
@@ -352,11 +274,11 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
                   id="catlakkontrol"
                   name='catlakkontrol'
                   label="catlakkontrol"
-                  value={izostatikData.catlakkontrol}
+                  value={info.catlakkontrol}
                   onChange={handleChange}
                 >
-                  <MenuItem value="OK">OK</MenuItem>
-                  <MenuItem value="NOK">NOK</MenuItem>
+                  <MenuItem  value="OK">OK</MenuItem>
+                  <MenuItem  value="NOK">NOK</MenuItem>
                 </Select>
               </FormControl>
 
@@ -367,11 +289,11 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
                   id="rotuskontrol"
                   name='rotuskontrol'
                   label="rotuskontrol"
-                  value={izostatikData.rotuskontrol}
+                  value={info.rotuskontrol}
                   onChange={handleChange}
                 >
-                  <MenuItem value="OK">OK</MenuItem>
-                  <MenuItem value="NOK">NOK</MenuItem>
+                  <MenuItem  value="OK">OK</MenuItem>
+                  <MenuItem  value="NOK">NOK</MenuItem>
                 </Select>
               </FormControl>
 
@@ -382,11 +304,11 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
                   id="yuzeykontrol"
                   name='yuzeykontrol'
                   label="yuzeykontrol"
-                  value={izostatikData.yuzeykontrol}
+                  value={info.yuzeykontrol}
                   onChange={handleChange}
                 >
-                  <MenuItem value="OK">OK</MenuItem>
-                  <MenuItem value="NOK">NOK</MenuItem>
+                  <MenuItem  value="OK">OK</MenuItem>
+                  <MenuItem  value="NOK">NOK</MenuItem>
                 </Select>
               </FormControl>
 
@@ -397,11 +319,11 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
                   id="hamurunistif"
                   name='hamurunistif'
                   label="hamurunistif"
-                  value={izostatikData.hamurunistif}
+                  value={info.hamurunistif}
                   onChange={handleChange}
                 >
-                  <MenuItem value="OK">OK</MenuItem>
-                  <MenuItem value="NOK">NOK</MenuItem>
+                  <MenuItem   value="OK">OK</MenuItem>
+                  <MenuItem  value="NOK">NOK</MenuItem>
                 </Select>
               </FormControl>
 
@@ -415,7 +337,7 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
                 id="uygunsuzluktipi"
                 name='uygunsuzluktipi'
                 label="uygunsuzluktipi"
-                value={izostatikData.uygunsuzluktipi}
+                value={info.uygunsuzluktipi}
                 onChange={handleChange}
               >
                 {
@@ -437,7 +359,8 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
               id="aciklama"
               type="text"
               variant="outlined"
-              value={izostatikData.aciklama}
+              InputProps={{ inputProps: { min: 0 } }}
+              value={info.aciklama}
               onChange={handleChange}
             />
 
@@ -449,7 +372,7 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
               type="text"
               variant="outlined"
 
-              value={izostatikData.vardiyasorumlusu}
+              value={info.vardiyasorumlusu}
               onChange={handleChange}
             />
 
@@ -460,7 +383,7 @@ const IzostatikPresModal = ({ open, handleClose, handleOpen }) => {
               fullWidth
               type='submit'
             >
-              Save
+              {info.id ? "Update Data" : "Add New Data"}
             </Button>
 
 

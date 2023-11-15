@@ -21,7 +21,11 @@ const argeSlice=createSlice({
         fetchStart: (state) => {
             state.loading = true;
             state.error = false;
-
+            state.designCode=[]
+            state.materialCode=[]
+            state.workCenterCode=[]
+            state.hammaddeCode=[]
+            state.izoStatikPresData=[]
         },
         designDataSuccess: (state, {payload}) => {
  

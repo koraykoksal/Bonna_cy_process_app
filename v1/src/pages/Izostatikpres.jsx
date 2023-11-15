@@ -18,299 +18,125 @@ import TableRow from '@mui/material/TableRow';
 import { AiFillEdit } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import DeleteModals from '../components/deleteModals/DeleteModals';
+import { DataGrid, GridToolbar, GridActionsCellItem } from '@mui/x-data-grid';
+import IzoStatikPres_DataTable from '../components/tables/IzoStatikPres_DataTable';
+import { toastErrorNotify, toastInfoNotify, toastWarnNotify } from '../helpers/ToastNotify';
 
-
-
-const columns = [
-  { id: 'tarih', label: 'Tarih', minWidth: 170,align:'center' },
-  { id: 'saat', label: 'Saat', minWidth: 80 ,align:'center'},
-  { id: 'vardiya', label: 'Vardiya', minWidth: 80 ,align:'center'},
-  {
-    id: 'kontrol_yapan',
-    label: 'Kontrol Yapan',
-    minWidth: 170,
-    align: 'center',
-    format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'is_merkezi',
-    label: 'İş Merkezi',
-    minWidth: 170,
-    align: 'center',
-    format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'urun_kodu',
-    label: 'Ürün Kodu',
-    minWidth: 170,
-    align: 'center',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'agirlik',
-    label: 'Ağırlık',
-    minWidth: 170,
-    align: 'center',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'taban',
-    label: 'Taban',
-    minWidth: 170,
-    align: 'center',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'kenar',
-    label: 'Kenar',
-    minWidth: 170,
-    align: 'center',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'pkenar',
-    label: 'P_Kenar',
-    minWidth: 170,
-    align: 'center',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'cap',
-    label: 'Çap',
-    minWidth: 170,
-    align: 'center',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'izostatik_basinc',
-    label: 'İzoStatik Basınç',
-    minWidth: 170,
-    align: 'center',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'kapama_basinc',
-    label: 'Kapama Basınç',
-    minWidth: 170,
-    align: 'center',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'vakum_degeri',
-    label: 'Vakum Değeri',
-    minWidth: 170,
-    align: 'center',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'dolum_suresi',
-    label: 'Dolum Süresi',
-    minWidth: 170,
-    align: 'center',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'granul_bigbag',
-    label: 'Granül/Big_Bag',
-    minWidth: 170,
-    align: 'center',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'catlak',
-    label: 'Çatlak',
-    minWidth: 170,
-    align: 'center',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'rotus',
-    label: 'Rötuş',
-    minWidth: 170,
-    align: 'center',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'yuzey',
-    label: 'Yüzey',
-    minWidth: 170,
-    align: 'center',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'ham_urun',
-    label: 'Ham Ürün',
-    minWidth: 170,
-    align: 'center',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'uygunsuzluk_tipi',
-    label: 'Uygunsuzluk Tipi',
-    minWidth: 170,
-    align: 'center',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'aciklama',
-    label: 'Açıklama/Aksiyon',
-    minWidth: 170,
-    align: 'center',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'vardiya_sorumlusu',
-    label: 'Vardiya Sorumlusu/Operatör',
-    minWidth: 170,
-    align: 'center',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'edit',
-    label: 'Edit',
-    minWidth: 80,
-    align: 'center',
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'delete',
-    label: 'Delete',
-    minWidth: 80,
-    align: 'center',
-    format: (value) => value.toFixed(2),
-  },
-];
 
 
 const Izostatikpres = () => {
 
-  const [open, setOpen] = React.useState(false);
+  let getVardiya = 0;
+  const nowData = new Date()
+  const currentdatetime = nowData.getDate() + "-" + (nowData.getMonth() + 1) + "-" + nowData.getFullYear()
+  const currentTime = nowData.getHours() + ":" + nowData.getMinutes()
+
+  const { currentUser } = useSelector((state) => state.auth)
+
+  const getShift = () => {
+    const now = new Date().getHours()
+
+    if (now > 8 && now < 16) {
+      getVardiya = 2
+    }
+    else if (now > 16 && now < 23) {
+      getVardiya = 3
+    }
+    else {
+      getVardiya = 1
+    }
+
+    return getVardiya
+
+  }
+
+  const [info, setInfo] = useState({
+    is_merkezi: "",
+    agirlik: "",
+    taban: "",
+    kenar: "",
+    pkenar: "",
+    cap: "",
+    izobasinc: "",
+    kapamabasinc: "",
+    vakumdegeri: "",
+    dolumsuresi: "",
+    urun_kodu: "",
+    catlakkontrol: "",
+    rotuskontrol: "",
+    yuzeykontrol: "",
+    hamurunistif: "",
+    uygunsuzluktipi: "",
+    aciklama: "",
+    vardiyasorumlusu: "",
+    vardiya: getShift().toString(),
+    date: currentdatetime.toString(),
+    time: currentTime.toString(),
+    kontroleden_kisi: currentUser
+  })
+
+  const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false)
+    setInfo({
+      is_merkezi: "",
+      agirlik: "",
+      taban: "",
+      kenar: "",
+      pkenar: "",
+      cap: "",
+      izobasinc: "",
+      kapamabasinc: "",
+      vakumdegeri: "",
+      dolumsuresi: "",
+      urun_kodu: "",
+      catlakkontrol: "",
+      rotuskontrol: "",
+      yuzeykontrol: "",
+      hamurunistif: "",
+      uygunsuzluktipi: "",
+      aciklama: "",
+      vardiyasorumlusu: "",
+      vardiya: getShift().toString(),
+      date: currentdatetime.toString(),
+      time: currentTime.toString(),
+      kontroleden_kisi: currentUser
+    })
+  }
 
   const [delOpen, setdelOpen] = React.useState(false);
   const delHandleOpen = () => setdelOpen(true);
   const delHandleClose = () => setdelOpen(false);
 
-
-  const { getIzoStatikPresData } = useArge()
-  const { workCenterCode, materialCode, izoStatikPresData } = useSelector((state) => state.arge)
-
-  const [presData, setpresData] = useState([])
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+  const { getMaterialCenter, getWorkCenter, getIzoStatikPresData } = useArge()
 
 
   useEffect(() => {
 
+    getMaterialCenter()
+    getWorkCenter()
+
     getIzoStatikPresData()
-    const dizi = Object.keys(izoStatikPresData).map(key => { return { id: key, ...izoStatikPresData[key] } })
 
-    setpresData(dizi)
-
-    
   }, [])
 
-  console.log(presData)
+
 
   return (
 
     <div>
-      <Typography mt={8} align='center' variant='subtitle1' sx={typoStyle}>
+      <Typography mt={8} align='center' variant='h5' fontWeight={700} sx={typoStyle}>
         İzostatik Pres
       </Typography>
 
       <Button onClick={handleOpen} variant='outlined'>New</Button>
 
-      <Box>
-        <IzostatikPresModal open={open} handleClose={handleClose} handleOpen={handleOpen} setOpen={setOpen} />
-      </Box>
+      <IzostatikPresModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} />
 
+      <DeleteModals delOpen={delOpen} delHandleClose={delHandleClose} delHandleOpen={delHandleOpen} setdelOpen={setdelOpen} info={info} />
 
-      <Box sx={{ pt: 5 }}>
-        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-          <TableContainer sx={{ maxHeight: 440 }}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{ minWidth: column.minWidth,backgroundColor:'#000000',color:'#ffffff',fontWeight:700 }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {presData
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((item, index) => {
-                    return (
-                      <TableRow hover role="checkbox" tabIndex={-1} key={item.id}>
-                        <TableCell align="center">{item.date}</TableCell>
-                        <TableCell align="center">{item.time}</TableCell>
-                        <TableCell align="center">{item.vardiya}</TableCell>
-                        <TableCell align="center">{item.kontroleden_kisi}</TableCell>
-                        <TableCell align="center">{item.is_merkezi}</TableCell>
-                        <TableCell align="center">{item.urun_kodu}</TableCell>
-                        <TableCell align="center">{item.agirlik}</TableCell>
-                        <TableCell align="center">{item.taban}</TableCell>
-                        <TableCell align="center">{item.kenar}</TableCell>
-                        <TableCell align="center">{item.pkenar}</TableCell>
-                        <TableCell align="center">{item.cap}</TableCell>
-                        <TableCell align="center">{item.izobasinc}</TableCell>
-                        <TableCell align="center">{item.kapamabasinc}</TableCell>
-                        <TableCell align="center">{item.vakumdegeri}</TableCell>
-                        <TableCell align="center">{item.dolumsuresi}</TableCell>
-                        <TableCell align="center">{item.granulturu}</TableCell>
-                        <TableCell align="center">{item.catlakkontrol}</TableCell>
-                        <TableCell align="center">{item.rotuskontrol}</TableCell>
-                        <TableCell align="center">{item.yuzeykontrol}</TableCell>
-                        <TableCell align="center">{item.hamurunistif}</TableCell>
-                        <TableCell align="center">{item.uygunsuzluktipi}</TableCell>
-                        <TableCell align="center">{item.aciklama}</TableCell>
-                        <TableCell align="center">{item.vardiyasorumlusu}</TableCell>
-                        <TableCell align="center">
-                          <AiFillEdit size={25} style={{color:'#0802A3'}} cursor='pointer' onClick={handleOpen}/>
-                        </TableCell>
-                        <TableCell align="center">
-                          {/* silme işlemi için kullanılan del butonu */}
-                          <MdDelete size={25} style={{color:'#D80032'}} cursor='pointer' onClick={delHandleOpen}/>
-                          {/* silme işlemini yapacak olan modal */}
-                          <DeleteModals delOpen={delOpen} delHandleClose={delHandleClose} delHandleOpen={delHandleOpen} setdelOpen={setdelOpen} item={item}/>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={columns.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
-
-      </Box>
-
+      <IzoStatikPres_DataTable handleOpen={handleOpen} delHandleOpen={delHandleOpen} setInfo={setInfo} />
 
 
 
