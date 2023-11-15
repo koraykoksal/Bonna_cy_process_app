@@ -32,29 +32,29 @@ const style = {
 
 };
 
-const IzostatikPresModal = ({ open, handleClose,info,setInfo }) => {
+const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
 
   const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value })
   }
 
 
-  const { getIzoStatikPresData,putFireData } = useArge()
+  const { getIzoStatikPresData, putFireData } = useArge()
   const { workCenterCode, materialCode } = useSelector((state) => state.arge)
 
 
   const { postIzoStatikPresData } = useArge()
 
-  
+
   const handleSubmit = (e) => {
 
     e.preventDefault()
-    
-    if(info.id){
-      putFireData('IzoStatikPresData',info)
+
+    if (info.id) {
+      putFireData('IzoStatikPresData', info)
       getIzoStatikPresData()
     }
-    else{
+    else {
       postIzoStatikPresData(info)
       getIzoStatikPresData()
     }
@@ -71,7 +71,7 @@ const IzostatikPresModal = ({ open, handleClose,info,setInfo }) => {
       <Modal
         keepMounted
         open={open}
-        onClose={()=>handleClose()}
+        onClose={() => handleClose()}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -99,7 +99,7 @@ const IzostatikPresModal = ({ open, handleClose,info,setInfo }) => {
                 <InputLabel id="is_merkezi">Makine</InputLabel>
 
                 <Select
-                required
+                  required
                   labelId="is_merkezi"
                   id="is_merkezi"
                   name='is_merkezi'
@@ -118,10 +118,10 @@ const IzostatikPresModal = ({ open, handleClose,info,setInfo }) => {
 
               {/* ürün kodu */}
               <FormControl fullWidth>
-                
+
                 <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
                 <Select
-                required
+                  required
                   labelId="urun_kodu"
                   id="urun_kodu"
                   name='urun_kodu'
@@ -277,8 +277,8 @@ const IzostatikPresModal = ({ open, handleClose,info,setInfo }) => {
                   value={info.catlakkontrol}
                   onChange={handleChange}
                 >
-                  <MenuItem  value="OK">OK</MenuItem>
-                  <MenuItem  value="NOK">NOK</MenuItem>
+                  <MenuItem value="OK">OK</MenuItem>
+                  <MenuItem value="NOK">NOK</MenuItem>
                 </Select>
               </FormControl>
 
@@ -292,8 +292,8 @@ const IzostatikPresModal = ({ open, handleClose,info,setInfo }) => {
                   value={info.rotuskontrol}
                   onChange={handleChange}
                 >
-                  <MenuItem  value="OK">OK</MenuItem>
-                  <MenuItem  value="NOK">NOK</MenuItem>
+                  <MenuItem value="OK">OK</MenuItem>
+                  <MenuItem value="NOK">NOK</MenuItem>
                 </Select>
               </FormControl>
 
@@ -307,8 +307,8 @@ const IzostatikPresModal = ({ open, handleClose,info,setInfo }) => {
                   value={info.yuzeykontrol}
                   onChange={handleChange}
                 >
-                  <MenuItem  value="OK">OK</MenuItem>
-                  <MenuItem  value="NOK">NOK</MenuItem>
+                  <MenuItem value="OK">OK</MenuItem>
+                  <MenuItem value="NOK">NOK</MenuItem>
                 </Select>
               </FormControl>
 
@@ -322,8 +322,8 @@ const IzostatikPresModal = ({ open, handleClose,info,setInfo }) => {
                   value={info.hamurunistif}
                   onChange={handleChange}
                 >
-                  <MenuItem   value="OK">OK</MenuItem>
-                  <MenuItem  value="NOK">NOK</MenuItem>
+                  <MenuItem value="OK">OK</MenuItem>
+                  <MenuItem value="NOK">NOK</MenuItem>
                 </Select>
               </FormControl>
 

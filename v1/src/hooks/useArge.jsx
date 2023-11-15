@@ -180,6 +180,7 @@ const useArge = () => {
 
     }
 
+    
     const putFireData=(address,info)=>{
 
         try {
