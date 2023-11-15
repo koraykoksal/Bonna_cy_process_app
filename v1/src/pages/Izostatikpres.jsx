@@ -17,6 +17,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { AiFillEdit } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
+import DeleteModals from '../components/deleteModals/DeleteModals';
 
 
 
@@ -187,6 +188,11 @@ const Izostatikpres = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const [delOpen, setdelOpen] = React.useState(false);
+  const delHandleOpen = () => setdelOpen(true);
+  const delHandleClose = () => setdelOpen(false);
+
+
   const { getIzoStatikPresData } = useArge()
   const { workCenterCode, materialCode, izoStatikPresData } = useSelector((state) => state.arge)
 
@@ -278,10 +284,13 @@ const Izostatikpres = () => {
                         <TableCell align="center">{item.aciklama}</TableCell>
                         <TableCell align="center">{item.vardiyasorumlusu}</TableCell>
                         <TableCell align="center">
-                          <AiFillEdit size={25} style={{color:'#0802A3'}} cursor='pointer'/>
+                          <AiFillEdit size={25} style={{color:'#0802A3'}} cursor='pointer' onClick={handleOpen}/>
                         </TableCell>
                         <TableCell align="center">
-                          <MdDelete size={25} style={{color:'#D80032'}} cursor='pointer'/>
+                          {/* silme işlemi için kullanılan del butonu */}
+                          <MdDelete size={25} style={{color:'#D80032'}} cursor='pointer' onClick={delHandleOpen}/>
+                          {/* silme işlemini yapacak olan modal */}
+                          <DeleteModals delOpen={delOpen} delHandleClose={delHandleClose} delHandleOpen={delHandleOpen} setdelOpen={setdelOpen} item={item}/>
                         </TableCell>
                       </TableRow>
                     );

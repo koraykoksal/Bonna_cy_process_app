@@ -13,7 +13,7 @@ import {
 import { toastErrorNotify, toastSuccessNotify } from '../helpers/ToastNotify'
 import { doc, setDoc, Timestamp, collection, addDoc, getDocs, getDoc } from "firebase/firestore";
 import { db } from "../db/firebase_db"
-import { getDatabase, onValue, ref, set } from "firebase/database";
+import { getDatabase, onValue, ref, remove, set } from "firebase/database";
 import { uid } from "uid";
 import { useState } from 'react';
 
@@ -139,7 +139,6 @@ const useArge = () => {
             toastSuccessNotify('Data Added ✅')
 
         } catch (error) {
-            console.log("İzo Statik Pres Datası eklenemedi !")
             toastErrorNotify('No Add Izo Statik Press Data ❌')
         }
 
@@ -170,6 +169,20 @@ const useArge = () => {
     }
 
 
+    //! firebase data silme
+    const removeFirebaseData=(info)=>{
+        
+        try {
+            const db = getDatabase();
+            remove(ref(db,`IzoStatikPresData/${info.id}`))
+            toastSuccessNotify('Data Deleted ✅')
+        } catch (error) {
+            toastErrorNotify('No Delete Data ❌')
+        }
+    }
+
+    
+
     return {
         getDesenCode,
         getWorkCenter,
@@ -177,6 +190,7 @@ const useArge = () => {
         hammaddeMaterialCode,
         postIzoStatikPresData,
         getIzoStatikPresData,
+        removeFirebaseData,
     }
 
 }
