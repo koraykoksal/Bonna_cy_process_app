@@ -9,6 +9,7 @@ const initialState={
     workCenterCode:[],
     hammaddeCode:[],
     izoStatikPresData:[],
+    otoTornaData:[],
 }
 
 
@@ -60,34 +61,10 @@ const argeSlice=createSlice({
         fetchIzoStatikPresData:(state,{payload})=>{
             state.error=false
             state.izoStatikPresData=payload
-
-            // return{
-            //     ...state,izoStatikPresData:[{
-            //         aciklama:payload?.aciklama,
-            //         agirlik:payload?.agirlik,
-            //         cap:payload?.cap,
-            //         catlakkontrol:payload?.catlakkontrol,
-            //         date:payload?.date,
-            //         dolumsuresi:payload?.dolumsuresi,
-            //         granulturu:payload?.granulturu,
-            //         hamurunistif:payload?.hamurunistif,
-            //         is_merkezi:payload?.is_merkezi,
-            //         izobasinc:payload?.izobasinc,
-            //         kapamabasinc:payload?.kapamabasinc,
-            //         kenar:payload?.kenar,
-            //         kontroleden_kisi:payload?.kontroleden_kisi,
-            //         pkenar:payload?.pkenar,
-            //         rotuskontrol:payload?.rotuskontrol,
-            //         taban:payload?.taban,
-            //         time:payload?.time,
-            //         urun_kodu:payload?.urun_kodu,
-            //         uygunsuzluktipi:payload?.uygunsuzluktipi,
-            //         vakumdegeri:payload?.vakumdegeri,
-            //         vardiya:payload?.vardiya,
-            //         varidyasorumlusu:payload?.varidyasorumlusu,
-            //         yuzeykontrol:payload?.yuzeykontrol}]
-            // }
-            
+        },
+        fetchTornaData:(state,{payload})=>{
+            state.error=false
+            state.otoTornaData=payload
         },
         fetchFail: (state) => {
             state.loading = false;
@@ -105,7 +82,8 @@ export const {
     workCenterDataSuccess,
     materialDataSuccess,
     hammaddeDataSuccess,
-    fetchIzoStatikPresData
+    fetchIzoStatikPresData,
+    fetchTornaData
 
 }=argeSlice.actions
 

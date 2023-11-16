@@ -16,6 +16,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useState, useEffect } from 'react';
 import { uygunsuzlukTipi } from "../../helpers/ProcessData"
 import { useSelector } from "react-redux"
+import useArge from '../../hooks/useArge';
 
 
 const style = {
@@ -31,67 +32,36 @@ const style = {
 
 };
 
-const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, materialCode }) => {
+const OtomatikTornaModal = ({ open, handleClose, info, setInfo  }) => {
 
 
   const handleChange = (e) => {
-    setOtomatiktornaData({ ...otomatiktornaData, [e.target.name]: e.target.value })
+    setInfo({ ...info, [e.target.name]: e.target.value })
   }
 
+  const { getFireData, putFireData } = useArge()
+  const { workCenterCode, materialCode } = useSelector((state) => state.arge)
 
 
-  const nowData = new Date()
-  const currentdatetime = nowData.getDate() + "-" + (nowData.getMonth() + 1) + "-" + nowData.getFullYear()
-  const currentTime = nowData.getHours() + ":" + nowData.getMinutes()
+  const { postFireData } = useArge()
 
-  const { currentUser } = useSelector((state) => state.auth)
 
-  let getVardiya = 0;
+  const handleSubmit = (e) => {
 
-  const getShift = () => {
-    const now = new Date().getHours()
+    e.preventDefault()
 
-    if (now > 8 && now < 16) {
-      getVardiya = 2
-    }
-    else if (now > 16 && now < 23) {
-      getVardiya = 3
+    if (info.id) {
+      putFireData('OtomatikTorna', info)
+      getFireData("OtomatikTorna")
     }
     else {
-      getVardiya = 1
+      postFireData("OtomatikTorna",info)
+      getFireData("OtomatikTorna")
     }
 
-    return getVardiya
+    handleClose()
 
   }
-
-
-  const [otomatiktornaData, setOtomatiktornaData] = useState({
-    is_merkezi: "",
-    agirlik: "",
-    taban: "",
-    kenar: "",
-    pkenar: "",
-    cap: "",
-    aynacap: "",
-    kulpbunye: "",
-    kesilensucuk: "",
-    kirpintimiktar: "",
-    camursert: "",
-    catlakkontrol: "",
-    rotuskontrol: "",
-    yuzeykontrol: "",
-    uygunsuzluktipi: "",
-    aciklama: "",
-    vardiyasorumlusu: "",
-    kelepenozulkontrol: "",
-    havakontrol: "",
-    urun_kodu: "",
-    vardiya: getShift(),
-    date: currentdatetime.toString(),
-    time: currentTime.toString(),
-    kontroleden_kisi: currentUser
-  })
 
 
   return (
@@ -101,32 +71,6 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
         keepMounted
         open={open}
         onClose={()=>{
-          setOtomatiktornaData({
-            is_merkezi: "",
-            agirlik: "",
-            taban: "",
-            kenar: "",
-            pkenar: "",
-            cap: "",
-            aynacap: "",
-            kulpbunye: "",
-            kesilensucuk: "",
-            kirpintimiktar: "",
-            camursert: "",
-            catlakkontrol: "",
-            rotuskontrol: "",
-            yuzeykontrol: "",
-            uygunsuzluktipi: "",
-            aciklama: "",
-            vardiyasorumlusu: "",
-            kelepenozulkontrol: "",
-            havakontrol: "",
-            urun_kodu: "",
-            vardiya: getShift(),
-            date: currentdatetime.toString(),
-            time: currentTime.toString(),
-            kontroleden_kisi: currentUser
-          })
           handleClose()
         }}
         aria-labelledby="keep-mounted-modal-title"
@@ -146,7 +90,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
           </Box>
 
 
-          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '600px' }} component='form'>
+          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '600px' }} component='form' onSubmit={handleSubmit}>
 
 
             <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
@@ -159,7 +103,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
                   id="is_merkezi"
                   name='is_merkezi'
                   label="is_merkezi"
-                  value={otomatiktornaData.is_merkezi}
+                  value={info.is_merkezi}
                   onChange={handleChange}
                 >
                   {
@@ -179,7 +123,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
                   id="urun_kodu"
                   name='urun_kodu'
                   label="urun_kodu"
-                  value={otomatiktornaData.urun_kodu}
+                  value={info.urun_kodu}
                   onChange={handleChange}
                 >
                   {
@@ -205,7 +149,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
                 type="text"
                 variant="outlined"
 
-                value={otomatiktornaData.agirlik}
+                value={info.agirlik}
                 onChange={handleChange}
               />
               <TextField
@@ -216,7 +160,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
                 type="text"
                 variant="outlined"
 
-                value={otomatiktornaData.taban}
+                value={info.taban}
                 onChange={handleChange}
               />
               <TextField
@@ -227,7 +171,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
                 type="text"
                 variant="outlined"
 
-                value={otomatiktornaData.kenar}
+                value={info.kenar}
                 onChange={handleChange}
               />
             </Box>
@@ -241,7 +185,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
                 type="text"
                 variant="outlined"
 
-                value={otomatiktornaData.pkenar}
+                value={info.pkenar}
                 onChange={handleChange}
               />
               <TextField
@@ -252,7 +196,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
                 type="text"
                 variant="outlined"
 
-                value={otomatiktornaData.cap}
+                value={info.cap}
                 onChange={handleChange}
               />
               <TextField
@@ -263,7 +207,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
                 type="text"
                 variant="outlined"
 
-                value={otomatiktornaData.aynacap}
+                value={info.aynacap}
                 onChange={handleChange}
               />
             </Box>
@@ -277,7 +221,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
                 type="text"
                 variant="outlined"
 
-                value={otomatiktornaData.kulpbunye}
+                value={info.kulpbunye}
                 onChange={handleChange}
               />
               <TextField
@@ -288,7 +232,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
                 type="text"
                 variant="outlined"
 
-                value={otomatiktornaData.kesilensucuk}
+                value={info.kesilensucuk}
                 onChange={handleChange}
               />
               <TextField
@@ -299,7 +243,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
                 type="text"
                 variant="outlined"
 
-                value={otomatiktornaData.kirpintimiktar}
+                value={info.kirpintimiktar}
                 onChange={handleChange}
               />
 
@@ -316,7 +260,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
                 type="text"
                 variant="outlined"
 
-                value={otomatiktornaData.camursert}
+                value={info.camursert}
                 onChange={handleChange}
               />
 
@@ -327,7 +271,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
                   id="kelepenozulkontrol"
                   name='kelepenozulkontrol'
                   label="kelepenozulkontrol"
-                  value={otomatiktornaData.kelepenozulkontrol}
+                  value={info.kelepenozulkontrol}
                   onChange={handleChange}
                 >
                   <MenuItem value="OK">OK</MenuItem>
@@ -342,7 +286,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
                   id="havakontrol"
                   name='havakontrol'
                   label="havakontrol"
-                  value={otomatiktornaData.havakontrol}
+                  value={info.havakontrol}
                   onChange={handleChange}
                 >
                   <MenuItem value="OK">OK</MenuItem>
@@ -365,7 +309,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
                   id="catlakkontrol"
                   name='catlakkontrol'
                   label="catlakkontrol"
-                  value={otomatiktornaData.catlakkontrol}
+                  value={info.catlakkontrol}
                   onChange={handleChange}
                 >
                   <MenuItem value="OK">OK</MenuItem>
@@ -380,7 +324,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
                   id="rotuskontrol"
                   name='rotuskontrol'
                   label="rotuskontrol"
-                  value={otomatiktornaData.rotuskontrol}
+                  value={info.rotuskontrol}
                   onChange={handleChange}
                 >
                   <MenuItem value="OK">OK</MenuItem>
@@ -395,7 +339,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
                   id="yuzeykontrol"
                   name='yuzeykontrol'
                   label="yuzeykontrol"
-                  value={otomatiktornaData.yuzeykontrol}
+                  value={info.yuzeykontrol}
                   onChange={handleChange}
                 >
                   <MenuItem value="OK">OK</MenuItem>
@@ -413,7 +357,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
                 id="uygunsuzluktipi"
                 name='uygunsuzluktipi'
                 label="uygunsuzluktipi"
-                value={otomatiktornaData.uygunsuzluktipi}
+                value={info.uygunsuzluktipi}
                 onChange={handleChange}
               >
                 {
@@ -436,7 +380,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
               id="aciklama"
               type="text"
               variant="outlined"
-              value={otomatiktornaData.aciklama}
+              value={info.aciklama}
               onChange={handleChange}
             />
 
@@ -448,7 +392,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
               type="text"
               variant="outlined"
 
-              value={otomatiktornaData.vardiyasorumlusu}
+              value={info.vardiyasorumlusu}
               onChange={handleChange}
             />
 
@@ -459,7 +403,7 @@ const OtomatikTornaModal = ({ open, handleClose, handleOpen,workCenterCode, mate
               fullWidth
               type='submit'
             >
-              Save
+              {info?.id ? "Update Data" : "Add New Data"}
             </Button>
 
 

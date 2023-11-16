@@ -39,11 +39,11 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
   }
 
 
-  const { getIzoStatikPresData, putFireData } = useArge()
+  const { getFireData, putFireData } = useArge()
   const { workCenterCode, materialCode } = useSelector((state) => state.arge)
 
 
-  const { postIzoStatikPresData } = useArge()
+  const { postFireData } = useArge()
 
 
   const handleSubmit = (e) => {
@@ -52,18 +52,18 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
 
     if (info.id) {
       putFireData('IzoStatikPresData', info)
-      getIzoStatikPresData()
+      getFireData("IzoStatikPresData")
     }
     else {
-      postIzoStatikPresData(info)
-      getIzoStatikPresData()
+      postFireData("IzoStatikPresData",info)
+      getFireData("IzoStatikPresData")
     }
 
     handleClose()
 
   }
 
-  console.log(workCenterCode)
+ 
 
   return (
     <div>
@@ -104,7 +104,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
                   id="is_merkezi"
                   name='is_merkezi'
                   label="is_merkezi"
-                  value={info.is_merkezi}
+                  value={info?.is_merkezi}
                   onChange={handleChange}
                 >
                   {
@@ -126,7 +126,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
                   id="urun_kodu"
                   name='urun_kodu'
                   label="urun_kodu"
-                  value={info.urun_kodu}
+                  value={info?.urun_kodu}
                   onChange={handleChange}
                 >
                   {
@@ -149,7 +149,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
                 type="text"
                 variant="outlined"
 
-                value={info.agirlik}
+                value={info?.agirlik}
                 onChange={handleChange}
               />
               <TextField
@@ -160,7 +160,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
                 type="text"
                 variant="outlined"
 
-                value={info.taban}
+                value={info?.taban}
                 onChange={handleChange}
               />
               <TextField
@@ -171,7 +171,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
                 type="text"
                 variant="outlined"
 
-                value={info.kenar}
+                value={info?.kenar}
                 onChange={handleChange}
               />
             </Box>
@@ -185,7 +185,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
                 type="text"
                 variant="outlined"
 
-                value={info.pkenar}
+                value={info?.pkenar}
                 onChange={handleChange}
               />
               <TextField
@@ -196,7 +196,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
                 type="text"
                 variant="outlined"
 
-                value={info.cap}
+                value={info?.cap}
                 onChange={handleChange}
               />
               <TextField
@@ -207,7 +207,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
                 type="text"
                 variant="outlined"
 
-                value={info.izobasinc}
+                value={info?.izobasinc}
                 onChange={handleChange}
               />
             </Box>
@@ -221,7 +221,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
                 type="text"
                 variant="outlined"
 
-                value={info.kapamabasinc}
+                value={info?.kapamabasinc}
                 onChange={handleChange}
               />
               <TextField
@@ -232,7 +232,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
                 type="text"
                 variant="outlined"
 
-                value={info.vakumdegeri}
+                value={info?.vakumdegeri}
                 onChange={handleChange}
               />
               <TextField
@@ -243,7 +243,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
                 type="text"
                 variant="outlined"
 
-                value={info.dolumsuresi}
+                value={info?.dolumsuresi}
                 onChange={handleChange}
               />
             </Box>
@@ -259,7 +259,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
               type="text"
               variant="outlined"
 
-              value={info.granulturu}
+              value={info?.granulturu}
               onChange={handleChange}
             />
 
@@ -274,7 +274,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
                   id="catlakkontrol"
                   name='catlakkontrol'
                   label="catlakkontrol"
-                  value={info.catlakkontrol}
+                  value={info?.catlakkontrol}
                   onChange={handleChange}
                 >
                   <MenuItem value="OK">OK</MenuItem>
@@ -289,7 +289,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
                   id="rotuskontrol"
                   name='rotuskontrol'
                   label="rotuskontrol"
-                  value={info.rotuskontrol}
+                  value={info?.rotuskontrol}
                   onChange={handleChange}
                 >
                   <MenuItem value="OK">OK</MenuItem>
@@ -304,7 +304,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
                   id="yuzeykontrol"
                   name='yuzeykontrol'
                   label="yuzeykontrol"
-                  value={info.yuzeykontrol}
+                  value={info?.yuzeykontrol}
                   onChange={handleChange}
                 >
                   <MenuItem value="OK">OK</MenuItem>
@@ -319,7 +319,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
                   id="hamurunistif"
                   name='hamurunistif'
                   label="hamurunistif"
-                  value={info.hamurunistif}
+                  value={info?.hamurunistif}
                   onChange={handleChange}
                 >
                   <MenuItem value="OK">OK</MenuItem>
@@ -337,7 +337,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
                 id="uygunsuzluktipi"
                 name='uygunsuzluktipi'
                 label="uygunsuzluktipi"
-                value={info.uygunsuzluktipi}
+                value={info?.uygunsuzluktipi}
                 onChange={handleChange}
               >
                 {
@@ -360,7 +360,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
               type="text"
               variant="outlined"
               InputProps={{ inputProps: { min: 0 } }}
-              value={info.aciklama}
+              value={info?.aciklama}
               onChange={handleChange}
             />
 
@@ -372,7 +372,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
               type="text"
               variant="outlined"
 
-              value={info.vardiyasorumlusu}
+              value={info?.vardiyasorumlusu}
               onChange={handleChange}
             />
 
@@ -383,7 +383,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
               fullWidth
               type='submit'
             >
-              {info.id ? "Update Data" : "Add New Data"}
+              {info?.id ? "Update Data" : "Add New Data"}
             </Button>
 
 

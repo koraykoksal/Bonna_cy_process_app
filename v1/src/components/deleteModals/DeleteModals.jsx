@@ -22,13 +22,13 @@ const style = {
 const DeleteModals = ({ delOpen, delHandleClose, info }) => {
 
 
-    const { removeFirebaseData, getIzoStatikPresData } = useArge()
+    const { removeFirebaseData, getFireData } = useArge()
 
 
     const handleSubmit = (e) => {
         e.preventDefault()
         removeFirebaseData(info.id)
-        getIzoStatikPresData()
+        getFireData(info?.type)
         delHandleClose()
     }
 

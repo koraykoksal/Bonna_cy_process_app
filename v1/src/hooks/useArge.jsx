@@ -7,7 +7,8 @@ import {
     materialDataSuccess,
     hammaddeDataSuccess,
     fetchIzoStatikPresData,
-    workCenterDataSuccess
+    workCenterDataSuccess,
+    fetchTornaData
 
 } from '../features/argeSlice'
 import { toastErrorNotify, toastSuccessNotify } from '../helpers/ToastNotify'
@@ -131,7 +132,7 @@ const useArge = () => {
 
 
     //! firebase data gönder
-    const postIzoStatikPresData = async (info) => {
+    const postFireData = async (address,info) => {
 
         console.log("info", info)
 
@@ -141,7 +142,7 @@ const useArge = () => {
 
             const uID = uid()
             const db = getDatabase();
-            set(ref(db, 'IzoStatikPresData/' + uID), info);
+            set(ref(db, `${address}/` + uID), info);
             toastSuccessNotify('Data Added ✅')
 
         } catch (error) {
@@ -153,21 +154,28 @@ const useArge = () => {
 
 
     //! firebase data çek
-    const getIzoStatikPresData = async () => {
+    const getFireData = async (address) => {
 
         dispatch(fetchStart())
 
         try {
 
             const db = getDatabase();
-            const starCountRef = ref(db, 'IzoStatikPresData/');
+            const starCountRef = ref(db, `${address}/`);
             onValue(starCountRef, (snapshot) => {
                 const data = snapshot.val();
                 if(data == null || data == undefined){
-                    console.log("pres datası null geliyor:",data)
+                    console.log("machine data null geliyor:",data)
                 }
                 else{
-                    dispatch(fetchIzoStatikPresData(data))
+                    if(address === 'IzoStatikPresData'){
+                        dispatch(fetchIzoStatikPresData(data))
+                    }
+                    else if(address === 'OtomatikTorna'){
+                        dispatch(fetchTornaData(data))
+                    }
+                    
+                    
                 }
                 
 
@@ -214,8 +222,8 @@ const useArge = () => {
         getWorkCenter,
         getMaterialCenter,
         hammaddeMaterialCode,
-        postIzoStatikPresData,
-        getIzoStatikPresData,
+        postFireData,
+        getFireData,
         removeFirebaseData,
         putFireData
     }

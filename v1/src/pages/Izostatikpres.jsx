@@ -51,6 +51,7 @@ const Izostatikpres = () => {
   }
 
   const [info, setInfo] = useState({
+    type:"IzoStatikPresData",
     is_merkezi: "",
     agirlik: "",
     taban: "",
@@ -109,7 +110,7 @@ const Izostatikpres = () => {
   const delHandleOpen = () => setdelOpen(true);
   const delHandleClose = () => setdelOpen(false);
 
-  const { getMaterialCenter, getWorkCenter, getIzoStatikPresData } = useArge()
+  const { getMaterialCenter, getWorkCenter, getFireData } = useArge()
 
 
   useEffect(() => {
@@ -117,7 +118,7 @@ const Izostatikpres = () => {
     getMaterialCenter()
     getWorkCenter()
 
-    getIzoStatikPresData()
+    getFireData("IzoStatikPresData")
 
   }, [])
 
