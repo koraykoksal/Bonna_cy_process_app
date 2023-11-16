@@ -81,6 +81,7 @@ const Izostatikpres = () => {
   const handleClose = () => {
     setOpen(false)
     setInfo({
+      type:"IzoStatikPresData",
       is_merkezi: "",
       agirlik: "",
       taban: "",
@@ -137,7 +138,7 @@ const Izostatikpres = () => {
 
       <DeleteModals delOpen={delOpen} delHandleClose={delHandleClose} delHandleOpen={delHandleOpen} setdelOpen={setdelOpen} info={info} />
 
-      <IzoStatikPres_DataTable handleOpen={handleOpen} delHandleOpen={delHandleOpen} setInfo={setInfo} />
+      <IzoStatikPres_DataTable handleOpen={handleOpen} delHandleOpen={delHandleOpen} setInfo={setInfo} info={info} />
 
 
 

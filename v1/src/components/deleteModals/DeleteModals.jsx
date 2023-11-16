@@ -21,13 +21,12 @@ const style = {
 
 const DeleteModals = ({ delOpen, delHandleClose, info }) => {
 
-
     const { removeFirebaseData, getFireData } = useArge()
 
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        removeFirebaseData(info.id)
+        removeFirebaseData(info.type,info.id)
         getFireData(info?.type)
         delHandleClose()
     }
@@ -46,8 +45,6 @@ const DeleteModals = ({ delOpen, delHandleClose, info }) => {
                 aria-describedby="keep-mounted-modal-description"
             >
                 <Box sx={style}>
-
-                    
 
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
 

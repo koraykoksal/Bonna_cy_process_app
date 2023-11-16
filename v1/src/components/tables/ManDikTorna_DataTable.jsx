@@ -4,14 +4,16 @@ import { MdDelete } from "react-icons/md";
 import { DataGrid, GridToolbar, GridActionsCellItem } from '@mui/x-data-grid';
 import useArge from '../../hooks/useArge';
 import { useSelector } from 'react-redux';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material'
 
-const IzoStatikPres_DataTable = ({setInfo,info,delHandleOpen,handleOpen}) => {
+
+const ManDikTorna_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
+
+    const { manDikTornaData } = useSelector((state) => state.arge)
+    const [tornaData, settornaData] = useState([])
 
 
-    const { izoStatikPresData } = useSelector((state) => state.arge)
-    const [presData, setpresData] = useState([])
 
     const dataGrid_Columns = [
         // {
@@ -102,49 +104,18 @@ const IzoStatikPres_DataTable = ({setInfo,info,delHandleOpen,handleOpen}) => {
             align: "center",
             flex: 1,
         },
+    
         {
-            field: "cap",
-            headerName: "Çap",
+            field: "aynacap",
+            headerName: "Ayna Çap",
             minWidth: 150,
             headerAlign: "center",
             align: "center",
             flex: 1,
         },
         {
-            field: "izobasinc",
-            headerName: "İzo Statik Basınç",
-            minWidth: 150,
-            headerAlign: "center",
-            align: "center",
-            flex: 1,
-        },
-        {
-            field: "kapamabasinc",
-            headerName: "Kapama Basınç",
-            minWidth: 150,
-            headerAlign: "center",
-            align: "center",
-            flex: 1,
-        },
-        {
-            field: "vakumdegeri",
-            headerName: "Vakum Değeri",
-            minWidth: 150,
-            headerAlign: "center",
-            align: "center",
-            flex: 1,
-        },
-        {
-            field: "dolumsuresi",
-            headerName: "Dolum Süresi",
-            minWidth: 150,
-            headerAlign: "center",
-            align: "center",
-            flex: 1,
-        },
-        {
-            field: "granulturu",
-            headerName: "Granül/Big_Bag",
+            field: "camursert",
+            headerName: "Çamur Sertlik",
             minWidth: 150,
             headerAlign: "center",
             align: "center",
@@ -152,15 +123,7 @@ const IzoStatikPres_DataTable = ({setInfo,info,delHandleOpen,handleOpen}) => {
         },
         {
             field: "catlakkontrol",
-            headerName: "Çatlak",
-            minWidth: 150,
-            headerAlign: "center",
-            align: "center",
-            flex: 1,
-        },
-        {
-            field: "rotuskontrol",
-            headerName: "Rötuş",
+            headerName: "Çatlak Kontrol",
             minWidth: 150,
             headerAlign: "center",
             align: "center",
@@ -175,8 +138,8 @@ const IzoStatikPres_DataTable = ({setInfo,info,delHandleOpen,handleOpen}) => {
             flex: 1,
         },
         {
-            field: "hamurunistif",
-            headerName: "Ham Ürün",
+            field: "rotuskontrol",
+            headerName: "Rötüş Kontrol",
             minWidth: 150,
             headerAlign: "center",
             align: "center",
@@ -185,6 +148,14 @@ const IzoStatikPres_DataTable = ({setInfo,info,delHandleOpen,handleOpen}) => {
         {
             field: "uygunsuzluktipi",
             headerName: "Uygunsuzluk Tipi",
+            minWidth: 150,
+            headerAlign: "center",
+            align: "center",
+            flex: 1,
+        },
+        {
+            field: "havakontrol",
+            headerName: "Hava Kontrol",
             minWidth: 150,
             headerAlign: "center",
             align: "center",
@@ -219,9 +190,9 @@ const IzoStatikPres_DataTable = ({setInfo,info,delHandleOpen,handleOpen}) => {
                         key={"edit"}
                         icon={<AiFillEdit size={25} style={{ color: '#0802A3' }} cursor='pointer' />}
                         label="Edit"
-                        onClick={()=>{
+                        onClick={() => {
                             handleOpen()
-                            setInfo({id,type:'IzoStatikPresData'})
+                            setInfo({ id ,type:'ManDikTorna'})
                         }}
 
                     />,
@@ -231,7 +202,7 @@ const IzoStatikPres_DataTable = ({setInfo,info,delHandleOpen,handleOpen}) => {
                         label="Delete"
                         onClick={() => {
                             delHandleOpen()
-                            setInfo({id,type:'IzoStatikPresData'})
+                            setInfo({ id ,type:'ManDikTorna'})
                         }}
 
                     />,
@@ -243,17 +214,17 @@ const IzoStatikPres_DataTable = ({setInfo,info,delHandleOpen,handleOpen}) => {
 
 
     useEffect(() => {
-        const dizi = Object.keys(izoStatikPresData).map(key => { return { id: key, ...izoStatikPresData[key] } })
-        setpresData(dizi)
-    }, [izoStatikPresData])
-    
+        const dizi = Object.keys(manDikTornaData).map(key => { return { id: key, ...manDikTornaData[key] } })
+        settornaData(dizi)
+    }, [manDikTornaData])
+
 
     return (
 
         <Box sx={{ pt: 5 }}>
             <DataGrid
                 columns={dataGrid_Columns}
-                rows={presData}
+                rows={tornaData}
                 pageSizeOptions={[10, 25, 50, 75, 100]}
                 slots={{ toolbar: GridToolbar }}
                 disableRowSelectionOnClick
@@ -263,8 +234,7 @@ const IzoStatikPres_DataTable = ({setInfo,info,delHandleOpen,handleOpen}) => {
             />
         </Box>
 
-
     )
 }
 
-export default IzoStatikPres_DataTable
+export default ManDikTorna_DataTable

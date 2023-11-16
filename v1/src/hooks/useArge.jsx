@@ -8,7 +8,8 @@ import {
     hammaddeDataSuccess,
     fetchIzoStatikPresData,
     workCenterDataSuccess,
-    fetchTornaData
+    fetchTornaData,
+    fetchManDikTornaData
 
 } from '../features/argeSlice'
 import { toastErrorNotify, toastSuccessNotify } from '../helpers/ToastNotify'
@@ -174,6 +175,9 @@ const useArge = () => {
                     else if(address === 'OtomatikTorna'){
                         dispatch(fetchTornaData(data))
                     }
+                    else if(address === 'ManDikTorna'){
+                        dispatch(fetchManDikTornaData(data))
+                    }
                     
                     
                 }
@@ -204,11 +208,13 @@ const useArge = () => {
     }
 
     //! firebase data silme
-    const removeFirebaseData = async (id) => {
+    const removeFirebaseData = async (address,id) => {
+
+        console.log("addres:",address,"id",id)
 
         try {
             const db = getDatabase();
-            remove(ref(db, `IzoStatikPresData/${id}`))
+            remove(ref(db, `${address}/${id}`))
             toastSuccessNotify('Data Deleted ✅')
         } catch (error) {
             toastErrorNotify('No Delete Data ❌')

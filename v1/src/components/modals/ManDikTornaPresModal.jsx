@@ -16,6 +16,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useState, useEffect } from 'react';
 import { uygunsuzlukTipi } from "../../helpers/ProcessData"
 import { useSelector } from "react-redux"
+import useArge from '../../hooks/useArge';
 
 
 const style = {
@@ -31,93 +32,46 @@ const style = {
 
 };
 
-const ManDikTornaPresModal = ({ open, handleClose, handleOpen, workCenterCode, materialCode }) => {
+const ManDikTornaPresModal = ({ open, handleClose, info, setInfo }) => {
 
-  
 
   const handleChange = (e) => {
-    setmandiktornaData({ ...mandiktornaData, [e.target.name]: e.target.value })
+    setInfo({ ...info, [e.target.name]: e.target.value })
   }
 
-  const nowData = new Date()
-  const currentdate = nowData.getDate() + "-" + (nowData.getMonth() + 1) + "-" + nowData.getFullYear()
-  const currentTime = nowData.getHours() + ":" + nowData.getMinutes()
+  const { getFireData, putFireData } = useArge()
+  const { workCenterCode, materialCode } = useSelector((state) => state.arge)
 
-  const { currentUser } = useSelector((state) => state.auth)
 
-  let getVardiya = 0;
+  const { postFireData } = useArge()
 
-  const getShift = () => {
-    const now = new Date().getHours()
 
-    if (now > 8 && now < 16) {
-      getVardiya = 2
-    }
-    else if (now > 16 && now < 23) {
-      getVardiya = 3
+  const handleSubmit = (e) => {
+
+    e.preventDefault()
+
+    if (info.id) {
+      putFireData('ManDikTorna', info)
+      getFireData("ManDikTorna")
     }
     else {
-      getVardiya = 1
+      postFireData("ManDikTorna", info)
+      getFireData("ManDikTorna")
     }
 
-    return getVardiya
+    handleClose()
 
   }
-
-  const [mandiktornaData, setmandiktornaData] = useState({
-    is_merkezi: "",
-    agirlik: "",
-    taban: "",
-    kenar: "",
-    pkenar: "",
-    sucukcap: "",
-    aynacap: "",
-    camursertlik: "",
-    catlakkontrol: "",
-    rotuskontrol: "",
-    yuzeykontrol: "",
-    uygunsuzluktipi: "",
-    aciklama: "",
-    vardiyasorumlusu: "",
-    havakontrol: "",
-    urun_kodu: "",
-    vardiya: getShift(),
-    date: currentdate.toString(),
-    time: currentTime.toString(),
-    kontroleden_kisi: currentUser
-  })
 
 
 
   return (
     <div>
-      
+
       <Modal
         keepMounted
         open={open}
-        onClose={()=>{
-          setmandiktornaData({
-            is_merkezi: "",
-            agirlik: "",
-            taban: "",
-            kenar: "",
-            pkenar: "",
-            sucukcap: "",
-            aynacap: "",
-            camursertlik: "",
-            catlakkontrol: "",
-            rotuskontrol: "",
-            yuzeykontrol: "",
-            uygunsuzluktipi: "",
-            aciklama: "",
-            vardiyasorumlusu: "",
-            havakontrol: "",
-            urun_kodu: "",
-            vardiya: getShift(),
-            date: currentdate.toString(),
-            time: currentTime.toString(),
-            kontroleden_kisi: currentUser
-          })
+        onClose={() => {
           handleClose()
         }}
         aria-labelledby="keep-mounted-modal-title"
@@ -137,7 +91,7 @@ const ManDikTornaPresModal = ({ open, handleClose, handleOpen, workCenterCode, m
           </Box>
 
 
-          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '600px' }} component='form'>
+          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '600px' }} component='form' onSubmit={handleSubmit}>
 
 
             <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
@@ -150,7 +104,7 @@ const ManDikTornaPresModal = ({ open, handleClose, handleOpen, workCenterCode, m
                   id="is_merkezi"
                   name='is_merkezi'
                   label="is_merkezi"
-                  value={mandiktornaData.is_merkezi}
+                  value={info.is_merkezi}
                   onChange={handleChange}
                 >
                   {
@@ -169,7 +123,7 @@ const ManDikTornaPresModal = ({ open, handleClose, handleOpen, workCenterCode, m
                   id="urun_kodu"
                   name='urun_kodu'
                   label="urun_kodu"
-                  value={mandiktornaData.urun_kodu}
+                  value={info.urun_kodu}
                   onChange={handleChange}
                 >
                   {
@@ -192,7 +146,7 @@ const ManDikTornaPresModal = ({ open, handleClose, handleOpen, workCenterCode, m
                 type="text"
                 variant="outlined"
 
-                value={mandiktornaData.agirlik}
+                value={info.agirlik}
                 onChange={handleChange}
               />
               <TextField
@@ -203,7 +157,7 @@ const ManDikTornaPresModal = ({ open, handleClose, handleOpen, workCenterCode, m
                 type="text"
                 variant="outlined"
 
-                value={mandiktornaData.taban}
+                value={info.taban}
                 onChange={handleChange}
               />
               <TextField
@@ -214,7 +168,7 @@ const ManDikTornaPresModal = ({ open, handleClose, handleOpen, workCenterCode, m
                 type="text"
                 variant="outlined"
 
-                value={mandiktornaData.kenar}
+                value={info.kenar}
                 onChange={handleChange}
               />
               <TextField
@@ -225,7 +179,7 @@ const ManDikTornaPresModal = ({ open, handleClose, handleOpen, workCenterCode, m
                 type="text"
                 variant="outlined"
 
-                value={mandiktornaData.camursertlik}
+                value={info.camursertlik}
                 onChange={handleChange}
               />
             </Box>
@@ -239,7 +193,7 @@ const ManDikTornaPresModal = ({ open, handleClose, handleOpen, workCenterCode, m
                 type="text"
                 variant="outlined"
 
-                value={mandiktornaData.pkenar}
+                value={info.pkenar}
                 onChange={handleChange}
               />
               <TextField
@@ -250,7 +204,7 @@ const ManDikTornaPresModal = ({ open, handleClose, handleOpen, workCenterCode, m
                 type="text"
                 variant="outlined"
 
-                value={mandiktornaData.sucukcap}
+                value={info.sucukcap}
                 onChange={handleChange}
               />
               <TextField
@@ -261,7 +215,7 @@ const ManDikTornaPresModal = ({ open, handleClose, handleOpen, workCenterCode, m
                 type="text"
                 variant="outlined"
 
-                value={mandiktornaData.aynacap}
+                value={info.aynacap}
                 onChange={handleChange}
               />
             </Box>
@@ -277,7 +231,7 @@ const ManDikTornaPresModal = ({ open, handleClose, handleOpen, workCenterCode, m
                   id="havakontrol"
                   name='havakontrol'
                   label="havakontrol"
-                  value={mandiktornaData.havakontrol}
+                  value={info.havakontrol}
                   onChange={handleChange}
                 >
                   <MenuItem value="OK">OK</MenuItem>
@@ -292,7 +246,7 @@ const ManDikTornaPresModal = ({ open, handleClose, handleOpen, workCenterCode, m
                   id="catlakkontrol"
                   name='catlakkontrol'
                   label="catlakkontrol"
-                  value={mandiktornaData.catlakkontrol}
+                  value={info.catlakkontrol}
                   onChange={handleChange}
                 >
                   <MenuItem value="OK">OK</MenuItem>
@@ -307,7 +261,7 @@ const ManDikTornaPresModal = ({ open, handleClose, handleOpen, workCenterCode, m
                   id="rotuskontrol"
                   name='rotuskontrol'
                   label="rotuskontrol"
-                  value={mandiktornaData.rotuskontrol}
+                  value={info.rotuskontrol}
                   onChange={handleChange}
                 >
                   <MenuItem value="OK">OK</MenuItem>
@@ -322,7 +276,7 @@ const ManDikTornaPresModal = ({ open, handleClose, handleOpen, workCenterCode, m
                   id="yuzeykontrol"
                   name='yuzeykontrol'
                   label="yuzeykontrol"
-                  value={mandiktornaData.yuzeykontrol}
+                  value={info.yuzeykontrol}
                   onChange={handleChange}
                 >
                   <MenuItem value="OK">OK</MenuItem>
@@ -340,7 +294,7 @@ const ManDikTornaPresModal = ({ open, handleClose, handleOpen, workCenterCode, m
                 id="uygunsuzluktipi"
                 name='uygunsuzluktipi'
                 label="uygunsuzluktipi"
-                value={mandiktornaData.uygunsuzluktipi}
+                value={info.uygunsuzluktipi}
                 onChange={handleChange}
               >
                 {
@@ -361,7 +315,7 @@ const ManDikTornaPresModal = ({ open, handleClose, handleOpen, workCenterCode, m
               id="aciklama"
               type="text"
               variant="outlined"
-              value={mandiktornaData.aciklama}
+              value={info.aciklama}
               onChange={handleChange}
             />
 
@@ -373,7 +327,7 @@ const ManDikTornaPresModal = ({ open, handleClose, handleOpen, workCenterCode, m
               type="text"
               variant="outlined"
 
-              value={mandiktornaData.vardiyasorumlusu}
+              value={info.vardiyasorumlusu}
               onChange={handleChange}
             />
 
@@ -384,7 +338,7 @@ const ManDikTornaPresModal = ({ open, handleClose, handleOpen, workCenterCode, m
               fullWidth
               type='submit'
             >
-              Save
+              {info?.id ? "Update Data" : "Add New Data"}
             </Button>
 
 

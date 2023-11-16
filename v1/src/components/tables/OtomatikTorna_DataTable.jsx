@@ -12,7 +12,7 @@ const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) =>
   const { otoTornaData } = useSelector((state) => state.arge)
   const [tornaData, settornaData] = useState([])
 
-  console.log(info)
+
 
   const dataGrid_Columns = [
     // {
@@ -238,7 +238,7 @@ const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) =>
             label="Edit"
             onClick={() => {
               handleOpen()
-              setInfo({ id })
+              setInfo({ id,type:'OtomatikTorna' })
             }}
 
           />,
@@ -248,7 +248,7 @@ const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) =>
             label="Delete"
             onClick={() => {
               delHandleOpen()
-              setInfo({ id })
+              setInfo({ id,type:'OtomatikTorna' })
             }}
 
           />,

@@ -70,6 +70,7 @@ const Otomatiktorna = () => {
   const handleClose = () => {
     setOpen(false)
     setInfo({
+      type:"OtomatikTorna",
       is_merkezi: "",
       agirlik: "",
       taban: "",
@@ -119,7 +120,7 @@ const Otomatiktorna = () => {
 
 
     <div>
-      <Typography mt={8} align='center' variant='subtitle1' sx={typoStyle}>
+      <Typography mt={8} align='center' variant='h5' fontWeight={700} sx={typoStyle}>
         Otomaik Torna
       </Typography>
 
