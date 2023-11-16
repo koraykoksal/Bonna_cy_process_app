@@ -3,19 +3,20 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Formik,Form } from 'formik';
+import { Formik, Form } from 'formik';
 import { Container, IconButton, TextField, TextareaAutosize } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { sorunTipi,aksiyonSahibi } from '../../helpers/ProcessData';
+import { sorunTipi, aksiyonSahibi } from '../../helpers/ProcessData';
 import Textarea from '@mui/joy/Textarea';
 import CloseIcon from '@mui/icons-material/Close';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import { useState ,useEffect} from 'react';
-import {uygunsuzlukTipi} from "../../helpers/ProcessData"
-import {useSelector} from "react-redux"
+import { useState, useEffect } from 'react';
+import { uygunsuzlukTipi } from "../../helpers/ProcessData"
+import { useSelector } from "react-redux"
+import useArge from '../../hooks/useArge';
 
 
 const style = {
@@ -31,96 +32,43 @@ const style = {
 
 };
 
-const YuksekBasincModal=({open,handleClose,handleOpen,workCenterCode, materialCode})=>{
+const YuksekBasincModal = ({ open, handleClose, info, setInfo }) => {
 
-  
 
-  const handleChange=(e)=>{
-    setyuksekbasincData({...yuksekbasincData,[e.target.name]:e.target.value})
+  const handleChange = (e) => {
+    setInfo({ ...info, [e.target.name]: e.target.value })
   }
 
-  const nowData=new Date()
-  const currentdate = nowData.getDate() +"-"+(nowData.getMonth()+1)+"-"+nowData.getFullYear()
-  const currentTime = nowData.getHours() +":"+nowData.getMinutes()
+  const { getFireData, putFireData,postFireData } = useArge()
+  const { workCenterCode, materialCode } = useSelector((state) => state.arge)
 
-  const {currentUser} = useSelector((state) => state.auth)
 
-  let getVardiya = 0;
+  const handleSubmit = (e) => {
 
-  const getShift=()=>{
-    const now=new Date().getHours()
+    e.preventDefault()
 
-    if(now > 8 && now < 16){
-        getVardiya = 2
+    if (info.id) {
+      putFireData('YuksekBasinc', info)
+      getFireData("YuksekBasinc")
     }
-    else if(now > 16 && now < 23){
-        getVardiya = 3
-    }
-    else{
-        getVardiya = 1
+    else {
+      postFireData("YuksekBasinc", info)
+      getFireData("YuksekBasinc")
     }
 
-    return getVardiya
+    handleClose()
 
   }
 
-  const [yuksekbasincData, setyuksekbasincData] = useState({
-    is_merkezi:"",
-    agirlik:"",
-    taban:"",
-    kenar:"",
-    pkenar:"",
-    yogunluk:"",
-    v1:"",
-    v2:"",
-    camursicakligi:"",
-    basinc:"",
-    havakontrol:"",
-    catlakkontrol:"",
-    rotuskontrol:"",
-    yuzeykontrol:"",
-    uygunsuzluktipi:"",
-    aciklama:"",
-    vardiyasorumlusu:"",
-    urun_kodu:"",
-    vardiya:getShift(),
-    date:currentdate.toString(),
-    time:currentTime.toString(),
-    kontroleden_kisi:currentUser
-  })
 
 
   return (
     <div>
-      
+
       <Modal
         keepMounted
         open={open}
-        onClose={()=>{
-          setyuksekbasincData({
-            is_merkezi:"",
-            agirlik:"",
-            taban:"",
-            kenar:"",
-            pkenar:"",
-            yogunluk:"",
-            v1:"",
-            v2:"",
-            camursicakligi:"",
-            basinc:"",
-            havakontrol:"",
-            catlakkontrol:"",
-            rotuskontrol:"",
-            yuzeykontrol:"",
-            uygunsuzluktipi:"",
-            aciklama:"",
-            vardiyasorumlusu:"",
-            urun_kodu:"",
-            vardiya:getShift(),
-            date:currentdate.toString(),
-            time:currentTime.toString(),
-            kontroleden_kisi:currentUser
-          })
+        onClose={() => {
           handleClose()
         }}
         aria-labelledby="keep-mounted-modal-title"
@@ -128,301 +76,301 @@ const YuksekBasincModal=({open,handleClose,handleOpen,workCenterCode, materialCo
       >
         <Box sx={style}>
 
-        <Box sx={{display:'flex',flexWrap:'wrap',justifyContent:'space-between',alignItems:'center'}}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center' }}>
 
             <Typography id="keep-mounted-modal-title" variant="h6" component="h2" color="#000000">
-                Yüksek Basınç
+              Yüksek Basınç
             </Typography>
 
-            <IconButton onClick={()=>handleClose()}>
-                <HighlightOffIcon sx={{color:'#C70039',fontSize:'28px'}}/>
+            <IconButton onClick={() => handleClose()}>
+              <HighlightOffIcon sx={{ color: '#C70039', fontSize: '28px' }} />
             </IconButton>
-        </Box>
-          
-            
-            <Box sx={{mt:3,display:'flex',flexDirection:'column',gap:2,overflow:'scroll',maxHeight:'600px'}} component='form'>
-                
+          </Box>
 
-            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
+
+          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '600px' }} component='form' onSubmit={handleSubmit}>
+
+
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
 
               {/* makine */}
-            <FormControl fullWidth>
+              <FormControl fullWidth>
                 <InputLabel id="is_merkezi">Makine</InputLabel>
                 <Select
-                labelId="is_merkezi"
-                id="is_merkezi"
-                name='is_merkezi'
-                label="is_merkezi"
-                value={yuksekbasincData.is_merkezi}
-                onChange={handleChange}
+                  labelId="is_merkezi"
+                  id="is_merkezi"
+                  name='is_merkezi'
+                  label="is_merkezi"
+                  value={info.is_merkezi}
+                  onChange={handleChange}
                 >
-                {
+                  {
                     workCenterCode?.filter((data) => data.ISMERKEZI.includes('SK-B')).map(({ ISMERKEZI, index }) => (
                       <MenuItem key={index} value={ISMERKEZI}>{ISMERKEZI}</MenuItem>
                     ))
                   }
                 </Select>
-            </FormControl>
-            
-            {/* ürün kodu */}
-            <FormControl fullWidth>
+              </FormControl>
+
+              {/* ürün kodu */}
+              <FormControl fullWidth>
                 <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
                 <Select
-                labelId="urun_kodu"
-                id="urun_kodu"
-                name='urun_kodu'
-                label="urun_kodu"
-                value={yuksekbasincData.urun_kodu}
-                onChange={handleChange}
+                  labelId="urun_kodu"
+                  id="urun_kodu"
+                  name='urun_kodu'
+                  label="urun_kodu"
+                  value={info.urun_kodu}
+                  onChange={handleChange}
                 >
-                {
+                  {
                     materialCode?.map(({ MALZEMEKODU, index }) => (
                       <MenuItem key={index} value={MALZEMEKODU}>{MALZEMEKODU}</MenuItem>
                     ))
                   }
                 </Select>
-            </FormControl>
-            
-            </Box>
-
-            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
-            <TextField
-            fullWidth
-            label="Yoğunluk (g/L)"
-            name="yogunluk"
-            id="yogunluk"
-            type="text"
-            variant="outlined"
-            value={yuksekbasincData.yogunluk}
-            onChange={handleChange}
-            />
-            <TextField
-            fullWidth
-            label="V1 (°G)"
-            name="v1"
-            id="v1"
-            type="text"
-            variant="outlined"
-            value={yuksekbasincData.v1}
-            onChange={handleChange}
-            />
-            <TextField
-            fullWidth
-            label="V2 (°G)"
-            name="v2"
-            id="v2"
-            type="text"
-            variant="outlined"
-            value={yuksekbasincData.v2}
-            onChange={handleChange}
-            />
-            
-            </Box>
-
-            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
-
-            <TextField
-            fullWidth
-            label="Çamur (°C)"
-            name="camursicakligi"
-            id="camursicakligi"
-            type="text"
-            variant="outlined"
-            value={yuksekbasincData.camursicakligi}
-            onChange={handleChange}
-            />
-
-            <TextField
-            fullWidth
-            label="Ağırlık (g)"
-            name="agirlik"
-            id="agirlik"
-            type="text"
-            variant="outlined"
-            value={yuksekbasincData.agirlik}
-            onChange={handleChange}
-            />
-            <TextField
-            fullWidth
-            label="Taban (mm)"
-            name="taban"
-            id="taban"
-            type="text"
-            variant="outlined"
-            
-            value={yuksekbasincData.taban}
-            onChange={handleChange}
-            />
-            
-            </Box>
-
-            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
-
-            <TextField
-            fullWidth
-            label="Kenar (mm)"
-            name="kenar"
-            id="kenar"
-            type="text"
-            variant="outlined"
-            
-            value={yuksekbasincData.kenar}
-            onChange={handleChange}
-            />
-
-            <TextField
-            fullWidth
-            label="P.Kenar (mm)"
-            name="pkenar"
-            id="pkenar"
-            type="text"
-            variant="outlined"
-            
-            value={yuksekbasincData.pkenar}
-            onChange={handleChange}
-            />
-
-            <TextField
-            fullWidth
-            label="Basınç"
-            name="basinc"
-            id="basinc"
-            type="text"
-            variant="outlined"
-            
-            value={yuksekbasincData.basinc}
-            onChange={handleChange}
-            />
+              </FormControl>
 
             </Box>
-            
+
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+              <TextField
+                fullWidth
+                label="Yoğunluk (g/L)"
+                name="yogunluk"
+                id="yogunluk"
+                type="text"
+                variant="outlined"
+                value={info.yogunluk}
+                onChange={handleChange}
+              />
+              <TextField
+                fullWidth
+                label="V1 (°G)"
+                name="v1"
+                id="v1"
+                type="text"
+                variant="outlined"
+                value={info.v1}
+                onChange={handleChange}
+              />
+              <TextField
+                fullWidth
+                label="V2 (°G)"
+                name="v2"
+                id="v2"
+                type="text"
+                variant="outlined"
+                value={info.v2}
+                onChange={handleChange}
+              />
+
+            </Box>
+
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+
+              <TextField
+                fullWidth
+                label="Çamur (°C)"
+                name="camursicakligi"
+                id="camursicakligi"
+                type="text"
+                variant="outlined"
+                value={info.camursicakligi}
+                onChange={handleChange}
+              />
+
+              <TextField
+                fullWidth
+                label="Ağırlık (g)"
+                name="agirlik"
+                id="agirlik"
+                type="text"
+                variant="outlined"
+                value={info.agirlik}
+                onChange={handleChange}
+              />
+              <TextField
+                fullWidth
+                label="Taban (mm)"
+                name="taban"
+                id="taban"
+                type="text"
+                variant="outlined"
+
+                value={info.taban}
+                onChange={handleChange}
+              />
+
+            </Box>
+
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+
+              <TextField
+                fullWidth
+                label="Kenar (mm)"
+                name="kenar"
+                id="kenar"
+                type="text"
+                variant="outlined"
+
+                value={info.kenar}
+                onChange={handleChange}
+              />
+
+              <TextField
+                fullWidth
+                label="P.Kenar (mm)"
+                name="pkenar"
+                id="pkenar"
+                type="text"
+                variant="outlined"
+
+                value={info.pkenar}
+                onChange={handleChange}
+              />
+
+              <TextField
+                fullWidth
+                label="Basınç"
+                name="basinc"
+                id="basinc"
+                type="text"
+                variant="outlined"
+
+                value={info.basinc}
+                onChange={handleChange}
+              />
+
+            </Box>
+
 
 
             {/* uygunsuz işlem - standart değer */}
-            <Box sx={{display:'flex',justifyContent:'space-between',gap:2}}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}>
 
-            <FormControl fullWidth>
+              <FormControl fullWidth>
                 <InputLabel id="havakontrol">HK</InputLabel>
                 <Select
-                labelId="havakontrol"
-                id="havakontrol"
-                name='havakontrol'
-                label="havakontrol"
-                value={yuksekbasincData.havakontrol}
-                onChange={handleChange}
+                  labelId="havakontrol"
+                  id="havakontrol"
+                  name='havakontrol'
+                  label="havakontrol"
+                  value={info.havakontrol}
+                  onChange={handleChange}
                 >
-                <MenuItem value="OK">OK</MenuItem>
-                <MenuItem value="NOK">NOK</MenuItem>
+                  <MenuItem value="OK">OK</MenuItem>
+                  <MenuItem value="NOK">NOK</MenuItem>
                 </Select>
-            </FormControl>
+              </FormControl>
 
-            <FormControl fullWidth>
+              <FormControl fullWidth>
                 <InputLabel id="catlakkontrol">ÇK</InputLabel>
                 <Select
-                labelId="catlakkontrol"
-                id="catlakkontrol"
-                name='catlakkontrol'
-                label="catlakkontrol"
-                value={yuksekbasincData.catlakkontrol}
-                onChange={handleChange}
+                  labelId="catlakkontrol"
+                  id="catlakkontrol"
+                  name='catlakkontrol'
+                  label="catlakkontrol"
+                  value={info.catlakkontrol}
+                  onChange={handleChange}
                 >
-                <MenuItem value="OK">OK</MenuItem>
-                <MenuItem value="NOK">NOK</MenuItem>
+                  <MenuItem value="OK">OK</MenuItem>
+                  <MenuItem value="NOK">NOK</MenuItem>
                 </Select>
-            </FormControl>
+              </FormControl>
 
-            <FormControl fullWidth>
+              <FormControl fullWidth>
                 <InputLabel id="rotuskontrol">RK</InputLabel>
                 <Select
-                labelId="rotuskontrol"
-                id="rotuskontrol"
-                name='rotuskontrol'
-                label="rotuskontrol"
-                value={yuksekbasincData.rotuskontrol}
-                onChange={handleChange}
+                  labelId="rotuskontrol"
+                  id="rotuskontrol"
+                  name='rotuskontrol'
+                  label="rotuskontrol"
+                  value={info.rotuskontrol}
+                  onChange={handleChange}
                 >
-                <MenuItem value="OK">OK</MenuItem>
-                <MenuItem value="NOK">NOK</MenuItem>
+                  <MenuItem value="OK">OK</MenuItem>
+                  <MenuItem value="NOK">NOK</MenuItem>
                 </Select>
-            </FormControl>
+              </FormControl>
 
-            <FormControl fullWidth>
+              <FormControl fullWidth>
                 <InputLabel id="yuzeykontrol">YK</InputLabel>
                 <Select
-                labelId="yuzeykontrol"
-                id="yuzeykontrol"
-                name='yuzeykontrol'
-                label="yuzeykontrol"
-                value={yuksekbasincData.yuzeykontrol}
-                onChange={handleChange}
+                  labelId="yuzeykontrol"
+                  id="yuzeykontrol"
+                  name='yuzeykontrol'
+                  label="yuzeykontrol"
+                  value={info.yuzeykontrol}
+                  onChange={handleChange}
                 >
-                <MenuItem value="OK">OK</MenuItem>
-                <MenuItem value="NOK">NOK</MenuItem>
+                  <MenuItem value="OK">OK</MenuItem>
+                  <MenuItem value="NOK">NOK</MenuItem>
                 </Select>
-            </FormControl>
+              </FormControl>
 
             </Box>
 
             {/* aksiyon sahibi */}
             <FormControl fullWidth>
-                <InputLabel id="uygunsuzluktipi">Uygunsuzluk Tipi</InputLabel>
-                <Select
+              <InputLabel id="uygunsuzluktipi">Uygunsuzluk Tipi</InputLabel>
+              <Select
                 labelId="uygunsuzluktipi"
                 id="uygunsuzluktipi"
                 name='uygunsuzluktipi'
                 label="uygunsuzluktipi"
-                value={yuksekbasincData.uygunsuzluktipi}
+                value={info.uygunsuzluktipi}
                 onChange={handleChange}
-                >
+              >
                 {
-                    uygunsuzlukTipi.map((item)=>(
-                        <MenuItem value={item.text}>{item.text}</MenuItem>
-                    ))
+                  uygunsuzlukTipi.map((item) => (
+                    <MenuItem value={item.text}>{item.text}</MenuItem>
+                  ))
                 }
-                
-                </Select>
+
+              </Select>
             </FormControl>
 
 
 
             <TextField
-            multiline
-            fullWidth
-            label="Açıklama"
-            name="aciklama"
-            id="aciklama"
-            type="text"
-            variant="outlined"
-            value={yuksekbasincData.aciklama}
-            onChange={handleChange}
+              multiline
+              fullWidth
+              label="Açıklama"
+              name="aciklama"
+              id="aciklama"
+              type="text"
+              variant="outlined"
+              value={info.aciklama}
+              onChange={handleChange}
             />
 
             <TextField
-            fullWidth
-            label="Vardiya Sorumlusu veya Operatör"
-            name="vardiyasorumlusu"
-            id="vardiyasorumlusu"
-            type="text"
-            variant="outlined"
-            
-            value={yuksekbasincData.vardiyasorumlusu}
-            onChange={handleChange}
+              fullWidth
+              label="Vardiya Sorumlusu veya Operatör"
+              name="vardiyasorumlusu"
+              id="vardiyasorumlusu"
+              type="text"
+              variant="outlined"
+
+              value={info.vardiyasorumlusu}
+              onChange={handleChange}
             />
 
 
 
             <Button
-            variant='contained'
-            fullWidth
-            type='submit'
+              variant='contained'
+              fullWidth
+              type='submit'
             >
-                Save
+              {info?.id ? "Update Data" : "Add New Data"}
             </Button>
 
 
-            </Box>
+          </Box>
 
-          
+
         </Box>
       </Modal>
     </div>

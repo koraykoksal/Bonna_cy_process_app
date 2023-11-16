@@ -32,104 +32,43 @@ const style = {
 
 };
 
-const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materialCode }) => {
+const DokumHattiModal = ({ open, handleClose, info, setInfo }) => {
 
-  
+
   const handleChange = (e) => {
-    setdokumHattiData({ ...dokumHattiData, [e.target.name]: e.target.value })
+    setInfo({ ...info, [e.target.name]: e.target.value })
   }
 
-  const nowData = new Date()
-  const currentdate = nowData.getDate() + "-" + (nowData.getMonth() + 1) + "-" + nowData.getFullYear()
-  const currentTime = nowData.getHours() + ":" + nowData.getMinutes()
-
-  const { currentUser } = useSelector((state) => state.auth)
+  const { getFireData, putFireData, postFireData } = useArge()
+  const { workCenterCode, materialCode } = useSelector((state) => state.arge)
 
 
-  let getVardiya = 0;
+  const handleSubmit = (e) => {
 
-  const getShift = () => {
-    const now = new Date().getHours()
+    e.preventDefault()
 
-    if (now > 8 && now < 16) {
-      getVardiya = 2
-    }
-    else if (now > 16 && now < 23) {
-      getVardiya = 3
+    if (info.id) {
+      putFireData('DokumHatti', info)
+      getFireData("DokumHatti")
     }
     else {
-      getVardiya = 1
+      postFireData("DokumHatti", info)
+      getFireData("DokumHatti")
     }
 
-    return getVardiya
+    handleClose()
 
   }
 
-  const [dokumHattiData, setdokumHattiData] = useState({
-    is_merkezi: "",
-    aciklama: "",
-    urun_kodu: "",
-    kurutmaSicakligi: "",
-    camurSicakligi: "",
-    yogunluk: "",
-    t1: "",
-    t2: "",
-    t1t2: "",
-    ucDakika: "",
-    besDakika: "",
-    onDakika: "",
-    agirlik: "",
-    taban: "",
-    ab: "",
-    cd: "",
-    cidarKalinlik: "",
-    catlak: "",
-    rotus: "",
-    yuzeyKontrol: "",
-    uygunsuzlukTipi: "",
-    vardiyaSorumlusu: "",
-    vardiya: getShift(),
-    date: currentdate.toString(),
-    time: currentTime.toString(),
-    kontroleden_kisi: currentUser
-  })
 
 
   return (
     <div>
-      
+
       <Modal
         keepMounted
         open={open}
-        onClose={()=>{
-          setdokumHattiData({
-            is_merkezi: "",
-            aciklama: "",
-            urun_kodu: "",
-            kurutmaSicakligi: "",
-            camurSicakligi: "",
-            yogunluk: "",
-            t1: "",
-            t2: "",
-            t1t2: "",
-            ucDakika: "",
-            besDakika: "",
-            onDakika: "",
-            agirlik: "",
-            taban: "",
-            ab: "",
-            cd: "",
-            cidarKalinlik: "",
-            catlak: "",
-            rotus: "",
-            yuzeyKontrol: "",
-            uygunsuzlukTipi: "",
-            vardiyaSorumlusu: "",
-            vardiya: getShift(),
-            date: currentdate.toString(),
-            time: currentTime.toString(),
-            kontroleden_kisi: currentUser
-          })
+        onClose={() => {
           handleClose()
         }}
         aria-labelledby="keep-mounted-modal-title"
@@ -149,7 +88,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
           </Box>
 
 
-          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '600px' }} component='form'>
+          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '600px' }} component='form' onSubmit={handleSubmit}>
 
 
             <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
@@ -162,7 +101,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
                   id="is_merkezi"
                   name='is_merkezi'
                   label="is_merkezi"
-                  value={dokumHattiData.is_merkezi}
+                  value={info.is_merkezi}
                   onChange={handleChange}
                 >
                   {
@@ -181,7 +120,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
                   id="urun_kodu"
                   name='urun_kodu'
                   label="urun_kodu"
-                  value={dokumHattiData.urun_kodu}
+                  value={info.urun_kodu}
                   onChange={handleChange}
                 >
                   {
@@ -204,7 +143,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
                 id="kurutmaSicakligi"
                 type="text"
                 variant="outlined"
-                value={dokumHattiData.kurutmaSicakligi}
+                value={info.kurutmaSicakligi}
                 onChange={handleChange}
               />
 
@@ -216,7 +155,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
                 id="camurSicakligi"
                 type="text"
                 variant="outlined"
-                value={dokumHattiData.camurSicakligi}
+                value={info.camurSicakligi}
                 onChange={handleChange}
               />
 
@@ -227,7 +166,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
                 id="yogunluk"
                 type="text"
                 variant="outlined"
-                value={dokumHattiData.yogunluk}
+                value={info.yogunluk}
                 onChange={handleChange}
               />
             </Box>
@@ -246,7 +185,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
                   id="t1"
                   type="text"
                   variant="outlined"
-                  value={dokumHattiData.t1}
+                  value={info.t1}
                   onChange={handleChange}
                 />
 
@@ -257,7 +196,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
                   id="t2"
                   type="text"
                   variant="outlined"
-                  value={dokumHattiData.t2}
+                  value={info.t2}
                   onChange={handleChange}
                 />
 
@@ -268,7 +207,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
                   id="t1t2"
                   type="text"
                   variant="outlined"
-                  value={dokumHattiData.t1t2}
+                  value={info.t1t2}
                   onChange={handleChange}
                 />
               </Box>
@@ -289,7 +228,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
                   id="ucDakika"
                   type="text"
                   variant="outlined"
-                  value={dokumHattiData.ucDakika}
+                  value={info.ucDakika}
                   onChange={handleChange}
                 />
 
@@ -300,7 +239,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
                   id="besDakika"
                   type="text"
                   variant="outlined"
-                  value={dokumHattiData.besDakika}
+                  value={info.besDakika}
                   onChange={handleChange}
                 />
 
@@ -311,7 +250,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
                   id="onDakika"
                   type="text"
                   variant="outlined"
-                  value={dokumHattiData.onDakika}
+                  value={info.onDakika}
                   onChange={handleChange}
                 />
               </Box>
@@ -327,7 +266,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
                 id="agirlik"
                 type="text"
                 variant="outlined"
-                value={dokumHattiData.agirlik}
+                value={info.agirlik}
                 onChange={handleChange}
               />
 
@@ -338,7 +277,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
                 id="taban"
                 type="text"
                 variant="outlined"
-                value={dokumHattiData.taban}
+                value={info.taban}
                 onChange={handleChange}
               />
 
@@ -350,7 +289,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
                 id="ab"
                 type="text"
                 variant="outlined"
-                value={dokumHattiData.ab}
+                value={info.ab}
                 onChange={handleChange}
               />
 
@@ -361,7 +300,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
                 id="cd"
                 type="text"
                 variant="outlined"
-                value={dokumHattiData.cd}
+                value={info.cd}
                 onChange={handleChange}
               />
 
@@ -377,7 +316,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
                 id="cidarKalinlik"
                 type="text"
                 variant="outlined"
-                value={dokumHattiData.cidarKalinlik}
+                value={info.cidarKalinlik}
                 onChange={handleChange}
               />
 
@@ -388,7 +327,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
                 id="catlak"
                 type="text"
                 variant="outlined"
-                value={dokumHattiData.catlak}
+                value={info.catlak}
                 onChange={handleChange}
               />
 
@@ -400,7 +339,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
                 id="rotus"
                 type="text"
                 variant="outlined"
-                value={dokumHattiData.rotus}
+                value={info.rotus}
                 onChange={handleChange}
               />
 
@@ -411,7 +350,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
                 id="yuzeyKontrol"
                 type="text"
                 variant="outlined"
-                value={dokumHattiData.yuzeyKontrol}
+                value={info.yuzeyKontrol}
                 onChange={handleChange}
               />
 
@@ -428,7 +367,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
                   id="uygunsuzlukTipi"
                   name='uygunsuzlukTipi'
                   label="uygunsuzlukTipi"
-                  value={dokumHattiData.uygunsuzlukTipi}
+                  value={info.uygunsuzlukTipi}
                   onChange={handleChange}
                 >
                   {
@@ -448,7 +387,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
                 id="aciklama"
                 type="text"
                 variant="outlined"
-                value={dokumHattiData.aciklama}
+                value={info.aciklama}
                 onChange={handleChange}
               />
 
@@ -462,7 +401,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
               id="vardiyaSorumlusu"
               type="text"
               variant="outlined"
-              value={dokumHattiData.vardiyaSorumlusu}
+              value={info.vardiyaSorumlusu}
               onChange={handleChange}
             />
 
@@ -475,7 +414,7 @@ const DokumHattiModal = ({ open, handleClose, handleOpen, workCenterCode, materi
               fullWidth
               type='submit'
             >
-              Save
+              {info?.id ? "Update Data" : "Add New Data"}
             </Button>
 
 

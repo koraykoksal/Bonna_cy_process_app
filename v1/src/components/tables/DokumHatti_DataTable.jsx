@@ -4,13 +4,16 @@ import { MdDelete } from "react-icons/md";
 import { DataGrid, GridToolbar, GridActionsCellItem } from '@mui/x-data-grid';
 import useArge from '../../hooks/useArge';
 import { useSelector } from 'react-redux';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material'
 
-const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) => {
 
-  const { otoTornaData } = useSelector((state) => state.arge)
-  const [tornaData, settornaData] = useState([])
+const DokumHatti_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
+
+  const { dokumHattiData } = useSelector((state) => state.arge)
+  const [dokumHatti, setdokumHatti] = useState([])
+
+
 
   const dataGrid_Columns = [
     // {
@@ -70,6 +73,78 @@ const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) =>
       flex: 1,
     },
     {
+      field: "kurutmaSicakligi",
+      headerName: "Kurutma Sıcaklığı",
+      minWidth: 150,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+    },
+    {
+      field: "camurSicakligi",
+      headerName: "Çamur Sıcaklığı",
+      minWidth: 150,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+    },
+    {
+      field: "yogunluk",
+      headerName: "Yoğunluk",
+      minWidth: 150,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+    },
+    {
+      field: "t1",
+      headerName: "T1",
+      minWidth: 150,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+    },
+    {
+      field: "t2",
+      headerName: "T2",
+      minWidth: 150,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+    },
+    {
+      field: "t1t2",
+      headerName: "T1T2",
+      minWidth: 150,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+    },
+    {
+      field: "ucDakika",
+      headerName: "ucDakika",
+      minWidth: 150,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+    },
+    {
+      field: "besDakika",
+      headerName: "besDakika",
+      minWidth: 150,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+    },
+    {
+      field: "onDakika",
+      headerName: "onDakika",
+      minWidth: 150,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+    },
+    {
       field: "agirlik",
       headerName: "Ağırlık",
       minWidth: 150,
@@ -86,128 +161,57 @@ const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) =>
       flex: 1,
     },
     {
-      field: "kenar",
-      headerName: "Kenar",
+      field: "ab",
+      headerName: "AB",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
-      field: "pkenar",
-      headerName: "P_Kenar",
+      field: "cd",
+      headerName: "CD",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
-      field: "cap",
-      headerName: "Çap",
+      field: "cidarKalinlik",
+      headerName: "Cidar Kalinlik",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
-      field: "aynacap",
-      headerName: "Ayna Çap",
+      field: "catlak",
+      headerName: "Çatlak",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
-      field: "kulpbunye",
-      headerName: "Kulp Bünye",
+      field: "rotus",
+      headerName: "Rötüş",
+      minWidth: 150,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+    },
+
+    {
+      field: "yuzeyKontrol",
+      headerName: "Yüzey Kontrol",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
-      field: "vakumdegeri",
-      headerName: "Vakum Değeri",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
-    {
-      field: "kesilensucuk",
-      headerName: "Kesilen Suçuk",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
-    {
-      field: "kirpintimiktar",
-      headerName: "Kırpıntı Miktar",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
-    {
-      field: "camursert",
-      headerName: "Çamur Sertlik",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
-    {
-      field: "catlakkontrol",
-      headerName: "Çatlak Kontrol",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
-    {
-      field: "yuzeykontrol",
-      headerName: "Yüzey",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
-    {
-      field: "rotuskontrol",
-      headerName: "Rötüş Kontrol",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
-    {
-      field: "uygunsuzluktipi",
+      field: "uygunsuzlukTipi",
       headerName: "Uygunsuzluk Tipi",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
-    {
-      field: "kelepenozulkontrol",
-      headerName: "Kelepenozul Kontrol",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
-    {
-      field: "havakontrol",
-      headerName: "Hava Kontrol",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
-    {
-      field: "aciklama",
-      headerName: "Açıklama",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
@@ -236,7 +240,7 @@ const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) =>
             label="Edit"
             onClick={() => {
               handleOpen()
-              setInfo({ id,type:'OtomatikTorna' })
+              setInfo({ id, type: 'DokumHatti' })
             }}
 
           />,
@@ -246,7 +250,7 @@ const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) =>
             label="Delete"
             onClick={() => {
               delHandleOpen()
-              setInfo({ id,type:'OtomatikTorna' })
+              setInfo({ id, type: 'DokumHatti' })
             }}
 
           />,
@@ -258,9 +262,9 @@ const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) =>
 
 
   useEffect(() => {
-    const dizi = Object.keys(otoTornaData).map(key => { return { id: key, ...otoTornaData[key] } })
-    settornaData(dizi)
-  }, [otoTornaData])
+    const dizi = Object.keys(dokumHattiData).map(key => { return { id: key, ...dokumHattiData[key] } })
+    setdokumHatti(dizi)
+  }, [dokumHattiData])
 
 
   return (
@@ -268,7 +272,7 @@ const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) =>
     <Box sx={{ pt: 5 }}>
       <DataGrid
         columns={dataGrid_Columns}
-        rows={tornaData}
+        rows={dokumHatti}
         pageSizeOptions={[10, 25, 50, 75, 100]}
         slots={{ toolbar: GridToolbar }}
         disableRowSelectionOnClick
@@ -278,9 +282,7 @@ const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) =>
       />
     </Box>
 
-
   )
-
 }
 
-export default OtomatikTorna_DataTable
+export default DokumHatti_DataTable

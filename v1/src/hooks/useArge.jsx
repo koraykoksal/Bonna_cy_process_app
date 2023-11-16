@@ -9,7 +9,9 @@ import {
     fetchIzoStatikPresData,
     workCenterDataSuccess,
     fetchTornaData,
-    fetchManDikTornaData
+    fetchManDikTornaData,
+    fetchYuksekBasincData,
+    fetchDokumHattiData
 
 } from '../features/argeSlice'
 import { toastErrorNotify, toastSuccessNotify } from '../helpers/ToastNotify'
@@ -18,6 +20,7 @@ import { db } from "../db/firebase_db"
 import { getDatabase, onValue, ref, remove, set, update } from "firebase/database";
 import { uid } from "uid";
 import { useState } from 'react';
+import YuksekBasincModal from '../components/modals/YuksekBasincModal';
 
 const useArge = () => {
 
@@ -177,6 +180,12 @@ const useArge = () => {
                     }
                     else if(address === 'ManDikTorna'){
                         dispatch(fetchManDikTornaData(data))
+                    }
+                    else if(address === 'YuksekBasinc'){
+                        dispatch(fetchYuksekBasincData(data))
+                    }
+                    else if(address === 'DokumHatti'){
+                        dispatch(fetchDokumHattiData(data))
                     }
                     
                     

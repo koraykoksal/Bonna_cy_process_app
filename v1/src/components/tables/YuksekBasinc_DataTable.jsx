@@ -4,13 +4,15 @@ import { MdDelete } from "react-icons/md";
 import { DataGrid, GridToolbar, GridActionsCellItem } from '@mui/x-data-grid';
 import useArge from '../../hooks/useArge';
 import { useSelector } from 'react-redux';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material'
 
-const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) => {
+const YuksekBasinc_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
 
-  const { otoTornaData } = useSelector((state) => state.arge)
-  const [tornaData, settornaData] = useState([])
+  const { yuksekBasincData } = useSelector((state) => state.arge)
+  const [yuksekBasinc, setyuksekBasinc] = useState([])
+
+
 
   const dataGrid_Columns = [
     // {
@@ -102,56 +104,48 @@ const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) =>
       flex: 1,
     },
     {
-      field: "cap",
-      headerName: "Çap",
+      field: "yogunluk",
+      headerName: "Yoğunluk",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
-      field: "aynacap",
-      headerName: "Ayna Çap",
+      field: "v1",
+      headerName: "V1",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
-      field: "kulpbunye",
-      headerName: "Kulp Bünye",
+      field: "v2",
+      headerName: "V2",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
-      field: "vakumdegeri",
-      headerName: "Vakum Değeri",
+      field: "camursicakligi",
+      headerName: "Çamur Sıcaklığı",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
-      field: "kesilensucuk",
-      headerName: "Kesilen Suçuk",
+      field: "basinc",
+      headerName: "Basınç",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
-      field: "kirpintimiktar",
-      headerName: "Kırpıntı Miktar",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
-    {
-      field: "camursert",
-      headerName: "Çamur Sertlik",
+      field: "havakontrol",
+      headerName: "Hava Kontrol",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
@@ -190,22 +184,6 @@ const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) =>
       flex: 1,
     },
     {
-      field: "kelepenozulkontrol",
-      headerName: "Kelepenozul Kontrol",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
-    {
-      field: "havakontrol",
-      headerName: "Hava Kontrol",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
-    {
       field: "aciklama",
       headerName: "Açıklama",
       minWidth: 150,
@@ -236,7 +214,7 @@ const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) =>
             label="Edit"
             onClick={() => {
               handleOpen()
-              setInfo({ id,type:'OtomatikTorna' })
+              setInfo({ id, type: 'YuksekBasinc' })
             }}
 
           />,
@@ -246,7 +224,7 @@ const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) =>
             label="Delete"
             onClick={() => {
               delHandleOpen()
-              setInfo({ id,type:'OtomatikTorna' })
+              setInfo({ id, type: 'YuksekBasinc' })
             }}
 
           />,
@@ -258,9 +236,9 @@ const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) =>
 
 
   useEffect(() => {
-    const dizi = Object.keys(otoTornaData).map(key => { return { id: key, ...otoTornaData[key] } })
-    settornaData(dizi)
-  }, [otoTornaData])
+    const dizi = Object.keys(yuksekBasincData).map(key => { return { id: key, ...yuksekBasincData[key] } })
+    setyuksekBasinc(dizi)
+  }, [yuksekBasincData])
 
 
   return (
@@ -268,7 +246,7 @@ const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) =>
     <Box sx={{ pt: 5 }}>
       <DataGrid
         columns={dataGrid_Columns}
-        rows={tornaData}
+        rows={yuksekBasinc}
         pageSizeOptions={[10, 25, 50, 75, 100]}
         slots={{ toolbar: GridToolbar }}
         disableRowSelectionOnClick
@@ -278,9 +256,7 @@ const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) =>
       />
     </Box>
 
-
   )
-
 }
 
-export default OtomatikTorna_DataTable
+export default YuksekBasinc_DataTable

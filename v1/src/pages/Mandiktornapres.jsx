@@ -109,7 +109,7 @@ const Mandiktornapres = () => {
   return (
 
     <div>
-      <Typography mt={8} align='center' variant='subtitle1' sx={typoStyle}>
+      <Typography mt={8} align='center' variant='h5' fontWeight={700} sx={typoStyle}>
         Manuel Torna - Dik Torna - Dik Pres
       </Typography>
 

@@ -39,12 +39,8 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo  }) => {
     setInfo({ ...info, [e.target.name]: e.target.value })
   }
 
-  const { getFireData, putFireData } = useArge()
+  const { getFireData, putFireData,postFireData } = useArge()
   const { workCenterCode, materialCode } = useSelector((state) => state.arge)
-
-
-  const { postFireData } = useArge()
-
 
   const handleSubmit = (e) => {
 

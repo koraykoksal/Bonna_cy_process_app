@@ -11,6 +11,8 @@ const initialState={
     izoStatikPresData:[],
     otoTornaData:[],
     manDikTornaData:[],
+    yuksekBasincData:[],
+    dokumHattiData:[],
 }
 
 
@@ -71,6 +73,14 @@ const argeSlice=createSlice({
             state.error=false
             state.manDikTornaData=payload
         },
+        fetchYuksekBasincData:(state,{payload})=>{
+            state.error=false
+            state.yuksekBasincData=payload
+        },
+        fetchDokumHattiData:(state,{payload})=>{
+            state.error=false
+            state.dokumHattiData=payload
+        },
         fetchFail: (state) => {
             state.loading = false;
             state.error = true;
@@ -89,7 +99,9 @@ export const {
     hammaddeDataSuccess,
     fetchIzoStatikPresData,
     fetchTornaData,
-    fetchManDikTornaData
+    fetchManDikTornaData,
+    fetchYuksekBasincData,
+    fetchDokumHattiData
 
 
 }=argeSlice.actions
