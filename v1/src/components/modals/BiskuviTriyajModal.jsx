@@ -3,20 +3,20 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Formik,Form } from 'formik';
+import { Formik, Form } from 'formik';
 import { Container, IconButton, TextField, TextareaAutosize } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { sorunTipi,aksiyonSahibi } from '../../helpers/ProcessData';
+import { sorunTipi, aksiyonSahibi } from '../../helpers/ProcessData';
 import Textarea from '@mui/joy/Textarea';
 import CloseIcon from '@mui/icons-material/Close';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import { useState ,useEffect} from 'react';
-import {uygunsuzlukTipi} from "../../helpers/ProcessData"
-import {useSelector} from "react-redux"
-
+import { useState, useEffect } from 'react';
+import { uygunsuzlukTipi } from "../../helpers/ProcessData"
+import { useSelector } from "react-redux"
+import useArge from '../../hooks/useArge';
 
 const style = {
   position: 'absolute',
@@ -31,132 +31,77 @@ const style = {
 
 };
 
-const BiskuviTriyajModal=({open,handleClose,handleOpen,materialCode})=>{
+const BiskuviTriyajModal = ({ open, handleClose, info, setInfo }) => {
 
-  
-
-  const handleChange=(e)=>{
-    settriyajData({...triyajData,[e.target.name]:e.target.value})
-    
+  const handleChange = (e) => {
+    setInfo({ ...info, [e.target.name]: e.target.value })
   }
 
 
-  const control=()=>{
-    settriyajData(
-      
-      {...triyajData,
-      hataliUrunYuzdesi:(Number(triyajData.hataliUrunSayisi) / Number(triyajData.kontroledilenAdet)).toFixed(2),
-      ayakCatlagiYuzdesi:(Number(triyajData.ayakcatlagi) / Number(triyajData.kontroledilenAdet)).toFixed(2),
-      kenarCatlagiYuzdesi:(Number(triyajData.kenarCatlagi) / Number(triyajData.kontroledilenAdet)).toFixed(2),
-      ayakCatlagiYuzdesi:(Number(triyajData.ayakcatlagi) / Number(triyajData.kontroledilenAdet)).toFixed(2),
+  const { getFireData, putFireData,postFireData } = useArge()
+  const {  materialCode } = useSelector((state) => state.arge)
 
-      firinKirigiYuzdesi:(Number(triyajData.firinKirigi) / Number(triyajData.kontroledilenAdet)).toFixed(2),
-      digerYuzdesi:(Number(triyajData.diger) / Number(triyajData.kontroledilenAdet)).toFixed(2),
+
+  const handleSubmit = (e) => {
+
+    e.preventDefault()
+
+    if (info.id) {
+      putFireData('Triyaj', info)
+      getFireData("Triyaj")
+    }
+    else {
+      postFireData("Triyaj", info)
+      getFireData("Triyaj")
+    }
+
+    handleClose()
+
+  }
+
+
+
+  const control = () => {
+
+    setInfo(
+
+      {
+        ...info,
+        hataliUrunYuzdesi: (Number(info.hataliUrunSayisi) / Number(info.kontroledilenAdet)).toFixed(2),
+        ayakCatlagiYuzdesi: (Number(info.ayakcatlagi) / Number(info.kontroledilenAdet)).toFixed(2),
+        kenarCatlagiYuzdesi: (Number(info.kenarCatlagi) / Number(info.kontroledilenAdet)).toFixed(2),
+        ayakCatlagiYuzdesi: (Number(info.ayakcatlagi) / Number(info.kontroledilenAdet)).toFixed(2),
+
+        firinKirigiYuzdesi: (Number(info.firinKirigi) / Number(info.kontroledilenAdet)).toFixed(2),
+        digerYuzdesi: (Number(info.diger) / Number(info.kontroledilenAdet)).toFixed(2),
 
       }
 
 
     )
   }
-  
-
-  const nowData=new Date()
-  const currentdate = nowData.getDate() +"-"+(nowData.getMonth()+1)+"-"+nowData.getFullYear()
-  const currentTime = nowData.getHours() +":"+nowData.getMinutes()
-
-  const {currentUser} = useSelector((state) => state.auth)
-
-  let getVardiya = 0;
-
-  const getShift=()=>{
-    const now=new Date().getHours()
-
-    if(now > 8 && now < 16){
-        getVardiya = 2
-    }
-    else if(now > 16 && now < 23){
-        getVardiya = 3
-    }
-    else{
-        getVardiya = 1
-    }
-
-    return getVardiya
-
-  }
-
-  const [triyajData, settriyajData] = useState({
-    urun_kodu:"",
-    sekillendirmeYontemi:"",
-    toplamAdet:"",
-    kontroledilenAdet:"",
-    hataliUrunSayisi:"",
-    aciklama:"",
-    aksiyon:"",
-    karantina:"",
-    firinkodu:"",
-    biskuvifirinSorumlusu:"",
-    ayakcatlagi:0,
-    kenarCatlagi:0,
-    firinKirigi:0,
-    diger:0,
-    hataliUrunYuzdesi:0,
-    ayakCatlagiYuzdesi:0,
-    kenarCatlagiYuzdesi:0,
-    firinKirigiYuzdesi:0,
-    digerYuzdesi:0,
-    vardiya:getShift(),
-    date:currentdate.toString(),
-    time:currentTime.toString(),
-    kontroleden_kisi:currentUser
-  })
 
 
   useEffect(() => {
-    
+
     control()
 
   }, [
-    triyajData.hataliUrunSayisi,
-    triyajData.ayakcatlagi,
-    triyajData.kenarCatlagi,
-    triyajData.firinKirigi,
-    triyajData.diger
-    ])
-  
+    info.hataliUrunSayisi,
+    info.ayakcatlagi,
+    info.kenarCatlagi,
+    info.firinKirigi,
+    info.diger
+  ])
+
 
   return (
     <div>
-      
+
       <Modal
         keepMounted
         open={open}
-        onClose={()=>{
-          settriyajData({
-            urun_kodu:"",
-            sekillendirmeYontemi:"",
-            toplamAdet:"",
-            kontroledilenAdet:"",
-            hataliUrunSayisi:"",
-            aciklama:"",
-            aksiyon:"",
-            karantina:"",
-            firinkodu:"",
-            biskuvifirinSorumlusu:"",
-            ayakcatlagi:0,
-            kenarCatlagi:0,
-            firinKirigi:0,
-            diger:0,
-            hataliUrunYuzdesi:0,
-            ayakCatlagiYuzdesi:0,
-            kenarCatlagiYuzdesi:0,
-            firinKirigiYuzdesi:0,
-            digerYuzdesi:0,
-            vardiya:getShift(),
-            date:currentdate.toString(),
-            time:currentTime.toString(),
-            kontroleden_kisi:currentUser
-          })
+        onClose={() => {
           handleClose()
         }}
         aria-labelledby="keep-mounted-modal-title"
@@ -164,293 +109,296 @@ const BiskuviTriyajModal=({open,handleClose,handleOpen,materialCode})=>{
       >
         <Box sx={style}>
 
-        <Box sx={{display:'flex',flexWrap:'wrap',justifyContent:'space-between',alignItems:'center'}}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center' }}>
 
             <Typography id="keep-mounted-modal-title" variant="h6" component="h2" color="#000000">
-                Biskuvi Triyaj
+              Biskuvi Triyaj
             </Typography>
 
-            <IconButton onClick={()=>handleClose()}>
-                <HighlightOffIcon sx={{color:'#C70039',fontSize:'28px'}}/>
+            <IconButton onClick={() => handleClose()}>
+              <HighlightOffIcon sx={{ color: '#C70039', fontSize: '28px' }} />
             </IconButton>
-        </Box>
-          
-            
-            <Box sx={{mt:3,display:'flex',flexDirection:'column',gap:2,overflow:'scroll',maxHeight:'600px'}} component='form'>
-                
+          </Box>
 
-            <Box sx={{display:'flex',justifyContent:'space-between',gap:2}}>
 
-            <FormControl fullWidth>
+          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '600px' }} component='form' onSubmit={handleSubmit}>
+
+
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}>
+
+              <FormControl fullWidth>
                 <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
                 <Select
-                labelId="urun_kodu"
-                id="urun_kodu"
-                name='urun_kodu'
-                label="urun_kodu"
-                value={triyajData.urun_kodu}
-                onChange={handleChange}
+                  labelId="urun_kodu"
+                  id="urun_kodu"
+                  name='urun_kodu'
+                  label="urun_kodu"
+                  value={info.urun_kodu}
+                  onChange={handleChange}
                 >
-                 {
+                  {
                     materialCode?.map(({ MALZEMEKODU, index }) => (
                       <MenuItem key={index} value={MALZEMEKODU}>{MALZEMEKODU}</MenuItem>
                     ))
                   }
                 </Select>
-            </FormControl>
+              </FormControl>
 
-            <FormControl fullWidth>
+              <FormControl fullWidth>
                 <InputLabel id="sekillendirmeYontemi">Şekillendirme Yöntemi</InputLabel>
                 <Select
-                labelId="sekillendirmeYontemi"
-                id="sekillendirmeYontemi"
-                name='sekillendirmeYontemi'
-                label="sekillendirmeYontemi"
-                value={triyajData.sekillendirmeYontemi}
-                onChange={handleChange}
+                  labelId="sekillendirmeYontemi"
+                  id="sekillendirmeYontemi"
+                  name='sekillendirmeYontemi'
+                  label="sekillendirmeYontemi"
+                  value={info.sekillendirmeYontemi}
+                  onChange={handleChange}
                 >
-                <MenuItem value="İzo Statik Pres">İzo Statik Pres</MenuItem>
-                <MenuItem value="Otomatik Torna">Otomatik Torna</MenuItem>
+                  <MenuItem value="İzo Statik Pres">İzo Statik Pres</MenuItem>
+                  <MenuItem value="Otomatik Torna">Otomatik Torna</MenuItem>
                 </Select>
-            </FormControl>
-
-            </Box>
-            
-
-            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
-
-            
-            <TextField
-            required
-            fullWidth
-            label="Toplam Adet"
-            name="toplamAdet"
-            id="toplamAdet"
-            type="text"
-            variant="outlined"
-            value={triyajData.toplamAdet}
-            onChange={handleChange}
-            />
-
-
-            <TextField
-            required
-            fullWidth
-            label="Kontrol Edilen"
-            name="kontroledilenAdet"
-            id="kontroledilenAdet"
-            type="text"
-            variant="outlined"
-            value={triyajData.kontroledilenAdet}
-            onChange={handleChange}
-            />
-
-            <TextField
-            required
-            fullWidth
-            label="Hatalı Urun"
-            name="hataliUrunSayisi"
-            id="hataliUrunSayisi"
-            type="text"
-            variant="outlined"
-            value={triyajData.hataliUrunSayisi}
-            onChange={handleChange}
-            />
+              </FormControl>
 
             </Box>
 
+
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+
+
+              <TextField
+                required
+                fullWidth
+                label="Toplam Adet"
+                name="toplamAdet"
+                id="toplamAdet"
+                type="text"
+                variant="outlined"
+                value={info.toplamAdet}
+                onChange={handleChange}
+              />
+
+
+              <TextField
+                required
+                fullWidth
+                label="Kontrol Edilen"
+                name="kontroledilenAdet"
+                id="kontroledilenAdet"
+                type="text"
+                variant="outlined"
+                value={info.kontroledilenAdet}
+                onChange={handleChange}
+              />
+
+              <TextField
+                required
+                fullWidth
+                label="Hatalı Urun"
+                name="hataliUrunSayisi"
+                id="hataliUrunSayisi"
+                type="text"
+                variant="outlined"
+                value={info.hataliUrunSayisi}
+                onChange={handleChange}
+              />
+
+            </Box>
+
             <TextField
-            disabled
-            fullWidth
-            label="Hatalı Ürün Yüzdesi"
-            name="hataliUrunYuzdesi"
-            id="hataliUrunYuzdesi"
-            type="text"
-            variant="outlined"
-            value={triyajData.hataliUrunYuzdesi}
-            onChange={handleChange}
+              disabled
+              fullWidth
+              label="Hatalı Ürün Yüzdesi"
+              name="hataliUrunYuzdesi"
+              id="hataliUrunYuzdesi"
+              type="text"
+              variant="outlined"
+              value={info.hataliUrunYuzdesi}
+              onChange={handleChange}
             />
 
 
-  
-            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
 
-            
-            
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+
+
+
 
               <FormControl fullWidth>
                 <InputLabel id="karantina">Karantine Evet/Hayır</InputLabel>
                 <Select
-                labelId="karantina"
-                id="karantina"
-                name='karantina'
-                label="karantina"
-                value={triyajData.karantina}
-                onChange={handleChange}
+                  labelId="karantina"
+                  id="karantina"
+                  name='karantina'
+                  label="karantina"
+                  value={info.karantina}
+                  onChange={handleChange}
                 >
-                <MenuItem value="EVET">EVET</MenuItem>
-                <MenuItem value="HAYIR">HAYIR</MenuItem>
+                  <MenuItem value="EVET">EVET</MenuItem>
+                  <MenuItem value="HAYIR">HAYIR</MenuItem>
                 </Select>
-            </FormControl>
+              </FormControl>
 
-            <FormControl fullWidth>
+              <FormControl fullWidth>
                 <InputLabel id="firinkodu">Fırın Kodu</InputLabel>
                 <Select
-                labelId="firinkodu"
-                id="firinkodu"
-                name='firinkodu'
-                label="firinkodu"
-                value={triyajData.firinkodu}
-                onChange={handleChange}
+                  labelId="firinkodu"
+                  id="firinkodu"
+                  name='firinkodu'
+                  label="firinkodu"
+                  value={info.firinkodu}
+                  onChange={handleChange}
                 >
-                <MenuItem value="C600">C600</MenuItem>
-                <MenuItem value="C400">C400</MenuItem>
+                  <MenuItem value="C600">C600</MenuItem>
+                  <MenuItem value="C400">C400</MenuItem>
                 </Select>
-            </FormControl>
+              </FormControl>
 
             </Box>
 
 
-            <Box sx={{display:'flex',justifyContent:'space-between',gap:2}}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}>
 
-            <Textarea
-            name='aciklama'
-            fullWidth
-            placeholder='Açıklama'
-            minRows={2}
-            maxRows={2}
-            sx={{overflow:'auto'}}
-            value={triyajData?.aciklama}
-            onChange={handleChange}
-            />
+              <Textarea
+                name='aciklama'
+                fullWidth
+                placeholder='Açıklama'
+                minRows={2}
+                maxRows={2}
+                sx={{ overflow: 'auto' }}
+                value={info?.aciklama}
+                onChange={handleChange}
+              />
 
-            <Textarea
-            name='aksiyon'
-            fullWidth
-            placeholder='Aksiyon'
-            minRows={2}
-            maxRows={2}
-            sx={{overflow:'auto'}}
-            value={triyajData?.aksiyon}
-            onChange={handleChange}
-            />
+              <Textarea
+                name='aksiyon'
+                fullWidth
+                placeholder='Aksiyon'
+                minRows={2}
+                maxRows={2}
+                sx={{ overflow: 'auto' }}
+                value={info?.aksiyon}
+                onChange={handleChange}
+              />
             </Box>
 
             <TextField
-            fullWidth
-            label="Biskuvi Fırın Sorumlusu"
-            name="biskuvifirinSorumlusu"
-            id="biskuvifirinSorumlusu"
-            type="text"
-            variant="outlined"
-            value={triyajData.biskuvifirinSorumlusu}
-            onChange={handleChange}
+              fullWidth
+              label="Biskuvi Fırın Sorumlusu"
+              name="biskuvifirinSorumlusu"
+              id="biskuvifirinSorumlusu"
+              type="text"
+              variant="outlined"
+              value={info.biskuvifirinSorumlusu}
+              onChange={handleChange}
             />
 
-            <Box sx={{display:'flex',justifyContent:'space-between',gap:2}}>
-            <TextField
-            fullWidth
-            label="Ayak Çatlağı"
-            name="ayakcatlagi"
-            id="ayakcatlagi"
-            type="text"
-            variant="outlined"
-            value={triyajData.ayakcatlagi}
-            onChange={handleChange}
-            />
-            <TextField
-            fullWidth
-            label="Kenar Çatlağı"
-            name="kenarCatlagi"
-            id="kenarCatlagi"
-            type="text"
-            variant="outlined"
-            value={triyajData.kenarCatlagi}
-            onChange={handleChange}
-            />
-            <TextField
-            fullWidth
-            label="Fırın Kırığı"
-            name="firinKirigi"
-            id="firinKirigi"
-            type="text"
-            variant="outlined"
-            value={triyajData.firinKirigi}
-            onChange={handleChange}
-            />
-            <TextField
-            fullWidth
-            label="Diğer"
-            name="diger"
-            id="diger"
-            type="text"
-            variant="outlined"
-            value={triyajData.diger}
-            onChange={handleChange}
-            />
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}>
+              <TextField
+                disabled={info.toplamAdet && info.kontroledilenAdet && info.hataliUrunSayisi ? false : true}
+                fullWidth
+                label="Ayak Çatlağı"
+                name="ayakcatlagi"
+                id="ayakcatlagi"
+                type="text"
+                variant="outlined"
+                value={info.ayakcatlagi}
+                onChange={handleChange}
+              />
+              <TextField
+                disabled={info.toplamAdet && info.kontroledilenAdet && info.hataliUrunSayisi ? false : true}
+                fullWidth
+                label="Kenar Çatlağı"
+                name="kenarCatlagi"
+                id="kenarCatlagi"
+                type="text"
+                variant="outlined"
+                value={info.kenarCatlagi}
+                onChange={handleChange}
+              />
+              <TextField
+                disabled={info.toplamAdet && info.kontroledilenAdet && info.hataliUrunSayisi ? false : true}
+                fullWidth
+                label="Fırın Kırığı"
+                name="firinKirigi"
+                id="firinKirigi"
+                type="text"
+                variant="outlined"
+                value={info.firinKirigi}
+                onChange={handleChange}
+              />
+              <TextField
+                disabled={info.toplamAdet && info.kontroledilenAdet && info.hataliUrunSayisi ? false : true}
+                fullWidth
+                label="Diğer"
+                name="diger"
+                id="diger"
+                type="text"
+                variant="outlined"
+                value={info.diger}
+                onChange={handleChange}
+              />
             </Box>
 
-            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
-            <TextField
-            disabled
-            fullWidth
-            label="Ayak Çatlağı"
-            name="ayakcatlagi"
-            id="ayakcatlagi"
-            type="text"
-            variant="outlined"
-            value={triyajData.ayakCatlagiYuzdesi}
-            onChange={handleChange}
-            />
-            <TextField
-            disabled
-            fullWidth
-            label="Kenar Çatlağı"
-            name="kenarCatlagi"
-            id="kenarCatlagi"
-            type="text"
-            variant="outlined"
-            value={triyajData.kenarCatlagiYuzdesi}
-            onChange={handleChange}
-            />
-            <TextField
-            disabled
-            fullWidth
-            label="Fırın Kırığı"
-            name="firinKirigi"
-            id="firinKirigi"
-            type="text"
-            variant="outlined"
-            value={triyajData.firinKirigiYuzdesi}
-            onChange={handleChange}
-            />
-            <TextField
-            disabled
-            fullWidth
-            label="Diğer"
-            name="diger"
-            id="diger"
-            type="text"
-            variant="outlined"
-            value={triyajData.digerYuzdesi}
-            onChange={handleChange}
-            />              
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+              <TextField
+                disabled
+                fullWidth
+                label="AÇ %"
+                name="ayakcatlagi"
+                id="ayakcatlagi"
+                type="text"
+                variant="outlined"
+                value={info.ayakCatlagiYuzdesi}
+                onChange={handleChange}
+              />
+              <TextField
+                disabled
+                fullWidth
+                label="KÇ %"
+                name="kenarCatlagi"
+                id="kenarCatlagi"
+                type="text"
+                variant="outlined"
+                value={info.kenarCatlagiYuzdesi}
+                onChange={handleChange}
+              />
+              <TextField
+                disabled
+                fullWidth
+                label="FK %"
+                name="firinKirigi"
+                id="firinKirigi"
+                type="text"
+                variant="outlined"
+                value={info.firinKirigiYuzdesi}
+                onChange={handleChange}
+              />
+              <TextField
+                disabled
+                fullWidth
+                label="Diğer %"
+                name="diger"
+                id="diger"
+                type="text"
+                variant="outlined"
+                value={info.digerYuzdesi}
+                onChange={handleChange}
+              />
             </Box>
-            
+
 
             <Button
-            variant='contained'
-            fullWidth
-            type='submit'
-            // onClick={handleSubmit}
+              variant='contained'
+              fullWidth
+              type='submit'
             >
-                Save
+              {info?.id ? "Update Data" : "Add New Data"}
             </Button>
 
 
-            </Box>
+          </Box>
 
-          
+
         </Box>
       </Modal>
     </div>

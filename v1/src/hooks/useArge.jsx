@@ -15,7 +15,8 @@ import {
     fetchKulpDokumData,
     fetchGranulKontrolData,
     fetchAstarlamaData,
-    fetchReaktifData
+    fetchReaktifData,
+    fetchTriyajData
 
 } from '../features/argeSlice'
 import { toastErrorNotify, toastSuccessNotify } from '../helpers/ToastNotify'
@@ -202,6 +203,9 @@ const useArge = () => {
                     }
                     else if(address === 'Reaktif'){
                         dispatch(fetchReaktifData(data))
+                    }
+                    else if(address === 'Triyaj'){
+                        dispatch(fetchTriyajData(data))
                     }
                     
                     
