@@ -16,6 +16,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useState, useEffect } from 'react';
 import { uygunsuzlukTipi } from "../../helpers/ProcessData"
 import { useSelector } from "react-redux"
+import useArge from '../../hooks/useArge';
 
 
 const style = {
@@ -31,116 +32,53 @@ const style = {
 
 };
 
-const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, designCode }) => {
+const NihaiUrunKontrolModal = ({ open, handleClose, info, setInfo }) => {
 
-  
 
   const handleChange = (e) => {
-    setnihaiUrunData({ ...nihaiUrunData, [e.target.name]: e.target.value })
+    setInfo({ ...info, [e.target.name]: e.target.value })
   }
 
-  const nowData = new Date()
-  const currentdate = nowData.getDate() + "-" + (nowData.getMonth() + 1) + "-" + nowData.getFullYear()
-  const currentTime = nowData.getHours() + ":" + nowData.getMinutes()
+  const { getFireData, putFireData,postFireData } = useArge()
+  const { materialCode,designCode } = useSelector((state) => state.arge)
+  const [desenCodes, setdesenCodes] = useState([])
 
-  const { currentUser } = useSelector((state) => state.auth)
 
-  let getVardiya = 0;
+  const handleSubmit = (e) => {
 
-  const getShift = () => {
-    const now = new Date().getHours()
+    e.preventDefault()
 
-    if (now > 8 && now < 16) {
-      getVardiya = 2
-    }
-    else if (now > 16 && now < 23) {
-      getVardiya = 3
+    if (info.id) {
+      putFireData('NihaiUrunKontrol', info)
+      getFireData("NihaiUrunKontrol")
     }
     else {
-      getVardiya = 1
+      postFireData("NihaiUrunKontrol", info)
+      getFireData("NihaNihaiUrunKontroliUrun")
     }
 
-    return getVardiya
+    handleClose()
 
   }
 
-  const [nihaiUrunData, setnihaiUrunData] = useState({
-    renkKodu: "",
-    aciklama: "",
-    urun_kodu: "",
-    olculenNumuneSayisi: "",
-    agirlik: "",
-    cap_ab: "",
-    cap_cd: "",
-    cap_e1e2: "",
-    yukseklik_a: "",
-    yukseklik_b: "",
-    yukseklik_c: "",
-    yukseklik_d: "",
-    icYukseklik: "",
-    dudak_a: "",
-    dudak_b: "",
-    dudak_c: "",
-    dudak_d: "",
-    ayakYuksekligi: "",
-    bombeCokme: "",
-    duzlemdenSapma: "",
 
-    vardiya: getShift(),
-    date: currentdate.toString(),
-    time: currentTime.toString(),
-    kontroleden_kisi: currentUser
-  })
-
-  const [newValue, setnewValue] = useState([])
-
+  
   useEffect(() => {
-
-    //designCode array içinde value bilgileri tek bir array içine alınır
-    const data1 = designCode.map(item => item.DESENKODU)
-
-    //array içindeki bilgileri alfabetik sıraya göre listelenir
-    const data2 = data1.sort()
-
-    setnewValue(data2)
+    
+    const data = designCode.map((item)=>item.DESENKODU)
+    const dataSort = data.sort()
+    setdesenCodes(dataSort)
 
   }, [designCode])
 
 
-
   return (
     <div>
-      
+
       <Modal
         keepMounted
         open={open}
-        onClose={()=>{
-          setnewValue({
-            renkKodu: "",
-            aciklama: "",
-            urun_kodu: "",
-            olculenNumuneSayisi: "",
-            agirlik: "",
-            cap_ab: "",
-            cap_cd: "",
-            cap_e1e2: "",
-            yukseklik_a: "",
-            yukseklik_b: "",
-            yukseklik_c: "",
-            yukseklik_d: "",
-            icYukseklik: "",
-            dudak_a: "",
-            dudak_b: "",
-            dudak_c: "",
-            dudak_d: "",
-            ayakYuksekligi: "",
-            bombeCokme: "",
-            duzlemdenSapma: "",
-            vardiya: getShift(),
-            date: currentdate.toString(),
-            time: currentTime.toString(),
-            kontroleden_kisi: currentUser
-          })
+        onClose={() => {
           handleClose()
         }}
         aria-labelledby="keep-mounted-modal-title"
@@ -160,7 +98,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
           </Box>
 
 
-          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '600px' }} component='form'>
+          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '600px' }} component='form' onSubmit={handleSubmit}>
 
 
             <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
@@ -173,11 +111,11 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
                   id="renkKodu"
                   name='renkKodu'
                   label="renkKodu"
-                  value={nihaiUrunData.renkKodu}
+                  value={info.renkKodu}
                   onChange={handleChange}
                 >
                   {
-                    newValue?.map((item, index) => (
+                    desenCodes?.map((item, index) => (
                       <MenuItem key={index} value={item}>{item}</MenuItem>
                     ))
                   }
@@ -192,7 +130,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
                   id="urun_kodu"
                   name='urun_kodu'
                   label="urun_kodu"
-                  value={nihaiUrunData.urun_kodu}
+                  value={info.urun_kodu}
                   onChange={handleChange}
                 >
                   {
@@ -215,7 +153,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
                 id="olculenNumuneSayisi"
                 type="text"
                 variant="outlined"
-                value={nihaiUrunData.olculenNumuneSayisi}
+                value={info.olculenNumuneSayisi}
                 onChange={handleChange}
               />
 
@@ -227,7 +165,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
                 id="agirlik"
                 type="text"
                 variant="outlined"
-                value={nihaiUrunData.agirlik}
+                value={info.agirlik}
                 onChange={handleChange}
               />
             </Box>
@@ -246,7 +184,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
                   id="cap_ab"
                   type="text"
                   variant="outlined"
-                  value={nihaiUrunData.cap_ab}
+                  value={info.cap_ab}
                   onChange={handleChange}
                 />
 
@@ -257,7 +195,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
                   id="cap_cd"
                   type="text"
                   variant="outlined"
-                  value={nihaiUrunData.cap_cd}
+                  value={info.cap_cd}
                   onChange={handleChange}
                 />
 
@@ -268,7 +206,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
                   id="cap_e1e2"
                   type="text"
                   variant="outlined"
-                  value={nihaiUrunData.cap_e1e2}
+                  value={info.cap_e1e2}
                   onChange={handleChange}
                 />
               </Box>
@@ -289,7 +227,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
                   id="yukseklik_a"
                   type="text"
                   variant="outlined"
-                  value={nihaiUrunData.yukseklik_a}
+                  value={info.yukseklik_a}
                   onChange={handleChange}
                 />
 
@@ -300,7 +238,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
                   id="yukseklik_b"
                   type="text"
                   variant="outlined"
-                  value={nihaiUrunData.yukseklik_b}
+                  value={info.yukseklik_b}
                   onChange={handleChange}
                 />
 
@@ -311,7 +249,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
                   id="yukseklik_c"
                   type="text"
                   variant="outlined"
-                  value={nihaiUrunData.yukseklik_c}
+                  value={info.yukseklik_c}
                   onChange={handleChange}
                 />
 
@@ -322,7 +260,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
                   id="yukseklik_d"
                   type="text"
                   variant="outlined"
-                  value={nihaiUrunData.yukseklik_d}
+                  value={info.yukseklik_d}
                   onChange={handleChange}
                 />
               </Box>
@@ -336,7 +274,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
               id="icYukseklik"
               type="text"
               variant="outlined"
-              value={nihaiUrunData.icYukseklik}
+              value={info.icYukseklik}
               onChange={handleChange}
             />
 
@@ -354,7 +292,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
                   id="dudak_a"
                   type="text"
                   variant="outlined"
-                  value={nihaiUrunData.dudak_a}
+                  value={info.dudak_a}
                   onChange={handleChange}
                 />
 
@@ -365,7 +303,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
                   id="dudak_b"
                   type="text"
                   variant="outlined"
-                  value={nihaiUrunData.dudak_b}
+                  value={info.dudak_b}
                   onChange={handleChange}
                 />
 
@@ -376,7 +314,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
                   id="dudak_c"
                   type="text"
                   variant="outlined"
-                  value={nihaiUrunData.dudak_c}
+                  value={info.dudak_c}
                   onChange={handleChange}
                 />
 
@@ -387,7 +325,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
                   id="dudak_d"
                   type="text"
                   variant="outlined"
-                  value={nihaiUrunData.dudak_d}
+                  value={info.dudak_d}
                   onChange={handleChange}
                 />
               </Box>
@@ -403,7 +341,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
                 id="ayakYuksekligi"
                 type="text"
                 variant="outlined"
-                value={nihaiUrunData.ayakYuksekligi}
+                value={info.ayakYuksekligi}
                 onChange={handleChange}
               />
 
@@ -414,7 +352,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
                 id="bombeCokme"
                 type="text"
                 variant="outlined"
-                value={nihaiUrunData.bombeCokme}
+                value={info.bombeCokme}
                 onChange={handleChange}
               />
 
@@ -425,7 +363,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
                 id="duzlemdenSapma"
                 type="text"
                 variant="outlined"
-                value={nihaiUrunData.duzlemdenSapma}
+                value={info.duzlemdenSapma}
                 onChange={handleChange}
               />
 
@@ -439,7 +377,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
               id="aciklama"
               type="text"
               variant="outlined"
-              value={nihaiUrunData.aciklama}
+              value={info.aciklama}
               onChange={handleChange}
             />
 
@@ -451,7 +389,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, handleOpen, materialCode, de
               fullWidth
               type='submit'
             >
-              Save
+              {info?.id ? "Update Data" : "Add New Data"}
             </Button>
 
 

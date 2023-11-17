@@ -21,7 +21,8 @@ const initialState={
     sirlamaData:[],
     dijitalLogoData:[],
     dekorlamaData:[],
-    dijitalBaskiData:[]
+    dijitalBaskiData:[],
+    nihaiUrunKontrolData:[]
 }
 
 
@@ -140,6 +141,11 @@ const argeSlice=createSlice({
             state.error=false
             state.dijitalBaskiData=payload
         },
+        fetchNihaiUrunKontrolData:(state,{payload})=>{
+            state.loading = false;
+            state.error=false
+            state.nihaiUrunKontrolData=payload
+        },
         fetchFail: (state) => {
             state.loading = false;
             state.error = true;
@@ -169,7 +175,8 @@ export const {
     fetchSirlamaData,
     fetchDijitalLogoData,
     fetchDekorlamaData,
-    fetchDijitalBaskiData
+    fetchDijitalBaskiData,
+    fetchNihaiUrunKontrolData
 
 
 }=argeSlice.actions

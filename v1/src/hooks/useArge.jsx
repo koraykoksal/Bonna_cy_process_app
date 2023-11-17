@@ -20,7 +20,8 @@ import {
     fetchSirlamaData,
     fetchDijitalLogoData,
     fetchDekorlamaData,
-    fetchDijitalBaskiData
+    fetchDijitalBaskiData,
+    fetchNihaiUrunKontrolData
 
 } from '../features/argeSlice'
 import { toastErrorNotify, toastSuccessNotify } from '../helpers/ToastNotify'
@@ -222,6 +223,9 @@ const useArge = () => {
                     }
                     else if(address === 'DijitalBaski'){
                         dispatch(fetchDijitalBaskiData(data))
+                    }
+                    else if(address === 'NihaiUrunKontrol'){
+                        dispatch(fetchNihaiUrunKontrolData(data))
                     }
                     
                 }
