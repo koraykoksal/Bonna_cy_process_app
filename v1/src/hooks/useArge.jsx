@@ -11,7 +11,8 @@ import {
     fetchTornaData,
     fetchManDikTornaData,
     fetchYuksekBasincData,
-    fetchDokumHattiData
+    fetchDokumHattiData,
+    fetchKulpDokumData
 
 } from '../features/argeSlice'
 import { toastErrorNotify, toastSuccessNotify } from '../helpers/ToastNotify'
@@ -186,6 +187,9 @@ const useArge = () => {
                     }
                     else if(address === 'DokumHatti'){
                         dispatch(fetchDokumHattiData(data))
+                    }
+                    else if(address === 'KulpDokum'){
+                        dispatch(fetchKulpDokumData(data))
                     }
                     
                     
