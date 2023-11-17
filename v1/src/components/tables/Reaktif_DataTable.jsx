@@ -8,10 +8,10 @@ import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material'
 
 
-const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) => {
+const Reaktif_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
 
-  const { granulKontrolData } = useSelector((state) => state.arge)
-  const [granuldata, setGranuldata] = useState([])
+  const { reaktifData } = useSelector((state) => state.arge)
+  const [reaktif, setreaktif] = useState([])
 
 
 
@@ -56,14 +56,7 @@ const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) =>
       align: "center",
       flex: 1,
     },
-    {
-      field: "is_merkezi",
-      headerName: "İş Merkezi",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
+
     {
       field: "urun_kodu",
       headerName: "Ürün Kodu",
@@ -72,50 +65,19 @@ const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) =>
       align: "center",
       flex: 1,
     },
-   
+  
+  
     {
-      field: "hammaddenem",
-      headerName: "Hammadde Nem",
+      field: "boyasarjno",
+      headerName: "Boya Şarj No",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
-      field: "prosesnem",
-      headerName: "Proses Nem",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
-    {
-      field: "bigbagtarih",
-      headerName: "BigBag Tarih",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
-    {
-      field: "bigbagkodu",
-      headerName: "BigBag Kodu",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
-    {
-      field: "granulkodu",
-      headerName: "Granul Kodu",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
-    {
-      field: "redkabul",
-      headerName: "Red-Kabul",
+      field: "boyayogunluk",
+      headerName: "Boya Miktarı",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
@@ -129,10 +91,9 @@ const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) =>
       align: "center",
       flex: 1,
     },
- 
     {
-      field: "vardiyasorumlusu",
-      headerName: "Vardiya Sorumlusu",
+      field: "redkabul",
+      headerName: "Red-Kabul",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
@@ -153,7 +114,7 @@ const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) =>
             label="Edit"
             onClick={() => {
               handleOpen()
-              setInfo({ id, type: 'GranulKontrol' })
+              setInfo({ id, type: 'Reaktif' })
             }}
 
           />,
@@ -163,7 +124,7 @@ const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) =>
             label="Delete"
             onClick={() => {
               delHandleOpen()
-              setInfo({ id, type: 'GranulKontrol' })
+              setInfo({ id, type: 'Reaktif' })
             }}
 
           />,
@@ -175,11 +136,9 @@ const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) =>
 
 
   useEffect(() => {
-    const dizi = Object.keys(granulKontrolData).map(key => { return { id: key, ...granulKontrolData[key] } })
-    setGranuldata(dizi)
-  }, [granulKontrolData])
-
-
+    const dizi = Object.keys(reaktifData).map(key => { return { id: key, ...reaktifData[key] } })
+    setreaktif(dizi)
+  }, [reaktifData])
 
 
   return (
@@ -187,7 +146,7 @@ const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) =>
     <Box sx={{ pt: 5 }}>
       <DataGrid
         columns={dataGrid_Columns}
-        rows={granuldata}
+        rows={reaktif}
         pageSizeOptions={[10, 25, 50, 75, 100]}
         slots={{ toolbar: GridToolbar }}
         disableRowSelectionOnClick
@@ -197,7 +156,8 @@ const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) =>
       />
     </Box>
 
+
   )
 }
 
-export default GranulKontrol_DataTable
+export default Reaktif_DataTable

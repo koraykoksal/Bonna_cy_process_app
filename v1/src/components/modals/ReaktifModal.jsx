@@ -16,6 +16,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useState ,useEffect} from 'react';
 import {uygunsuzlukTipi} from "../../helpers/ProcessData"
 import {useSelector} from "react-redux"
+import useArge from '../../hooks/useArge';
 
 
 const style = {
@@ -31,51 +32,34 @@ const style = {
 
 };
 
-const ReaktifModal=({open,handleClose,handleOpen,materialCode})=>{
+const ReaktifModal=({open, handleClose, info, setInfo })=>{
 
   
-
-  const handleChange=(e)=>{
-    setastarlamaData({...astarlamaData,[e.target.name]:e.target.value})
+  const handleChange = (e) => {
+    setInfo({ ...info, [e.target.name]: e.target.value })
   }
 
-  const nowData=new Date()
-  const currentdate = nowData.getDate() +"-"+(nowData.getMonth()+1)+"-"+nowData.getFullYear()
-  const currentTime = nowData.getHours() +":"+nowData.getMinutes()
+  const { getFireData, putFireData, postFireData } = useArge()
+  const {  materialCode } = useSelector((state) => state.arge)
 
-  const {currentUser} = useSelector((state) => state.auth)
 
-  let getVardiya = 0;
+  const handleSubmit = (e) => {
 
-  const getShift=()=>{
-    const now=new Date().getHours()
+    e.preventDefault()
 
-    if(now > 8 && now < 16){
-        getVardiya = 2
+    if (info.id) {
+      putFireData('Reaktif', info)
+      getFireData("Reaktif")
     }
-    else if(now > 16 && now < 23){
-        getVardiya = 3
-    }
-    else{
-        getVardiya = 1
+    else {
+      postFireData("Reaktif", info)
+      getFireData("Reaktif")
     }
 
-    return getVardiya
+    handleClose()
 
   }
 
-  const [astarlamaData, setastarlamaData] = useState({
-    urun_kodu:"",
-    boyasarjno:"",
-    boyayogunluk:"",
-    boyamiktari:"",
-    aciklama:"",
-    redkabul:"",
-    vardiya:getShift(),
-    date:currentdate.toString(),
-    time:currentTime.toString(),
-    kontroleden_kisi:currentUser
-  })
 
 
   return (
@@ -85,18 +69,6 @@ const ReaktifModal=({open,handleClose,handleOpen,materialCode})=>{
         keepMounted
         open={open}
         onClose={()=>{
-          setastarlamaData({
-            urun_kodu:"",
-            boyasarjno:"",
-            boyayogunluk:"",
-            boyamiktari:"",
-            aciklama:"",
-            redkabul:"",
-            vardiya:getShift(),
-            date:currentdate.toString(),
-            time:currentTime.toString(),
-            kontroleden_kisi:currentUser
-          })
           handleClose()
         }}
         aria-labelledby="keep-mounted-modal-title"
@@ -116,7 +88,7 @@ const ReaktifModal=({open,handleClose,handleOpen,materialCode})=>{
         </Box>
           
             
-            <Box sx={{mt:3,display:'flex',flexDirection:'column',gap:2,overflow:'scroll',maxHeight:'600px'}} component='form'>
+            <Box sx={{mt:3,display:'flex',flexDirection:'column',gap:2,overflow:'scroll',maxHeight:'600px'}} component='form' onSubmit={handleSubmit}>
                 
 
             <FormControl fullWidth>
@@ -126,7 +98,7 @@ const ReaktifModal=({open,handleClose,handleOpen,materialCode})=>{
                 id="urun_kodu"
                 name='urun_kodu'
                 label="urun_kodu"
-                value={astarlamaData.urun_kodu}
+                value={info.urun_kodu}
                 onChange={handleChange}
                 >
                 {
@@ -148,7 +120,7 @@ const ReaktifModal=({open,handleClose,handleOpen,materialCode})=>{
             id="boyasarjno"
             type="text"
             variant="outlined"
-            value={astarlamaData.boyasarjno}
+            value={info.boyasarjno}
             onChange={handleChange}
             />
 
@@ -160,7 +132,7 @@ const ReaktifModal=({open,handleClose,handleOpen,materialCode})=>{
             id="boyayogunluk"
             type="text"
             variant="outlined"
-            value={astarlamaData.boyayogunluk}
+            value={info.boyayogunluk}
             onChange={handleChange}
             />
 
@@ -171,7 +143,7 @@ const ReaktifModal=({open,handleClose,handleOpen,materialCode})=>{
             id="boyamiktari"
             type="text"
             variant="outlined"
-            value={astarlamaData.boyamiktari}
+            value={info.boyamiktari}
             onChange={handleChange}
             />
             </Box>
@@ -184,7 +156,7 @@ const ReaktifModal=({open,handleClose,handleOpen,materialCode})=>{
             id="astarlamayapankisi"
             type="text"
             variant="outlined"
-            value={astarlamaData.astarlamayapankisi}
+            value={info.astarlamayapankisi}
             onChange={handleChange}
             />
 
@@ -195,7 +167,7 @@ const ReaktifModal=({open,handleClose,handleOpen,materialCode})=>{
                 id="redkabul"
                 name='redkabul'
                 label="redkabul"
-                value={astarlamaData.redkabul}
+                value={info.redkabul}
                 onChange={handleChange}
                 >
                 <MenuItem value="RED">RED</MenuItem>
@@ -214,7 +186,7 @@ const ReaktifModal=({open,handleClose,handleOpen,materialCode})=>{
             id="aciklama"
             type="text"
             variant="outlined"
-            value={astarlamaData.aciklama}
+            value={info.aciklama}
             onChange={handleChange}
             />
 
@@ -223,7 +195,7 @@ const ReaktifModal=({open,handleClose,handleOpen,materialCode})=>{
             fullWidth
             type='submit'
             >
-                Save
+                {info?.id ? "Update Data" : "Add New Data"}
             </Button>
 
 

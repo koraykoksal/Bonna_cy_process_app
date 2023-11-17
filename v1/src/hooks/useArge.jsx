@@ -14,7 +14,8 @@ import {
     fetchDokumHattiData,
     fetchKulpDokumData,
     fetchGranulKontrolData,
-    fetchAstarlamaData
+    fetchAstarlamaData,
+    fetchReaktifData
 
 } from '../features/argeSlice'
 import { toastErrorNotify, toastSuccessNotify } from '../helpers/ToastNotify'
@@ -199,6 +200,9 @@ const useArge = () => {
                     else if(address === 'Astarlama'){
                         dispatch(fetchAstarlamaData(data))
                     }
+                    else if(address === 'Reaktif'){
+                        dispatch(fetchReaktifData(data))
+                    }
                     
                     
                 }
@@ -230,8 +234,6 @@ const useArge = () => {
 
     //! firebase data silme
     const removeFirebaseData = async (address,id) => {
-
-        console.log("addres:",address,"id",id)
 
         try {
             const db = getDatabase();

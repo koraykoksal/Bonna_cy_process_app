@@ -49,14 +49,14 @@ const Astarlama_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
       align: "center",
       flex: 1,
     },
-    {
-      field: "kontroleden_kisi",
-      headerName: "Kontrol Yapan",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
+    // {
+    //   field: "kontroleden_kisi",
+    //   headerName: "Kontrol Yapan",
+    //   minWidth: 150,
+    //   headerAlign: "center",
+    //   align: "center",
+    //   flex: 1,
+    // },
     
     {
       field: "yogunluk",
@@ -109,6 +109,14 @@ const Astarlama_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
     {
       field: "redkabul",
       headerName: "Red-Kabul",
+      minWidth: 150,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+    },
+    {
+      field: "aciklama",
+      headerName: "Açıklama",
       minWidth: 150,
       headerAlign: "center",
       align: "center",

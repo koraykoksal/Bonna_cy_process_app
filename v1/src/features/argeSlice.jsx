@@ -16,6 +16,7 @@ const initialState={
     kulpDokumData:[],
     granulKontrolData:[],
     astarlamaData:[],
+    reaktifData:[],
 }
 
 
@@ -104,6 +105,11 @@ const argeSlice=createSlice({
             state.error=false
             state.astarlamaData=payload
         },
+        fetchReaktifData:(state,{payload})=>{
+            state.loading = false;
+            state.error=false
+            state.reaktifData=payload
+        },
         fetchFail: (state) => {
             state.loading = false;
             state.error = true;
@@ -127,7 +133,8 @@ export const {
     fetchDokumHattiData,
     fetchKulpDokumData,
     fetchGranulKontrolData,
-    fetchAstarlamaData
+    fetchAstarlamaData,
+    fetchReaktifData
 
 
 }=argeSlice.actions
