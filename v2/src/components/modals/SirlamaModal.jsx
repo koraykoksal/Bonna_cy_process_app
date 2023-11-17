@@ -1,0 +1,658 @@
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { Formik,Form } from 'formik';
+import { Container, IconButton, TextField, TextareaAutosize } from '@mui/material';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { sorunTipi,aksiyonSahibi } from '../../helpers/ProcessData';
+import Textarea from '@mui/joy/Textarea';
+import CloseIcon from '@mui/icons-material/Close';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { useState ,useEffect} from 'react';
+import {uygunsuzlukTipi} from "../../helpers/ProcessData"
+import {useSelector} from "react-redux"
+import useArge from '../../hooks/useArge';
+
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 525,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+
+};
+
+const SirlamaModal=({open, handleClose, info, setInfo})=>{
+
+
+ 
+  const handleChange = (e) => {
+    setInfo({ ...info, [e.target.name]: e.target.value })
+  }
+
+
+  const { getFireData, putFireData ,postFireData} = useArge()
+  const { workCenterCode, materialCode,designCode } = useSelector((state) => state.arge)
+  const [desenCodes, setdesenCodes] = useState([])
+
+  const handleSubmit = (e) => {
+
+    e.preventDefault()
+
+    if (info.id) {
+      putFireData('Sirlama', info)
+      getFireData("Sirlama")
+    }
+    else {
+      postFireData("Sirlama",info)
+      getFireData("Sirlama")
+    }
+
+    handleClose()
+
+  }
+
+
+  useEffect(() => {
+    
+    const data = designCode.map((item)=>item.DESENKODU)
+    const dataSort = data.sort()
+    setdesenCodes(dataSort)
+
+  }, [designCode])
+  
+
+  return (
+    <div>
+      
+      <Modal
+        keepMounted
+        open={open}
+        onClose={()=>{
+          handleClose()
+        }}
+        aria-labelledby="keep-mounted-modal-title"
+        aria-describedby="keep-mounted-modal-description"
+      >
+        <Box sx={style}>
+
+        <Box sx={{display:'flex',flexWrap:'wrap',justifyContent:'space-between',alignItems:'center'}}>
+
+            <Typography id="keep-mounted-modal-title" variant="h6" component="h2" color="#000000">
+               Sırlama
+            </Typography>
+
+            <IconButton onClick={()=>handleClose()}>
+                <HighlightOffIcon sx={{color:'#C70039',fontSize:'28px'}}/>
+            </IconButton>
+        </Box>
+          
+            
+            <Box sx={{mt:3,display:'flex',flexDirection:'column',gap:2,overflow:'scroll',maxHeight:'600px'}} component='form' onSubmit={handleSubmit}>
+                
+
+            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
+
+              {/* makine */}
+            <FormControl fullWidth>
+                <InputLabel id="uretimyeri">Üretim Yeri</InputLabel>
+                <Select
+                labelId="uretimyeri"
+                id="uretimyeri"
+                name='uretimyeri'
+                label="uretimyeri"
+                value={info.uretimyeri}
+                onChange={handleChange}
+                >
+                {
+                  workCenterCode?.filter(data=>data.ISMERKEZI.includes('SR')).map(({ISMERKEZI,index})=>(
+                    <MenuItem key={index} value={ISMERKEZI}>{ISMERKEZI}</MenuItem>
+                  ))
+                }
+                </Select>
+            </FormControl>
+            
+            {/* ürün kodu */}
+            <FormControl fullWidth>
+                <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
+                <Select
+                labelId="urun_kodu"
+                id="urun_kodu"
+                name='urun_kodu'
+                label="urun_kodu"
+                value={info.urun_kodu}
+                onChange={handleChange}
+                >
+                {
+                  materialCode?.map(({MALZEMEKODU,index})=>(
+                    <MenuItem key={index} value={MALZEMEKODU}>{MALZEMEKODU}</MenuItem>
+                  ))
+                }
+                </Select>
+            </FormControl>
+
+            {/* ürün kodu */}
+            <FormControl fullWidth>
+                <InputLabel id="renkKodu">Renk Kodu</InputLabel>
+                <Select
+                labelId="renkKodu"
+                id="renkKodu"
+                name='renkKodu'
+                label="renkKodu"
+                value={info.renkKodu}
+                onChange={handleChange}
+                >
+                {
+                  desenCodes?.map((item,index)=>(
+                    <MenuItem key={index} value={item}>{item}</MenuItem>
+                  ))
+                }
+                </Select>
+            </FormControl>
+            
+            </Box>
+
+            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
+
+            
+            <TextField
+            fullWidth
+            label="Yoğunluk (g/L)"
+            name="yogunluk"
+            id="yogunluk"
+            type="text"
+            variant="outlined"
+            value={info.yogunluk}
+            onChange={handleChange}
+            />
+
+
+            <TextField
+            fullWidth
+            label="Sır Sıcaklık (°C)"
+            name="sirSicaklik"
+            id="sirSicaklik"
+            type="text"
+            variant="outlined"
+            value={info.sirSicaklik}
+            onChange={handleChange}
+            />
+            </Box>
+
+            <Box>
+
+            <Typography variant='subtitle2' align='center'>
+              Viskozite (°G)
+            </Typography>
+            
+            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
+            <TextField
+            fullWidth
+            label="V1"
+            name="viskozite_v1"
+            id="viskozite_v1"
+            type="text"
+            variant="outlined"
+            value={info.viskozite_v1}
+            onChange={handleChange}
+            />
+
+            <TextField
+            fullWidth
+            label="V2"
+            name="viskozite_v2"
+            id="viskozite_v2"
+            type="text"
+            variant="outlined"
+            value={info.viskozite_v2}
+            onChange={handleChange}
+            />
+
+            <TextField
+            fullWidth
+            label="Tiksotropi v1-v2"
+            name="viskozite_v1v2"
+            id="viskozite_v1v2"
+            type="text"
+            variant="outlined"
+            value={info.viskozite_v1v2}
+            onChange={handleChange}
+            />
+            </Box>
+            
+            </Box>
+
+
+            
+            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
+            <TextField
+            fullWidth
+            label="Viskozite"
+            name="viskozite"
+            id="viskozite"
+            type="text"
+            variant="outlined"
+            value={info.viskozite}
+            onChange={handleChange}
+            />
+
+            <TextField
+            fullWidth
+            label="Tank Hızı"
+            name="tankKazan_KaristirmaHizi"
+            id="tankKazan_KaristirmaHizi"
+            type="text"
+            variant="outlined"
+            value={info.tankKazan_KaristirmaHizi}
+            onChange={handleChange}
+            />
+            </Box>
+
+            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
+
+            <TextField
+            fullWidth
+            label="Turnet Hızı"
+            name="balerinTurnetHizi"
+            id="balerinTurnetHizi"
+            type="text"
+            variant="outlined"
+            value={info.balerinTurnetHizi}
+            onChange={handleChange}
+            />
+
+            <TextField
+            fullWidth
+            label="Gobek Hızı"
+            name="balerinGobekHizi"
+            id="balerinGobekHizi"
+            type="text"
+            variant="outlined"
+            value={info.balerinGobekHizi}
+            onChange={handleChange}
+            />
+            </Box>
+            
+            
+            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
+
+            <TextField
+            fullWidth
+            label="Pompa Basıncı"
+            name="pompaBasinci"
+            id="pompaBasinci"
+            type="text"
+            variant="outlined"
+            value={info.pompaBasinci}
+            onChange={handleChange}
+            />
+
+          <TextField
+            fullWidth
+            label="Sır Gramajı"
+            name="sirGramaji"
+            id="sirGramaji"
+            type="text"
+            variant="outlined"
+            value={info.sirGramaji}
+            onChange={handleChange}
+            />
+
+            </Box>
+
+            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
+
+            <TextField
+            fullWidth
+            label="Aktif Nozül Alt"
+            name="aktifNozulSayisi_alt"
+            id="aktifNozulSayisi_alt"
+            type="text"
+            variant="outlined"
+            value={info.aktifNozulSayisi_alt}
+            onChange={handleChange}
+            />
+
+          <TextField
+            fullWidth
+            label="Aktif Nozül Üst"
+            name="aktifNozulSayisi_ust"
+            id="aktifNozulSayisi_ust"
+            type="text"
+            variant="outlined"
+            value={info.aktifNozulSayisi_ust}
+            onChange={handleChange}
+            />
+
+            </Box>
+
+            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
+           
+
+            <TextField
+            fullWidth
+            label="Sır Taban"
+            name="sirKalinligi_taban"
+            id="sirKalinligi_taban"
+            type="text"
+            variant="outlined"
+            value={info.sirKalinligi_taban}
+            onChange={handleChange}
+            />
+
+            <TextField
+            fullWidth
+            label="Sır Kenar"
+            name="sirKalinligi_kenar"
+            id="sirKalinligi_kenar"
+            type="text"
+            variant="outlined"
+            value={info.sirKalinligi_kenar}
+            onChange={handleChange}
+            />
+
+            <TextField
+            fullWidth
+            label="Sır Orta"
+            name="sirKalinligi_orta"
+            id="sirKalinligi_orta"
+            type="text"
+            variant="outlined"
+            value={info.sirKalinligi_orta}
+            onChange={handleChange}
+            />
+
+            </Box>
+
+            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
+            <FormControl fullWidth>
+                <InputLabel id="biskuviKontrol">Bisküvi Kont.</InputLabel>
+                <Select
+                labelId="biskuviKontrol"
+                id="biskuviKontrol"
+                name='biskuviKontrol'
+                label="biskuviKontrol"
+                value={info.biskuviKontrol}
+                onChange={handleChange}
+                >
+                <MenuItem value="OK">OK</MenuItem>
+                <MenuItem value="NOT">NOT</MenuItem>
+                </Select>
+            </FormControl>
+
+            <FormControl fullWidth>
+                <InputLabel id="biskuviSilimi_silimSuyu">Silim Suyu</InputLabel>
+                <Select
+                labelId="biskuviSilimi_silimSuyu"
+                id="biskuviSilimi_silimSuyu"
+                name='biskuviSilimi_silimSuyu'
+                label="biskuviSilimi_silimSuyu"
+                value={info.biskuviSilimi_silimSuyu}
+                onChange={handleChange}
+                >
+                <MenuItem value="OK">OK</MenuItem>
+                <MenuItem value="NOT">NOT</MenuItem>
+                </Select>
+            </FormControl>
+
+            <FormControl fullWidth>
+                <InputLabel id="biskuviSilimi_silimSungeri">Silim Sünger</InputLabel>
+                <Select
+                labelId="biskuviSilimi_silimSungeri"
+                id="biskuviSilimi_silimSungeri"
+                name='biskuviSilimi_silimSungeri'
+                label="biskuviSilimi_silimSungeri"
+                value={info.biskuviSilimi_silimSungeri}
+                onChange={handleChange}
+                >
+                <MenuItem value="OK">OK</MenuItem>
+                <MenuItem value="NOT">NOT</MenuItem>
+                </Select>
+            </FormControl>
+
+            </Box>
+
+            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
+            
+            <FormControl fullWidth>
+                <InputLabel id="biskuviSilimi_urunSilimi">Ürün Silim</InputLabel>
+                <Select
+                labelId="biskuviSilimi_urunSilimi"
+                id="biskuviSilimi_urunSilimi"
+                name='biskuviSilimi_urunSilimi'
+                label="biskuviSilimi_urunSilimi"
+                value={info.biskuviSilimi_urunSilimi}
+                onChange={handleChange}
+                >
+                <MenuItem value="OK">OK</MenuItem>
+                <MenuItem value="NOT">NOT</MenuItem>
+                </Select>
+            </FormControl>
+            
+            <FormControl fullWidth>
+                <InputLabel id="makineYikanmasi">Mak.Yıkama</InputLabel>
+                <Select
+                labelId="makineYikanmasi"
+                id="makineYikanmasi"
+                name='makineYikanmasi'
+                label="makineYikanmasi"
+                value={info.makineYikanmasi}
+                onChange={handleChange}
+                >
+                <MenuItem value="OK">OK</MenuItem>
+                <MenuItem value="NOT">NOT</MenuItem>
+                </Select>
+            </FormControl>
+
+            <FormControl fullWidth>
+                <InputLabel id="manyetikYikanmasi">Man.Yıkama</InputLabel>
+                <Select
+                labelId="manyetikYikanmasi"
+                id="manyetikYikanmasi"
+                name='manyetikYikanmasi'
+                label="manyetikYikanmasi"
+                value={info.manyetikYikanmasi}
+                onChange={handleChange}
+                >
+                <MenuItem value="OK">OK</MenuItem>
+                <MenuItem value="NOT">NOT</MenuItem>
+                </Select>
+            </FormControl>
+            
+            </Box>
+
+            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
+            
+            <FormControl fullWidth>
+                <InputLabel id="kazandaCokme">KazanÇökme</InputLabel>
+                <Select
+                labelId="kazandaCokme"
+                id="kazandaCokme"
+                name='kazandaCokme'
+                label="kazandaCokme"
+                value={info.kazandaCokme}
+                onChange={handleChange}
+                >
+                <MenuItem value="OK">OK</MenuItem>
+                <MenuItem value="NOT">NOT</MenuItem>
+                </Select>
+            </FormControl>
+            
+            <FormControl fullWidth>
+                <InputLabel id="receteKontrolu">Reçete Kont.</InputLabel>
+                <Select
+                labelId="receteKontrolu"
+                id="receteKontrolu"
+                name='receteKontrolu'
+                label="receteKontrolu"
+                value={info.receteKontrolu}
+                onChange={handleChange}
+                >
+                <MenuItem value="OK">OK</MenuItem>
+                <MenuItem value="NOT">NOT</MenuItem>
+                </Select>
+            </FormControl>
+
+            <FormControl fullWidth>
+                <InputLabel id="ayakSilimi_silimSungeri">Sünger Silim</InputLabel>
+                <Select
+                labelId="ayakSilimi_silimSungeri"
+                id="ayakSilimi_silimSungeri"
+                name='ayakSilimi_silimSungeri'
+                label="ayakSilimi_silimSungeri"
+                value={info.ayakSilimi_silimSungeri}
+                onChange={handleChange}
+                >
+                <MenuItem value="OK">OK</MenuItem>
+                <MenuItem value="NOT">NOT</MenuItem>
+                </Select>
+            </FormControl>
+            
+            </Box>
+            
+            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
+            <FormControl fullWidth>
+                <InputLabel id="ayakSilimi_urunAyakSilimi">Ürün Ayak Silimi</InputLabel>
+                <Select
+                labelId="ayakSilimi_urunAyakSilimi"
+                id="ayakSilimi_urunAyakSilimi"
+                name='ayakSilimi_urunAyakSilimi'
+                label="ayakSilimi_urunAyakSilimi"
+                value={info.ayakSilimi_urunAyakSilimi}
+                onChange={handleChange}
+                >
+                <MenuItem value="OK">OK</MenuItem>
+                <MenuItem value="NOT">NOT</MenuItem>
+                </Select>
+            </FormControl>
+
+            <FormControl fullWidth>
+                <InputLabel id="sirliUrunYuzeyKontrolu">Sırlı Yüzey Kontrol</InputLabel>
+                <Select
+                labelId="sirliUrunYuzeyKontrolu"
+                id="sirliUrunYuzeyKontrolu"
+                name='sirliUrunYuzeyKontrolu'
+                label="sirliUrunYuzeyKontrolu"
+                value={info.sirliUrunYuzeyKontrolu}
+                onChange={handleChange}
+                >
+                <MenuItem value="OK">OK</MenuItem>
+                <MenuItem value="NOT">NOT</MenuItem>
+                </Select>
+            </FormControl>
+            </Box>
+
+            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
+            <FormControl fullWidth>
+                <InputLabel id="auraBoyaLekesiKontrol">Aura Boya Lekesi</InputLabel>
+                <Select
+                labelId="auraBoyaLekesiKontrol"
+                id="auraBoyaLekesiKontrol"
+                name='auraBoyaLekesiKontrol'
+                label="auraBoyaLekesiKontrol"
+                value={info.auraBoyaLekesiKontrol}
+                onChange={handleChange}
+                >
+                <MenuItem value="OK">OK</MenuItem>
+                <MenuItem value="NOT">NOT</MenuItem>
+                </Select>
+            </FormControl>
+
+            <FormControl fullWidth>
+                <InputLabel id="auraBoyaLekesiKontrol">Auro Bekleme Süresi</InputLabel>
+                <Select
+                labelId="auraBoyaLekesiKontrol"
+                id="auraBoyaLekesiKontrol"
+                name='auraBoyaLekesiKontrol'
+                label="auraBoyaLekesiKontrol"
+                value={info.auraBoyaLekesiKontrol}
+                onChange={handleChange}
+                >
+                <MenuItem value="OK">OK</MenuItem>
+                <MenuItem value="NOT">NOT</MenuItem>
+                </Select>
+            </FormControl>
+            </Box>
+
+            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
+            
+            <FormControl fullWidth>
+                <InputLabel id="uygunsuzlukTipi">Uygunsuzluk Tipi</InputLabel>
+                <Select
+                labelId="uygunsuzlukTipi"
+                id="uygunsuzlukTipi"
+                name='uygunsuzlukTipi'
+                label="uygunsuzlukTipi"
+                value={info.uygunsuzlukTipi}
+                onChange={handleChange}
+                >
+                {
+                    uygunsuzlukTipi.map((item)=>(
+                        <MenuItem value={item.text}>{item.text}</MenuItem>
+                    ))
+                }
+                
+                </Select>
+            </FormControl>
+
+            <TextField
+            multiline
+            fullWidth
+            label="Açıklama"
+            name="aciklama"
+            id="aciklama"
+            type="text"
+            variant="outlined"
+            value={info.aciklama}
+            onChange={handleChange}
+            />
+
+            </Box>
+
+
+            <TextField
+            multiline
+            fullWidth
+            label="Operatör"
+            name="operator"
+            id="operator"
+            type="text"
+            variant="outlined"
+            value={info.operator}
+            onChange={handleChange}
+            />
+
+            
+
+           
+
+
+            <Button
+            variant='contained'
+            fullWidth
+            type='submit'
+            >
+                {info?.id ? "Update Data" : "Add New Data"}
+            </Button>
+
+
+            </Box>
+
+          
+        </Box>
+      </Modal>
+    </div>
+  );
+}
+
+export default SirlamaModal
