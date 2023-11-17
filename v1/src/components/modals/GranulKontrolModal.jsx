@@ -16,6 +16,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useState, useEffect } from 'react';
 import { uygunsuzlukTipi } from "../../helpers/ProcessData"
 import { useSelector } from "react-redux"
+import useArge from '../../hooks/useArge';
 
 
 const style = {
@@ -31,83 +32,43 @@ const style = {
 
 };
 
-const GranulKontrolModal = ({ open, handleClose, handleOpen, workCenterCode, hammaddeCode }) => {
+const GranulKontrolModal = ({ open, handleClose, info, setInfo }) => {
 
-  
 
   const handleChange = (e) => {
-    setgranulkontrolData({ ...granulkontrolData, [e.target.name]: e.target.value })
+    setInfo({ ...info, [e.target.name]: e.target.value })
   }
 
-  const nowData = new Date()
-  const currentdate = nowData.getDate() + "-" + (nowData.getMonth() + 1) + "-" + nowData.getFullYear()
-  const currentTime = nowData.getHours() + ":" + nowData.getMinutes()
+  const { getFireData, putFireData, postFireData } = useArge()
+  const { workCenterCode, hammaddeCode } = useSelector((state) => state.arge)
 
-  const { currentUser } = useSelector((state) => state.auth)
 
-  let getVardiya = 0;
+  const handleSubmit = (e) => {
 
-  const getShift = () => {
-    const now = new Date().getHours()
+    e.preventDefault()
 
-    if (now > 8 && now < 16) {
-      getVardiya = 2
-    }
-    else if (now > 16 && now < 23) {
-      getVardiya = 3
+    if (info.id) {
+      putFireData('GranulKontrol', info)
+      getFireData("GranulKontrol")
     }
     else {
-      getVardiya = 1
+      postFireData("GranulKontrol", info)
+      getFireData("GranulKontrol")
     }
 
-    return getVardiya
+    handleClose()
 
   }
 
-  const [granulkontrolData, setgranulkontrolData] = useState({
-    is_merkezi: "",
-    hammaddenem: "",
-    prosesnem: "",
-    bigbagtarih: "",
-    bigbagkodu: "",
-    granulkodu: "",
-    redkabul: "",
-    aciklama: "",
-    vardiyasorumlusu: "",
-    urun_kodu: "",
-    vardiya: getShift(),
-    date: currentdate.toString(),
-    time: currentTime.toString(),
-    kontroleden_kisi: currentUser
-  })
-
-
-  console.log(hammaddeCode.HAMMADDEKODU)
 
 
   return (
     <div>
-      
+
       <Modal
         keepMounted
         open={open}
-        onClose={()=>{
-          setgranulkontrolData({
-            is_merkezi: "",
-            hammaddenem: "",
-            prosesnem: "",
-            bigbagtarih: "",
-            bigbagkodu: "",
-            granulkodu: "",
-            redkabul: "",
-            aciklama: "",
-            vardiyasorumlusu: "",
-            urun_kodu: "",
-            vardiya: getShift(),
-            date: currentdate.toString(),
-            time: currentTime.toString(),
-            kontroleden_kisi: currentUser
-          })
+        onClose={() => {
           handleClose()
         }}
         aria-labelledby="keep-mounted-modal-title"
@@ -127,7 +88,7 @@ const GranulKontrolModal = ({ open, handleClose, handleOpen, workCenterCode, ham
           </Box>
 
 
-          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '600px' }} component='form'>
+          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '600px' }} component='form' onSubmit={handleSubmit}>
 
 
             <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
@@ -140,7 +101,7 @@ const GranulKontrolModal = ({ open, handleClose, handleOpen, workCenterCode, ham
                   id="is_merkezi"
                   name='is_merkezi'
                   label="is_merkezi"
-                  value={granulkontrolData.is_merkezi}
+                  value={info.is_merkezi}
                   onChange={handleChange}
                 >
                   {
@@ -159,7 +120,7 @@ const GranulKontrolModal = ({ open, handleClose, handleOpen, workCenterCode, ham
                   id="urun_kodu"
                   name='urun_kodu'
                   label="urun_kodu"
-                  value={granulkontrolData.urun_kodu}
+                  value={info.urun_kodu}
                   onChange={handleChange}
                 >
 
@@ -168,7 +129,7 @@ const GranulKontrolModal = ({ open, handleClose, handleOpen, workCenterCode, ham
                     hammaddeCode?.map(({ HAMMADDEKODU, index }) => (
                       <MenuItem key={index} value={HAMMADDEKODU}>{HAMMADDEKODU}</MenuItem>
                     ))
-                }
+                  }
                 </Select>
               </FormControl>
 
@@ -182,7 +143,7 @@ const GranulKontrolModal = ({ open, handleClose, handleOpen, workCenterCode, ham
                 id="granulkodu"
                 type="text"
                 variant="outlined"
-                value={granulkontrolData.granulkodu}
+                value={info.granulkodu}
                 onChange={handleChange}
               />
 
@@ -194,7 +155,7 @@ const GranulKontrolModal = ({ open, handleClose, handleOpen, workCenterCode, ham
                 id="bigbagkodu"
                 type="text"
                 variant="outlined"
-                value={granulkontrolData.bigbagkodu}
+                value={info.bigbagkodu}
                 onChange={handleChange}
               />
             </Box>
@@ -205,7 +166,7 @@ const GranulKontrolModal = ({ open, handleClose, handleOpen, workCenterCode, ham
               id="bigbagtarih"
               type="date"
               variant="outlined"
-              value={granulkontrolData.bigbagtarih}
+              value={info.bigbagtarih}
               onChange={handleChange}
             />
 
@@ -217,7 +178,7 @@ const GranulKontrolModal = ({ open, handleClose, handleOpen, workCenterCode, ham
                 id="hammaddenem"
                 type="text"
                 variant="outlined"
-                value={granulkontrolData.hammaddenem}
+                value={info.hammaddenem}
                 onChange={handleChange}
               />
 
@@ -228,7 +189,7 @@ const GranulKontrolModal = ({ open, handleClose, handleOpen, workCenterCode, ham
                 id="prosesnem"
                 type="text"
                 variant="outlined"
-                value={granulkontrolData.prosesnem}
+                value={info.prosesnem}
                 onChange={handleChange}
               />
             </Box>
@@ -243,7 +204,7 @@ const GranulKontrolModal = ({ open, handleClose, handleOpen, workCenterCode, ham
                 id="redkabul"
                 name='redkabul'
                 label="redkabul"
-                value={granulkontrolData.redkabul}
+                value={info.redkabul}
                 onChange={handleChange}
               >
                 <MenuItem value="RED">RED</MenuItem>
@@ -262,7 +223,7 @@ const GranulKontrolModal = ({ open, handleClose, handleOpen, workCenterCode, ham
               id="aciklama"
               type="text"
               variant="outlined"
-              value={granulkontrolData.aciklama}
+              value={info.aciklama}
               onChange={handleChange}
             />
 
@@ -274,7 +235,7 @@ const GranulKontrolModal = ({ open, handleClose, handleOpen, workCenterCode, ham
               type="text"
               variant="outlined"
 
-              value={granulkontrolData.vardiyasorumlusu}
+              value={info.vardiyasorumlusu}
               onChange={handleChange}
             />
 
@@ -285,7 +246,7 @@ const GranulKontrolModal = ({ open, handleClose, handleOpen, workCenterCode, ham
               fullWidth
               type='submit'
             >
-              Save
+              {info?.id ? "Update Data" : "Add New Data"}
             </Button>
 
 

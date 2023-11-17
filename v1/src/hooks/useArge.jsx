@@ -12,7 +12,8 @@ import {
     fetchManDikTornaData,
     fetchYuksekBasincData,
     fetchDokumHattiData,
-    fetchKulpDokumData
+    fetchKulpDokumData,
+    fetchGranulKontrolData
 
 } from '../features/argeSlice'
 import { toastErrorNotify, toastSuccessNotify } from '../helpers/ToastNotify'
@@ -190,6 +191,9 @@ const useArge = () => {
                     }
                     else if(address === 'KulpDokum'){
                         dispatch(fetchKulpDokumData(data))
+                    }
+                    else if(address === 'GranulKontrol'){
+                        dispatch(fetchGranulKontrolData(data))
                     }
                     
                     
