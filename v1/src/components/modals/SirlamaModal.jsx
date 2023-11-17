@@ -16,6 +16,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useState ,useEffect} from 'react';
 import {uygunsuzlukTipi} from "../../helpers/ProcessData"
 import {useSelector} from "react-redux"
+import useArge from '../../hooks/useArge';
 
 
 const style = {
@@ -31,95 +32,45 @@ const style = {
 
 };
 
-const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})=>{
+const SirlamaModal=({open, handleClose, info, setInfo})=>{
 
 
-  const handleChange=(e)=>{
-    setnihaiUrunData({...nihaiUrunData,[e.target.name]:e.target.value})
+ 
+  const handleChange = (e) => {
+    setInfo({ ...info, [e.target.name]: e.target.value })
   }
 
-  const nowData=new Date()
-  const currentdate = nowData.getDate() +"-"+(nowData.getMonth()+1)+"-"+nowData.getFullYear()
-  const currentTime = nowData.getHours() +":"+nowData.getMinutes()
 
-  const {currentUser} = useSelector((state) => state.auth)
+  const { getFireData, putFireData ,postFireData} = useArge()
+  const { workCenterCode, materialCode,designCode } = useSelector((state) => state.arge)
+  const [desenCodes, setdesenCodes] = useState([])
 
-  let getVardiya = 0;
+  const handleSubmit = (e) => {
 
-  const getShift=()=>{
-    const now=new Date().getHours()
+    e.preventDefault()
 
-    if(now > 8 && now < 16){
-        getVardiya = 2
+    if (info.id) {
+      putFireData('Sirlama', info)
+      getFireData("Sirlama")
     }
-    else if(now > 16 && now < 23){
-        getVardiya = 3
-    }
-    else{
-        getVardiya = 1
+    else {
+      postFireData("Sirlama",info)
+      getFireData("Sirlama")
     }
 
-    return getVardiya
+    handleClose()
 
   }
 
-  const [nihaiUrunData, setnihaiUrunData] = useState({
-    renkKodu:"",
-    urun_kodu:"",
-    uretimyeri:"",
-    yogunluk:"",
-    sirSicaklik:"",
-    viskozite:"",
-    viskozite_v1:"",
-    viskozite_v2:"",
-    viskozite_v1v2:"",
-    tankKazan_KaristirmaHizi:"",
-    balerinTurnetHizi:"",
-    balerinGobekHizi:"",
-    pompaBasinci:"",
-    aktifNozulSayisi_alt:"",
-    aktifNozulSayisi_ust:"",
-    sirGramaji:"",
-    sirKalinligi_taban:"",
-    sirKalinligi_kenar:"",
-    sirKalinligi_orta:"",
-    biskuviKontrol:"",
-    biskuviSilimi_silimSuyu:"",
-    biskuviSilimi_silimSungeri:"",
-    biskuviSilimi_urunSilimi:"",
-    makineYikanmasi:"",
-    manyetikYikanmasi:"",
-    kazandaCokme:"",
-    receteKontrolu:"",
-    ayakSilimi_silimSungeri:"",
-    ayakSilimi_urunAyakSilimi:"",
-    sirliUrunYuzeyKontrolu:"",
-    auraBoyaLekesiKontrol:"",
-    auraBeklemeSuresiKontrol:"",
-    uygunsuzlukTipi:"",
-    aciklama:"",
-    operator:"",
-    vardiya:getShift(),
-    date:currentdate.toString(),
-    time:currentTime.toString(),
-    kontroleden_kisi:currentUser
-  })
-
-  const [newValue, setnewValue] = useState([])
 
   useEffect(() => {
-
-    //designCode array içinde value bilgileri tek bir array içine alınır
-    const data1 = designCode.map(item=>item.DESENKODU)
-
-    //array içindeki bilgileri alfabetik sıraya göre listelenir
-    const data2 = data1.sort()
-
-    setnewValue(data2)
     
+    const data = designCode.map((item)=>item.DESENKODU)
+    const dataSort = data.sort()
+    setdesenCodes(dataSort)
+
   }, [designCode])
-
-
+  
 
   return (
     <div>
@@ -128,47 +79,6 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
         keepMounted
         open={open}
         onClose={()=>{
-          setnihaiUrunData({
-            renkKodu:"",
-            urun_kodu:"",
-            uretimyeri:"",
-            yogunluk:"",
-            sirSicaklik:"",
-            viskozite:"",
-            viskozite_v1:"",
-            viskozite_v2:"",
-            viskozite_v1v2:"",
-            tankKazan_KaristirmaHizi:"",
-            balerinTurnetHizi:"",
-            balerinGobekHizi:"",
-            pompaBasinci:"",
-            aktifNozulSayisi_alt:"",
-            aktifNozulSayisi_ust:"",
-            sirGramaji:"",
-            sirKalinligi_taban:"",
-            sirKalinligi_kenar:"",
-            sirKalinligi_orta:"",
-            biskuviKontrol:"",
-            biskuviSilimi_silimSuyu:"",
-            biskuviSilimi_silimSungeri:"",
-            biskuviSilimi_urunSilimi:"",
-            makineYikanmasi:"",
-            manyetikYikanmasi:"",
-            kazandaCokme:"",
-            receteKontrolu:"",
-            ayakSilimi_silimSungeri:"",
-            ayakSilimi_urunAyakSilimi:"",
-            sirliUrunYuzeyKontrolu:"",
-            auraBoyaLekesiKontrol:"",
-            auraBeklemeSuresiKontrol:"",
-            uygunsuzlukTipi:"",
-            aciklama:"",
-            operator:"",
-            vardiya:getShift(),
-            date:currentdate.toString(),
-            time:currentTime.toString(),
-            kontroleden_kisi:currentUser
-          })
           handleClose()
         }}
         aria-labelledby="keep-mounted-modal-title"
@@ -188,7 +98,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
         </Box>
           
             
-            <Box sx={{mt:3,display:'flex',flexDirection:'column',gap:2,overflow:'scroll',maxHeight:'600px'}} component='form'>
+            <Box sx={{mt:3,display:'flex',flexDirection:'column',gap:2,overflow:'scroll',maxHeight:'600px'}} component='form' onSubmit={handleSubmit}>
                 
 
             <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
@@ -201,7 +111,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
                 id="uretimyeri"
                 name='uretimyeri'
                 label="uretimyeri"
-                value={nihaiUrunData.uretimyeri}
+                value={info.uretimyeri}
                 onChange={handleChange}
                 >
                 {
@@ -220,7 +130,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
                 id="urun_kodu"
                 name='urun_kodu'
                 label="urun_kodu"
-                value={nihaiUrunData.urun_kodu}
+                value={info.urun_kodu}
                 onChange={handleChange}
                 >
                 {
@@ -239,11 +149,11 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
                 id="renkKodu"
                 name='renkKodu'
                 label="renkKodu"
-                value={nihaiUrunData.renkKodu}
+                value={info.renkKodu}
                 onChange={handleChange}
                 >
                 {
-                  newValue?.map((item,index)=>(
+                  desenCodes?.map((item,index)=>(
                     <MenuItem key={index} value={item}>{item}</MenuItem>
                   ))
                 }
@@ -262,7 +172,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             id="yogunluk"
             type="text"
             variant="outlined"
-            value={nihaiUrunData.yogunluk}
+            value={info.yogunluk}
             onChange={handleChange}
             />
 
@@ -274,7 +184,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             id="sirSicaklik"
             type="text"
             variant="outlined"
-            value={nihaiUrunData.sirSicaklik}
+            value={info.sirSicaklik}
             onChange={handleChange}
             />
             </Box>
@@ -293,7 +203,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             id="viskozite_v1"
             type="text"
             variant="outlined"
-            value={nihaiUrunData.viskozite_v1}
+            value={info.viskozite_v1}
             onChange={handleChange}
             />
 
@@ -304,7 +214,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             id="viskozite_v2"
             type="text"
             variant="outlined"
-            value={nihaiUrunData.viskozite_v2}
+            value={info.viskozite_v2}
             onChange={handleChange}
             />
 
@@ -315,7 +225,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             id="viskozite_v1v2"
             type="text"
             variant="outlined"
-            value={nihaiUrunData.viskozite_v1v2}
+            value={info.viskozite_v1v2}
             onChange={handleChange}
             />
             </Box>
@@ -332,7 +242,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             id="viskozite"
             type="text"
             variant="outlined"
-            value={nihaiUrunData.viskozite}
+            value={info.viskozite}
             onChange={handleChange}
             />
 
@@ -343,9 +253,12 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             id="tankKazan_KaristirmaHizi"
             type="text"
             variant="outlined"
-            value={nihaiUrunData.tankKazan_KaristirmaHizi}
+            value={info.tankKazan_KaristirmaHizi}
             onChange={handleChange}
             />
+            </Box>
+
+            <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
 
             <TextField
             fullWidth
@@ -354,7 +267,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             id="balerinTurnetHizi"
             type="text"
             variant="outlined"
-            value={nihaiUrunData.balerinTurnetHizi}
+            value={info.balerinTurnetHizi}
             onChange={handleChange}
             />
 
@@ -365,7 +278,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             id="balerinGobekHizi"
             type="text"
             variant="outlined"
-            value={nihaiUrunData.balerinGobekHizi}
+            value={info.balerinGobekHizi}
             onChange={handleChange}
             />
             </Box>
@@ -380,7 +293,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             id="pompaBasinci"
             type="text"
             variant="outlined"
-            value={nihaiUrunData.pompaBasinci}
+            value={info.pompaBasinci}
             onChange={handleChange}
             />
 
@@ -391,7 +304,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             id="sirGramaji"
             type="text"
             variant="outlined"
-            value={nihaiUrunData.sirGramaji}
+            value={info.sirGramaji}
             onChange={handleChange}
             />
 
@@ -406,7 +319,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             id="aktifNozulSayisi_alt"
             type="text"
             variant="outlined"
-            value={nihaiUrunData.aktifNozulSayisi_alt}
+            value={info.aktifNozulSayisi_alt}
             onChange={handleChange}
             />
 
@@ -417,24 +330,14 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             id="aktifNozulSayisi_ust"
             type="text"
             variant="outlined"
-            value={nihaiUrunData.aktifNozulSayisi_ust}
+            value={info.aktifNozulSayisi_ust}
             onChange={handleChange}
             />
 
             </Box>
 
             <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
-            
-            <TextField
-            fullWidth
-            label="Sır Gramajı"
-            name="sirGramaji"
-            id="sirGramaji"
-            type="text"
-            variant="outlined"
-            value={nihaiUrunData.sirGramaji}
-            onChange={handleChange}
-            />
+           
 
             <TextField
             fullWidth
@@ -443,7 +346,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             id="sirKalinligi_taban"
             type="text"
             variant="outlined"
-            value={nihaiUrunData.sirKalinligi_taban}
+            value={info.sirKalinligi_taban}
             onChange={handleChange}
             />
 
@@ -454,7 +357,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             id="sirKalinligi_kenar"
             type="text"
             variant="outlined"
-            value={nihaiUrunData.sirKalinligi_kenar}
+            value={info.sirKalinligi_kenar}
             onChange={handleChange}
             />
 
@@ -465,7 +368,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             id="sirKalinligi_orta"
             type="text"
             variant="outlined"
-            value={nihaiUrunData.sirKalinligi_orta}
+            value={info.sirKalinligi_orta}
             onChange={handleChange}
             />
 
@@ -473,13 +376,13 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
 
             <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
             <FormControl fullWidth>
-                <InputLabel id="biskuviKontrol">Biskuvi Kontrol</InputLabel>
+                <InputLabel id="biskuviKontrol">Bisküvi Kont.</InputLabel>
                 <Select
                 labelId="biskuviKontrol"
                 id="biskuviKontrol"
                 name='biskuviKontrol'
                 label="biskuviKontrol"
-                value={nihaiUrunData.biskuviKontrol}
+                value={info.biskuviKontrol}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -494,7 +397,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
                 id="biskuviSilimi_silimSuyu"
                 name='biskuviSilimi_silimSuyu'
                 label="biskuviSilimi_silimSuyu"
-                value={nihaiUrunData.biskuviSilimi_silimSuyu}
+                value={info.biskuviSilimi_silimSuyu}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -503,13 +406,13 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             </FormControl>
 
             <FormControl fullWidth>
-                <InputLabel id="biskuviSilimi_silimSungeri">Silim Süngeri</InputLabel>
+                <InputLabel id="biskuviSilimi_silimSungeri">Silim Sünger</InputLabel>
                 <Select
                 labelId="biskuviSilimi_silimSungeri"
                 id="biskuviSilimi_silimSungeri"
                 name='biskuviSilimi_silimSungeri'
                 label="biskuviSilimi_silimSungeri"
-                value={nihaiUrunData.biskuviSilimi_silimSungeri}
+                value={info.biskuviSilimi_silimSungeri}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -522,13 +425,13 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
             
             <FormControl fullWidth>
-                <InputLabel id="biskuviSilimi_urunSilimi">Ürün Silimi</InputLabel>
+                <InputLabel id="biskuviSilimi_urunSilimi">Ürün Silim</InputLabel>
                 <Select
                 labelId="biskuviSilimi_urunSilimi"
                 id="biskuviSilimi_urunSilimi"
                 name='biskuviSilimi_urunSilimi'
                 label="biskuviSilimi_urunSilimi"
-                value={nihaiUrunData.biskuviSilimi_urunSilimi}
+                value={info.biskuviSilimi_urunSilimi}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -537,13 +440,13 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             </FormControl>
             
             <FormControl fullWidth>
-                <InputLabel id="makineYikanmasi">Makine Yıkanması</InputLabel>
+                <InputLabel id="makineYikanmasi">Mak.Yıkama</InputLabel>
                 <Select
                 labelId="makineYikanmasi"
                 id="makineYikanmasi"
                 name='makineYikanmasi'
                 label="makineYikanmasi"
-                value={nihaiUrunData.makineYikanmasi}
+                value={info.makineYikanmasi}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -552,13 +455,13 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             </FormControl>
 
             <FormControl fullWidth>
-                <InputLabel id="manyetikYikanmasi">Manyetik Yıkanması</InputLabel>
+                <InputLabel id="manyetikYikanmasi">Man.Yıkama</InputLabel>
                 <Select
                 labelId="manyetikYikanmasi"
                 id="manyetikYikanmasi"
                 name='manyetikYikanmasi'
                 label="manyetikYikanmasi"
-                value={nihaiUrunData.manyetikYikanmasi}
+                value={info.manyetikYikanmasi}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -571,13 +474,13 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             <Box sx={{display:'flex',justifyContent:'center',gap:2}}>
             
             <FormControl fullWidth>
-                <InputLabel id="kazandaCokme">Kazanda Çökme</InputLabel>
+                <InputLabel id="kazandaCokme">KazanÇökme</InputLabel>
                 <Select
                 labelId="kazandaCokme"
                 id="kazandaCokme"
                 name='kazandaCokme'
                 label="kazandaCokme"
-                value={nihaiUrunData.kazandaCokme}
+                value={info.kazandaCokme}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -586,13 +489,13 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             </FormControl>
             
             <FormControl fullWidth>
-                <InputLabel id="receteKontrolu">Reçete Kontrolü</InputLabel>
+                <InputLabel id="receteKontrolu">Reçete Kont.</InputLabel>
                 <Select
                 labelId="receteKontrolu"
                 id="receteKontrolu"
                 name='receteKontrolu'
                 label="receteKontrolu"
-                value={nihaiUrunData.receteKontrolu}
+                value={info.receteKontrolu}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -601,13 +504,13 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             </FormControl>
 
             <FormControl fullWidth>
-                <InputLabel id="ayakSilimi_silimSungeri">Sünger Silimi</InputLabel>
+                <InputLabel id="ayakSilimi_silimSungeri">Sünger Silim</InputLabel>
                 <Select
                 labelId="ayakSilimi_silimSungeri"
                 id="ayakSilimi_silimSungeri"
                 name='ayakSilimi_silimSungeri'
                 label="ayakSilimi_silimSungeri"
-                value={nihaiUrunData.ayakSilimi_silimSungeri}
+                value={info.ayakSilimi_silimSungeri}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -625,7 +528,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
                 id="ayakSilimi_urunAyakSilimi"
                 name='ayakSilimi_urunAyakSilimi'
                 label="ayakSilimi_urunAyakSilimi"
-                value={nihaiUrunData.ayakSilimi_urunAyakSilimi}
+                value={info.ayakSilimi_urunAyakSilimi}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -640,7 +543,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
                 id="sirliUrunYuzeyKontrolu"
                 name='sirliUrunYuzeyKontrolu'
                 label="sirliUrunYuzeyKontrolu"
-                value={nihaiUrunData.sirliUrunYuzeyKontrolu}
+                value={info.sirliUrunYuzeyKontrolu}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -657,7 +560,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
                 id="auraBoyaLekesiKontrol"
                 name='auraBoyaLekesiKontrol'
                 label="auraBoyaLekesiKontrol"
-                value={nihaiUrunData.auraBoyaLekesiKontrol}
+                value={info.auraBoyaLekesiKontrol}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -672,7 +575,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
                 id="auraBoyaLekesiKontrol"
                 name='auraBoyaLekesiKontrol'
                 label="auraBoyaLekesiKontrol"
-                value={nihaiUrunData.auraBoyaLekesiKontrol}
+                value={info.auraBoyaLekesiKontrol}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>
@@ -690,7 +593,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
                 id="uygunsuzlukTipi"
                 name='uygunsuzlukTipi'
                 label="uygunsuzlukTipi"
-                value={nihaiUrunData.uygunsuzlukTipi}
+                value={info.uygunsuzlukTipi}
                 onChange={handleChange}
                 >
                 {
@@ -710,7 +613,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             id="aciklama"
             type="text"
             variant="outlined"
-            value={nihaiUrunData.aciklama}
+            value={info.aciklama}
             onChange={handleChange}
             />
 
@@ -725,7 +628,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             id="operator"
             type="text"
             variant="outlined"
-            value={nihaiUrunData.operator}
+            value={info.operator}
             onChange={handleChange}
             />
 
@@ -739,7 +642,7 @@ const SirlamaModal=({open,handleClose,workCenterCode, materialCode, designCode})
             fullWidth
             type='submit'
             >
-                Save
+                {info?.id ? "Update Data" : "Add New Data"}
             </Button>
 
 
