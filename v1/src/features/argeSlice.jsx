@@ -14,7 +14,8 @@ const initialState={
     yuksekBasincData:[],
     dokumHattiData:[],
     kulpDokumData:[],
-    granulKontrolData:[]
+    granulKontrolData:[],
+    astarlamaData:[],
 }
 
 
@@ -98,6 +99,11 @@ const argeSlice=createSlice({
             state.error=false
             state.granulKontrolData=payload
         },
+        fetchAstarlamaData:(state,{payload})=>{
+            state.loading = false;
+            state.error=false
+            state.astarlamaData=payload
+        },
         fetchFail: (state) => {
             state.loading = false;
             state.error = true;
@@ -120,7 +126,8 @@ export const {
     fetchYuksekBasincData,
     fetchDokumHattiData,
     fetchKulpDokumData,
-    fetchGranulKontrolData
+    fetchGranulKontrolData,
+    fetchAstarlamaData
 
 
 }=argeSlice.actions

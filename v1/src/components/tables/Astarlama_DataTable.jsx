@@ -8,10 +8,11 @@ import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material'
 
 
-const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) => {
 
-  const { granulKontrolData } = useSelector((state) => state.arge)
-  const [granuldata, setGranuldata] = useState([])
+const Astarlama_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
+
+  const { astarlamaData } = useSelector((state) => state.arge)
+  const [astarlama, setAstarlama] = useState([])
 
 
 
@@ -56,58 +57,50 @@ const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) =>
       align: "center",
       flex: 1,
     },
+    
     {
-      field: "is_merkezi",
-      headerName: "İş Merkezi",
+      field: "yogunluk",
+      headerName: "Yoğunluk",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
-      field: "urun_kodu",
-      headerName: "Ürün Kodu",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
-   
-    {
-      field: "hammaddenem",
-      headerName: "Hammadde Nem",
+      field: "nozzlecap",
+      headerName: "Nozzle Çap",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
-      field: "prosesnem",
-      headerName: "Proses Nem",
+      field: "kasetsicaklik",
+      headerName: "Kaset Sıcaklık",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
-      field: "bigbagtarih",
-      headerName: "BigBag Tarih",
+      field: "tankbasinc",
+      headerName: "Tank Basınç",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
-      field: "bigbagkodu",
-      headerName: "BigBag Kodu",
+      field: "astarkalinlik",
+      headerName: "Astar Kalınlık",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
       flex: 1,
     },
     {
-      field: "granulkodu",
-      headerName: "Granul Kodu",
+      field: "astarlamayapankisi",
+      headerName: "Astarlama Yapan",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
@@ -116,23 +109,6 @@ const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) =>
     {
       field: "redkabul",
       headerName: "Red-Kabul",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
-    {
-      field: "aciklama",
-      headerName: "Açıklama",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
- 
-    {
-      field: "vardiyasorumlusu",
-      headerName: "Vardiya Sorumlusu",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
@@ -153,7 +129,7 @@ const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) =>
             label="Edit"
             onClick={() => {
               handleOpen()
-              setInfo({ id, type: 'DokumHatti' })
+              setInfo({ id, type: 'Astarlama' })
             }}
 
           />,
@@ -163,7 +139,7 @@ const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) =>
             label="Delete"
             onClick={() => {
               delHandleOpen()
-              setInfo({ id, type: 'DokumHatti' })
+              setInfo({ id, type: 'Astarlama' })
             }}
 
           />,
@@ -175,29 +151,27 @@ const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) =>
 
 
   useEffect(() => {
-    const dizi = Object.keys(granulKontrolData).map(key => { return { id: key, ...granulKontrolData[key] } })
-    setGranuldata(dizi)
-  }, [granulKontrolData])
-
-
+    const dizi = Object.keys(astarlamaData).map(key => { return { id: key, ...astarlamaData[key] } })
+    setAstarlama(dizi)
+  }, [astarlamaData])
 
 
   return (
     
     <Box sx={{ pt: 5 }}>
-      <DataGrid
-        columns={dataGrid_Columns}
-        rows={granuldata}
-        pageSizeOptions={[10, 25, 50, 75, 100]}
-        slots={{ toolbar: GridToolbar }}
-        disableRowSelectionOnClick
-        sx={{
-          boxShadow: 4,
-        }}
-      />
-    </Box>
+    <DataGrid
+      columns={dataGrid_Columns}
+      rows={astarlama}
+      pageSizeOptions={[10, 25, 50, 75, 100]}
+      slots={{ toolbar: GridToolbar }}
+      disableRowSelectionOnClick
+      sx={{
+        boxShadow: 4,
+      }}
+    />
+  </Box>
 
   )
 }
 
-export default GranulKontrol_DataTable
+export default Astarlama_DataTable

@@ -10,7 +10,7 @@ import { Box, Typography } from '@mui/material'
 const KulpDokum_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) => {
 
   const { kulpDokumData } = useSelector((state) => state.arge)
-  const [kulpDokumHatti, setdokumHatti] = useState([])
+  const [kulpDokumHatti, setkulpDokumHatti] = useState([])
 
 
 
@@ -41,7 +41,7 @@ const KulpDokum_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) => {
     },
     {
       field: "vardiya",
-      headerName: "Varidya",
+      headerName: "Vardiya",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
@@ -223,7 +223,7 @@ const KulpDokum_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) => {
 
   useEffect(() => {
     const dizi = Object.keys(kulpDokumData).map(key => { return { id: key, ...kulpDokumData[key] } })
-    setdokumHatti(dizi)
+    setkulpDokumHatti(dizi)
   }, [kulpDokumData])
 
 

@@ -40,7 +40,7 @@ const IzoStatikPres_DataTable = ({setInfo,info,delHandleOpen,handleOpen}) => {
         },
         {
             field: "vardiya",
-            headerName: "Varidya",
+            headerName: "Vardiya",
             minWidth: 150,
             headerAlign: "center",
             align: "center",

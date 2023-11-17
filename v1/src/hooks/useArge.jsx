@@ -13,7 +13,8 @@ import {
     fetchYuksekBasincData,
     fetchDokumHattiData,
     fetchKulpDokumData,
-    fetchGranulKontrolData
+    fetchGranulKontrolData,
+    fetchAstarlamaData
 
 } from '../features/argeSlice'
 import { toastErrorNotify, toastSuccessNotify } from '../helpers/ToastNotify'
@@ -194,6 +195,9 @@ const useArge = () => {
                     }
                     else if(address === 'GranulKontrol'){
                         dispatch(fetchGranulKontrolData(data))
+                    }
+                    else if(address === 'Astarlama'){
+                        dispatch(fetchAstarlamaData(data))
                     }
                     
                     
