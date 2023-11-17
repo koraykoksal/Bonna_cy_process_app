@@ -16,6 +16,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useState, useEffect } from 'react';
 import { uygunsuzlukTipi } from "../../helpers/ProcessData"
 import { useSelector } from "react-redux"
+import useArge from '../../hooks/useArge';
 
 
 const style = {
@@ -31,111 +32,52 @@ const style = {
 
 };
 
-const DijitalBaskiModal = ({ open, handleClose, handleOpen, materialCode, designCode }) => {
+const DijitalBaskiModal = ({ open, handleClose, info, setInfo }) => {
 
-  
+
 
   const handleChange = (e) => {
-    setdijitalBaskiData({ ...dijitalBaskiData, [e.target.name]: e.target.value })
-
+    setInfo({ ...info, [e.target.name]: e.target.value })
   }
+  const { getFireData, putFireData, postFireData } = useArge()
+  const { materialCode,designCode } = useSelector((state) => state.arge)
+  const [desenCodes, setdesenCodes] = useState([])
 
+  const handleSubmit = (e) => {
 
-  const nowData = new Date()
-  const currentdate = nowData.getDate() + "-" + (nowData.getMonth() + 1) + "-" + nowData.getFullYear()
-  const currentTime = nowData.getHours() + ":" + nowData.getMinutes()
+    e.preventDefault()
 
-  const { currentUser } = useSelector((state) => state.auth)
-
-  let getVardiya = 0;
-
-  const getShift = () => {
-    const now = new Date().getHours()
-
-    if (now > 8 && now < 16) {
-      getVardiya = 2
-    }
-    else if (now > 16 && now < 23) {
-      getVardiya = 3
+    if (info.id) {
+      putFireData('DijitalBaski', info)
+      getFireData("DijitalBaski")
     }
     else {
-      getVardiya = 1
+      postFireData("DijitalBaski", info)
+      getFireData("DijitalBaski")
     }
 
-    return getVardiya
+    handleClose()
 
   }
 
-  const [dijitalBaskiData, setdijitalBaskiData] = useState({
-    urun_kodu: "",
-    tasarim_kodu: "",
-    banthizi: "",
-    voltaj: "",
-    basinc: "",
-    mavi: "",
-    pembe: "",
-    sari: "",
-    kahverengi: "",
-    yesil: "",
-    siyah: "",
-    reaktif: "",
-    beyaz: "",
-    desenGorseli: "",
-    hataTanimi: "",
-    aciklama: "",
-
-    vardiya: getShift(),
-    date: currentdate.toString(),
-    time: currentTime.toString(),
-    kontroleden_kisi: currentUser
-  })
-
-
-  const [newValue, setnewValue] = useState([])
 
   useEffect(() => {
-
-    //designCode array içinde value bilgileri tek bir array içine alınır
-    const data1 = designCode.map(item => item.DESENKODU)
-
-    //array içindeki bilgileri alfabetik sıraya göre listelenir
-    const data2 = data1.sort()
-
-    setnewValue(data2)
+    
+    const data = designCode.map((item)=>item.DESENKODU)
+    const dataSort = data.sort()
+    setdesenCodes(dataSort)
 
   }, [designCode])
 
 
+
   return (
     <div>
-      
+
       <Modal
         keepMounted
         open={open}
-        onClose={()=>{
-          setdijitalBaskiData({
-            urun_kodu: "",
-            tasarim_kodu: "",
-            banthizi: "",
-            voltaj: "",
-            basinc: "",
-            mavi: "",
-            pembe: "",
-            sari: "",
-            kahverengi: "",
-            yesil: "",
-            siyah: "",
-            reaktif: "",
-            beyaz: "",
-            desenGorseli: "",
-            hataTanimi: "",
-            aciklama: "",
-        
-            vardiya: getShift(),
-            date: currentdate.toString(),
-            time: currentTime.toString(),
-            kontroleden_kisi: currentUser
-          })
+        onClose={() => {
           handleClose()
         }}
         aria-labelledby="keep-mounted-modal-title"
@@ -155,7 +97,7 @@ const DijitalBaskiModal = ({ open, handleClose, handleOpen, materialCode, design
           </Box>
 
 
-          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2 }} component='form'>
+          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2 }} component='form' onSubmit={handleSubmit}>
 
 
             <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}>
@@ -168,11 +110,11 @@ const DijitalBaskiModal = ({ open, handleClose, handleOpen, materialCode, design
                   id="tasarim_kodu"
                   name='tasarim_kodu'
                   label="tasarim_kodu"
-                  value={dijitalBaskiData.tasarim_kodu}
+                  value={info.tasarim_kodu}
                   onChange={handleChange}
                 >
                   {
-                    newValue?.map((item, index) => (
+                    desenCodes?.map((item, index) => (
                       <MenuItem key={index} value={item}>{item}</MenuItem>
                     ))
                   }
@@ -186,7 +128,7 @@ const DijitalBaskiModal = ({ open, handleClose, handleOpen, materialCode, design
                   id="urun_kodu"
                   name='urun_kodu'
                   label="urun_kodu"
-                  value={dijitalBaskiData.urun_kodu}
+                  value={info.urun_kodu}
                   onChange={handleChange}
                 >
                   {
@@ -211,7 +153,7 @@ const DijitalBaskiModal = ({ open, handleClose, handleOpen, materialCode, design
                   id="banthizi"
                   name='banthizi'
                   label="banthizi"
-                  value={dijitalBaskiData.banthizi}
+                  value={info.banthizi}
                   onChange={handleChange}
                 >
                   <MenuItem value="OK">OK</MenuItem>
@@ -226,7 +168,7 @@ const DijitalBaskiModal = ({ open, handleClose, handleOpen, materialCode, design
                   id="voltaj"
                   name='voltaj'
                   label="voltaj"
-                  value={dijitalBaskiData.voltaj}
+                  value={info.voltaj}
                   onChange={handleChange}
                 >
                   <MenuItem value="OK">OK</MenuItem>
@@ -241,7 +183,7 @@ const DijitalBaskiModal = ({ open, handleClose, handleOpen, materialCode, design
                   id="basinc"
                   name='basinc'
                   label="basinc"
-                  value={dijitalBaskiData.basinc}
+                  value={info.basinc}
                   onChange={handleChange}
                 >
                   <MenuItem value="OK">OK</MenuItem>
@@ -261,7 +203,7 @@ const DijitalBaskiModal = ({ open, handleClose, handleOpen, materialCode, design
                 id="mavi"
                 type="text"
                 variant="outlined"
-                value={dijitalBaskiData.mavi}
+                value={info.mavi}
                 onChange={handleChange}
               />
 
@@ -273,7 +215,7 @@ const DijitalBaskiModal = ({ open, handleClose, handleOpen, materialCode, design
                 id="pembe"
                 type="text"
                 variant="outlined"
-                value={dijitalBaskiData.pembe}
+                value={info.pembe}
                 onChange={handleChange}
               />
 
@@ -285,7 +227,7 @@ const DijitalBaskiModal = ({ open, handleClose, handleOpen, materialCode, design
                 id="sari"
                 type="text"
                 variant="outlined"
-                value={dijitalBaskiData.sari}
+                value={info.sari}
                 onChange={handleChange}
               />
 
@@ -302,7 +244,7 @@ const DijitalBaskiModal = ({ open, handleClose, handleOpen, materialCode, design
                 id="kahverengi"
                 type="text"
                 variant="outlined"
-                value={dijitalBaskiData.kahverengi}
+                value={info.kahverengi}
                 onChange={handleChange}
               />
 
@@ -314,7 +256,7 @@ const DijitalBaskiModal = ({ open, handleClose, handleOpen, materialCode, design
                 id="yesil"
                 type="text"
                 variant="outlined"
-                value={dijitalBaskiData.yesil}
+                value={info.yesil}
                 onChange={handleChange}
               />
 
@@ -326,7 +268,7 @@ const DijitalBaskiModal = ({ open, handleClose, handleOpen, materialCode, design
                 id="siyah"
                 type="text"
                 variant="outlined"
-                value={dijitalBaskiData.siyah}
+                value={info.siyah}
                 onChange={handleChange}
               />
 
@@ -343,7 +285,7 @@ const DijitalBaskiModal = ({ open, handleClose, handleOpen, materialCode, design
                 id="reaktif"
                 type="text"
                 variant="outlined"
-                value={dijitalBaskiData.reaktif}
+                value={info.reaktif}
                 onChange={handleChange}
               />
 
@@ -354,7 +296,7 @@ const DijitalBaskiModal = ({ open, handleClose, handleOpen, materialCode, design
                 id="beyaz"
                 type="text"
                 variant="outlined"
-                value={dijitalBaskiData.beyaz}
+                value={info.beyaz}
                 onChange={handleChange}
               />
 
@@ -365,7 +307,7 @@ const DijitalBaskiModal = ({ open, handleClose, handleOpen, materialCode, design
                   id="desenGorseli"
                   name='desenGorseli'
                   label="desenGorseli"
-                  value={dijitalBaskiData.desenGorseli}
+                  value={info.desenGorseli}
                   onChange={handleChange}
                 >
                   <MenuItem value="OK">OK</MenuItem>
@@ -386,7 +328,7 @@ const DijitalBaskiModal = ({ open, handleClose, handleOpen, materialCode, design
               id="hataTanimi"
               type="text"
               variant="outlined"
-              value={dijitalBaskiData.hataTanimi}
+              value={info.hataTanimi}
               onChange={handleChange}
             />
 
@@ -401,7 +343,7 @@ const DijitalBaskiModal = ({ open, handleClose, handleOpen, materialCode, design
               id="aciklama"
               type="text"
               variant="outlined"
-              value={dijitalBaskiData.aciklama}
+              value={info.aciklama}
               onChange={handleChange}
             />
 
@@ -411,9 +353,8 @@ const DijitalBaskiModal = ({ open, handleClose, handleOpen, materialCode, design
               variant='contained'
               fullWidth
               type='submit'
-            // onClick={handleSubmit}
             >
-              Save
+              {info?.id ? "Update Data" : "Add New Data"}
             </Button>
 
 
