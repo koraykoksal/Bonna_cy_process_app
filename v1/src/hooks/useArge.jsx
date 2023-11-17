@@ -17,7 +17,8 @@ import {
     fetchAstarlamaData,
     fetchReaktifData,
     fetchTriyajData,
-    fetchSirlamaData
+    fetchSirlamaData,
+    fetchDijitalLogoData
 
 } from '../features/argeSlice'
 import { toastErrorNotify, toastSuccessNotify } from '../helpers/ToastNotify'
@@ -210,6 +211,9 @@ const useArge = () => {
                     }
                     else if(address === 'Sirlama'){
                         dispatch(fetchSirlamaData(data))
+                    }
+                    else if(address === 'DijitalLogo'){
+                        dispatch(fetchDijitalLogoData(data))
                     }
                     
                 }
