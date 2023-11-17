@@ -31,7 +31,6 @@ import { db } from "../db/firebase_db"
 import { getDatabase, onValue, ref, remove, set, update } from "firebase/database";
 import { uid } from "uid";
 import { useState } from 'react';
-import YuksekBasincModal from '../components/modals/YuksekBasincModal';
 
 const useArge = () => {
 
