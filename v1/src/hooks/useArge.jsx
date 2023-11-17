@@ -21,7 +21,8 @@ import {
     fetchDijitalLogoData,
     fetchDekorlamaData,
     fetchDijitalBaskiData,
-    fetchNihaiUrunKontrolData
+    fetchNihaiUrunKontrolData,
+    fetchAyakTaslamaData
 
 } from '../features/argeSlice'
 import { toastErrorNotify, toastSuccessNotify } from '../helpers/ToastNotify'
@@ -52,11 +53,16 @@ const useArge = () => {
 
         try {
 
-            const data = await axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${desen}`)
+            const res = await axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${desen}`)
 
-            const result = data.data
+            if(res?.data == null || res?.data == undefined){
+                console.log("design code not found")
+            }
+            else{
+                dispatch(designDataSuccess(res?.data))
+            }
 
-            dispatch(designDataSuccess(result))
+            
 
 
         } catch (error) {
@@ -93,8 +99,6 @@ const useArge = () => {
         }
 
 
-
-
     }
 
 
@@ -105,21 +109,21 @@ const useArge = () => {
 
         try {
 
-            const data = await axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${material}`)
+            const res = await axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${material}`)
 
-            // const result = data.data.filter(item => item.ISMERKEZI.includes('SK'))
-            const result = data?.data
-            // console.log("hook material code",result)
-            dispatch(materialDataSuccess(result))
+            if(res?.data == null || res?.data == undefined){
+                console.log("material code not found")
+            }
+            else{
+                dispatch(materialDataSuccess(res?.data))
+            }
+
 
         } catch (err) {
             dispatch(fetchFail())
             // console.log("material hata : ", err)
             toastErrorNotify(err)
         }
-
-
-
 
     }
 
@@ -130,11 +134,15 @@ const useArge = () => {
 
         try {
 
-            const data = await axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${argeMaterial}`)
+            const res = await axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${argeMaterial}`)
 
-            const result = data?.data
-            // console.log("hook  material code:",result)
-            dispatch(hammaddeDataSuccess(result))
+            if(res?.data == null || res?.data == undefined){
+                console.log("hammadde code not found")
+            }
+            else{
+                dispatch(hammaddeDataSuccess(res?.data))
+            }
+            
 
         } catch (err) {
             dispatch(fetchFail())
@@ -226,6 +234,9 @@ const useArge = () => {
                     }
                     else if(address === 'NihaiUrunKontrol'){
                         dispatch(fetchNihaiUrunKontrolData(data))
+                    }
+                    else if(address === 'AyakTaslama'){
+                        dispatch(fetchAyakTaslamaData(data))
                     }
                     
                 }
