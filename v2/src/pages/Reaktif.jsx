@@ -38,6 +38,7 @@ const Reaktif = () => {
   }
 
   const [info, setInfo] = useState({
+    department:"Sirlama",
     type: "Reaktif",
     urun_kodu: "",
     boyasarjno: "",

@@ -38,6 +38,7 @@ const Mandiktornapres = () => {
   }
 
   const [info, setInfo] = useState({
+    department:"Sekillendirme",
     type: "ManDikTorna",
     is_merkezi: "",
     agirlik: "",

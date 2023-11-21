@@ -39,6 +39,7 @@ const Dijitalbaski = () => {
   }
 
   const [info, setInfo] = useState({
+    department:",Dijital_Baski",
     type: "DijitalBaski",
     urun_kodu: "",
     tasarim_kodu: "",

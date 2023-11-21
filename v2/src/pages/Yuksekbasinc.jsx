@@ -38,6 +38,7 @@ const Yuksekbasinc = () => {
   }
 
   const [info, setInfo] = useState({
+    department:"Sekillendirme",
     type: "YuksekBasinc",
     is_merkezi: "",
     agirlik: "",

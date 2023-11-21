@@ -58,6 +58,7 @@ const Astarlama = () => {
   const handleClose = () => {
     setOpen(false)
     setInfo({
+      department:"Hammadde",
       type: "Astarlama",
       yogunluk: "",
       nozzlecap: "",

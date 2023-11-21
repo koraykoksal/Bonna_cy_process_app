@@ -37,6 +37,7 @@ const Nihaiurunkontrol = () => {
   }
 
   const [info, setInfo] = useState({
+    department:",Kalite_Ayrım",
     type: "NihaiUrunKontrol",
     renkKodu: "",
     aciklama: "",

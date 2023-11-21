@@ -38,6 +38,7 @@ const Dekorlama = () => {
   }
 
   const [info, setInfo] = useState({
+    department:",Dekorlama",
     type: "Dekorlama",
     urun_kodu: "",
     aciklama: "",

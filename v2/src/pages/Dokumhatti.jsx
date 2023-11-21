@@ -39,6 +39,7 @@ const Dokumhatti = () => {
   }
 
   const [info, setInfo] = useState({
+    department:"Sekillendirme",
     type: "DokumHatti",
     is_merkezi: "",
     aciklama: "",

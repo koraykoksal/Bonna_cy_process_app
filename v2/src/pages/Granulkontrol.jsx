@@ -38,6 +38,7 @@ const Granulkontrol = () => {
   }
 
   const [info, setInfo] = useState({
+    department:"Hammadde",
     type: "GranulKontrol",
     is_merkezi: "",
     hammaddenem: "",

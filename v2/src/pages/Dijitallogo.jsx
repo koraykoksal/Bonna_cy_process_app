@@ -37,6 +37,7 @@ const Dijitallogo = () => {
   }
 
   const [info, setInfo] = useState({
+    department:",Dijital_Logo",
     type: "DijitalLogo",
     urun_kodu: "",
     kontroledilenAdet: "",

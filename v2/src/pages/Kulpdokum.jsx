@@ -38,6 +38,7 @@ const Kulpdokum = () => {
   }
 
   const [info, setInfo] = useState({
+    department:"Sekillendirme",
     type: "KulpDokum",
     is_merkezi: "",
     agirlik: "",

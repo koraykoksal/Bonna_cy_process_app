@@ -38,6 +38,7 @@ const Sirlama = () => {
   }
 
   const [info, setInfo] = useState({
+    department:"Sirlama",
     type: "Sirlama",
     renkKodu: "",
     urun_kodu: "",

@@ -39,6 +39,7 @@ const Triyaj = () => {
   }
 
   const [info, setInfo] = useState({
+    department:"Biskuvi_Triyaj",
     type: "Triyaj",
     urun_kodu: "",
     sekillendirmeYontemi: "",

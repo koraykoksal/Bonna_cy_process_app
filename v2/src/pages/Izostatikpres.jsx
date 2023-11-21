@@ -51,6 +51,7 @@ const Izostatikpres = () => {
   }
 
   const [info, setInfo] = useState({
+    department:"Sekillendirme",
     type:"IzoStatikPresData",
     is_merkezi: "",
     agirlik: "",

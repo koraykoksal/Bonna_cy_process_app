@@ -42,7 +42,6 @@ const Login = () => {
   }
 
 
-  console.log("info:",info)
 
   return (
 

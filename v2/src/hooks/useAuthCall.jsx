@@ -95,8 +95,6 @@ const useAuthCall = () => {
 
     const login = async (userdata) => {
 
-        console.log(process.env.REACT_ERP_LOGIN_BASE_URL)
-
         dispatch(fetchStart())
 
         try {

@@ -38,6 +38,7 @@ const Ayaktaslama = () => {
   }
 
   const [info, setInfo] = useState({
+    department:",Kalite_Ayrım",
     type: "AyakTaslama",
     urun_kodu: "",
     renkkodu: "",

@@ -38,6 +38,7 @@ const Otomatiktorna = () => {
   }
 
   const [info, setInfo] = useState({
+    department:"Sekillendirme",
     type:"OtomatikTorna",
     is_merkezi: "",
     agirlik: "",
