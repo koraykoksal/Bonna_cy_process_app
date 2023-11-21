@@ -12,30 +12,44 @@ import Button from "@mui/material/Button"
 import { Formik, Form } from "formik"
 import { object, string } from "yup"
 import useAuthCall from '../hooks/useAuthCall'
+import { useState } from 'react'
+
 
 const Login = () => {
 
-  const {signIn} = useAuthCall()
 
-    //? harici validasyon şemasi
-  const loginSchema = object({
-    email: string()
-      .email("Lutfen valid bir email giriniz")
-      .required("Bu alan zorunludur"),
-    password: string()
-      .required("Bu alan zorunludur")
-    //   .min(8, "En az 8 karakter girilmelidir")
-    //   .max(16, "En fazla 16 karakter girilmelidir")
-    //   .matches(/\d+/, "En az bir rakam içermelidir.")
-    //   .matches(/[a-z]/, "En az bir küçük harf içermelidir.")
-    //   .matches(/[A-Z]/, "En az bir büyük harf içermelidir.")
-    //   .matches(/[!,?{}><%&$#£+-.]+/, "En az bir özel karekter içermelidir."),
+  const [info, setInfo] = useState({
+    username: "",
+    password: ""
   })
 
+  const { login } = useAuthCall()
+
+  const handleChange = (e) => {
+    setInfo({ ...info, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = (e) => {
+
+    e.preventDefault()
+
+    login(info)
+
+    setInfo({
+      username: "",
+      password: ""
+    })
+  }
+
+
+  console.log("info:",info)
 
   return (
-    
-    <Container maxWidth="lg">
+
+    <Container maxWidth="lg" >
+
+      <Typography variant='h4' align='center'p={3} fontWeight={700} color='#BA68C8'>Bonna Proses</Typography>
+
       <Grid
         container
         justifyContent="center"
@@ -45,11 +59,8 @@ const Login = () => {
           p: 2,
         }}
       >
-        <Grid item xs={12} mb={3}>
-          <Typography variant="h3" color="primary" align="center">
-            Bonna Proses
-          </Typography>
-        </Grid>
+
+      
 
         <Grid item xs={12} sm={10} md={6}>
           <Avatar
@@ -63,7 +74,6 @@ const Login = () => {
             <LockIcon size="30" />
           </Avatar>
           <Typography
-          data-test="loginHeader"
             variant="h4"
             align="center"
             mb={4}
@@ -72,55 +82,39 @@ const Login = () => {
             Login
           </Typography>
 
-          <Formik
-            initialValues={{ email: "", password: "" }}
-            validationSchema={loginSchema}
-            onSubmit={(values, action) => {
-              signIn(values)
-              action.resetForm()
-              action.setSubmitting(false)
-            }}
-          >
-            {({ handleChange, handleBlur, values, touched, errors }) => (
-              <Form>
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                  <TextField
-                  data-test="emailLogin"
-                    label="Email"
-                    name="email"
-                    id="email"
-                    type="email"
-                    variant="outlined"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.email}
-                    error={touched.email && Boolean(errors.email)}
-                    helperText={errors.email}
-                  />
-                  <TextField
-                  data-test="passwordLogin"
-                    label="password"
-                    name="password"
-                    id="password"
-                    type="password"
-                    variant="outlined"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.password}
-                    error={touched.password && Boolean(errors.password)}
-                    helperText={errors.password}
-                  />
-                  <Button data-test="sbmtlogin" variant="contained" type="submit">
-                    Submit
-                  </Button>
-                </Box>
-              </Form>
-            )}
-          </Formik>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }} >
+            <TextField
+              label="Username"
+              name="username"
+              id="username"
+              type="text"
+              variant="outlined"
+              value={info.username}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Password"
+              name="password"
+              id="password"
+              type="password"
+              variant="outlined"
+              value={info.password}
+              onChange={handleChange}
+            />
+            <Button variant="contained" type="submit" onClick={handleSubmit}>
+              Submit
+            </Button>
 
-          <Box sx={{ textAlign: "center", mt: 2 }}>
-            <Link data-test='cy_registerLink' to="/register">Don't you have an account?</Link>
           </Box>
+
+
+
+
+
+          {/* <Box sx={{ textAlign: "center", mt: 2 }}>
+            <Link to="/register">Don't you have an account?</Link>
+          </Box> */}
+
         </Grid>
 
         <Grid item xs={10} sm={7} md={6}>

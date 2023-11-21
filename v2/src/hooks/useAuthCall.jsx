@@ -1,99 +1,151 @@
-import {auth} from "../auth/firebase.js"
-import { createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,updateProfile } from "firebase/auth";
-import {useNavigate} from "react-router-dom"
-import {useDispatch} from "react-redux"
-import { fetchFail, fetchStart, loginSuccess, logoutSuccess, registerSuccess } from "../features/authSlice";
-import {toastSuccessNotify,toastErrorNotify} from "../helpers/ToastNotify"
+import { auth } from "../auth/firebase.js"
+import axios from "axios";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { fetchFail, fetchStart, loginSuccess, logoutSuccess, registerSuccess,fetchLoginData } from "../features/authSlice";
+import { toastSuccessNotify, toastErrorNotify } from "../helpers/ToastNotify"
 
 
 
 
-const useAuthCall=()=>{
+const useAuthCall = () => {
 
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     //* REGISTER
-    const signUp= async ({email,password,displayName})=>{
+    // const signUp = async ({ email, password, displayName }) => {
 
 
-        dispatch(fetchStart())
+    //     dispatch(fetchStart())
 
-        createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+    //     createUserWithEmailAndPassword(auth, email, password)
+    //         .then((userCredential) => {
 
-            const user = userCredential.user;
-
-       
-            dispatch(registerSuccess(user))
-
-            updateProfile(auth.currentUser,{displayName:displayName})
-
-            navigate('/proses')
-            toastSuccessNotify("Register Success ✅")
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            dispatch(fetchFail(error))
-            toastErrorNotify(`${error.code} ❌`)
-        });
+    //             const user = userCredential.user;
 
 
-        
-    }
+    //             dispatch(registerSuccess(user))
+
+    //             updateProfile(auth.currentUser, { displayName: displayName })
+
+    //             navigate('/proses')
+    //             toastSuccessNotify("Register Success ✅")
+    //         })
+    //         .catch((error) => {
+    //             const errorCode = error.code;
+    //             const errorMessage = error.message;
+    //             dispatch(fetchFail(error))
+    //             toastErrorNotify(`${error.code} ❌`)
+    //         });
+
+
+
+    // }
 
     //* LOGIN
-    const signIn= async ({email,password})=>{
+    // const signIn = async ({ email, password }) => {
 
-        dispatch(fetchStart())
+    //     dispatch(fetchStart())
 
-        signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          
-            const user = userCredential.user;
+    //     signInWithEmailAndPassword(auth, email, password)
+    //         .then((userCredential) => {
 
-            dispatch(loginSuccess(user))
+    //             const user = userCredential.user;
 
-            navigate('/proses')
-            toastSuccessNotify("Login Success ✅")
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            dispatch(fetchFail(error))
-            toastErrorNotify(`${error.code} ❌`)
-        });
+    //             dispatch(loginSuccess(user))
+
+    //             navigate('/proses')
+    //             toastSuccessNotify("Login Success ✅")
+    //         })
+    //         .catch((error) => {
+    //             const errorCode = error.code;
+    //             const errorMessage = error.message;
+    //             dispatch(fetchFail(error))
+    //             toastErrorNotify(`${error.code} ❌`)
+    //         });
 
 
 
-        
-    }
 
-     //* LOGOUT
-     const logout= async ()=>{
+    // }
 
+    //* LOGOUT
+    // const logout = async () => {
+
+
+    //     dispatch(fetchStart())
+
+    //     try {
+
+    //         await signOut(auth)
+
+    //         navigate('/')
+    //         toastSuccessNotify("Logout Success ✅")
+
+    //     } catch (error) {
+    //         dispatch(fetchFail())
+    //         toastErrorNotify('Register Fault ! ❌')
+    //     }
+
+
+    // }
+
+
+    const login = async (userdata) => {
+
+        console.log(process.env.REACT_ERP_LOGIN_BASE_URL)
 
         dispatch(fetchStart())
 
         try {
-            
-           await signOut(auth)
 
-            navigate('/')
-            toastSuccessNotify("Logout Success ✅")
+            const options = {
+                method: 'POST',
+                url: `${process.env.REACT_APP_ERP_LOGIN_BASE_URL}`,
+                headers: {
+                    'USERNM': userdata.username,
+                    'PASS': userdata.password,
+                    'APIKEY': `${process.env.REACT_APP_ERP_API_KEY}`
+
+                }
+            }
+
+
+            const { data } = await axios(options)
+
+            dispatch(fetchLoginData(data))
+            toastSuccessNotify('Login Successful.')
+            navigate('/proses')
+
+            console.log(data)
 
         } catch (error) {
             dispatch(fetchFail())
-            toastErrorNotify('Register Fault ! ❌')
+            toastErrorNotify("'Something Went Wrong !'")
         }
-
-        
     }
 
-    
+    const logout = async () => {
 
-    return {signUp,signIn,logout}
+
+        dispatch(fetchStart())
+
+        dispatch(logoutSuccess())
+        toastSuccessNotify('Logout Successful.')
+        navigate('/')
+    }
+
+
+
+
+    return { 
+        // signUp, 
+        // signIn, 
+        login,
+        logout 
+    }
 }
 
 
