@@ -84,7 +84,7 @@ const Uygunsuzluk = () => {
 
 
   useEffect(() => {
-    getFireData()
+    getFireData('Uygunsuzluk')
   }, [])
   
 

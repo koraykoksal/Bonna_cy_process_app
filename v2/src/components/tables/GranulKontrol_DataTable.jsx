@@ -140,7 +140,7 @@ const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) =>
     },
     {
       field: "actions",
-      headerName: "Actions",
+      headerName: "#",
       minWidth: 120,
       headerAlign: "center",
       align: "center",

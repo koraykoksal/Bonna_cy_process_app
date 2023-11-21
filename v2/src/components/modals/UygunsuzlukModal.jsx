@@ -263,7 +263,7 @@ const UygunsuzlukModal = ({ open, handleClose, info, setInfo }) => {
               fullWidth
               type='submit'
             >
-              Save
+               {info?.id ? "Update Data" : "Add New Data"}
             </Button>
 
 
