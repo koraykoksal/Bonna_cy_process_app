@@ -22,7 +22,7 @@ const Uygunsuzluk = () => {
 
   const { currentUser } = useSelector((state) => state.auth)
 
-  const {getFireData} = useArge()
+  const {getFireData,readFireData} = useArge()
 
   const getShift = () => {
     const now = new Date().getHours()
@@ -85,6 +85,7 @@ const Uygunsuzluk = () => {
 
   useEffect(() => {
     getFireData('Uygunsuzluk')
+    readFireData()
   }, [])
   
 

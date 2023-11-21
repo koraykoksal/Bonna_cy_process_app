@@ -36,6 +36,7 @@ const Astarlama = () => {
   }
 
   const [info, setInfo] = useState({
+    department:",Hammadde",
     type: "Astarlama",
     is_merkezi: "",
     yogunluk: "",

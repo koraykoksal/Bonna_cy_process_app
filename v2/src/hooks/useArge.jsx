@@ -55,14 +55,14 @@ const useArge = () => {
 
             const res = await axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${desen}`)
 
-            if(res?.data == null || res?.data == undefined){
+            if (res?.data == null || res?.data == undefined) {
                 console.log("design code not found")
             }
-            else{
+            else {
                 dispatch(designDataSuccess(res?.data))
             }
 
-            
+
 
 
         } catch (error) {
@@ -84,15 +84,15 @@ const useArge = () => {
 
             const res = await axios.get(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${workcenter}`)
             // console.log("hook workcenter",res)
-            if(res?.data == null || res?.data == undefined){
+            if (res?.data == null || res?.data == undefined) {
                 console.log("workcenter code not found")
             }
-            else{
+            else {
 
-                const result = res?.data?.filter((item)=>item.TESIS==='01')
+                const result = res?.data?.filter((item) => item.TESIS === '01')
                 dispatch(workCenterDataSuccess(result))
             }
-            
+
 
         } catch (err) {
             dispatch(fetchFail())
@@ -113,10 +113,10 @@ const useArge = () => {
 
             const res = await axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${material}`)
 
-            if(res?.data == null || res?.data == undefined){
+            if (res?.data == null || res?.data == undefined) {
                 console.log("material code not found")
             }
-            else{
+            else {
                 dispatch(materialDataSuccess(res?.data))
             }
 
@@ -138,13 +138,13 @@ const useArge = () => {
 
             const res = await axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${argeMaterial}`)
 
-            if(res?.data == null || res?.data == undefined){
+            if (res?.data == null || res?.data == undefined) {
                 console.log("hammadde code not found")
             }
-            else{
+            else {
                 dispatch(hammaddeDataSuccess(res?.data))
             }
-            
+
 
         } catch (err) {
             dispatch(fetchFail())
@@ -156,7 +156,7 @@ const useArge = () => {
 
 
     //! firebase data gönder
-    const postFireData = async (address,info) => {
+    const postFireData = async (address, info) => {
 
         console.log("info", info)
 
@@ -189,64 +189,64 @@ const useArge = () => {
             onValue(starCountRef, (snapshot) => {
                 const data = snapshot.val();
 
-                if(data == null || data == undefined){
-                    console.log("machine data null geliyor:",data)
+                if (data == null || data == undefined) {
+                    console.log("machine data null geliyor:", data)
                 }
-                else{
-                    if(address === 'IzoStatikPresData'){
+                else {
+                    if (address === 'IzoStatikPresData') {
                         dispatch(fetchIzoStatikPresData(data))
                     }
-                    else if(address === 'OtomatikTorna'){
+                    else if (address === 'OtomatikTorna') {
                         dispatch(fetchTornaData(data))
                     }
-                    else if(address === 'ManDikTorna'){
+                    else if (address === 'ManDikTorna') {
                         dispatch(fetchManDikTornaData(data))
                     }
-                    else if(address === 'YuksekBasinc'){
+                    else if (address === 'YuksekBasinc') {
                         dispatch(fetchYuksekBasincData(data))
                     }
-                    else if(address === 'DokumHatti'){
+                    else if (address === 'DokumHatti') {
                         dispatch(fetchDokumHattiData(data))
                     }
-                    else if(address === 'KulpDokum'){
+                    else if (address === 'KulpDokum') {
                         dispatch(fetchKulpDokumData(data))
                     }
-                    else if(address === 'GranulKontrol'){
+                    else if (address === 'GranulKontrol') {
                         dispatch(fetchGranulKontrolData(data))
                     }
-                    else if(address === 'Astarlama'){
+                    else if (address === 'Astarlama') {
                         dispatch(fetchAstarlamaData(data))
                     }
-                    else if(address === 'Reaktif'){
+                    else if (address === 'Reaktif') {
                         dispatch(fetchReaktifData(data))
                     }
-                    else if(address === 'Triyaj'){
+                    else if (address === 'Triyaj') {
                         dispatch(fetchTriyajData(data))
                     }
-                    else if(address === 'Sirlama'){
+                    else if (address === 'Sirlama') {
                         dispatch(fetchSirlamaData(data))
                     }
-                    else if(address === 'DijitalLogo'){
+                    else if (address === 'DijitalLogo') {
                         dispatch(fetchDijitalLogoData(data))
                     }
-                    else if(address === 'Dekorlama'){
+                    else if (address === 'Dekorlama') {
                         dispatch(fetchDekorlamaData(data))
                     }
-                    else if(address === 'DijitalBaski'){
+                    else if (address === 'DijitalBaski') {
                         dispatch(fetchDijitalBaskiData(data))
                     }
-                    else if(address === 'NihaiUrunKontrol'){
+                    else if (address === 'NihaiUrunKontrol') {
                         dispatch(fetchNihaiUrunKontrolData(data))
                     }
-                    else if(address === 'AyakTaslama'){
+                    else if (address === 'AyakTaslama') {
                         dispatch(fetchAyakTaslamaData(data))
                     }
-                    else if(address === 'Uygunsuzluk'){
+                    else if (address === 'Uygunsuzluk') {
                         dispatch(fetchUygunsuzlukData(data))
                     }
-                    
+
                 }
-                
+
 
             });
 
@@ -257,23 +257,23 @@ const useArge = () => {
 
     }
 
-    
-    const putFireData=(address,info)=>{
+
+    const putFireData = (address, info) => {
 
         try {
-            
+
             const db = getDatabase()
-            update(ref(db,`${address}/`+info.id),info)
+            update(ref(db, `${address}/` + info.id), info)
             toastSuccessNotify('Updated Data ✅')
 
         } catch (error) {
-            console.log("Update error :",error)
+            console.log("Update error :", error)
             toastErrorNotify('Not OK Update ❌')
         }
     }
 
     //! firebase data silme
-    const removeFirebaseData = async (address,id) => {
+    const removeFirebaseData = async (address, id) => {
 
         try {
             const db = getDatabase();
@@ -285,6 +285,21 @@ const useArge = () => {
     }
 
 
+    //! tüm veritabanı bilgileri
+    const readFireData = async () => {
+
+        const database = getDatabase();
+        const databaseRef = ref(database);
+
+        onValue(databaseRef, (snapshot) => {
+            const data = snapshot.val();
+            console.log("Tüm veritabanı: ", data);
+            // Tüm veritabanı şimdi "data" değişkeninde
+        }, {
+            onlyOnce: true // Bu, veri yalnızca bir kez okunacağı anlamına gelir
+        });
+
+    }
 
     return {
         getDesenCode,
@@ -294,7 +309,8 @@ const useArge = () => {
         postFireData,
         getFireData,
         removeFirebaseData,
-        putFireData
+        putFireData,
+        readFireData
     }
 
 }
