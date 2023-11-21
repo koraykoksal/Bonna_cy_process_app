@@ -15,7 +15,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useState, useEffect } from 'react';
 import useArge from '../../hooks/useArge';
-
+import {useSelector} from "react-redux"
 
 const style = {
   position: 'absolute',
@@ -38,7 +38,8 @@ const UygunsuzlukModal = ({ open, handleClose, info, setInfo }) => {
   }
 
   const { getFireData, putFireData, postFireData } = useArge()
-
+  const { workCenterCode, materialCode,designCode } = useSelector((state) => state.arge)
+  const [desenCodes, setdesenCodes] = useState([])
 
   const handleSubmit = (e) => {
 
@@ -56,6 +57,14 @@ const UygunsuzlukModal = ({ open, handleClose, info, setInfo }) => {
     handleClose()
 
   }
+
+  useEffect(() => {
+    
+    const data = designCode.map((item)=>item.DESENKODU)
+    const dataSort = data.sort()
+    setdesenCodes(dataSort)
+
+  }, [designCode])
 
 
   return (
@@ -102,9 +111,11 @@ const UygunsuzlukModal = ({ open, handleClose, info, setInfo }) => {
                   value={info.is_merkezi}
                   onChange={handleChange}
                 >
-                  <MenuItem value="SK-KP1">SK-KP1</MenuItem>
-                  <MenuItem value="SK-KP2">SK-KP2</MenuItem>
-                  <MenuItem value="SK-KP3">SK-KP3</MenuItem>
+                  {
+                  workCenterCode?.map(({ISMERKEZI,index})=>(
+                    <MenuItem key={index} value={ISMERKEZI}>{ISMERKEZI}</MenuItem>
+                  ))
+                }
                 </Select>
               </FormControl>
 
@@ -119,9 +130,11 @@ const UygunsuzlukModal = ({ open, handleClose, info, setInfo }) => {
                   value={info.renk_kodu}
                   onChange={handleChange}
                 >
-                  <MenuItem value="ASC">ASC</MenuItem>
-                  <MenuItem value="ASD">ASD</MenuItem>
-                  <MenuItem value="ASF">ASF</MenuItem>
+                  {
+                  desenCodes?.map((item,index)=>(
+                    <MenuItem key={index} value={item}>{item}</MenuItem>
+                  ))
+                }
                 </Select>
               </FormControl>
 
@@ -136,9 +149,11 @@ const UygunsuzlukModal = ({ open, handleClose, info, setInfo }) => {
                   value={info.urun_kodu}
                   onChange={handleChange}
                 >
-                  <MenuItem value="GRM23DZ">GRM23DZ</MenuItem>
-                  <MenuItem value="BNC02CT">BNC02CT</MenuItem>
-                  <MenuItem value="VNT22KS">VNT22KS</MenuItem>
+                  {
+                  materialCode?.map(({MALZEMEKODU,index})=>(
+                    <MenuItem key={index} value={MALZEMEKODU}>{MALZEMEKODU}</MenuItem>
+                  ))
+                }
                 </Select>
               </FormControl>
 
@@ -193,9 +208,6 @@ const UygunsuzlukModal = ({ open, handleClose, info, setInfo }) => {
               />
 
             </Box>
-
-
-
 
 
 

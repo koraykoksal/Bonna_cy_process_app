@@ -10,12 +10,12 @@ const persistConfig = {
 }
 
 const persistedReducer = persistReducer(persistConfig, authReducer)
-const persistedReducer2 = persistReducer(persistConfig, argeReducer)
+// const persistedReducer2 = persistReducer(persistConfig, argeReducer)
 
 const store = configureStore({
   reducer: {
     auth: persistedReducer,
-    arge:persistedReducer2
+    arge:argeReducer
   },
   devTools: process.env.NODE_ENV !== "production",
   //consolda çıkan serileştirme hatasını göstermiyor

@@ -8,7 +8,8 @@ import Button from '@mui/material/Button';
 import DeleteModals from '../components/deleteModals/DeleteModals';
 import Uygunsuzluk_DataTable from '../components/tables/Uygunsuzluk_DataTable';
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
+import useArge from '../hooks/useArge';
 
 
 const Uygunsuzluk = () => {
@@ -20,6 +21,8 @@ const Uygunsuzluk = () => {
   const currentTime = nowData.getHours() + ":" + nowData.getMinutes()
 
   const { currentUser } = useSelector((state) => state.auth)
+
+  const {getFireData} = useArge()
 
   const getShift = () => {
     const now = new Date().getHours()
@@ -78,6 +81,12 @@ const Uygunsuzluk = () => {
   const [delOpen, setdelOpen] = React.useState(false);
   const delHandleOpen = () => setdelOpen(true);
   const delHandleClose = () => setdelOpen(false);
+
+
+  useEffect(() => {
+    getFireData()
+  }, [])
+  
 
 
   return (

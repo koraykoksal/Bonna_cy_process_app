@@ -88,7 +88,9 @@ const useArge = () => {
                 console.log("workcenter code not found")
             }
             else{
-                dispatch(workCenterDataSuccess(res?.data))
+
+                const result = res?.data?.filter((item)=>item.TESIS==='01')
+                dispatch(workCenterDataSuccess(result))
             }
             
 
@@ -186,6 +188,7 @@ const useArge = () => {
             const starCountRef = ref(db, `${address}/`);
             onValue(starCountRef, (snapshot) => {
                 const data = snapshot.val();
+
                 if(data == null || data == undefined){
                     console.log("machine data null geliyor:",data)
                 }
