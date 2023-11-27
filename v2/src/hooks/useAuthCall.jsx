@@ -3,7 +3,7 @@ import axios from "axios";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { fetchFail, fetchStart, loginSuccess, logoutSuccess, registerSuccess,fetchLoginData } from "../features/authSlice";
+import { fetchFail, fetchStart, loginSuccess, logoutSuccess, registerSuccess, fetchLoginData } from "../features/authSlice";
 import { toastSuccessNotify, toastErrorNotify } from "../helpers/ToastNotify"
 
 
@@ -93,7 +93,10 @@ const useAuthCall = () => {
     // }
 
 
+
     const login = async (userdata) => {
+
+        console.log("userdata: ", userdata)
 
         dispatch(fetchStart())
 
@@ -111,13 +114,18 @@ const useAuthCall = () => {
             }
 
 
-            const { data } = await axios(options)
+            const res  = await axios(options)
 
-            dispatch(fetchLoginData(data))
-            toastSuccessNotify('Login Successful.')
-            navigate('/proses')
-
-            console.log(data)
+            console.log(res)
+            
+            if (res?.data[0].STATUS == "1") {
+                dispatch(fetchLoginData(res?.data))
+                toastSuccessNotify('Login Successful.')
+                navigate('/proses')
+            }
+            else{
+                toastErrorNotify("'Something Went Wrong !'")
+            }
 
         } catch (error) {
             dispatch(fetchFail())
@@ -138,11 +146,11 @@ const useAuthCall = () => {
 
 
 
-    return { 
+    return {
         // signUp, 
         // signIn, 
         login,
-        logout 
+        logout
     }
 }
 
