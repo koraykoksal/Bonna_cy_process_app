@@ -8,22 +8,23 @@ import Button from '@mui/material/Button';
 
 const Home = () => {
 
-  const { getDesenCode, getWorkCenter, getMaterialCenter } = useArge()
+  const { getDesenCode, getWorkCenter, getMaterialCenter,hammaddeMaterialCode } = useArge()
 
   const { designCode, materialCode, workCenterCode } = useSelector((state) => state.arge)
 
   //? sayfa ilk yuklendiğinde desen kodlarını erp den çek
-  useEffect(() => {
+  // useEffect(() => {
 
-    getMaterialCenter()
-    getDesenCode()
-    getWorkCenter()
+  //   getMaterialCenter()
+  //   getDesenCode()
+  //   getWorkCenter()
+  //   hammaddeMaterialCode()
+  // }, [])
 
-    console.log("desingCode: ", designCode)
-    console.log("materialCode: ", materialCode)
-    console.log("workCenter:", workCenterCode)
 
-  }, [])
+  // console.log("desingCode: ", designCode)
+  // console.log("materialCode: ", materialCode)
+  // console.log("workCenter:", workCenterCode)
 
 
 

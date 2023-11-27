@@ -55,6 +55,8 @@ const useArge = () => {
 
             const res = await axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${desen}`)
 
+            console.log("desen kodu: ",res?.data)
+
             if (res?.data == null || res?.data == undefined) {
                 console.log("design code not found")
             }
@@ -83,7 +85,9 @@ const useArge = () => {
         try {
 
             const res = await axios.get(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${workcenter}`)
-            // console.log("hook workcenter",res)
+            
+            console.log("iş merkezi : ",res?.data)
+
             if (res?.data == null || res?.data == undefined) {
                 console.log("workcenter code not found")
             }
@@ -113,6 +117,8 @@ const useArge = () => {
 
             const res = await axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${material}`)
 
+            console.log("material kodu: ",res?.data)
+
             if (res?.data == null || res?.data == undefined) {
                 console.log("material code not found")
             }
@@ -130,6 +136,7 @@ const useArge = () => {
     }
 
 
+
     const hammaddeMaterialCode = async () => {
 
         dispatch(fetchStart())
@@ -137,6 +144,8 @@ const useArge = () => {
         try {
 
             const res = await axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${argeMaterial}`)
+
+            console.log("hammadde kodu: ",res?.data)
 
             if (res?.data == null || res?.data == undefined) {
                 console.log("hammadde code not found")
