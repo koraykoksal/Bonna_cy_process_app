@@ -28,7 +28,8 @@ const initialState={
 
 
     dashboardData:{
-        toplamUygunsuzlukMiktar:0
+        toplamUygunsuzlukMiktar:0,
+        toplamKontrolMiktar:0
     }
 
 }
@@ -163,18 +164,16 @@ const argeSlice=createSlice({
             state.loading = false;
             state.error=false
             state.uygunsuzlukData=payload
-            state.dashboardData.toplamUygunsuzlukMiktar = 99
         },
         fetchFail: (state) => {
             state.loading = false;
             state.error = true;
         },
         fetchDashboardData:(state,{payload})=>{
-
-            return{
-                state:{...state.dashboardData,toplamUygunsuzlukMiktar:99}
-            }
-
+            console.log(payload)
+            state.dashboardData.toplamUygunsuzlukMiktar = payload?.uygunsuzlukControl_Count
+            state.dashboardData.toplamKontrolMiktar = payload?.totalControlCount
+           
         }
 
     }

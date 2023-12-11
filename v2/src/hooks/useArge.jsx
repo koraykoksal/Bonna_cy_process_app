@@ -23,7 +23,7 @@ import {
     fetchDijitalBaskiData,
     fetchNihaiUrunKontrolData,
     fetchAyakTaslamaData,
-    fetchUygunsuzlukData
+    fetchUygunsuzlukData,fetchDashboardData
 
 } from '../features/argeSlice'
 import { toastErrorNotify, toastSuccessNotify } from '../helpers/ToastNotify'
@@ -42,7 +42,7 @@ const useArge = () => {
     const argeMaterial = 4
 
     const { userID } = useSelector((state) => state.auth)
-    const [todos, setTodos] = useState([]);
+    const {dashboardData} = useSelector((state)=>state.arge)
     const dispatch = useDispatch();
 
 
@@ -297,6 +297,12 @@ const useArge = () => {
     //! tüm veritabanı bilgileri
     const readFireData = async () => {
 
+        const allDashboard_Data={
+            uygunsuzlukControl_Count:0,
+            totalControlCount:0,
+            totalControlDetail:{}
+        }
+
         const database = getDatabase();
         const databaseRef = ref(database);
 
@@ -310,73 +316,106 @@ const useArge = () => {
                 
                 if (element === 'OtomatikTorna') {
                     const OtomatikTorna = data[element]
-                    console.log("otomatik torna: ",OtomatikTorna)
+                    // console.log("otomatik torna: ",OtomatikTorna)
                 }
                 else if (element === 'ManDikTorna') {
                     const ManDikTorna = data[element]
-                    console.log("man dik torna: ",ManDikTorna)
+                    // console.log("man dik torna: ",ManDikTorna)
                 }
                 else if (element === 'YuksekBasinc') {
                     const YuksekBasinc = data[element]
-                    console.log("yüksek basınç: ",YuksekBasinc)
+                    // console.log("yüksek basınç: ",YuksekBasinc)
                 }
                 else if (element === 'DokumHatti') {
                     const DokumHatti = data[element]
-                    console.log("dokum hattı: ",DokumHatti)
+                    // console.log("dokum hattı: ",DokumHatti)
                 }
                 else if (element === 'KulpDokum') {
                     const KulpDokum = data[element]
-                    console.log("kulp doküm: ",KulpDokum)
+                    // console.log("kulp doküm: ",KulpDokum)
                 }
                 else if (element === 'GranulKontrol') {
                     const GranulKontrol = data[element]
-                    console.log("granül kontrol: ",GranulKontrol)
+                    // console.log("granül kontrol: ",GranulKontrol)
                 }
                 else if (element === 'Astarlama') {
                     const Astarlama = data[element]
-                    console.log("astarlama: ",Astarlama)
+                    // console.log("astarlama: ",Astarlama)
                 }
                 else if (element === 'Reaktif') {
                     const Reaktif = data[element]
-                    console.log("reaktif: ",Reaktif)
+                    // console.log("reaktif: ",Reaktif)
                 }
                 else if (element === 'Triyaj') {
                     const Triyaj = data[element]
-                    console.log("triyaj: ",Triyaj)
+                    // console.log("triyaj: ",Triyaj)
                 }
                 else if (element === 'Sirlama') {
                     const Sirlama = data[element]
-                    console.log("sırlama: ",Sirlama)
+                    // console.log("sırlama: ",Sirlama)
                 }
                 else if (element === 'DijitalLogo') {
                     const DijitalLogo = data[element]
-                    console.log("dijital logo: ",DijitalLogo)
+                    // console.log("dijital logo: ",DijitalLogo)
                 }
                 else if (element === 'Dekorlama') {
                     const Dekorlama = data[element]
-                    console.log("dekorlama: ",Dekorlama)
+                    // console.log("dekorlama: ",Dekorlama)
                 }
                 else if (element === 'DijitalBaski') {
                     const DijitalBaski = data[element]
-                    console.log("dijital baskı: ",DijitalBaski)
+                    // console.log("dijital baskı: ",DijitalBaski)
                 }
                 else if (element === 'NihaiUrunKontrol') {
                     const NihaiUrunKontrol = data[element]
-                    console.log("nihai ürün kontrol: ",NihaiUrunKontrol)
+                    // console.log("nihai ürün kontrol: ",NihaiUrunKontrol)
                 }
                 else if (element === 'AyakTaslama') {
                     const AyakTaslama = data[element]
-                    console.log("ayak taslama: ",AyakTaslama)
+                    // console.log("ayak taslama: ",AyakTaslama)
                 }
                 else if (element === 'Uygunsuzluk') {
                     const uygunsuzluk = data[element]
-                    console.log("uygunsuzluk: ",uygunsuzluk)
+
+                    let controlCount = 0
+                   
+                    for(let key in uygunsuzluk){
+                        
+                        if(uygunsuzluk.hasOwnProperty(key)){
+                            controlCount += 1
+                        }
+                        allDashboard_Data.uygunsuzlukControl_Count=controlCount
+                        
+                    }
+
+                    dispatch(fetchDashboardData(allDashboard_Data))
+
                 }
                 
             });
+
+            
+            let sumDataCount = 0
+
+            for(let key in data){
+
+                if(data.hasOwnProperty(key) == 'Uygunsuzluk'){
+                    continue
+                }
+                else{
+                    sumDataCount += 1
+                    
+                }
+                allDashboard_Data.totalControlCount=sumDataCount
+                allDashboard_Data.totalControlDetail=data
+            }
+
+            dispatch(fetchDashboardData(allDashboard_Data))
+            
             
 
-        }, {
+        }, 
+        {
             onlyOnce: true // Bu, veri yalnızca bir kez okunacağı anlamına gelir
         });
 
