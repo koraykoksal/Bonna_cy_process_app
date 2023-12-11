@@ -18,9 +18,9 @@ const Home = () => {
   const navigate = useNavigate()
 
   const { readFireData, getDesenCode, getWorkCenter, getMaterialCenter, hammaddeMaterialCode } = useArge()
-
   const { dashboardData } = useSelector((state) => state.arge)
-
+  const [detailData, setdetailData] = useState([])
+  let extractedData = []
 
   useEffect(() => {
 
@@ -28,6 +28,27 @@ const Home = () => {
 
   }, [])
 
+
+  // useEffect(() => {
+
+
+
+
+  //   Object.values(dashboardData.toplamKontrolDetay).forEach(data => {
+  //     if (typeof data === 'object' && data !== null) {
+
+  //       extractedData.push(data)
+  //       setdetailData(extractedData)
+
+  //     }
+  //   })
+
+
+  // }, [dashboardData])
+
+
+
+  console.log(dashboardData)
 
 
   return (
@@ -39,10 +60,11 @@ const Home = () => {
 
 
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3, flexWrap: 'wrap' }}>
-          <Card sx={{ maxWidth: 275, textAlign: 'center',backgroundColor:'#bebe' }}>
+
+          <Card sx={{ maxWidth: '300px', textAlign: 'center', backgroundColor: '#bebe' }}>
             <CardContent>
               <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-                Toplam Uygunsuzluk Miktarı
+                Toplam Uygunsuzluk Miktar
               </Typography>
               <Typography variant="h4">
                 {dashboardData.toplamUygunsuzlukMiktar}
@@ -53,10 +75,10 @@ const Home = () => {
             </CardActions>
           </Card>
 
-          <Card sx={{ maxWidth: 275, textAlign: 'center',backgroundColor:'#dede'  }}>
+          <Card sx={{ maxWidth: '300px', textAlign: 'center', backgroundColor: '#bebe' }}>
             <CardContent>
               <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-                Toplam Kontrol Miktarı
+                Toplam Kontrol Edilen Miktar
               </Typography>
               <Typography variant="h4">
                 {dashboardData.toplamKontrolMiktar}
@@ -66,7 +88,6 @@ const Home = () => {
               <Button size="small" variant='outlined' onClick={() => navigate('/proses/uygunsuzluk')}>Detay</Button>
             </CardActions>
           </Card>
-
         </Box>
 
 

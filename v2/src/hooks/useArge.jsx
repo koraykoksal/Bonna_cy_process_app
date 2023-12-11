@@ -300,8 +300,17 @@ const useArge = () => {
         const allDashboard_Data={
             uygunsuzlukControl_Count:0,
             totalControlCount:0,
-            totalControlDetail:{}
+            totalControlDetail:{},
+            // total:{
+            //     controlCount:0,
+            //     title:""
+            // },
+            // uygunsuzluk:{
+            //     controlCount:0,
+            //     title:""
+            // }
         }
+
 
         const database = getDatabase();
         const databaseRef = ref(database);
@@ -384,12 +393,9 @@ const useArge = () => {
                         if(uygunsuzluk.hasOwnProperty(key)){
                             controlCount += 1
                         }
+
                         allDashboard_Data.uygunsuzlukControl_Count=controlCount
-                        
                     }
-
-                    dispatch(fetchDashboardData(allDashboard_Data))
-
                 }
                 
             });
@@ -407,7 +413,10 @@ const useArge = () => {
                     
                 }
                 allDashboard_Data.totalControlCount=sumDataCount
+
+                // tüm dataların detayları
                 allDashboard_Data.totalControlDetail=data
+                
             }
 
             dispatch(fetchDashboardData(allDashboard_Data))

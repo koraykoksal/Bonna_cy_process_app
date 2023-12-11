@@ -29,7 +29,11 @@ const initialState={
 
     dashboardData:{
         toplamUygunsuzlukMiktar:0,
-        toplamKontrolMiktar:0
+        toplamKontrolMiktar:0,
+        toplamKontrolDetay:{},
+        total_control:[],
+        uygunsuzluk_control:[],
+
     }
 
 }
@@ -170,9 +174,18 @@ const argeSlice=createSlice({
             state.error = true;
         },
         fetchDashboardData:(state,{payload})=>{
-            console.log(payload)
+            console.log("payload: ",payload)
             state.dashboardData.toplamUygunsuzlukMiktar = payload?.uygunsuzlukControl_Count
             state.dashboardData.toplamKontrolMiktar = payload?.totalControlCount
+
+            state.dashboardData.toplamKontrolDetay=payload?.totalControlDetail
+
+            // state.dashboardData.uygunsuzluk_control=[...state.dashboardData.uygunsuzluk_control,{totalCount:payload?.uygunsuzluk?.controlCount,title:payload?.uygunsuzluk.title}]
+
+            // state.dashboardData.total_control=[...state.dashboardData.total_control,{totalCount:payload?.total?.controlCount,title:payload?.total.title}]
+
+            // state.dashboardData.controls=[...state.dashboardData.controls,{toplamUygunsuzlukMiktar:payload?.uygunsuzluk?.controlCount,toplamKontrolMiktar:payload?.total?.controlCount}]
+
            
         }
 
