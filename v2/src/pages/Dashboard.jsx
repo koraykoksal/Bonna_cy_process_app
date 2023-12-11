@@ -104,7 +104,7 @@ const Dashboard = () => {
 
   const { currentUser } = useSelector((state) => state.auth)
 
-  const { logout } = useAuthCall()
+  const { logout,signOut } = useAuthCall()
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -116,6 +116,9 @@ const Dashboard = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+
+  
 
 
 
@@ -141,7 +144,7 @@ const Dashboard = () => {
             <MenuIcon />
           </IconButton>
 
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1,display:{xs:'none',md:'flex'}}}>
             Proses Kontrol
           </Typography>
 
@@ -150,7 +153,7 @@ const Dashboard = () => {
               {currentUser}
             </Typography>
 
-            <Button variant='contained' color='error' onClick={() => logout()}>Logout</Button>
+            <Button variant='contained' color='error' onClick={() => signOut()}>Logout</Button>
             {/* <IconButton onClick={()=>logout()}>
             <LogoutIcon sx={{'&hover':{cursor:'pointer'},color:'#000000'}}/>
           </IconButton> */}

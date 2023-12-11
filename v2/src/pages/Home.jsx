@@ -5,36 +5,61 @@ import useArge from '../hooks/useArge';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
 
-  const { getDesenCode, getWorkCenter, getMaterialCenter,hammaddeMaterialCode } = useArge()
-
-  const { designCode, materialCode, workCenterCode } = useSelector((state) => state.arge)
-
-  //? sayfa ilk yuklendiğinde desen kodlarını erp den çek
-  // useEffect(() => {
-
-  //   getMaterialCenter()
-  //   getDesenCode()
-  //   getWorkCenter()
-  //   hammaddeMaterialCode()
-  // }, [])
 
 
-  // console.log("desingCode: ", designCode)
-  // console.log("materialCode: ", materialCode)
-  // console.log("workCenter:", workCenterCode)
+  const navigate = useNavigate()
+
+  const {readFireData, getDesenCode, getWorkCenter, getMaterialCenter, hammaddeMaterialCode } = useArge()
+
+  const {dashboardData} = useSelector((state)=>state.arge)
 
 
+  useEffect(() => {
+    
+    readFireData()
+    
+  }, [])
+  
 
+  console.log(dashboardData)
 
   return (
 
     <div>
-      <Typography mt={8} align='center' variant='h5' fontWeight={700} sx={typoStyle}>
-        Dashboard
-      </Typography>
+
+
+      <Box py={10}>
+
+
+        <Box sx={{display:'flex',justifyContent:'center',gap:3,flexWrap:'wrap'}}>
+          <Card sx={{ maxWidth: 275,textAlign:'center' }}>
+            <CardContent>
+              <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
+                Toplam Uygunsuzluk Miktarı
+              </Typography>
+              <Typography variant="h4">
+                {dashboardData.toplamUygunsuzlukMiktar}
+              </Typography>
+            </CardContent>
+            <CardActions sx={{justifyContent:'center'}}>
+              <Button size="small" variant='outlined' onClick={()=>navigate('/proses/uygunsuzluk')}>Detay</Button>
+            </CardActions>
+          </Card>
+        </Box>
+
+
+
+      </Box>
+
+
     </div>
   )
 

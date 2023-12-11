@@ -55,7 +55,7 @@ const useArge = () => {
 
             const res = await axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${desen}`)
 
-            console.log("desen kodu: ",res?.data)
+            // console.log("desen kodu: ",res?.data)
 
             if (res?.data == null || res?.data == undefined) {
                 console.log("design code not found")
@@ -86,7 +86,7 @@ const useArge = () => {
 
             const res = await axios.get(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${workcenter}`)
             
-            console.log("iş merkezi : ",res?.data)
+            // console.log("iş merkezi : ",res?.data)
 
             if (res?.data == null || res?.data == undefined) {
                 console.log("workcenter code not found")
@@ -117,7 +117,7 @@ const useArge = () => {
 
             const res = await axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${material}`)
 
-            console.log("material kodu: ",res?.data)
+            // console.log("material kodu: ",res?.data)
 
             if (res?.data == null || res?.data == undefined) {
                 console.log("material code not found")
@@ -145,7 +145,7 @@ const useArge = () => {
 
             const res = await axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${argeMaterial}`)
 
-            console.log("hammadde kodu: ",res?.data)
+            // console.log("hammadde kodu: ",res?.data)
 
             if (res?.data == null || res?.data == undefined) {
                 console.log("hammadde code not found")
@@ -302,14 +302,88 @@ const useArge = () => {
 
         onValue(databaseRef, (snapshot) => {
             const data = snapshot.val();
-            console.log("Tüm veritabanı: ", data);
-            // Tüm veritabanı şimdi "data" değişkeninde
+
+            const tt = Object.keys(data)
+
+            tt.forEach(element => {
+                
+                
+                if (element === 'OtomatikTorna') {
+                    const OtomatikTorna = data[element]
+                    console.log("otomatik torna: ",OtomatikTorna)
+                }
+                else if (element === 'ManDikTorna') {
+                    const ManDikTorna = data[element]
+                    console.log("man dik torna: ",ManDikTorna)
+                }
+                else if (element === 'YuksekBasinc') {
+                    const YuksekBasinc = data[element]
+                    console.log("yüksek basınç: ",YuksekBasinc)
+                }
+                else if (element === 'DokumHatti') {
+                    const DokumHatti = data[element]
+                    console.log("dokum hattı: ",DokumHatti)
+                }
+                else if (element === 'KulpDokum') {
+                    const KulpDokum = data[element]
+                    console.log("kulp doküm: ",KulpDokum)
+                }
+                else if (element === 'GranulKontrol') {
+                    const GranulKontrol = data[element]
+                    console.log("granül kontrol: ",GranulKontrol)
+                }
+                else if (element === 'Astarlama') {
+                    const Astarlama = data[element]
+                    console.log("astarlama: ",Astarlama)
+                }
+                else if (element === 'Reaktif') {
+                    const Reaktif = data[element]
+                    console.log("reaktif: ",Reaktif)
+                }
+                else if (element === 'Triyaj') {
+                    const Triyaj = data[element]
+                    console.log("triyaj: ",Triyaj)
+                }
+                else if (element === 'Sirlama') {
+                    const Sirlama = data[element]
+                    console.log("sırlama: ",Sirlama)
+                }
+                else if (element === 'DijitalLogo') {
+                    const DijitalLogo = data[element]
+                    console.log("dijital logo: ",DijitalLogo)
+                }
+                else if (element === 'Dekorlama') {
+                    const Dekorlama = data[element]
+                    console.log("dekorlama: ",Dekorlama)
+                }
+                else if (element === 'DijitalBaski') {
+                    const DijitalBaski = data[element]
+                    console.log("dijital baskı: ",DijitalBaski)
+                }
+                else if (element === 'NihaiUrunKontrol') {
+                    const NihaiUrunKontrol = data[element]
+                    console.log("nihai ürün kontrol: ",NihaiUrunKontrol)
+                }
+                else if (element === 'AyakTaslama') {
+                    const AyakTaslama = data[element]
+                    console.log("ayak taslama: ",AyakTaslama)
+                }
+                else if (element === 'Uygunsuzluk') {
+                    const uygunsuzluk = data[element]
+                    console.log("uygunsuzluk: ",uygunsuzluk)
+                }
+                
+            });
+            
+
         }, {
             onlyOnce: true // Bu, veri yalnızca bir kez okunacağı anlamına gelir
         });
 
     }
 
+
+    
     return {
         getDesenCode,
         getWorkCenter,

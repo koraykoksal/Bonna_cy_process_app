@@ -45,52 +45,56 @@ const useAuthCall = () => {
     // }
 
     //* LOGIN
-    // const signIn = async ({ email, password }) => {
+    const signIn = async ({ email, password }) => {
 
-    //     dispatch(fetchStart())
+        dispatch(fetchStart())
 
-    //     signInWithEmailAndPassword(auth, email, password)
-    //         .then((userCredential) => {
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
 
-    //             const user = userCredential.user;
+                const user = userCredential.user;
 
-    //             dispatch(loginSuccess(user))
+                dispatch(loginSuccess(user))
 
-    //             navigate('/proses')
-    //             toastSuccessNotify("Login Success ✅")
-    //         })
-    //         .catch((error) => {
-    //             const errorCode = error.code;
-    //             const errorMessage = error.message;
-    //             dispatch(fetchFail(error))
-    //             toastErrorNotify(`${error.code} ❌`)
-    //         });
-
-
+                navigate('/proses')
+                toastSuccessNotify("Login Success")
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                dispatch(fetchFail(error))
+                toastErrorNotify(`${error.code}`)
+            });
 
 
-    // }
+
+
+    }
 
     //* LOGOUT
-    // const logout = async () => {
+    const signOut = async () => {
 
 
-    //     dispatch(fetchStart())
+        dispatch(fetchStart())
 
-    //     try {
+        try {
 
-    //         await signOut(auth)
+            // await signOut(auth)
+            // navigate('/')
+            // toastSuccessNotify("Logout Success")
 
-    //         navigate('/')
-    //         toastSuccessNotify("Logout Success ✅")
+            dispatch(logoutSuccess())
+            navigate('/')
+            toastSuccessNotify('Logout Successful.')
+            
 
-    //     } catch (error) {
-    //         dispatch(fetchFail())
-    //         toastErrorNotify('Register Fault ! ❌')
-    //     }
+        } catch (error) {
+            dispatch(fetchFail())
+            toastErrorNotify('Register Fault !')
+        }
 
 
-    // }
+    }
 
 
 
@@ -114,16 +118,16 @@ const useAuthCall = () => {
             }
 
 
-            const res  = await axios(options)
+            const res = await axios(options)
 
             console.log(res)
-            
+
             if (res?.data[0].STATUS == "1") {
                 dispatch(fetchLoginData(res?.data))
                 toastSuccessNotify('Login Successful.')
                 navigate('/proses')
             }
-            else{
+            else {
                 toastErrorNotify("'Something Went Wrong !'")
             }
 
@@ -147,8 +151,8 @@ const useAuthCall = () => {
 
 
     return {
-        // signUp, 
-        // signIn, 
+        signIn,
+        signOut,
         login,
         logout
     }

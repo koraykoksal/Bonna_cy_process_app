@@ -24,7 +24,13 @@ const initialState={
     dijitalBaskiData:[],
     nihaiUrunKontrolData:[],
     ayakTaslamaData:[],
-    uygunsuzlukData:[]
+    uygunsuzlukData:[],
+
+
+    dashboardData:{
+        toplamUygunsuzlukMiktar:0
+    }
+
 }
 
 
@@ -157,11 +163,19 @@ const argeSlice=createSlice({
             state.loading = false;
             state.error=false
             state.uygunsuzlukData=payload
+            state.dashboardData.toplamUygunsuzlukMiktar = 99
         },
         fetchFail: (state) => {
             state.loading = false;
             state.error = true;
         },
+        fetchDashboardData:(state,{payload})=>{
+
+            return{
+                state:{...state.dashboardData,toplamUygunsuzlukMiktar:99}
+            }
+
+        }
 
     }
 })
@@ -190,7 +204,8 @@ export const {
     fetchDijitalBaskiData,
     fetchNihaiUrunKontrolData,
     fetchAyakTaslamaData,
-    fetchUygunsuzlukData
+    fetchUygunsuzlukData,
+    fetchDashboardData
 
 
 }=argeSlice.actions
