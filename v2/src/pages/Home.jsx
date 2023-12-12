@@ -11,7 +11,8 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import { useNavigate } from 'react-router-dom';
 import { Avatar, Grid, Paper } from '@mui/material';
-import Dashboard_Cards from '../components/Dashboard_Cards';
+import Dashboard_Cards from '../components/dashboards/Dashboard_Cards';
+import HataBazli_Uygunsuzluk from '../components/dashboards/HataBazli_Uygunsuzluk';
 
 const Home = () => {
 
@@ -25,14 +26,12 @@ const Home = () => {
 
 
 
-
-
-
   return (
 
     <div>
 
       <Dashboard_Cards/>
+      <HataBazli_Uygunsuzluk/>
 
     </div>
   )

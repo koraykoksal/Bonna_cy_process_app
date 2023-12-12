@@ -17,9 +17,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { Container } from '@mui/material';
-import LogoutIcon from '@mui/icons-material/Logout';
 import useAuthCall from '../hooks/useAuthCall';
 import FirstMenu from '../helpers/FirstMenu';
 import SecondMenu from '../helpers/SecondMenu';
@@ -29,6 +27,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import MenuItem from '@mui/material/MenuItem';
 import useArge from '../hooks/useArge';
 import { useEffect, useState } from 'react';
+import { FiLogOut } from "react-icons/fi";
 
 const drawerWidth = 280;
 
@@ -153,7 +152,10 @@ const Dashboard = () => {
               {currentUser}
             </Typography>
 
-            <Button variant='contained' color='error' onClick={() => signOut()}>Logout</Button>
+            {/* <Button variant='contained' color='error' onClick={() => signOut()}>Logout</Button> */}
+
+            <FiLogOut size={27} color='black' cursor='pointer' onClick={() => signOut()}/>
+
             {/* <IconButton onClick={()=>logout()}>
             <LogoutIcon sx={{'&hover':{cursor:'pointer'},color:'#000000'}}/>
           </IconButton> */}

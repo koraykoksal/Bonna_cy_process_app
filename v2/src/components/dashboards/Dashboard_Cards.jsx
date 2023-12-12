@@ -3,7 +3,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Avatar, Grid, Paper } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import useArge from '../hooks/useArge';
+import useArge from '../../hooks/useArge';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';

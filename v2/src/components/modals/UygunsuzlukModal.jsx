@@ -163,6 +163,7 @@ const UygunsuzlukModal = ({ open, handleClose, info, setInfo }) => {
             <FormControl fullWidth>
               <InputLabel id="sorun_tipi">Sorun Tipi</InputLabel>
               <Select
+              required
                 labelId="sorun_tipi"
                 id="sorun_tipi"
                 name='sorun_tipi'
