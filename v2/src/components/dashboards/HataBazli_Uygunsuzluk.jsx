@@ -16,12 +16,23 @@ const HataBazli_Uygunsuzluk = () => {
   const [bolumBazliUygunsuzlukMiktar, setBolumBazliUygunsuzlukMiktar] = useState(0)
 
 
+  const typoStyle = {
+    fontSize: '15px',
+    color: '#ffffff',
+    fontWeight: '700',
+  }
+  const buttonStyle = {
+    color: '#ffffff',
+    fontWeight: '700'
+  }
+
+
+
   useEffect(() => {
     getFireData('Uygunsuzluk')
-
-    const data = JSON.stringify(uygunsuzlukData)
-    // console.log(data)
   }, [])
+
+
 
   useEffect(() => {
 
@@ -43,46 +54,56 @@ const HataBazli_Uygunsuzluk = () => {
       }))
     })
 
-
-    //! hata bazlı uygunsuzluk miktar
-    const data = Object.keys(sorunTipleri).length
-    setHataBazliUygunsuzlukMiktar(data)
-
-
   }, [uygunsuzlukData])
 
 
-  const typoStyle = {
-    fontSize: '15px',
-    color: '#ffffff',
-    fontWeight: '700',
-  }
-  const buttonStyle = {
-    color: '#ffffff',
-    fontWeight: '700'
-  }
+
+  useEffect(() => {
+
+    //! hata bazlı uygunsuzluk miktar
+    const sorunTipleri_data = Object.keys(sorunTipleri).length
+    setHataBazliUygunsuzlukMiktar(sorunTipleri_data)
+
+    //! bölüm bazlı uygunsuzluk miktar
+    const aksiyonSahibi_data = Object.keys(aksiyonSahibi).length
+    setBolumBazliUygunsuzlukMiktar(aksiyonSahibi_data)
+
+  }, [sorunTipleri,aksiyonSahibi])
+
+
+
 
 
 
   return (
-    <div>
 
-      <Box>
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3, flexWrap: 'wrap' }}>
-          <Grid>
-            <Paper sx={{ display: 'flex', alignItems: 'center', gap: 2, p: '1rem', width: '250px', height: '175px', flexDirection: 'column', backgroundColor: 'error.main' }}>
-              <Typography sx={typoStyle}>
-                Uygunsuzluk Çeşidi Miktar
-              </Typography>
-              <Typography variant="h3" align='center'>
-                {hataBazliUygunsuzlukMiktar}
-              </Typography>
-              <Button size="small" variant='outlined' sx={buttonStyle} onClick={() => navigate('/proses/uygunsuzluk')}>Detay</Button>
-            </Paper>
-          </Grid>
-        </Box>
+    <Box >
+      <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3, flexWrap: 'wrap' }}>
+        <Grid>
+          <Paper sx={{ display: 'flex', alignItems: 'center', gap: 2, p: '1rem', width: '250px', height: '175px', flexDirection: 'column', backgroundColor: 'text.secondary' }}>
+            <Typography sx={typoStyle}>
+              Uygunsuzluk Çeşidi Miktar
+            </Typography>
+            <Typography variant="h3" align='center'>
+              {hataBazliUygunsuzlukMiktar}
+            </Typography>
+            <Button size="small" variant='outlined' sx={buttonStyle} onClick={() => navigate('/proses/uygunsuzluk')}>Detay</Button>
+          </Paper>
+        </Grid>
+
+        <Grid>
+          <Paper sx={{ display: 'flex', alignItems: 'center', gap: 2, p: '1rem', width: '250px', height: '175px', flexDirection: 'column', backgroundColor: 'text.secondary' }}>
+            <Typography sx={typoStyle}>
+              Bölüm Uygunsuzluk Miktar
+            </Typography>
+            <Typography variant="h3" align='center'>
+              {bolumBazliUygunsuzlukMiktar}
+            </Typography>
+            <Button size="small" variant='outlined' sx={buttonStyle} onClick={() => navigate('/proses/uygunsuzluk')}>Detay</Button>
+          </Paper>
+        </Grid>
       </Box>
-    </div>
+    </Box>
   )
 }
 

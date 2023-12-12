@@ -58,12 +58,24 @@ const Dashboard_Cards = () => {
 
 
     return (
-        <div>
-            <Box py={10}>
+   
+
+            <Box mb={3}>
 
 
                 <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3, flexWrap: 'wrap' }}>
 
+
+                <Grid>
+                        <Paper sx={{ display: 'flex', alignItems: 'center', gap: 2, p: '1rem', width: '250px', height: '175px', flexDirection: 'column', backgroundColor: 'secondary.main' }}>
+                            <Typography sx={typoStyle}>
+                                Proses Planına Uygunluk
+                            </Typography>
+                            <Typography variant="h3" align='center'>
+                                {prosesPlanaUygunluk} %
+                            </Typography>
+                        </Paper>
+                    </Grid>
 
                     <Grid>
                         <Paper sx={{ display: 'flex', alignItems: 'center', gap: 2, p: '1rem', width: '250px', height: '175px', flexDirection: 'column', backgroundColor: 'error.main' }}>
@@ -85,20 +97,11 @@ const Dashboard_Cards = () => {
                             <Typography variant="h3" align='center'>
                                 {dashboardData.toplamKontrolMiktar}
                             </Typography>
-                            <Button size="small" variant='outlined' sx={buttonStyle} onClick={() => navigate('/proses/uygunsuzluk')}>Detay</Button>
+                            {/* <Button size="small" variant='outlined' sx={buttonStyle} onClick={() => navigate('/proses/uygunsuzluk')}>Detay</Button> */}
                         </Paper>
                     </Grid>
 
-                    <Grid>
-                        <Paper sx={{ display: 'flex', alignItems: 'center', gap: 2, p: '1rem', width: '250px', height: '175px', flexDirection: 'column', backgroundColor: 'secondary.main' }}>
-                            <Typography sx={typoStyle}>
-                                Proses Planına Uygunluk
-                            </Typography>
-                            <Typography variant="h3" align='center'>
-                                {prosesPlanaUygunluk} %
-                            </Typography>
-                        </Paper>
-                    </Grid>
+                    
 
 
                 </Box>
@@ -107,7 +110,7 @@ const Dashboard_Cards = () => {
 
             </Box>
 
-        </div>
+ 
     )
 }
 

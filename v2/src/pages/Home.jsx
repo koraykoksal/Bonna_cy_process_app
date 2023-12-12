@@ -28,12 +28,19 @@ const Home = () => {
 
   return (
 
-    <div>
+    <Box pt={8}>
 
-      <Dashboard_Cards/>
-      <HataBazli_Uygunsuzluk/>
+      <Typography align='center' p={2} fontWeight={700} letterSpacing={5} fontSize={22}>Genel Özet</Typography>
 
-    </div>
+      <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3 }}>
+
+        <Dashboard_Cards />
+        <HataBazli_Uygunsuzluk />
+
+      </Box>
+
+    </Box>
+
   )
 
 }
