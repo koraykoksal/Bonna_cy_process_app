@@ -174,7 +174,7 @@ const argeSlice=createSlice({
             state.error = true;
         },
         fetchDashboardData:(state,{payload})=>{
-            console.log("payload: ",payload)
+            // console.log("payload: ",payload)
             state.dashboardData.toplamUygunsuzlukMiktar = payload?.uygunsuzlukControl_Count
             state.dashboardData.toplamKontrolMiktar = payload?.totalControlCount
 

@@ -94,7 +94,7 @@ const Login = () => {
                 onChange={handleChange}
               /> */}
               <TextField
-                label="Email"
+                label="Username"
                 name="username"
                 id="username"
                 type="text"

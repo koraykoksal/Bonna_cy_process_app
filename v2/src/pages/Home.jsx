@@ -10,90 +10,29 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import { useNavigate } from 'react-router-dom';
+import { Avatar, Grid, Paper } from '@mui/material';
+import Dashboard_Cards from '../components/Dashboard_Cards';
 
 const Home = () => {
 
 
-
-  const navigate = useNavigate()
-
   const { readFireData, getDesenCode, getWorkCenter, getMaterialCenter, hammaddeMaterialCode } = useArge()
   const { dashboardData } = useSelector((state) => state.arge)
   const [detailData, setdetailData] = useState([])
-  let extractedData = []
-
-  useEffect(() => {
-
-    readFireData()
-
-  }, [])
-
-
-  // useEffect(() => {
+  const [prosesPlanaUygunluk, setprosesPlanaUygunluk] = useState(0)
 
 
 
 
-  //   Object.values(dashboardData.toplamKontrolDetay).forEach(data => {
-  //     if (typeof data === 'object' && data !== null) {
-
-  //       extractedData.push(data)
-  //       setdetailData(extractedData)
-
-  //     }
-  //   })
 
 
-  // }, [dashboardData])
-
-
-
-  console.log(dashboardData)
 
 
   return (
 
     <div>
 
-
-      <Box py={10}>
-
-
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3, flexWrap: 'wrap' }}>
-
-          <Card sx={{ maxWidth: '300px', textAlign: 'center', backgroundColor: '#bebe' }}>
-            <CardContent>
-              <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-                Toplam Uygunsuzluk Miktar
-              </Typography>
-              <Typography variant="h4">
-                {dashboardData.toplamUygunsuzlukMiktar}
-              </Typography>
-            </CardContent>
-            <CardActions sx={{ justifyContent: 'center' }}>
-              <Button size="small" variant='outlined' onClick={() => navigate('/proses/uygunsuzluk')}>Detay</Button>
-            </CardActions>
-          </Card>
-
-          <Card sx={{ maxWidth: '300px', textAlign: 'center', backgroundColor: '#bebe' }}>
-            <CardContent>
-              <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-                Toplam Kontrol Edilen Miktar
-              </Typography>
-              <Typography variant="h4">
-                {dashboardData.toplamKontrolMiktar}
-              </Typography>
-            </CardContent>
-            <CardActions sx={{ justifyContent: 'center' }}>
-              <Button size="small" variant='outlined' onClick={() => navigate('/proses/uygunsuzluk')}>Detay</Button>
-            </CardActions>
-          </Card>
-        </Box>
-
-
-
-      </Box>
-
+      <Dashboard_Cards/>
 
     </div>
   )

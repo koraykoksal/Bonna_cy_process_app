@@ -23,7 +23,7 @@ import {
     fetchDijitalBaskiData,
     fetchNihaiUrunKontrolData,
     fetchAyakTaslamaData,
-    fetchUygunsuzlukData,fetchDashboardData
+    fetchUygunsuzlukData, fetchDashboardData
 
 } from '../features/argeSlice'
 import { toastErrorNotify, toastSuccessNotify } from '../helpers/ToastNotify'
@@ -42,7 +42,7 @@ const useArge = () => {
     const argeMaterial = 4
 
     const { userID } = useSelector((state) => state.auth)
-    const {dashboardData} = useSelector((state)=>state.arge)
+    const { dashboardData } = useSelector((state) => state.arge)
     const dispatch = useDispatch();
 
 
@@ -85,7 +85,7 @@ const useArge = () => {
         try {
 
             const res = await axios.get(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${workcenter}`)
-            
+
             // console.log("iş merkezi : ",res?.data)
 
             if (res?.data == null || res?.data == undefined) {
@@ -297,10 +297,10 @@ const useArge = () => {
     //! tüm veritabanı bilgileri
     const readFireData = async () => {
 
-        const allDashboard_Data={
-            uygunsuzlukControl_Count:0,
-            totalControlCount:0,
-            totalControlDetail:{},
+        const allDashboard_Data = {
+            uygunsuzlukControl_Count: 0,
+            totalControlCount: 0,
+            totalControlDetail: {},
             // total:{
             //     controlCount:0,
             //     title:""
@@ -321,8 +321,8 @@ const useArge = () => {
             const tt = Object.keys(data)
 
             tt.forEach(element => {
-                
-                
+
+
                 if (element === 'OtomatikTorna') {
                     const OtomatikTorna = data[element]
                     // console.log("otomatik torna: ",OtomatikTorna)
@@ -387,51 +387,65 @@ const useArge = () => {
                     const uygunsuzluk = data[element]
 
                     let controlCount = 0
-                   
-                    for(let key in uygunsuzluk){
-                        
-                        if(uygunsuzluk.hasOwnProperty(key)){
+
+                    for (let key in uygunsuzluk) {
+
+                        if (uygunsuzluk.hasOwnProperty(key)) {
                             controlCount += 1
                         }
 
-                        allDashboard_Data.uygunsuzlukControl_Count=controlCount
+                        allDashboard_Data.uygunsuzlukControl_Count = controlCount
                     }
                 }
-                
+
             });
 
-            
-            let sumDataCount = 0
+            let toplamKontrolEdilen = []
 
-            for(let key in data){
+            Object.values(data).forEach(item => {
+                if (typeof item == 'object' && item !== null) {
 
-                if(data.hasOwnProperty(key) == 'Uygunsuzluk'){
-                    continue
-                }
-                else{
-                    sumDataCount += 1
+                    const data = Object.keys(item)
+                    toplamKontrolEdilen.push(data)
+
+                    const toplamKayitSayisi = toplamKontrolEdilen.reduce((toplam, altDizi) => toplam + altDizi.length, 0);
                     
+                    allDashboard_Data.totalControlCount=toplamKayitSayisi
                 }
-                allDashboard_Data.totalControlCount=sumDataCount
 
-                // tüm dataların detayları
-                allDashboard_Data.totalControlDetail=data
-                
-            }
+            })
 
+            allDashboard_Data.totalControlDetail=data
+
+            // let sumDataCount = 0
+
+            // for(let key in data){
+
+            //     // console.log("data: ",data[key])
+
+            //     if(data.hasOwnProperty(key) != 'Uygunsuzluk'){
+            //         sumDataCount += 1
+            //     }
+
+            //     allDashboard_Data.totalControlCount=sumDataCount
+
+            //     // tüm dataların detayları
+            //     allDashboard_Data.totalControlDetail=data
+
+            // }
             dispatch(fetchDashboardData(allDashboard_Data))
-            
-            
 
-        }, 
-        {
-            onlyOnce: true // Bu, veri yalnızca bir kez okunacağı anlamına gelir
-        });
+
+
+        },
+            {
+                onlyOnce: true // Bu, veri yalnızca bir kez okunacağı anlamına gelir
+            });
 
     }
 
 
-    
+
     return {
         getDesenCode,
         getWorkCenter,
