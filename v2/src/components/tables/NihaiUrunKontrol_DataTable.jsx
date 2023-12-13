@@ -223,7 +223,29 @@ const NihaiUrunKontrol_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }
       headerAlign: "center",
       align: "center",
       flex: 1,
-      renderCell: ({ id }) => {
+      renderCell: ({ id,
+        row: {
+          renkKodu,
+          aciklama,
+          urun_kodu,
+          olculenNumuneSayisi,
+          agirlik,
+          cap_ab,
+          cap_cd,
+          cap_e1e2,
+          yukseklik_a,
+          yukseklik_b,
+          yukseklik_c,
+          yukseklik_d,
+          icYukseklik,
+          dudak_a,
+          dudak_b,
+          dudak_c,
+          dudak_d,
+          ayakYuksekligi,
+          bombeCokme,
+          duzlemdenSapma,
+        } }) => {
         return [
           <GridActionsCellItem
             key={"edit"}
@@ -231,7 +253,30 @@ const NihaiUrunKontrol_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }
             label="Edit"
             onClick={() => {
               handleOpen()
-              setInfo({ id, type: 'NihaiUrunKontrol' })
+              setInfo({
+                id,
+                type: 'NihaiUrunKontrol',
+                renkKodu,
+                aciklama,
+                urun_kodu,
+                olculenNumuneSayisi,
+                agirlik,
+                cap_ab,
+                cap_cd,
+                cap_e1e2,
+                yukseklik_a,
+                yukseklik_b,
+                yukseklik_c,
+                yukseklik_d,
+                icYukseklik,
+                dudak_a,
+                dudak_b,
+                dudak_c,
+                dudak_d,
+                ayakYuksekligi,
+                bombeCokme,
+                duzlemdenSapma,
+              })
             }}
 
           />,

@@ -232,7 +232,32 @@ const DokumHatti_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
       headerAlign: "center",
       align: "center",
       flex: 1,
-      renderCell: ({ id }) => {
+      renderCell: ({ id,
+        row: {
+          is_merkezi,
+          aciklama,
+          urun_kodu,
+          kurutmaSicakligi,
+          camurSicakligi,
+          yogunluk,
+          t1,
+          t2,
+          t1t2,
+          ucDakika,
+          besDakika,
+          onDakika,
+          agirlik,
+          taban,
+          ab,
+          cd,
+          cidarKalinlik,
+          catlak,
+          rotus,
+          yuzeyKontrol,
+          uygunsuzlukTipi,
+          vardiyaSorumlusu,
+
+        } }) => {
         return [
           <GridActionsCellItem
             key={"edit"}
@@ -240,7 +265,32 @@ const DokumHatti_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
             label="Edit"
             onClick={() => {
               handleOpen()
-              setInfo({ id, type: 'DokumHatti' })
+              setInfo({
+                id,
+                type: 'DokumHatti',
+                is_merkezi,
+                aciklama,
+                urun_kodu,
+                kurutmaSicakligi,
+                camurSicakligi,
+                yogunluk,
+                t1,
+                t2,
+                t1t2,
+                ucDakika,
+                besDakika,
+                onDakika,
+                agirlik,
+                taban,
+                ab,
+                cd,
+                cidarKalinlik,
+                catlak,
+                rotus,
+                yuzeyKontrol,
+                uygunsuzlukTipi,
+                vardiyaSorumlusu,
+              })
             }}
 
           />,

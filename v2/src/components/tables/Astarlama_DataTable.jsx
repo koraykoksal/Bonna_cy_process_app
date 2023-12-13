@@ -9,7 +9,7 @@ import { Box, Typography } from '@mui/material'
 
 
 
-const Astarlama_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
+const Astarlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
 
   const { astarlamaData } = useSelector((state) => state.arge)
   const [astarlama, setAstarlama] = useState([])
@@ -57,7 +57,7 @@ const Astarlama_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
     //   align: "center",
     //   flex: 1,
     // },
-    
+
     {
       field: "yogunluk",
       headerName: "Yoğunluk",
@@ -129,7 +129,19 @@ const Astarlama_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
       headerAlign: "center",
       align: "center",
       flex: 1,
-      renderCell: ({ id }) => {
+      renderCell: ({ id,
+        row: {
+          is_merkezi,
+          yogunluk,
+          nozzlecap,
+          kasetsicaklik,
+          tankbasinc,
+          astarkalinlik,
+          astarlamayapankisi,
+          aciklama,
+          redkabul,
+          urun_kodu,
+        } }) => {
         return [
           <GridActionsCellItem
             key={"edit"}
@@ -137,7 +149,20 @@ const Astarlama_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
             label="Edit"
             onClick={() => {
               handleOpen()
-              setInfo({ id, type: 'Astarlama' })
+              setInfo({
+                id,
+                type: 'Astarlama',
+                is_merkezi,
+                yogunluk,
+                nozzlecap,
+                kasetsicaklik,
+                tankbasinc,
+                astarkalinlik,
+                astarlamayapankisi,
+                aciklama,
+                redkabul,
+                urun_kodu,
+              })
             }}
 
           />,
@@ -165,19 +190,19 @@ const Astarlama_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
 
 
   return (
-    
+
     <Box sx={{ pt: 5 }}>
-    <DataGrid
-      columns={dataGrid_Columns}
-      rows={astarlama}
-      pageSizeOptions={[10, 25, 50, 75, 100]}
-      slots={{ toolbar: GridToolbar }}
-      disableRowSelectionOnClick
-      sx={{
-        boxShadow: 4,
-      }}
-    />
-  </Box>
+      <DataGrid
+        columns={dataGrid_Columns}
+        rows={astarlama}
+        pageSizeOptions={[10, 25, 50, 75, 100]}
+        slots={{ toolbar: GridToolbar }}
+        disableRowSelectionOnClick
+        sx={{
+          boxShadow: 4,
+        }}
+      />
+    </Box>
 
   )
 }

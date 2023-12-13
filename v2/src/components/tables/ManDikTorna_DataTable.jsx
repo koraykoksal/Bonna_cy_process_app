@@ -104,7 +104,7 @@ const ManDikTorna_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => 
             align: "center",
             flex: 1,
         },
-    
+
         {
             field: "aynacap",
             headerName: "Ayna Çap",
@@ -184,7 +184,26 @@ const ManDikTorna_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => 
             headerAlign: "center",
             align: "center",
             flex: 1,
-            renderCell: ({ id }) => {
+            renderCell: ({ id,
+                row: {
+                    is_merkezi,
+                    agirlik,
+                    taban,
+                    kenar,
+                    pkenar,
+                    sucukcap,
+                    aynacap,
+                    camursertlik,
+                    catlakkontrol,
+                    rotuskontrol,
+                    yuzeykontrol,
+                    uygunsuzluktipi,
+                    aciklama,
+                    vardiyasorumlusu,
+                    havakontrol,
+                    urun_kodu,
+
+                } }) => {
                 return [
                     <GridActionsCellItem
                         key={"edit"}
@@ -192,7 +211,26 @@ const ManDikTorna_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => 
                         label="Edit"
                         onClick={() => {
                             handleOpen()
-                            setInfo({ id ,type:'ManDikTorna'})
+                            setInfo({
+                                id,
+                                type: 'ManDikTorna',
+                                is_merkezi,
+                                agirlik,
+                                taban,
+                                kenar,
+                                pkenar,
+                                sucukcap,
+                                aynacap,
+                                camursertlik,
+                                catlakkontrol,
+                                rotuskontrol,
+                                yuzeykontrol,
+                                uygunsuzluktipi,
+                                aciklama,
+                                vardiyasorumlusu,
+                                havakontrol,
+                                urun_kodu,
+                            })
                         }}
 
                     />,
@@ -202,7 +240,7 @@ const ManDikTorna_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => 
                         label="Delete"
                         onClick={() => {
                             delHandleOpen()
-                            setInfo({ id ,type:'ManDikTorna'})
+                            setInfo({ id, type: 'ManDikTorna' })
                         }}
 
                     />,

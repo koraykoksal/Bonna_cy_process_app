@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material'
 
-const KulpDokum_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) => {
+const KulpDokum_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
 
   const { kulpDokumData } = useSelector((state) => state.arge)
   const [kulpDokumHatti, setkulpDokumHatti] = useState([])
@@ -71,7 +71,7 @@ const KulpDokum_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) => {
       align: "center",
       flex: 1,
     },
- 
+
     {
       field: "yogunluk",
       headerName: "Yoğunluk",
@@ -192,7 +192,27 @@ const KulpDokum_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) => {
       headerAlign: "center",
       align: "center",
       flex: 1,
-      renderCell: ({ id }) => {
+      renderCell: ({ id,
+        row: {
+          is_merkezi,
+          agirlik,
+          taban,
+          kenar,
+          pkenar,
+          yogunluk,
+          t1,
+          t2,
+          t1t2,
+          tankkaristirmahizi,
+          istifsayisi,
+          redkabul,
+          kulpuyumu,
+          uygunsuzluktipi,
+          aciklama,
+          vardiyasorumlusu,
+          urun_kodu,
+
+        } }) => {
         return [
           <GridActionsCellItem
             key={"edit"}
@@ -200,7 +220,27 @@ const KulpDokum_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) => {
             label="Edit"
             onClick={() => {
               handleOpen()
-              setInfo({ id, type: 'KulpDokum' })
+              setInfo({
+                id,
+                type: 'KulpDokum',
+                is_merkezi,
+                agirlik,
+                taban,
+                kenar,
+                pkenar,
+                yogunluk,
+                t1,
+                t2,
+                t1t2,
+                tankkaristirmahizi,
+                istifsayisi,
+                redkabul,
+                kulpuyumu,
+                uygunsuzluktipi,
+                aciklama,
+                vardiyasorumlusu,
+                urun_kodu,
+              })
             }}
 
           />,
@@ -229,7 +269,7 @@ const KulpDokum_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) => {
 
 
   return (
-    
+
     <Box sx={{ pt: 5 }}>
       <DataGrid
         columns={dataGrid_Columns}

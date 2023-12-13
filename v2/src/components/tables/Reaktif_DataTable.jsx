@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material'
 
 
-const Reaktif_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
+const Reaktif_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
 
   const { reaktifData } = useSelector((state) => state.arge)
   const [reaktif, setreaktif] = useState([])
@@ -65,8 +65,8 @@ const Reaktif_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
       align: "center",
       flex: 1,
     },
-  
-  
+
+
     {
       field: "boyasarjno",
       headerName: "Boya Şarj No",
@@ -106,7 +106,15 @@ const Reaktif_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
       headerAlign: "center",
       align: "center",
       flex: 1,
-      renderCell: ({ id }) => {
+      renderCell: ({ id,
+        row: {
+          urun_kodu,
+          boyasarjno,
+          boyayogunluk,
+          boyamiktari,
+          aciklama,
+          redkabul,
+        } }) => {
         return [
           <GridActionsCellItem
             key={"edit"}
@@ -114,7 +122,16 @@ const Reaktif_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
             label="Edit"
             onClick={() => {
               handleOpen()
-              setInfo({ id, type: 'Reaktif' })
+              setInfo({
+                id,
+                type: 'Reaktif',
+                urun_kodu,
+                boyasarjno,
+                boyayogunluk,
+                boyamiktari,
+                aciklama,
+                redkabul,
+              })
             }}
 
           />,
@@ -142,7 +159,7 @@ const Reaktif_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
 
 
   return (
-    
+
     <Box sx={{ pt: 5 }}>
       <DataGrid
         columns={dataGrid_Columns}

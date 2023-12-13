@@ -4,10 +4,10 @@ import { MdDelete } from "react-icons/md";
 import { DataGrid, GridToolbar, GridActionsCellItem } from '@mui/x-data-grid';
 import useArge from '../../hooks/useArge';
 import { useSelector } from 'react-redux';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material'
 
-const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) => {
+const OtomatikTorna_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
 
   const { otoTornaData } = useSelector((state) => state.arge)
   const [tornaData, settornaData] = useState([])
@@ -228,7 +228,30 @@ const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) =>
       headerAlign: "center",
       align: "center",
       flex: 1,
-      renderCell: ({ id }) => {
+      renderCell: ({ id,
+        row: {
+          is_merkezi,
+          agirlik,
+          taban,
+          kenar,
+          pkenar,
+          cap,
+          aynacap,
+          kulpbunye,
+          kesilensucuk,
+          kirpintimiktar,
+          camursert,
+          catlakkontrol,
+          rotuskontrol,
+          yuzeykontrol,
+          uygunsuzluktipi,
+          aciklama,
+          vardiyasorumlusu,
+          kelepenozulkontrol,
+          havakontrol,
+          urun_kodu,
+
+        } }) => {
         return [
           <GridActionsCellItem
             key={"edit"}
@@ -236,7 +259,30 @@ const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) =>
             label="Edit"
             onClick={() => {
               handleOpen()
-              setInfo({ id,type:'OtomatikTorna' })
+              setInfo({
+                id,
+                type: 'OtomatikTorna',
+                is_merkezi,
+                agirlik,
+                taban,
+                kenar,
+                pkenar,
+                cap,
+                aynacap,
+                kulpbunye,
+                kesilensucuk,
+                kirpintimiktar,
+                camursert,
+                catlakkontrol,
+                rotuskontrol,
+                yuzeykontrol,
+                uygunsuzluktipi,
+                aciklama,
+                vardiyasorumlusu,
+                kelepenozulkontrol,
+                havakontrol,
+                urun_kodu,
+              })
             }}
 
           />,
@@ -246,7 +292,7 @@ const OtomatikTorna_DataTable = ({ setInfo,info, delHandleOpen, handleOpen }) =>
             label="Delete"
             onClick={() => {
               delHandleOpen()
-              setInfo({ id,type:'OtomatikTorna' })
+              setInfo({ id, type: 'OtomatikTorna' })
             }}
 
           />,

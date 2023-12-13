@@ -36,23 +36,6 @@ const BiskuviTriyajModal = ({ open, handleClose, info, setInfo }) => {
   const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value })
 
-    // const {name,value} = e.target;
-
-    // setInfo(prevInfo=>{
-    //   const newData = {...prevInfo,[name]:value}
-
-    //   if(name === 'hataliUrunYuzdesi' || name === 'ayakCatlagiYuzdesi' || name === 'kenarCatlagiYuzdesi' || name === 'firinKirigiYuzdesi' || name === 'digerYuzdesi'){
-
-    //     // const hataliUrunYuzdesi = parseFloat(newData.hataliUrunSayisi) || 0;
-    //     // const ayakCatlagiYuzdesi = parseFloat(newData.ayakcatlagi) || 0;
-    //     // const kenarCatlagiYuzdesi = parseFloat(newData.kenarCatlagi) || 0;
-       
-    //     newData.hataliUrunYuzdesi = (Number(newData.hataliUrunSayisi) / Number(newData.kontroledilenAdet)).toFixed(1)
-
-
-    //   }
-    // })
-
   }
 
 

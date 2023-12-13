@@ -4,10 +4,10 @@ import { MdDelete } from "react-icons/md";
 import { DataGrid, GridToolbar, GridActionsCellItem } from '@mui/x-data-grid';
 import useArge from '../../hooks/useArge';
 import { useSelector } from 'react-redux';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material'
 
-const IzoStatikPres_DataTable = ({setInfo,info,delHandleOpen,handleOpen}) => {
+const IzoStatikPres_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
 
 
     const { izoStatikPresData } = useSelector((state) => state.arge)
@@ -213,15 +213,58 @@ const IzoStatikPres_DataTable = ({setInfo,info,delHandleOpen,handleOpen}) => {
             headerAlign: "center",
             align: "center",
             flex: 1,
-            renderCell: ({ id }) => {
+            renderCell: ({ id,
+                row: {
+                    is_merkezi,
+                    agirlik,
+                    taban,
+                    kenar,
+                    pkenar,
+                    cap,
+                    izobasinc,
+                    kapamabasinc,
+                    vakumdegeri,
+                    dolumsuresi,
+                    granulturu,
+                    urun_kodu,
+                    catlakkontrol,
+                    rotuskontrol,
+                    yuzeykontrol,
+                    hamurunistif,
+                    uygunsuzluktipi,
+                    aciklama,
+                    vardiyasorumlusu,
+                } }) => {
                 return [
                     <GridActionsCellItem
                         key={"edit"}
                         icon={<AiFillEdit size={25} style={{ color: '#0802A3' }} cursor='pointer' />}
                         label="Edit"
-                        onClick={()=>{
+                        onClick={() => {
                             handleOpen()
-                            setInfo({id,type:'IzoStatikPresData'})
+                            setInfo({
+                                id,
+                                type: 'IzoStatikPresData',
+                                is_merkezi,
+                                agirlik,
+                                taban,
+                                kenar,
+                                pkenar,
+                                cap,
+                                izobasinc,
+                                kapamabasinc,
+                                vakumdegeri,
+                                dolumsuresi,
+                                granulturu,
+                                urun_kodu,
+                                catlakkontrol,
+                                rotuskontrol,
+                                yuzeykontrol,
+                                hamurunistif,
+                                uygunsuzluktipi,
+                                aciklama,
+                                vardiyasorumlusu,
+                            })
                         }}
 
                     />,
@@ -231,7 +274,7 @@ const IzoStatikPres_DataTable = ({setInfo,info,delHandleOpen,handleOpen}) => {
                         label="Delete"
                         onClick={() => {
                             delHandleOpen()
-                            setInfo({id,type:'IzoStatikPresData'})
+                            setInfo({ id, type: 'IzoStatikPresData' })
                         }}
 
                     />,
@@ -246,7 +289,7 @@ const IzoStatikPres_DataTable = ({setInfo,info,delHandleOpen,handleOpen}) => {
         const dizi = Object.keys(izoStatikPresData).map(key => { return { id: key, ...izoStatikPresData[key] } })
         setpresData(dizi)
     }, [izoStatikPresData])
-    
+
 
     return (
 

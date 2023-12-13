@@ -119,14 +119,6 @@ const Triyaj_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
       flex: 1,
     },
     {
-      field: "biskuvifirinSorumlusu",
-      headerName: "Bisküvi Fırın Sorumlusu",
-      minWidth: 150,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-    },
-    {
       field: "ayakcatlagi",
       headerName: "Ayak Çatlağı",
       minWidth: 150,
@@ -199,6 +191,14 @@ const Triyaj_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
       flex: 1,
     },
     {
+      field: "biskuvifirinSorumlusu",
+      headerName: "Bisküvi Fırın Sorumlusu",
+      minWidth: 150,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+    },
+    {
       field: "aciklama",
       headerName: "Açıklama",
       minWidth: 150,
@@ -207,8 +207,8 @@ const Triyaj_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
       flex: 1,
     },
     {
-      field: "vardiyasorumlusu",
-      headerName: "Vardiya Sorumlusu",
+      field: "aksiyon",
+      headerName: "Aksiyon",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
@@ -221,7 +221,29 @@ const Triyaj_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
       headerAlign: "center",
       align: "center",
       flex: 1,
-      renderCell: ({ id }) => {
+      renderCell: ({ id,
+        row: {
+          urun_kodu,
+          sekillendirmeYontemi,
+          toplamAdet,
+          kontroledilenAdet,
+          hataliUrunSayisi,
+          aciklama,
+          aksiyon,
+          karantina,
+          firinkodu,
+          biskuvifirinSorumlusu,
+          ayakcatlagi,
+          kenarCatlagi,
+          firinKirigi,
+          diger,
+          hataliUrunYuzdesi,
+          ayakCatlagiYuzdesi,
+          kenarCatlagiYuzdesi,
+          firinKirigiYuzdesi,
+          digerYuzdesi,
+
+        } }) => {
         return [
           <GridActionsCellItem
             key={"edit"}
@@ -229,7 +251,29 @@ const Triyaj_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
             label="Edit"
             onClick={() => {
               handleOpen()
-              setInfo({ id, type: 'Triyaj' })
+              setInfo({
+                id,
+                type: 'Triyaj',
+                urun_kodu,
+                sekillendirmeYontemi,
+                toplamAdet,
+                kontroledilenAdet,
+                hataliUrunSayisi,
+                aciklama,
+                aksiyon,
+                karantina,
+                firinkodu,
+                biskuvifirinSorumlusu,
+                ayakcatlagi,
+                kenarCatlagi,
+                firinKirigi,
+                diger,
+                hataliUrunYuzdesi,
+                ayakCatlagiYuzdesi,
+                kenarCatlagiYuzdesi,
+                firinKirigiYuzdesi,
+                digerYuzdesi,
+              })
             }}
 
           />,

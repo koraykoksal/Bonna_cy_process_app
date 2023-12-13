@@ -572,13 +572,13 @@ const SirlamaModal=({open, handleClose, info, setInfo})=>{
             </FormControl>
 
             <FormControl fullWidth>
-                <InputLabel id="auraBoyaLekesiKontrol">Auro Bekleme Süresi</InputLabel>
+                <InputLabel id="auraBeklemeSuresiKontrol">Auro Bekleme Süresi</InputLabel>
                 <Select
-                labelId="auraBoyaLekesiKontrol"
-                id="auraBoyaLekesiKontrol"
-                name='auraBoyaLekesiKontrol'
-                label="auraBoyaLekesiKontrol"
-                value={info.auraBoyaLekesiKontrol}
+                labelId="auraBeklemeSuresiKontrol"
+                id="auraBeklemeSuresiKontrol"
+                name='auraBeklemeSuresiKontrol'
+                label="auraBeklemeSuresiKontrol"
+                value={info.auraBeklemeSuresiKontrol}
                 onChange={handleChange}
                 >
                 <MenuItem value="OK">OK</MenuItem>

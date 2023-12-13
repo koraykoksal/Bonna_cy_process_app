@@ -206,7 +206,28 @@ const YuksekBasinc_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) =>
       headerAlign: "center",
       align: "center",
       flex: 1,
-      renderCell: ({ id }) => {
+      renderCell: ({ id,
+        row: {
+          is_merkezi,
+          agirlik,
+          taban,
+          kenar,
+          pkenar,
+          yogunluk,
+          v1,
+          v2,
+          camursicakligi,
+          basinc,
+          havakontrol,
+          catlakkontrol,
+          rotuskontrol,
+          yuzeykontrol,
+          uygunsuzluktipi,
+          aciklama,
+          vardiyasorumlusu,
+          urun_kodu,
+
+        } }) => {
         return [
           <GridActionsCellItem
             key={"edit"}
@@ -214,7 +235,28 @@ const YuksekBasinc_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) =>
             label="Edit"
             onClick={() => {
               handleOpen()
-              setInfo({ id, type: 'YuksekBasinc' })
+              setInfo({
+                id,
+                type: 'YuksekBasinc',
+                is_merkezi,
+                agirlik,
+                taban,
+                kenar,
+                pkenar,
+                yogunluk,
+                v1,
+                v2,
+                camursicakligi,
+                basinc,
+                havakontrol,
+                catlakkontrol,
+                rotuskontrol,
+                yuzeykontrol,
+                uygunsuzluktipi,
+                aciklama,
+                vardiyasorumlusu,
+                urun_kodu,
+              })
             }}
 
           />,

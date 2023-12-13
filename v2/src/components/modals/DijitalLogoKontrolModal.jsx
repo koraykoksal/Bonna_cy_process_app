@@ -39,7 +39,7 @@ const DijitalLogoKontrolModal = ({ open, handleClose, info, setInfo }) => {
     setInfo({ ...info, [e.target.name]: e.target.value })
   }
 
-  const { getFireData, putFireData, postFireData } = useArge()
+  const { getFireData, putFireData, postFireData ,getMaterialCenter} = useArge()
   const { materialCode } = useSelector((state) => state.arge)
 
 
@@ -50,10 +50,12 @@ const DijitalLogoKontrolModal = ({ open, handleClose, info, setInfo }) => {
     if (info.id) {
       putFireData('DijitalLogo', info)
       getFireData("DijitalLogo")
+      getMaterialCenter()
     }
     else {
       postFireData("DijitalLogo", info)
       getFireData("DijitalLogo")
+      getMaterialCenter()
     }
 
     handleClose()
@@ -123,7 +125,7 @@ const DijitalLogoKontrolModal = ({ open, handleClose, info, setInfo }) => {
                   id="urun_kodu"
                   name='urun_kodu'
                   label="urun_kodu"
-                  value={info.urun_kodu}
+                  value={info?.urun_kodu}
                   onChange={handleChange}
                 >
                   {
@@ -139,19 +141,6 @@ const DijitalLogoKontrolModal = ({ open, handleClose, info, setInfo }) => {
 
 
             <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
-
-
-              <TextField
-                required
-                fullWidth
-                label="Toplam Adet"
-                name="toplamAdet"
-                id="toplamAdet"
-                type="text"
-                variant="outlined"
-                value={info.toplamAdet}
-                onChange={handleChange}
-              />
 
 
               <TextField

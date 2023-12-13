@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material'
 
 
-const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) => {
+const GranulKontrol_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
 
   const { granulKontrolData } = useSelector((state) => state.arge)
   const [granuldata, setGranuldata] = useState([])
@@ -72,7 +72,7 @@ const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) =>
       align: "center",
       flex: 1,
     },
-   
+
     {
       field: "hammaddenem",
       headerName: "Hammadde Nem",
@@ -129,7 +129,7 @@ const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) =>
       align: "center",
       flex: 1,
     },
- 
+
     {
       field: "vardiyasorumlusu",
       headerName: "Vardiya Sorumlusu",
@@ -145,7 +145,20 @@ const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) =>
       headerAlign: "center",
       align: "center",
       flex: 1,
-      renderCell: ({ id }) => {
+      renderCell: ({ id,
+        row: {
+          is_merkezi,
+          hammaddenem,
+          prosesnem,
+          bigbagtarih,
+          bigbagkodu,
+          granulkodu,
+          redkabul,
+          aciklama,
+          vardiyasorumlusu,
+          urun_kodu,
+
+        } }) => {
         return [
           <GridActionsCellItem
             key={"edit"}
@@ -153,7 +166,20 @@ const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) =>
             label="Edit"
             onClick={() => {
               handleOpen()
-              setInfo({ id, type: 'GranulKontrol' })
+              setInfo({
+                id,
+                type: 'GranulKontrol',
+                is_merkezi,
+                hammaddenem,
+                prosesnem,
+                bigbagtarih,
+                bigbagkodu,
+                granulkodu,
+                redkabul,
+                aciklama,
+                vardiyasorumlusu,
+                urun_kodu,
+              })
             }}
 
           />,
@@ -183,7 +209,7 @@ const GranulKontrol_DataTable = ({setInfo, info, delHandleOpen, handleOpen }) =>
 
 
   return (
-    
+
     <Box sx={{ pt: 5 }}>
       <DataGrid
         columns={dataGrid_Columns}

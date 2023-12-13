@@ -311,7 +311,7 @@ const Sirlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
       align: "center",
       flex: 1,
     },
-   
+
     {
       field: "uygunsuzluktipi",
       headerName: "Uygunsuzluk Tipi",
@@ -343,7 +343,44 @@ const Sirlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
       headerAlign: "center",
       align: "center",
       flex: 1,
-      renderCell: ({ id }) => {
+      renderCell: ({ id,
+        row: {
+          renkKodu,
+          urun_kodu,
+          uretimyeri,
+          yogunluk,
+          sirSicaklik,
+          viskozite,
+          viskozite_v1,
+          viskozite_v2,
+          viskozite_v1v2,
+          tankKazan_KaristirmaHizi,
+          balerinTurnetHizi,
+          balerinGobekHizi,
+          pompaBasinci,
+          aktifNozulSayisi_alt,
+          aktifNozulSayisi_ust,
+          sirGramaji,
+          sirKalinligi_taban,
+          sirKalinligi_kenar,
+          sirKalinligi_orta,
+          biskuviKontrol,
+          biskuviSilimi_silimSuyu,
+          biskuviSilimi_silimSungeri,
+          biskuviSilimi_urunSilimi,
+          makineYikanmasi,
+          manyetikYikanmasi,
+          kazandaCokme,
+          receteKontrolu,
+          ayakSilimi_silimSungeri,
+          ayakSilimi_urunAyakSilimi,
+          sirliUrunYuzeyKontrolu,
+          auraBoyaLekesiKontrol,
+          auraBeklemeSuresiKontrol,
+          uygunsuzlukTipi,
+          aciklama,
+          operator,
+        } }) => {
         return [
           <GridActionsCellItem
             key={"edit"}
@@ -351,7 +388,45 @@ const Sirlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
             label="Edit"
             onClick={() => {
               handleOpen()
-              setInfo({ id, type: 'Sirlama' })
+              setInfo({
+                id,
+                type: 'Sirlama',
+                renkKodu,
+                urun_kodu,
+                uretimyeri,
+                yogunluk,
+                sirSicaklik,
+                viskozite,
+                viskozite_v1,
+                viskozite_v2,
+                viskozite_v1v2,
+                tankKazan_KaristirmaHizi,
+                balerinTurnetHizi,
+                balerinGobekHizi,
+                pompaBasinci,
+                aktifNozulSayisi_alt,
+                aktifNozulSayisi_ust,
+                sirGramaji,
+                sirKalinligi_taban,
+                sirKalinligi_kenar,
+                sirKalinligi_orta,
+                biskuviKontrol,
+                biskuviSilimi_silimSuyu,
+                biskuviSilimi_silimSungeri,
+                biskuviSilimi_urunSilimi,
+                makineYikanmasi,
+                manyetikYikanmasi,
+                kazandaCokme,
+                receteKontrolu,
+                ayakSilimi_silimSungeri,
+                ayakSilimi_urunAyakSilimi,
+                sirliUrunYuzeyKontrolu,
+                auraBoyaLekesiKontrol,
+                auraBeklemeSuresiKontrol,
+                uygunsuzlukTipi,
+                aciklama,
+                operator,
+              })
             }}
 
           />,

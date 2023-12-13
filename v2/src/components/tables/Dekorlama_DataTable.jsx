@@ -130,7 +130,18 @@ const Dekorlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
       headerAlign: "center",
       align: "center",
       flex: 1,
-      renderCell: ({ id }) => {
+      renderCell: ({ id,
+        row: {
+          urun_kodu,
+          aciklama,
+          silimsunger,
+          silimsuyu,
+          urunsilim,
+          boya_etiketi,
+          boya_cokme,
+          boya_lekesi,
+
+        } }) => {
         return [
           <GridActionsCellItem
             key={"edit"}
@@ -138,7 +149,18 @@ const Dekorlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
             label="Edit"
             onClick={() => {
               handleOpen()
-              setInfo({ id, type: 'Dekorlama' })
+              setInfo({
+                id, 
+                type: 'Dekorlama',
+                urun_kodu,
+                aciklama,
+                silimsunger,
+                silimsuyu,
+                urunsilim,
+                boya_etiketi,
+                boya_cokme,
+                boya_lekesi,
+              })
             }}
 
           />,

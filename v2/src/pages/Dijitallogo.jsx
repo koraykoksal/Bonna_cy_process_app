@@ -46,7 +46,6 @@ const Dijitallogo = () => {
     banthizi: "",
     merkezleme: "",
     besleme: "",
-    toplama: "",
     logosonrasi_istif: "",
     hatatanimi: "",
     hataliUrunYuzdesi: 0,
@@ -69,7 +68,6 @@ const Dijitallogo = () => {
       banthizi: "",
       merkezleme: "",
       besleme: "",
-      toplama: "",
       logosonrasi_istif: "",
       hatatanimi: "",
       hataliUrunYuzdesi: 0,
@@ -84,7 +82,7 @@ const Dijitallogo = () => {
   const delHandleOpen = () => setdelOpen(true);
   const delHandleClose = () => setdelOpen(false);
 
-  const { hammaddeMaterialCode, getFireData,getMaterialCenter } = useArge()
+  const { getFireData,getMaterialCenter } = useArge()
 
 
   useEffect(() => {

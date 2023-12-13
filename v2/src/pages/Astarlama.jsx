@@ -6,8 +6,9 @@ import AstarlamaModal from '../components/modals/AstarlamaModal';
 import Button from '@mui/material/Button';
 import DeleteModals from '../components/deleteModals/DeleteModals';
 import Astarlama_DataTable from '../components/tables/Astarlama_DataTable';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import useArge from '../hooks/useArge';
 
 const Astarlama = () => {
 
@@ -17,6 +18,8 @@ const Astarlama = () => {
   const currentTime = nowData.getHours() + ":" + nowData.getMinutes()
 
   const { currentUser } = useSelector((state) => state.auth)
+  const {getFireData}=useArge()
+
 
   const getShift = () => {
     const now = new Date().getHours()
@@ -82,6 +85,10 @@ const Astarlama = () => {
   const delHandleClose = () => setdelOpen(false);
 
 
+  useEffect(() => {
+    getFireData('Astarlama')
+  }, [])
+  
 
   return (
 

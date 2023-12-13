@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material'
 
 
-const Ayaktaslama_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
+const Ayaktaslama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
 
   const { ayakTaslamaData } = useSelector((state) => state.arge)
   const [ayakTaslama, setayakTaslama] = useState([])
@@ -104,7 +104,7 @@ const Ayaktaslama_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
       align: "center",
       flex: 1,
     },
-    
+
     {
       field: "aciklama",
       headerName: "Açıklama",
@@ -120,7 +120,16 @@ const Ayaktaslama_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
       headerAlign: "center",
       align: "center",
       flex: 1,
-      renderCell: ({ id }) => {
+      renderCell: ({ id,
+        row: {
+          urun_kodu,
+          renkkodu,
+          kontrolAdet,
+          uygunsuzAdet,
+          uygunsuzlukOrani,
+          makineParametreKontrolu,
+          aciklama,
+        } }) => {
         return [
           <GridActionsCellItem
             key={"edit"}
@@ -128,7 +137,17 @@ const Ayaktaslama_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
             label="Edit"
             onClick={() => {
               handleOpen()
-              setInfo({ id, type: 'AyakTaslama' })
+              setInfo({
+                id,
+                type: 'AyakTaslama',
+                urun_kodu,
+                renkkodu,
+                kontrolAdet,
+                uygunsuzAdet,
+                uygunsuzlukOrani,
+                makineParametreKontrolu,
+                aciklama,
+              })
             }}
 
           />,
@@ -156,19 +175,19 @@ const Ayaktaslama_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
 
 
   return (
-    
+
     <Box sx={{ pt: 5 }}>
-    <DataGrid
-      columns={dataGrid_Columns}
-      rows={ayakTaslama}
-      pageSizeOptions={[10, 25, 50, 75, 100]}
-      slots={{ toolbar: GridToolbar }}
-      disableRowSelectionOnClick
-      sx={{
-        boxShadow: 4,
-      }}
-    />
-  </Box>
+      <DataGrid
+        columns={dataGrid_Columns}
+        rows={ayakTaslama}
+        pageSizeOptions={[10, 25, 50, 75, 100]}
+        slots={{ toolbar: GridToolbar }}
+        disableRowSelectionOnClick
+        sx={{
+          boxShadow: 4,
+        }}
+      />
+    </Box>
 
   )
 }

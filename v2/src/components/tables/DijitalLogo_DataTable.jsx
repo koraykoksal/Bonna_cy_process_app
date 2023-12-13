@@ -10,7 +10,7 @@ import { Box, Typography } from '@mui/material'
 
 
 
-const DijitalLogo_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
+const DijitalLogo_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
 
   const { dijitalLogoData } = useSelector((state) => state.arge)
   const [dijitalLogo, setdijitalLogo] = useState([])
@@ -50,7 +50,6 @@ const DijitalLogo_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
       align: "center",
       flex: 1,
     },
-    
     {
       field: "kontroleden_kisi",
       headerName: "Kontroleden Kişi",
@@ -59,7 +58,6 @@ const DijitalLogo_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
       align: "center",
       flex: 1,
     },
-   
     {
       field: "kontroledilenAdet",
       headerName: "Kontrol Edilen Adet",
@@ -100,7 +98,6 @@ const DijitalLogo_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
       align: "center",
       flex: 1,
     },
-   
     {
       field: "besleme",
       headerName: "Besleme",
@@ -156,7 +153,21 @@ const DijitalLogo_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
       headerAlign: "center",
       align: "center",
       flex: 1,
-      renderCell: ({ id }) => {
+      renderCell: ({ id,
+        row: {
+          urun_kodu,
+          kontroledilenAdet,
+          hataliUrunSayisi,
+          aciklama,
+          banthizi,
+          merkezleme,
+          besleme,
+          logosonrasi_istif,
+          hatatanimi,
+          hataliUrunYuzdesi,
+
+
+        } }) => {
         return [
           <GridActionsCellItem
             key={"edit"}
@@ -164,7 +175,20 @@ const DijitalLogo_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
             label="Edit"
             onClick={() => {
               handleOpen()
-              setInfo({ id, type: 'DijitalLogo' })
+              setInfo({
+                id,
+                type: 'DijitalLogo',
+                urun_kodu,
+                kontroledilenAdet,
+                hataliUrunSayisi,
+                aciklama,
+                banthizi,
+                merkezleme,
+                besleme,
+                logosonrasi_istif,
+                hatatanimi,
+                hataliUrunYuzdesi,
+              })
             }}
 
           />,
@@ -174,7 +198,7 @@ const DijitalLogo_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
             label="Delete"
             onClick={() => {
               delHandleOpen()
-              setInfo({ id, type: 'DijitalLogo' })
+              setInfo({ id, type: 'DijitalLogo', aciklama })
             }}
 
           />,
@@ -192,20 +216,20 @@ const DijitalLogo_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
 
 
   return (
-   
+
     <Box sx={{ pt: 5 }}>
-    <DataGrid
-      columns={dataGrid_Columns}
-      rows={dijitalLogo}
-      pageSizeOptions={[10, 25, 50, 75, 100]}
-      slots={{ toolbar: GridToolbar }}
-      disableRowSelectionOnClick
-      sx={{
-        boxShadow: 4,
-      }}
-    />
-  </Box>
-  
+      <DataGrid
+        columns={dataGrid_Columns}
+        rows={dijitalLogo}
+        pageSizeOptions={[10, 25, 50, 75, 100]}
+        slots={{ toolbar: GridToolbar }}
+        disableRowSelectionOnClick
+        sx={{
+          boxShadow: 4,
+        }}
+      />
+    </Box>
+
   )
 }
 
