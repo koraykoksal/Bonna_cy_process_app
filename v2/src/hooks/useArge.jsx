@@ -401,9 +401,22 @@ const useArge = () => {
                 }
             })
 
+
+            //! kontrol edilen tüm proses verilerini çek
+            //! Uygunsuzluk datası hariç diğer dataların verilerini al
+            const kontrolEdilenVeriler = Object.keys(data).reduce((acc, key) => {
+                if (key !== "Uygunsuzluk") {
+                    acc[key] = data[key];
+                }
+                return acc;
+            }, {});
+
+
             let toplamKontrolEdilen = []
 
-            Object.values(data).forEach(item => {
+            //! kontrolEdilenVeriler değişkeni içinde kalan verilerin value değerlerini alarak her key objesi içindeki toplam kayıt sayısını bul
+            Object.values(kontrolEdilenVeriler).forEach(item => {
+
 
                 if (typeof item == 'object' && item != null) {
                     const result = Object.keys(item).length
@@ -414,7 +427,7 @@ const useArge = () => {
             const toplamKayitSayisi = toplamKontrolEdilen.reduce((toplam, sayi) => toplam + sayi, 0);
 
             allDashboard_Data.totalControlCount=toplamKayitSayisi
-            
+
             allDashboard_Data.totalControlDetail=data
 
             dispatch(fetchDashboardData(allDashboard_Data))
