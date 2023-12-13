@@ -35,11 +35,29 @@ const BiskuviTriyajModal = ({ open, handleClose, info, setInfo }) => {
 
   const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value })
+
+    // const {name,value} = e.target;
+
+    // setInfo(prevInfo=>{
+    //   const newData = {...prevInfo,[name]:value}
+
+    //   if(name === 'hataliUrunYuzdesi' || name === 'ayakCatlagiYuzdesi' || name === 'kenarCatlagiYuzdesi' || name === 'firinKirigiYuzdesi' || name === 'digerYuzdesi'){
+
+    //     // const hataliUrunYuzdesi = parseFloat(newData.hataliUrunSayisi) || 0;
+    //     // const ayakCatlagiYuzdesi = parseFloat(newData.ayakcatlagi) || 0;
+    //     // const kenarCatlagiYuzdesi = parseFloat(newData.kenarCatlagi) || 0;
+       
+    //     newData.hataliUrunYuzdesi = (Number(newData.hataliUrunSayisi) / Number(newData.kontroledilenAdet)).toFixed(1)
+
+
+    //   }
+    // })
+
   }
 
 
-  const { getFireData, putFireData,postFireData } = useArge()
-  const {  materialCode } = useSelector((state) => state.arge)
+  const { getFireData, putFireData, postFireData } = useArge()
+  const { materialCode } = useSelector((state) => state.arge)
 
 
   const handleSubmit = (e) => {
@@ -67,13 +85,12 @@ const BiskuviTriyajModal = ({ open, handleClose, info, setInfo }) => {
 
       {
         ...info,
-        hataliUrunYuzdesi: (Number(info.hataliUrunSayisi) / Number(info.kontroledilenAdet)).toFixed(2),
-        ayakCatlagiYuzdesi: (Number(info.ayakcatlagi) / Number(info.kontroledilenAdet)).toFixed(2),
-        kenarCatlagiYuzdesi: (Number(info.kenarCatlagi) / Number(info.kontroledilenAdet)).toFixed(2),
-        ayakCatlagiYuzdesi: (Number(info.ayakcatlagi) / Number(info.kontroledilenAdet)).toFixed(2),
+        hataliUrunYuzdesi: (Number(info.hataliUrunSayisi) / Number(info.kontroledilenAdet)).toFixed(1),
+        ayakCatlagiYuzdesi: (Number(info.ayakcatlagi) / Number(info.kontroledilenAdet)).toFixed(1),
+        kenarCatlagiYuzdesi: (Number(info.kenarCatlagi) / Number(info.kontroledilenAdet)).toFixed(1),
 
-        firinKirigiYuzdesi: (Number(info.firinKirigi) / Number(info.kontroledilenAdet)).toFixed(2),
-        digerYuzdesi: (Number(info.diger) / Number(info.kontroledilenAdet)).toFixed(2),
+        firinKirigiYuzdesi: (Number(info.firinKirigi) / Number(info.kontroledilenAdet)).toFixed(1),
+        digerYuzdesi: (Number(info.diger) / Number(info.kontroledilenAdet)).toFixed(1),
 
       }
 
@@ -86,13 +103,7 @@ const BiskuviTriyajModal = ({ open, handleClose, info, setInfo }) => {
 
     control()
 
-  }, [
-    info.hataliUrunSayisi,
-    info.ayakcatlagi,
-    info.kenarCatlagi,
-    info.firinKirigi,
-    info.diger
-  ])
+  }, [info.hataliUrunSayisi,info.ayakcatlagi,info.kenarCatlagi,info.firinKirigi,info.diger])
 
 
   return (
@@ -121,7 +132,7 @@ const BiskuviTriyajModal = ({ open, handleClose, info, setInfo }) => {
           </Box>
 
 
-          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '600px' }} component='form' onSubmit={handleSubmit}>
+          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '550px' }} component='form' onSubmit={handleSubmit}>
 
 
             <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}>
@@ -129,6 +140,7 @@ const BiskuviTriyajModal = ({ open, handleClose, info, setInfo }) => {
               <FormControl fullWidth>
                 <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
                 <Select
+                  required
                   labelId="urun_kodu"
                   id="urun_kodu"
                   name='urun_kodu'
@@ -147,6 +159,7 @@ const BiskuviTriyajModal = ({ open, handleClose, info, setInfo }) => {
               <FormControl fullWidth>
                 <InputLabel id="sekillendirmeYontemi">Şekillendirme Yöntemi</InputLabel>
                 <Select
+                  required
                   labelId="sekillendirmeYontemi"
                   id="sekillendirmeYontemi"
                   name='sekillendirmeYontemi'

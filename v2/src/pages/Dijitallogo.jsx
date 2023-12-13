@@ -84,12 +84,12 @@ const Dijitallogo = () => {
   const delHandleOpen = () => setdelOpen(true);
   const delHandleClose = () => setdelOpen(false);
 
-  const { hammaddeMaterialCode, getFireData } = useArge()
+  const { hammaddeMaterialCode, getFireData,getMaterialCenter } = useArge()
 
 
   useEffect(() => {
 
-    hammaddeMaterialCode()
+    getMaterialCenter()
 
     getFireData("DijitalLogo")
 

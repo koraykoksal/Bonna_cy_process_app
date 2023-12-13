@@ -51,10 +51,10 @@ const Triyaj = () => {
     karantina: "",
     firinkodu: "",
     biskuvifirinSorumlusu: "",
-    ayakcatlagi: 0,
-    kenarCatlagi: 0,
-    firinKirigi: 0,
-    diger: 0,
+    ayakcatlagi: "",
+    kenarCatlagi: "",
+    firinKirigi: "",
+    diger: "",
     hataliUrunYuzdesi: 0,
     ayakCatlagiYuzdesi: 0,
     kenarCatlagiYuzdesi: 0,
@@ -113,6 +113,7 @@ const Triyaj = () => {
   }, [])
 
 
+  console.log(info)
 
   return (
 

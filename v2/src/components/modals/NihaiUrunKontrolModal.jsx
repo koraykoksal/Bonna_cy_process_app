@@ -98,7 +98,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, info, setInfo }) => {
           </Box>
 
 
-          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '600px' }} component='form' onSubmit={handleSubmit}>
+          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '550px' }} component='form' onSubmit={handleSubmit}>
 
 
             <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
@@ -107,6 +107,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, info, setInfo }) => {
               <FormControl fullWidth>
                 <InputLabel id="renkKodu">Renk Kodu</InputLabel>
                 <Select
+                required
                   labelId="renkKodu"
                   id="renkKodu"
                   name='renkKodu'
@@ -126,6 +127,7 @@ const NihaiUrunKontrolModal = ({ open, handleClose, info, setInfo }) => {
               <FormControl fullWidth>
                 <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
                 <Select
+                required
                   labelId="urun_kodu"
                   id="urun_kodu"
                   name='urun_kodu'

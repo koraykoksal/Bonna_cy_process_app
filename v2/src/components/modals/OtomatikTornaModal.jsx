@@ -85,8 +85,8 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo  }) => {
             </IconButton>
           </Box>
 
-
-          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '600px' }} component='form' onSubmit={handleSubmit}>
+    
+          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '550px' }} component='form' onSubmit={handleSubmit}>
 
 
             <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
@@ -95,6 +95,7 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo  }) => {
               <FormControl fullWidth>
                 <InputLabel id="is_merkezi">Makine</InputLabel>
                 <Select
+                required
                   labelId="is_merkezi"
                   id="is_merkezi"
                   name='is_merkezi'
@@ -115,6 +116,7 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo  }) => {
               <FormControl fullWidth>
                 <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
                 <Select
+                required
                   labelId="urun_kodu"
                   id="urun_kodu"
                   name='urun_kodu'
@@ -404,7 +406,7 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo  }) => {
 
 
           </Box>
-
+        
 
         </Box>
       </Modal>

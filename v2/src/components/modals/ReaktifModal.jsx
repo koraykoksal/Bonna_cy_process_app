@@ -88,12 +88,13 @@ const ReaktifModal=({open, handleClose, info, setInfo })=>{
         </Box>
           
             
-            <Box sx={{mt:3,display:'flex',flexDirection:'column',gap:2,overflow:'scroll',maxHeight:'600px'}} component='form' onSubmit={handleSubmit}>
+            <Box sx={{mt:3,display:'flex',flexDirection:'column',gap:2,overflow:'scroll',maxHeight:'550px'}} component='form' onSubmit={handleSubmit}>
                 
 
             <FormControl fullWidth>
                 <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
                 <Select
+                required
                 labelId="urun_kodu"
                 id="urun_kodu"
                 name='urun_kodu'

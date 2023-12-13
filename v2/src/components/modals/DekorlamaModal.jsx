@@ -88,7 +88,7 @@ const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
           </Box>
 
 
-          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '600px' }} component='form' onSubmit={handleSubmit}>
+          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '550px' }} component='form' onSubmit={handleSubmit}>
 
 
             <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}>
@@ -96,6 +96,7 @@ const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
               <FormControl fullWidth>
                 <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
                 <Select
+                required
                   labelId="urun_kodu"
                   id="urun_kodu"
                   name='urun_kodu'
@@ -137,6 +138,7 @@ const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
               <FormControl fullWidth>
                 <InputLabel id="silimsuyu">Silim Suyu</InputLabel>
                 <Select
+                required
                   labelId="silimsuyu"
                   id="silimsuyu"
                   name='silimsuyu'
@@ -156,6 +158,7 @@ const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
               <FormControl fullWidth>
                 <InputLabel id="urunsilim">Ürün Silimi</InputLabel>
                 <Select
+                required
                   labelId="urunsilim"
                   id="urunsilim"
                   name='urunsilim'
@@ -171,6 +174,7 @@ const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
               <FormControl fullWidth>
                 <InputLabel id="boya_etiketi">Boya Etiketi</InputLabel>
                 <Select
+                required
                   labelId="boya_etiketi"
                   id="boya_etiketi"
                   name='boya_etiketi'
@@ -190,6 +194,7 @@ const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
               <FormControl fullWidth>
                 <InputLabel id="boya_cokme">Boya Çökme</InputLabel>
                 <Select
+                required
                   labelId="boya_cokme"
                   id="boya_cokme"
                   name='boya_cokme'
@@ -205,6 +210,7 @@ const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
               <FormControl fullWidth>
                 <InputLabel id="boya_lekesi">Boya Lekesi</InputLabel>
                 <Select
+                required
                   labelId="boya_lekesi"
                   id="boya_lekesi"
                   name='boya_lekesi'
