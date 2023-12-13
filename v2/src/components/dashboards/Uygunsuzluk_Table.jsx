@@ -18,6 +18,11 @@ const Uygunsuzluk_Table = ({ tekrarlananAksyionTipleri, tekrarlananSorunTipleri 
         fontWeight: '700'
     }
 
+    const tableContainerStyle = {
+        maxHeight:'350px',
+        overflow:'auto'
+    }
+
 
 
 
@@ -27,7 +32,7 @@ const Uygunsuzluk_Table = ({ tekrarlananAksyionTipleri, tekrarlananSorunTipleri 
 
         <Box sx={{display:'flex',justifyContent:'center',gap:3}}>
             <Box>
-                <TableContainer component={Paper}>
+                <TableContainer component={Paper} sx={tableContainerStyle}>
                     <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                         <TableHead sx={{ backgroundColor: '#000000' }}>
                             <TableRow>
@@ -50,7 +55,7 @@ const Uygunsuzluk_Table = ({ tekrarlananAksyionTipleri, tekrarlananSorunTipleri 
             </Box>
 
             <Box>
-            <TableContainer component={Paper}>
+            <TableContainer component={Paper} sx={tableContainerStyle}>
                 <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                     <TableHead sx={{ backgroundColor: '#000000' }}>
                         <TableRow>
