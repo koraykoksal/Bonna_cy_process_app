@@ -167,7 +167,7 @@ const useArge = () => {
     //! firebase data gönder
     const postFireData = async (address, info) => {
 
-        console.log("info", info)
+        // console.log("info", info)
 
         dispatch(fetchStart())
 
@@ -316,12 +316,10 @@ const useArge = () => {
         const databaseRef = ref(database);
 
         onValue(databaseRef, (snapshot) => {
+
             const data = snapshot.val();
 
-            const tt = Object.keys(data)
-
-            tt.forEach(element => {
-
+            const tt = Object.keys(data).forEach(element => {
 
                 if (element === 'OtomatikTorna') {
                     const OtomatikTorna = data[element]
@@ -386,53 +384,39 @@ const useArge = () => {
                 else if (element === 'Uygunsuzluk') {
                     const uygunsuzluk = data[element]
 
-                    let controlCount = 0
+                    const toplamUygunsuzluk_kayitSayisi = Object.keys(uygunsuzluk).length
+                    allDashboard_Data.uygunsuzlukControl_Count = toplamUygunsuzluk_kayitSayisi
 
-                    for (let key in uygunsuzluk) {
+                    // let controlCount = 0
 
-                        if (uygunsuzluk.hasOwnProperty(key)) {
-                            controlCount += 1
-                        }
+                    // for (let key in uygunsuzluk) {
 
-                        allDashboard_Data.uygunsuzlukControl_Count = controlCount
-                    }
+                    //     if (uygunsuzluk.hasOwnProperty(key)) {
+                    //         controlCount += 1
+                    //     }
+
+                    //     allDashboard_Data.uygunsuzlukControl_Count = controlCount
+                    // }
+
                 }
-
-            });
+            })
 
             let toplamKontrolEdilen = []
 
             Object.values(data).forEach(item => {
-                if (typeof item == 'object' && item !== null) {
 
-                    const data = Object.keys(item)
-                    toplamKontrolEdilen.push(data)
-
-                    const toplamKayitSayisi = toplamKontrolEdilen.reduce((toplam, altDizi) => toplam + altDizi.length, 0);
-                    
-                    allDashboard_Data.totalControlCount=toplamKayitSayisi
+                if (typeof item == 'object' && item != null) {
+                    const result = Object.keys(item).length
+                    toplamKontrolEdilen.push(result)
                 }
-
             })
 
+            const toplamKayitSayisi = toplamKontrolEdilen.reduce((toplam, sayi) => toplam + sayi, 0);
+
+            allDashboard_Data.totalControlCount=toplamKayitSayisi
+            
             allDashboard_Data.totalControlDetail=data
 
-            // let sumDataCount = 0
-
-            // for(let key in data){
-
-            //     // console.log("data: ",data[key])
-
-            //     if(data.hasOwnProperty(key) != 'Uygunsuzluk'){
-            //         sumDataCount += 1
-            //     }
-
-            //     allDashboard_Data.totalControlCount=sumDataCount
-
-            //     // tüm dataların detayları
-            //     allDashboard_Data.totalControlDetail=data
-
-            // }
             dispatch(fetchDashboardData(allDashboard_Data))
 
 

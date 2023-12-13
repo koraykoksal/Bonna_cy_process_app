@@ -8,14 +8,13 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 
-const Dashboard_Cards = () => {
+const Dashboard_Cards = ({dashboardData,prosesPlanaUygunluk}) => {
 
     const navigate = useNavigate()
 
-    const { readFireData, getDesenCode, getWorkCenter, getMaterialCenter, hammaddeMaterialCode } = useArge()
-    const { dashboardData } = useSelector((state) => state.arge)
-    const [detailData, setdetailData] = useState([])
-    const [prosesPlanaUygunluk, setprosesPlanaUygunluk] = useState(0)
+    // const { readFireData, getDesenCode, getWorkCenter, getMaterialCenter, hammaddeMaterialCode } = useArge()
+    // const { dashboardData } = useSelector((state) => state.arge)
+    // const [prosesPlanaUygunluk, setprosesPlanaUygunluk] = useState(0)
 
     const typoStyle = {
         fontSize: '15px',
@@ -27,34 +26,19 @@ const Dashboard_Cards = () => {
         fontWeight: '700'
     }
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        readFireData()
+    //     readFireData()
 
-    }, [])
+    // }, [])
 
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        // let toplamKontrolEdilen = []
+    //     const uygunlukOrani = (Number(dashboardData.toplamUygunsuzlukMiktar) / Number(dashboardData.toplamKontrolMiktar)) * 100
+    //     setprosesPlanaUygunluk(uygunlukOrani.toFixed(1))
 
-        // Object.values(dashboardData.toplamKontrolDetay).forEach(item=>{
-        //   if(typeof item == 'object' && item !== null ){
-
-        //     const data = Object.keys(item)
-        //     toplamKontrolEdilen.push(data)
-
-        //     const toplamKayitSayisi = toplamKontrolEdilen.reduce((toplam, altDizi) => toplam + altDizi.length, 0);
-
-        //     console.log(toplamKayitSayisi)
-        //   }
-
-        // })
-
-        const uygunlukOrani = (Number(dashboardData.toplamUygunsuzlukMiktar) / Number(dashboardData.toplamKontrolMiktar)) * 100
-        setprosesPlanaUygunluk(uygunlukOrani.toFixed(1))
-
-    }, [dashboardData])
+    // }, [dashboardData])
 
 
     return (
@@ -97,7 +81,6 @@ const Dashboard_Cards = () => {
                             <Typography variant="h3" align='center'>
                                 {dashboardData.toplamKontrolMiktar}
                             </Typography>
-                            {/* <Button size="small" variant='outlined' sx={buttonStyle} onClick={() => navigate('/proses/uygunsuzluk')}>Detay</Button> */}
                         </Paper>
                     </Grid>
 
