@@ -14,6 +14,7 @@ import { Avatar, Grid, Paper } from '@mui/material';
 import Dashboard_Cards from '../components/dashboards/Dashboard_Cards';
 import HataBazli_Uygunsuzluk from '../components/dashboards/HataBazli_Uygunsuzluk';
 import Uygunsuzluk_Table from '../components/dashboards/Uygunsuzluk_Table';
+import { set } from 'firebase/database';
 
 const Home = () => {
 
@@ -21,16 +22,22 @@ const Home = () => {
   const navigate = useNavigate()
 
   const { readFireData, getFireData, getDesenCode, getWorkCenter, getMaterialCenter, hammaddeMaterialCode } = useArge()
-  const { dashboardData } = useSelector((state) => state.arge)
+  const { dashboardData, uygunsuzlukData } = useSelector((state) => state.arge)
+
   const [prosesPlanaUygunluk, setprosesPlanaUygunluk] = useState(0)
 
-  const { uygunsuzlukData } = useSelector((state) => state.arge)
   const [sorunTipleri, setSorunTipleri] = useState({});
   const [aksiyonSahibi, setaksiyonSahibi] = useState({})
+
   const [hataBazliUygunsuzlukMiktar, setHataBazliUygunsuzlukMiktar] = useState(0)
   const [bolumBazliUygunsuzlukMiktar, setBolumBazliUygunsuzlukMiktar] = useState(0)
 
+  const [farkliSorunTipiSayisi, setFarkliSorunTipiSayisi] = useState(0);
+  const [tekrarlananSorunTipleri, setTekrarlananSorunTipleri] = useState([]);
 
+
+  const [farkliAksiyonTipiSayisi, setFarkliAksiyonTipiSayisi] = useState(0);
+  const [tekrarlananAksyionTipleri, setTekrarlananAksiyonTipleri] = useState([]);
 
 
   useEffect(() => {
@@ -41,6 +48,7 @@ const Home = () => {
   }, [])
 
 
+  //! dashboard datası true ise uygunsuzluk oranı hesaplamasını yap
   useEffect(() => {
 
     const uygunlukOrani = (Number(dashboardData.toplamUygunsuzlukMiktar) / Number(dashboardData.toplamKontrolMiktar)) * 100
@@ -49,72 +57,57 @@ const Home = () => {
   }, [dashboardData])
 
 
+
   useEffect(() => {
 
-    //! hata bazlı uygunsuzluk datası
-    Object.values(uygunsuzlukData).forEach(kayit => {
-      const sorunTipi = kayit.sorun_tipi || "Değer"
+    const data = Object.values(uygunsuzlukData)
 
-      setSorunTipleri(prevSorunTipleri => ({
-        ...prevSorunTipleri, [sorunTipi]: [...(prevSorunTipleri[sorunTipi] || []), kayit]
-      }))
+    //! sorun tiplerini ayrıştır
+    const sorunTipleriDizisi = data.map(kayit => kayit.sorun_tipi);
+    setSorunTipleri(sorunTipleriDizisi);
 
-    })
+    const benzersizSorunTipleri = new Set(sorunTipleriDizisi);
+    setFarkliSorunTipiSayisi(benzersizSorunTipleri.size);
 
 
-    //! bölüm bazlı uygunsuzluk datası
-    Object.values(uygunsuzlukData).forEach(kayit => {
-      const aksiyon_sahibi = kayit.aksiyon_sahibi || "Değer"
+    // //! aksiyon sahibi tiplerini ayrıştır
+    const aksiyonSahibiTipleriDizisi = data.map(kayit=>kayit.aksiyon_sahibi);
+    setaksiyonSahibi(aksiyonSahibiTipleriDizisi)
 
-      setaksiyonSahibi(prevSorunTipleri => ({
-        ...prevSorunTipleri, [aksiyon_sahibi]: [...(prevSorunTipleri[aksiyon_sahibi] || []), kayit]
-      }))
-    })
+    const benzersizAksiyonTipleri = new Set(aksiyonSahibiTipleriDizisi)
+    setFarkliAksiyonTipiSayisi(benzersizAksiyonTipleri.size)
+
+
+    //! Sorun tiplerinin tekrar sayılarını hesaplama
+    const sorunTipiSayilari = {};
+    sorunTipleriDizisi.forEach(sorunTipi => {
+      sorunTipiSayilari[sorunTipi] = (sorunTipiSayilari[sorunTipi] || 0) + 1;
+    });
+
+    //! İstenen formatta tekrarlanan sorun tiplerini ayarlama
+    const tekrarlananSorunTipleri = Object.keys(sorunTipiSayilari).map(key => ({
+      soruntipi: key,
+      tekrar: sorunTipiSayilari[key]
+    }));
+    setTekrarlananSorunTipleri(tekrarlananSorunTipleri);
+
+
+
+    // //! aksiyon sahibi tiplerinin tekrar sayılarını hesaplama
+    const aksiyonSahibiTipiSayilari = {};
+    aksiyonSahibiTipleriDizisi.forEach(aksiyonTipi => {
+      aksiyonSahibiTipiSayilari[aksiyonTipi] = (aksiyonSahibiTipiSayilari[aksiyonTipi] || 0) + 1;
+    });
+
+    // //! İstenen formatta tekrarlanan sorun tiplerini ayarlama
+    const tekrarlananAksiyonTipleri = Object.keys(aksiyonSahibiTipiSayilari).map(key => ({
+      aksiyontipi: key,
+      tekrar: aksiyonSahibiTipiSayilari[key]
+    }));
+    setTekrarlananAksiyonTipleri(tekrarlananAksiyonTipleri);
+
 
   }, [uygunsuzlukData])
-
-
-  // useEffect(() => {
-
-  //   Object.values(uygunsuzlukData).forEach(kayit => {
-  //     const sorunTipi = kayit.sorun_tipi || "Değer";
-
-  //     setSorunTipleri(prevSorunTipleri => {
-  //       // Mevcut kayıtlar ve sayımları için varsayılan değerler
-  //       const mevcutKayitlar = prevSorunTipleri[sorunTipi]?.kayitlar || [];
-  //       const mevcutSayim = prevSorunTipleri[sorunTipi]?.sayim || 0;
-
-  //       return {
-  //         ...prevSorunTipleri,
-  //         [sorunTipi]: {
-  //           kayitlar: [...mevcutKayitlar, kayit],
-  //           sayim: mevcutSayim + 1
-  //         }
-  //       };
-  //     });
-  //   });
-
-  // }, [uygunsuzlukData])
-
-
-
-  useEffect(() => {
-
-    //! hata bazlı uygunsuzluk miktar
-    const sorunTipleri_data = Object.keys(sorunTipleri).length
-    setHataBazliUygunsuzlukMiktar(sorunTipleri_data)
-
-    //! bölüm bazlı uygunsuzluk miktar
-    const aksiyonSahibi_data = Object.keys(aksiyonSahibi).length
-    setBolumBazliUygunsuzlukMiktar(aksiyonSahibi_data)
-
-
-  }, [sorunTipleri, aksiyonSahibi])
-
-
-
-
-
 
 
 
@@ -127,12 +120,12 @@ const Home = () => {
       <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3 }}>
 
         <Dashboard_Cards dashboardData={dashboardData} prosesPlanaUygunluk={prosesPlanaUygunluk} />
-        <HataBazli_Uygunsuzluk hataBazliUygunsuzlukMiktar={hataBazliUygunsuzlukMiktar} bolumBazliUygunsuzlukMiktar={bolumBazliUygunsuzlukMiktar} />
+        <HataBazli_Uygunsuzluk farkliSorunTipiSayisi={farkliSorunTipiSayisi} farkliAksiyonTipiSayisi={farkliAksiyonTipiSayisi}/>
 
       </Box>
 
       <Box>
-        <Uygunsuzluk_Table sorunTipleri={sorunTipleri} />
+        <Uygunsuzluk_Table tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} tekrarlananSorunTipleri={tekrarlananSorunTipleri}/>
       </Box>
 
     </Box>

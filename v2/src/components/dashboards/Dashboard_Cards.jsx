@@ -12,10 +12,6 @@ const Dashboard_Cards = ({dashboardData,prosesPlanaUygunluk}) => {
 
     const navigate = useNavigate()
 
-    // const { readFireData, getDesenCode, getWorkCenter, getMaterialCenter, hammaddeMaterialCode } = useArge()
-    // const { dashboardData } = useSelector((state) => state.arge)
-    // const [prosesPlanaUygunluk, setprosesPlanaUygunluk] = useState(0)
-
     const typoStyle = {
         fontSize: '15px',
         color: '#ffffff',
@@ -26,19 +22,7 @@ const Dashboard_Cards = ({dashboardData,prosesPlanaUygunluk}) => {
         fontWeight: '700'
     }
 
-    // useEffect(() => {
 
-    //     readFireData()
-
-    // }, [])
-
-
-    // useEffect(() => {
-
-    //     const uygunlukOrani = (Number(dashboardData.toplamUygunsuzlukMiktar) / Number(dashboardData.toplamKontrolMiktar)) * 100
-    //     setprosesPlanaUygunluk(uygunlukOrani.toFixed(1))
-
-    // }, [dashboardData])
 
 
     return (

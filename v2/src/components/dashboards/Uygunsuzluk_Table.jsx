@@ -7,9 +7,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Box } from '@mui/material';
 
 
-const Uygunsuzluk_Table = ({ sorunTipleri }) => {
+const Uygunsuzluk_Table = ({ tekrarlananAksyionTipleri, tekrarlananSorunTipleri }) => {
 
 
     const tableCellStyle = {
@@ -17,40 +18,38 @@ const Uygunsuzluk_Table = ({ sorunTipleri }) => {
         fontWeight: '700'
     }
 
-    const [uygunsuzlukAdetDetay, setuygunsuzlukAdetDetay] = useState([])
 
-
-    useEffect(() => {
-
-        // const uygunsuzlukAdetCounts = Object.keys(sorunTipleri).reduce((acc, key) => {
-        //     acc[key] = sorunTipleri[key].length;
-        //     return acc;
-        // }, {});
-
-         // const dizi = Object.keys(sorunTipleri).map((item)=>({
-        //     title:item,
-        //     count:uygunsuzlukAdetCounts[item].sayim
-
-        // }))
-
-
-        // const dizi = Object.keys(sorunTipleri).map(key => ({
-        //     title: key,
-        //     count: sorunTipleri[key].sayim
-        // }));
-
-       
-
-        // setuygunsuzlukAdetDetay(dizi)
-
-    }, [sorunTipleri])
 
 
     // console.log(sorunTipleri)
 
     return (
 
-        <div>
+        <Box sx={{display:'flex',justifyContent:'center',gap:3}}>
+            <Box>
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+                        <TableHead sx={{ backgroundColor: '#000000' }}>
+                            <TableRow>
+                                <TableCell align='center' sx={tableCellStyle}>Hata Tipi</TableCell>
+                                <TableCell align="center" sx={tableCellStyle}>Adet</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {tekrarlananSorunTipleri.map((item, index) => (
+                                <TableRow
+                                    key={index}
+                                >
+                                    <TableCell align="center">{item.soruntipi}</TableCell>
+                                    <TableCell align="center">{item.tekrar}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Box>
+
+            <Box>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                     <TableHead sx={{ backgroundColor: '#000000' }}>
@@ -60,19 +59,20 @@ const Uygunsuzluk_Table = ({ sorunTipleri }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {uygunsuzlukAdetDetay.map((item, index) => (
+                        {tekrarlananAksyionTipleri.map((item, index) => (
                             <TableRow
                                 key={index}
                             >
-                                <TableCell align="center">{item.title}</TableCell>
-                                <TableCell align="center">{item.count}</TableCell>
+                                <TableCell align="center">{item.aksiyontipi}</TableCell>
+                                <TableCell align="center">{item.tekrar}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
+            </Box>
 
-        </div>
+        </Box>
     )
 }
 
