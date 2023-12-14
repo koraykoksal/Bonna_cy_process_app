@@ -34,7 +34,7 @@ const Login = () => {
     e.preventDefault()
 
     signIn(info)
-    // login(info)
+    //login(info)
 
     setInfo({
       email: "",

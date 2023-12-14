@@ -53,7 +53,7 @@ const useAuthCall = () => {
             .then((userCredential) => {
 
                 const user = userCredential.user;
-
+                console.log(user)
                 dispatch(loginSuccess(user))
 
                 navigate('/proses')

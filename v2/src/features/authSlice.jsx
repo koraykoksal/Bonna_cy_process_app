@@ -23,10 +23,17 @@ const authSlice = createSlice({
     },
     loginSuccess: (state, { payload }) => {
       state.loading = false;
-      state.currentUser = payload?.displayName;
-      state.isAdmin = false;
-      state.token = payload?.accessToken;
-      state.userID = payload?.uid
+
+      let email =  payload?.email
+      let atIndex = email.indexOf("@");
+      let localPart = email.substring(0, atIndex);
+
+      state.currentUser = localPart
+
+      // state.currentUser = payload?.displayName;
+      // state.isAdmin = false;
+      // state.token = payload?.accessToken;
+      // state.userID = payload?.uid
 
 
     },
