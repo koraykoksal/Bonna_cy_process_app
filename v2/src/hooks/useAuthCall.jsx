@@ -98,7 +98,7 @@ const useAuthCall = () => {
 
 
 
-    const login = async (userdata) => {
+    const login = async ({username,password}) => {
 
         dispatch(fetchStart())
 
@@ -108,8 +108,8 @@ const useAuthCall = () => {
                 method: 'POST',
                 url: `${process.env.REACT_APP_ERP_LOGIN_BASE_URL}`,
                 headers: {
-                    'USERNM': userdata.username,
-                    'PASS': userdata.password,
+                    'USERNM': username,
+                    'PASS': password,
                     'APIKEY': `${process.env.REACT_APP_ERP_API_KEY}`
 
                 }

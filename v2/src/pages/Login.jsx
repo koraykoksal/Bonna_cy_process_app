@@ -42,7 +42,7 @@ const Login = () => {
     })
   }
 
-
+  console.log(info)
 
   return (
 
@@ -82,8 +82,8 @@ const Login = () => {
             Login
           </Typography>
 
-          <form onSubmit={handleSubmit}>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }} >
+       
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }} component='form' onSubmit={handleSubmit}>
               {/* <TextField
                 label="Email"
                 name="email"
@@ -116,10 +116,6 @@ const Login = () => {
               </Button>
 
             </Box>
-          </form>
-
-
-
 
 
           {/* <Box sx={{ textAlign: "center", mt: 2 }}>
