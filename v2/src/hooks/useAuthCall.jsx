@@ -116,7 +116,7 @@ const useAuthCall = () => {
             }
 
             const  res  = await axios(options)
-            
+            console.log(res)
             if (res?.data[0].STATUS == "1") {
                 dispatch(fetchLoginData(res?.data))
                 toastSuccessNotify('Login Successful.')
