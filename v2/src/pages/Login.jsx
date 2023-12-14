@@ -19,7 +19,7 @@ const Login = () => {
 
 
   const [info, setInfo] = useState({
-    email: "",
+    username: "",
     password: ""
   })
 
