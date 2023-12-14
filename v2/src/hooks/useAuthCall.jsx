@@ -86,7 +86,7 @@ const useAuthCall = () => {
             dispatch(logoutSuccess())
             navigate('/')
             toastSuccessNotify('Logout Successful.')
-            
+
 
         } catch (error) {
             dispatch(fetchFail())
@@ -99,8 +99,6 @@ const useAuthCall = () => {
 
 
     const login = async (userdata) => {
-
-        console.log("userdata: ", userdata)
 
         dispatch(fetchStart())
 
@@ -117,11 +115,8 @@ const useAuthCall = () => {
                 }
             }
 
-
-            const res = await axios(options)
-
-            console.log(res)
-
+            const  res  = await axios(options)
+            
             if (res?.data[0].STATUS == "1") {
                 dispatch(fetchLoginData(res?.data))
                 toastSuccessNotify('Login Successful.')
@@ -136,6 +131,7 @@ const useAuthCall = () => {
             toastErrorNotify("'Something Went Wrong !'")
         }
     }
+
 
     const logout = async () => {
 

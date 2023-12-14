@@ -8,7 +8,7 @@ const initialState = {
   error: false,
   isAdmin: false,
   token: null,
-  securityKey:""
+  securityKey: ""
 }
 
 const authSlice = createSlice({
@@ -45,7 +45,6 @@ const authSlice = createSlice({
     },
     fetchLoginData: (state, { payload }) => {
 
-        console.log("login data: ",payload)
       state.loading = false;
       state.currentUser = payload[0]?.NAME + " " + payload[0]?.SURNAME
       state.securityKey = payload[0]?.SECURITYKEY
@@ -65,7 +64,7 @@ export const {
   logoutSuccess,
   registerSuccess,
   fetchLoginData
-  
+
 } = authSlice.actions;
 
 export default authSlice.reducer;
