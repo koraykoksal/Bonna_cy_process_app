@@ -7,13 +7,14 @@ import HttpsRedirect from "react-https-redirect"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <React.StrictMode>
 
-  <HttpsRedirect>
+  
+
+  // <HttpsRedirect>
     <App />
-  </HttpsRedirect>
+  // </HttpsRedirect>
 
-  // </React.StrictMode>
+
 );
 
 

@@ -33,11 +33,11 @@ const Login = () => {
 
     e.preventDefault()
 
-    signIn(info)
-    //login(info)
+    // signIn(info)
+    login(info)
 
     setInfo({
-      email: "",
+      username: "",
       password: ""
     })
   }
@@ -83,7 +83,7 @@ const Login = () => {
 
        
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }} component='form' onSubmit={handleSubmit}>
-              <TextField
+              {/* <TextField
                 label="Email"
                 name="email"
                 id="email"
@@ -91,8 +91,8 @@ const Login = () => {
                 variant="outlined"
                 value={info.username}
                 onChange={handleChange}
-              />
-              {/* <TextField
+              /> */}
+              <TextField
                 label="Username"
                 name="username"
                 id="username"
@@ -100,7 +100,7 @@ const Login = () => {
                 variant="outlined"
                 value={info.username}
                 onChange={handleChange}
-              /> */}
+              />
               <TextField
                 label="Password"
                 name="password"
