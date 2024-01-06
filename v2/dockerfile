@@ -10,7 +10,7 @@ RUN npm i -g yarn
 RUN yarn
 
 CMD ["npm", "start"]
-EXPOSE 1133
+EXPOSE 5175
 
 
 
