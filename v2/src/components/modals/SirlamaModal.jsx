@@ -71,6 +71,7 @@ const SirlamaModal=({open, handleClose, info, setInfo})=>{
 
   }, [designCode])
   
+  console.log(desenCodes)
 
   return (
     <div>

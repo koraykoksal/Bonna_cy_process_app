@@ -106,7 +106,7 @@ const DokumHattiModal = ({ open, handleClose, info, setInfo }) => {
                     onChange={handleChange}
                   >
                     {
-                      workCenterCode?.filter(data => data.ISMERKEZI.includes('SK-B')).map(({ ISMERKEZI, index }) => (
+                      workCenterCode?.filter(data => data.ISMERKEZI.includes('SK-DB')).map(({ ISMERKEZI, index }) => (
                         <MenuItem key={index} value={ISMERKEZI}>{ISMERKEZI}</MenuItem>
                       ))
                     }

@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material'
 
 
-const Uygunsuzluk_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
+const Uygunsuzluk_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
 
   const { uygunsuzlukData } = useSelector((state) => state.arge)
   const [uygunsuzluk, setUygunsuzluk] = useState([])
@@ -56,7 +56,7 @@ const Uygunsuzluk_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
       align: "center",
       flex: 1,
     },
-   
+
     {
       field: "is_merkezi",
       headerName: "İş Merkezi",
@@ -136,7 +136,19 @@ const Uygunsuzluk_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
       headerAlign: "center",
       align: "center",
       flex: 1,
-      renderCell: ({ id }) => {
+      renderCell: ({ id,
+        row: {
+          is_merkezi,
+          renk_kodu,
+          urun_kodu,
+          sorun_tipi,
+          uygunsuz_deger,
+          standart_deger,
+          aksiyon_sahibi,
+          aciklama,
+          aksiyon,
+          kontroleden_kisi
+        } }) => {
         return [
           <GridActionsCellItem
             key={"edit"}
@@ -144,7 +156,20 @@ const Uygunsuzluk_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
             label="Edit"
             onClick={() => {
               handleOpen()
-              setInfo({ id, type: 'Uygunsuzluk' })
+              setInfo({
+                id,
+                type: 'Uygunsuzluk',
+                is_merkezi,
+                renk_kodu,
+                urun_kodu,
+                sorun_tipi,
+                uygunsuz_deger,
+                standart_deger,
+                aksiyon_sahibi,
+                aciklama,
+                aksiyon,
+                kontroleden_kisi
+              })
             }}
 
           />,
@@ -172,20 +197,20 @@ const Uygunsuzluk_DataTable = ({setInfo, info, delHandleOpen, handleOpen}) => {
 
 
   return (
-    
+
 
     <Box sx={{ pt: 5 }}>
-    <DataGrid
-      columns={dataGrid_Columns}
-      rows={uygunsuzluk}
-      pageSizeOptions={[10, 25, 50, 75, 100]}
-      slots={{ toolbar: GridToolbar }}
-      disableRowSelectionOnClick
-      sx={{
-        boxShadow: 4,
-      }}
-    />
-  </Box>
+      <DataGrid
+        columns={dataGrid_Columns}
+        rows={uygunsuzluk}
+        pageSizeOptions={[10, 25, 50, 75, 100]}
+        slots={{ toolbar: GridToolbar }}
+        disableRowSelectionOnClick
+        sx={{
+          boxShadow: 4,
+        }}
+      />
+    </Box>
 
 
   )

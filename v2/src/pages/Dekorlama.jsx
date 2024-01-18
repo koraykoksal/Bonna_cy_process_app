@@ -38,9 +38,10 @@ const Dekorlama = () => {
   }
 
   const [info, setInfo] = useState({
-    department:",Dekorlama",
+    department: ",Dekorlama",
     type: "Dekorlama",
     urun_kodu: "",
+    renk_kodu: "",
     aciklama: "",
     silimsunger: "",
     silimsuyu: "",
@@ -53,6 +54,7 @@ const Dekorlama = () => {
     time: currentTime.toString(),
     kontroleden_kisi: currentUser
   })
+
 
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true);
@@ -79,13 +81,13 @@ const Dekorlama = () => {
   const delHandleOpen = () => setdelOpen(true);
   const delHandleClose = () => setdelOpen(false);
 
-  const { getMaterialCenter, getFireData } = useArge()
+  const { getMaterialCenter, getDesenCode, getFireData } = useArge()
 
 
   useEffect(() => {
 
     getMaterialCenter()
-
+    getDesenCode()
     getFireData("Dekorlama")
 
   }, [])

@@ -109,7 +109,7 @@ const ManDikTornaPresModal = ({ open, handleClose, info, setInfo }) => {
                     onChange={handleChange}
                   >
                     {
-                      workCenterCode?.filter((data) => data.ISMERKEZI.includes('SK-M')).map(({ ISMERKEZI, index }) => (
+                      workCenterCode?.filter((data) => data.ISMERKEZI.includes('SK-DP')).map(({ ISMERKEZI, index }) => (
                         <MenuItem key={index} value={ISMERKEZI}>{ISMERKEZI}</MenuItem>
                       ))
                     }

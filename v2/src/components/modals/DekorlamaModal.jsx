@@ -35,12 +35,14 @@ const style = {
 const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
 
 
+  const { materialCode, designCode } = useSelector((state) => state.arge)
+  const [desenCodes, setdesenCodes] = useState([])
+
   const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value })
   }
 
   const { getFireData, putFireData, postFireData } = useArge()
-  const { materialCode } = useSelector((state) => state.arge)
 
 
   const handleSubmit = (e) => {
@@ -59,6 +61,14 @@ const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
     handleClose()
 
   }
+
+  useEffect(() => {
+
+    const data = designCode.map((item) => item.DESENKODU)
+    const dataSort = data.sort()
+    setdesenCodes(dataSort)
+
+  }, [designCode])
 
 
 
@@ -91,12 +101,12 @@ const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
           <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '550px' }} component='form' onSubmit={handleSubmit}>
 
 
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
 
               <FormControl fullWidth>
                 <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
                 <Select
-                required
+                  required
                   labelId="urun_kodu"
                   id="urun_kodu"
                   name='urun_kodu'
@@ -107,6 +117,25 @@ const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
                   {
                     materialCode?.map(({ MALZEMEKODU, index }) => (
                       <MenuItem key={index} value={MALZEMEKODU}>{MALZEMEKODU}</MenuItem>
+                    ))
+                  }
+                </Select>
+              </FormControl>
+
+              <FormControl fullWidth>
+                <InputLabel id="renk_kodu">Renk Kodu</InputLabel>
+                <Select
+                  required
+                  labelId="renk_kodu"
+                  id="renk_kodu"
+                  name='renk_kodu'
+                  label="renk_kodu"
+                  value={info.renk_kodu}
+                  onChange={handleChange}
+                >
+                  {
+                    desenCodes?.map((item,index)=>(
+                      <MenuItem key={index} value={item}>{item}</MenuItem>
                     ))
                   }
                 </Select>
@@ -138,7 +167,7 @@ const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
               <FormControl fullWidth>
                 <InputLabel id="silimsuyu">Silim Suyu</InputLabel>
                 <Select
-                required
+                  required
                   labelId="silimsuyu"
                   id="silimsuyu"
                   name='silimsuyu'
@@ -158,7 +187,7 @@ const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
               <FormControl fullWidth>
                 <InputLabel id="urunsilim">Ürün Silimi</InputLabel>
                 <Select
-                required
+                  required
                   labelId="urunsilim"
                   id="urunsilim"
                   name='urunsilim'
@@ -174,7 +203,7 @@ const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
               <FormControl fullWidth>
                 <InputLabel id="boya_etiketi">Boya Etiketi</InputLabel>
                 <Select
-                required
+                  required
                   labelId="boya_etiketi"
                   id="boya_etiketi"
                   name='boya_etiketi'
@@ -194,7 +223,7 @@ const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
               <FormControl fullWidth>
                 <InputLabel id="boya_cokme">Boya Çökme</InputLabel>
                 <Select
-                required
+                  required
                   labelId="boya_cokme"
                   id="boya_cokme"
                   name='boya_cokme'
@@ -210,7 +239,7 @@ const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
               <FormControl fullWidth>
                 <InputLabel id="boya_lekesi">Boya Lekesi</InputLabel>
                 <Select
-                required
+                  required
                   labelId="boya_lekesi"
                   id="boya_lekesi"
                   name='boya_lekesi'

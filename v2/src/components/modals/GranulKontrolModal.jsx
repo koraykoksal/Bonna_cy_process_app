@@ -114,7 +114,7 @@ const GranulKontrolModal = ({ open, handleClose, info, setInfo }) => {
                 </FormControl>
 
                 {/* ürün kodu */}
-                <FormControl fullWidth>
+                {/* <FormControl fullWidth>
                   <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
                   <Select
                     required
@@ -125,15 +125,13 @@ const GranulKontrolModal = ({ open, handleClose, info, setInfo }) => {
                     value={info.urun_kodu}
                     onChange={handleChange}
                   >
-
-                    {/* hammadde malzemeleri gelecek */}
                     {
                       hammaddeCode?.map(({ HAMMADDEKODU, index }) => (
                         <MenuItem key={index} value={HAMMADDEKODU}>{HAMMADDEKODU}</MenuItem>
                       ))
                     }
                   </Select>
-                </FormControl>
+                </FormControl> */}
 
               </Box>
 

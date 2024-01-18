@@ -22,11 +22,11 @@ export const firstMenu=[
         title:"Uygunsuzluk",
         url:"/proses/uygunsuzluk"
     },
-    {
-        icon:<BubbleChartIcon/>,
-        title:"Reaktif Standartlar",
-        url:"/proses/reaktifstandart"
-    }
+    // {
+    //     icon:<BubbleChartIcon/>,
+    //     title:"Reaktif Standartlar",
+    //     url:"/proses/reaktifstandart"
+    // }
 ]
 
 
