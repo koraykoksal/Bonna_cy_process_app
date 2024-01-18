@@ -1,25 +1,16 @@
-# FROM node
-FROM node:20.9.0-alpine3.18
+# Base image
+FROM node:latest
 
+# Çalışma dizini oluşturma
 WORKDIR /v2
 
-# Dosyaları al ve wokdir içine gönder
+# Bağımlılıkları kopyalama ve yükleme
+COPY package.json yarn.lock ./
+# RUN yarn config set registry https://registry.npmjs.org/
+# RUN yarn cache clean && yarn install
+
+# Uygulama dosyalarını kopyalama
 COPY . .
 
-RUN npm i -g yarn
-RUN yarn
-
-CMD ["npm", "start"]
-EXPOSE 5175
-
-
-
-# --------------------------------
-# $ cd /v2_my
-# $ docker build -t myperformans .
-# $ docker run -p 5173:5173 --name myperformans myperformans
-# $ docker run -d -p 5173:5173 --name myperformans myperformans
-# $ docker run -d -p 80:5173 --name myperformans bonnadijital/myperformans
-# Browser: http://localhost:5173
-
-# docker stop <container_id_or_name>
+# Uygulamayı başlatma
+CMD ["yarn", "start"]
