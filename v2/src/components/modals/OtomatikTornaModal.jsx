@@ -357,6 +357,14 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo  }) => {
                 label="uygunsuzluktipi"
                 value={info.uygunsuzluktipi}
                 onChange={handleChange}
+                MenuProps={{
+                  PaperProps: {
+                    style: {
+                      maxHeight: 300, // Bu değeri istediğiniz maksimum yüksekliğe göre ayarlayabilirsiniz
+                      overflow: 'auto',
+                    },
+                  },
+                }}
               >
                 {
                   uygunsuzlukTipi.map((item) => (

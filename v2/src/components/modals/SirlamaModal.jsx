@@ -599,6 +599,14 @@ const SirlamaModal=({open, handleClose, info, setInfo})=>{
                 label="uygunsuzlukTipi"
                 value={info.uygunsuzlukTipi}
                 onChange={handleChange}
+                MenuProps={{
+                  PaperProps: {
+                    style: {
+                      maxHeight: 300, // Bu değeri istediğiniz maksimum yüksekliğe göre ayarlayabilirsiniz
+                      overflow: 'auto',
+                    },
+                  },
+                }}
                 >
                 {
                     uygunsuzlukTipi.map((item)=>(
