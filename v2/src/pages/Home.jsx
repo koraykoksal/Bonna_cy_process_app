@@ -1,6 +1,5 @@
 import React from 'react'
 import Typography from '@mui/material/Typography';
-import { homePattern, typoStyle } from "../styles/globalStyle"
 import useArge from '../hooks/useArge';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -10,12 +9,13 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import { useNavigate } from 'react-router-dom';
-import { Avatar, Grid, Paper } from '@mui/material';
+import { Avatar, Grid, Paper, TextField } from '@mui/material';
 import Dashboard_Cards from '../components/dashboards/Dashboard_Cards';
 import HataBazli_Uygunsuzluk from '../components/dashboards/HataBazli_Uygunsuzluk';
 import Uygunsuzluk_Table from '../components/dashboards/Uygunsuzluk_Table';
-import { set } from 'firebase/database';
-
+import { HiOutlineSearch } from "react-icons/hi";
+import bgPattern from "../assets/img/dashboardPattern.png"
+import { homePattern } from '../styles/globalStyle';
 
 
 const Home = () => {
@@ -41,6 +41,10 @@ const Home = () => {
   const [farkliAksiyonTipiSayisi, setFarkliAksiyonTipiSayisi] = useState(0);
   const [tekrarlananAksyionTipleri, setTekrarlananAksiyonTipleri] = useState([]);
 
+  const [info, setInfo] = useState({
+    dateFrom:"",
+    dateTo:""
+  })
 
   useEffect(() => {
 
@@ -73,7 +77,7 @@ const Home = () => {
 
 
     // //! aksiyon sahibi tiplerini ayrıştır
-    const aksiyonSahibiTipleriDizisi = data.map(kayit=>kayit.aksiyon_sahibi);
+    const aksiyonSahibiTipleriDizisi = data.map(kayit => kayit.aksiyon_sahibi);
     setaksiyonSahibi(aksiyonSahibiTipleriDizisi)
 
     const benzersizAksiyonTipleri = new Set(aksiyonSahibiTipleriDizisi)
@@ -112,30 +116,55 @@ const Home = () => {
   }, [uygunsuzlukData])
 
 
+  const handleChange=(e)=>{
+    setInfo({...info,[e.target.name]:e.target.value})
+  }
+
+
+
 
   return (
 
-    <div>
 
-   
-    <Box pt={8}>
 
-      <Typography align='center' p={2} fontWeight={700} letterSpacing={5} fontSize={22}>Genel Özet</Typography>
 
-      <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3 }}>
+      <Box pt={8} sx={homePattern}>
 
-        <Dashboard_Cards dashboardData={dashboardData} prosesPlanaUygunluk={prosesPlanaUygunluk} />
-        <HataBazli_Uygunsuzluk farkliSorunTipiSayisi={farkliSorunTipiSayisi} farkliAksiyonTipiSayisi={farkliAksiyonTipiSayisi}/>
+        <Box sx={{display:'flex',justifyContent:'flex-start',gap:1,alignItems:'center',p:2}}>
+          <Typography>From</Typography>
+          <TextField
+            id='dateFrom'
+            name='dateFrom'
+            type='date'
+            onChange={handleChange}
+          />
+
+          <Typography>To</Typography>
+          <TextField
+            id='dateTo'
+            name='dateTo'
+            type='date'
+            onChange={handleChange}
+          />
+          <HiOutlineSearch size={30} cursor={'pointer'} style={{marginLeft:15}}/>
+        </Box>
+
+        <Typography align='center' p={2} fontWeight={700} letterSpacing={5} fontSize={18}>Genel Özet</Typography>
+
+        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3 }}>
+
+          <Dashboard_Cards dashboardData={dashboardData} prosesPlanaUygunluk={prosesPlanaUygunluk} />
+          <HataBazli_Uygunsuzluk farkliSorunTipiSayisi={farkliSorunTipiSayisi} farkliAksiyonTipiSayisi={farkliAksiyonTipiSayisi} />
+
+        </Box>
+
+        <Box>
+          <Uygunsuzluk_Table tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} tekrarlananSorunTipleri={tekrarlananSorunTipleri} />
+        </Box>
 
       </Box>
 
-      <Box>
-        <Uygunsuzluk_Table tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} tekrarlananSorunTipleri={tekrarlananSorunTipleri}/>
-      </Box>
 
-    </Box>
-    
-    </div>
   )
 
 }
