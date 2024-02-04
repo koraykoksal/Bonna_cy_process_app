@@ -306,6 +306,13 @@ const Triyaj_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
       <DataGrid
         columns={dataGrid_Columns}
         rows={triyaj}
+        initialState={{
+          pagination: {
+              paginationModel: {
+                  pageSize: 10,
+              },
+          },
+      }}
         pageSizeOptions={[10, 25, 50, 75, 100]}
         slots={{ toolbar: GridToolbar }}
         disableRowSelectionOnClick

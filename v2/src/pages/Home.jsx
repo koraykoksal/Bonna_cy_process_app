@@ -1,6 +1,6 @@
 import React from 'react'
 import Typography from '@mui/material/Typography';
-import { typoStyle } from "../styles/globalStyle"
+import { homePattern, typoStyle } from "../styles/globalStyle"
 import useArge from '../hooks/useArge';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -15,6 +15,8 @@ import Dashboard_Cards from '../components/dashboards/Dashboard_Cards';
 import HataBazli_Uygunsuzluk from '../components/dashboards/HataBazli_Uygunsuzluk';
 import Uygunsuzluk_Table from '../components/dashboards/Uygunsuzluk_Table';
 import { set } from 'firebase/database';
+
+
 
 const Home = () => {
 
@@ -113,6 +115,9 @@ const Home = () => {
 
   return (
 
+    <div>
+
+   
     <Box pt={8}>
 
       <Typography align='center' p={2} fontWeight={700} letterSpacing={5} fontSize={22}>Genel Özet</Typography>
@@ -129,7 +134,8 @@ const Home = () => {
       </Box>
 
     </Box>
-
+    
+    </div>
   )
 
 }

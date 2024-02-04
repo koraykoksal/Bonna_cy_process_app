@@ -11,7 +11,6 @@ import { useSelector } from 'react-redux';
 import { useState,useEffect } from 'react';
 import useArge from '../hooks/useArge';
 
-
 const Uygunsuzluk = () => {
 
 
@@ -96,6 +95,7 @@ const Uygunsuzluk = () => {
   return (
 
     <div>
+
       <Typography mt={8} align='center' variant='h5' fontWeight={700} sx={typoStyle}>
         Uygunsuzluk
       </Typography>

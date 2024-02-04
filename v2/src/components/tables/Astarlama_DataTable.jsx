@@ -195,6 +195,13 @@ const Astarlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
       <DataGrid
         columns={dataGrid_Columns}
         rows={astarlama}
+        initialState={{
+          pagination: {
+              paginationModel: {
+                  pageSize: 10,
+              },
+          },
+      }}
         pageSizeOptions={[10, 25, 50, 75, 100]}
         slots={{ toolbar: GridToolbar }}
         disableRowSelectionOnClick

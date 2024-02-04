@@ -154,7 +154,7 @@ const Dashboard = () => {
 
             {/* <Button variant='contained' color='error' onClick={() => signOut()}>Logout</Button> */}
 
-            <FiLogOut size={27} color='black' cursor='pointer' onClick={() => signOut()}/>
+            <FiLogOut size={27} color='#B80000' cursor='pointer' onClick={() => signOut()}/>
 
             {/* <IconButton onClick={()=>logout()}>
             <LogoutIcon sx={{'&hover':{cursor:'pointer'},color:'#000000'}}/>
