@@ -103,7 +103,7 @@ const Dashboard = () => {
 
   const { currentUser } = useSelector((state) => state.auth)
 
-  const { logout,signOut } = useAuthCall()
+  const { logout, signOut } = useAuthCall()
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -117,14 +117,18 @@ const Dashboard = () => {
   };
 
 
-  
+
 
 
 
   return (
 
+
+
     <Box sx={{ display: 'flex' }}>
+
       <CssBaseline />
+
       <AppBar position="fixed" open={open}>
 
         <Toolbar >
@@ -143,7 +147,7 @@ const Dashboard = () => {
             <MenuIcon />
           </IconButton>
 
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1,display:{xs:'none',md:'flex'}}}>
+          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             Proses Kontrol
           </Typography>
 
@@ -154,7 +158,7 @@ const Dashboard = () => {
 
             {/* <Button variant='contained' color='error' onClick={() => signOut()}>Logout</Button> */}
 
-            <FiLogOut size={27} color='#B80000' cursor='pointer' onClick={() => signOut()}/>
+            <FiLogOut size={27} color='#B80000' cursor='pointer' onClick={() => signOut()} />
 
             {/* <IconButton onClick={()=>logout()}>
             <LogoutIcon sx={{'&hover':{cursor:'pointer'},color:'#000000'}}/>
@@ -209,7 +213,7 @@ const Dashboard = () => {
 
 
         <Outlet />
-        
+
 
       </Box>
 

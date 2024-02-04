@@ -7,6 +7,7 @@ import useArge from '../../hooks/useArge';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
+import { detailButtonStyle } from '../../styles/globalStyle';
 
 const Dashboard_Cards = ({dashboardData,prosesPlanaUygunluk}) => {
 
@@ -17,12 +18,6 @@ const Dashboard_Cards = ({dashboardData,prosesPlanaUygunluk}) => {
         color: '#ffffff',
         fontWeight: '700',
     }
-    const buttonStyle = {
-        color: '#ffffff',
-        fontWeight: '700'
-    }
-
-
 
 
     return (
@@ -53,7 +48,7 @@ const Dashboard_Cards = ({dashboardData,prosesPlanaUygunluk}) => {
                             <Typography variant="h3" align='center'>
                                 {dashboardData.toplamUygunsuzlukMiktar}
                             </Typography>
-                            <Button size="small" variant='outlined' sx={buttonStyle} onClick={() => navigate('/proses/uygunsuzluk')}>Detay</Button>
+                            <Button variant='contained' color='info' size='small' sx={detailButtonStyle} onClick={() => navigate('/proses/uygunsuzluk')}>Detay</Button>
                         </Paper>
                     </Grid>
 

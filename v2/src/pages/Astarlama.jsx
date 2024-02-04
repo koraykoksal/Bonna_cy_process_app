@@ -10,6 +10,8 @@ import { useState,useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useArge from '../hooks/useArge';
 
+
+
 const Astarlama = () => {
 
   let getVardiya = 0;

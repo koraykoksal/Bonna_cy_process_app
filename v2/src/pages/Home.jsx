@@ -14,8 +14,8 @@ import Dashboard_Cards from '../components/dashboards/Dashboard_Cards';
 import HataBazli_Uygunsuzluk from '../components/dashboards/HataBazli_Uygunsuzluk';
 import Uygunsuzluk_Table from '../components/dashboards/Uygunsuzluk_Table';
 import { HiOutlineSearch } from "react-icons/hi";
-import bgPattern from "../assets/img/dashboardPattern.png"
 import { homePattern } from '../styles/globalStyle';
+import bg1 from "../assets/img/bg1.jpeg"
 
 
 const Home = () => {
@@ -42,8 +42,8 @@ const Home = () => {
   const [tekrarlananAksyionTipleri, setTekrarlananAksiyonTipleri] = useState([]);
 
   const [info, setInfo] = useState({
-    dateFrom:"",
-    dateTo:""
+    dateFrom: "",
+    dateTo: ""
   })
 
   useEffect(() => {
@@ -116,8 +116,8 @@ const Home = () => {
   }, [uygunsuzlukData])
 
 
-  const handleChange=(e)=>{
-    setInfo({...info,[e.target.name]:e.target.value})
+  const handleChange = (e) => {
+    setInfo({ ...info, [e.target.name]: e.target.value })
   }
 
 
@@ -128,41 +128,41 @@ const Home = () => {
 
 
 
-      <Box pt={8} sx={homePattern}>
+    <Box pt={6}>
 
-        <Box sx={{display:'flex',justifyContent:'flex-start',gap:1,alignItems:'center',p:2}}>
-          <Typography>From</Typography>
-          <TextField
-            id='dateFrom'
-            name='dateFrom'
-            type='date'
-            onChange={handleChange}
-          />
+      <Box sx={{ display: 'flex', justifyContent: 'flex-start', gap: 1, alignItems: 'center', p: 2 }}>
+        <Typography>From</Typography>
+        <TextField
+          id='dateFrom'
+          name='dateFrom'
+          type='date'
+          onChange={handleChange}
+        />
 
-          <Typography>To</Typography>
-          <TextField
-            id='dateTo'
-            name='dateTo'
-            type='date'
-            onChange={handleChange}
-          />
-          <HiOutlineSearch size={30} cursor={'pointer'} style={{marginLeft:15}}/>
-        </Box>
+        <Typography>To</Typography>
+        <TextField
+          id='dateTo'
+          name='dateTo'
+          type='date'
+          onChange={handleChange}
+        />
+        <HiOutlineSearch size={30} cursor={'pointer'} style={{ marginLeft: 15 }} />
+      </Box>
 
-        <Typography align='center' p={2} fontWeight={700} letterSpacing={5} fontSize={18}>Genel Özet</Typography>
+      <Typography align='center' p={2} fontWeight={700} letterSpacing={5} fontSize={18}>Genel Özet</Typography>
 
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3 }}>
 
-          <Dashboard_Cards dashboardData={dashboardData} prosesPlanaUygunluk={prosesPlanaUygunluk} />
-          <HataBazli_Uygunsuzluk farkliSorunTipiSayisi={farkliSorunTipiSayisi} farkliAksiyonTipiSayisi={farkliAksiyonTipiSayisi} />
-
-        </Box>
-
-        <Box>
-          <Uygunsuzluk_Table tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} tekrarlananSorunTipleri={tekrarlananSorunTipleri} />
-        </Box>
+        <Dashboard_Cards dashboardData={dashboardData} prosesPlanaUygunluk={prosesPlanaUygunluk} />
+        <HataBazli_Uygunsuzluk farkliSorunTipiSayisi={farkliSorunTipiSayisi} farkliAksiyonTipiSayisi={farkliAksiyonTipiSayisi} />
 
       </Box>
+
+      <Box>
+        <Uygunsuzluk_Table tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} tekrarlananSorunTipleri={tekrarlananSorunTipleri} />
+      </Box>
+
+    </Box>
 
 
   )
