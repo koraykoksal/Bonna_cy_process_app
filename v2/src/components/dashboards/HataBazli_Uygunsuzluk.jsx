@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Box, Button, Grid, Paper, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
+import { paperDashboardStyle_Uygunsuzluk } from '../../styles/globalStyle'
 
 const HataBazli_Uygunsuzluk = ({farkliAksiyonTipiSayisi,farkliSorunTipiSayisi}) => {
 
@@ -28,7 +29,7 @@ const HataBazli_Uygunsuzluk = ({farkliAksiyonTipiSayisi,farkliSorunTipiSayisi}) 
     <Box >
       <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3, flexWrap: 'wrap' }}>
         <Grid>
-          <Paper sx={{ display: 'flex', alignItems: 'center', gap: 2, p: '1rem', width: '250px', height: '175px', flexDirection: 'column', backgroundColor: 'text.secondary' }}>
+          <Paper sx={paperDashboardStyle_Uygunsuzluk}>
             <Typography sx={typoStyle}>
               Uygunsuzluk Çeşidi Miktar
             </Typography>
@@ -39,7 +40,7 @@ const HataBazli_Uygunsuzluk = ({farkliAksiyonTipiSayisi,farkliSorunTipiSayisi}) 
         </Grid>
 
         <Grid>
-          <Paper sx={{ display: 'flex', alignItems: 'center', gap: 2, p: '1rem', width: '250px', height: '175px', flexDirection: 'column', backgroundColor: 'text.secondary' }}>
+          <Paper sx={paperDashboardStyle_Uygunsuzluk}>
             <Typography sx={typoStyle}>
               Bölüm Uygunsuzluk Miktar
             </Typography>

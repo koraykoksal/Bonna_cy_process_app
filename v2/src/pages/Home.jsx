@@ -14,8 +14,6 @@ import Dashboard_Cards from '../components/dashboards/Dashboard_Cards';
 import HataBazli_Uygunsuzluk from '../components/dashboards/HataBazli_Uygunsuzluk';
 import Uygunsuzluk_Table from '../components/dashboards/Uygunsuzluk_Table';
 import { HiOutlineSearch } from "react-icons/hi";
-import { homePattern } from '../styles/globalStyle';
-import bg1 from "../assets/img/bg1.jpeg"
 
 
 const Home = () => {
@@ -130,7 +128,7 @@ const Home = () => {
 
     <Box pt={6}>
 
-      <Box sx={{ display: 'flex', justifyContent: 'flex-start', gap: 1, alignItems: 'center', p: 2 }}>
+      {/* <Box sx={{ display: 'flex', justifyContent: 'flex-start', gap: 1, alignItems: 'center', p: 2 }}>
         <Typography>From</Typography>
         <TextField
           id='dateFrom'
@@ -147,7 +145,7 @@ const Home = () => {
           onChange={handleChange}
         />
         <HiOutlineSearch size={30} cursor={'pointer'} style={{ marginLeft: 15 }} />
-      </Box>
+      </Box> */}
 
       <Typography align='center' p={2} fontWeight={700} letterSpacing={5} fontSize={18}>Genel Özet</Typography>
 

@@ -26,6 +26,7 @@ const initialState = {
     ayakTaslamaData: [],
     uygunsuzlukData: [],
 
+    dbData:[],
 
     dashboardData: {
         toplamUygunsuzlukMiktar: 0,
@@ -177,6 +178,7 @@ const argeSlice = createSlice({
 
             state.dashboardData.toplamKontrolDetay = payload?.totalControlDetail
 
+            state.dbData = payload?.totalControlDetail
 
         },
         fetchFail: (state) => {

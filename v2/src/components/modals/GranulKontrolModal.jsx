@@ -88,33 +88,33 @@ const GranulKontrolModal = ({ open, handleClose, info, setInfo }) => {
           </Box>
 
 
-            <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '550px' }} component='form' onSubmit={handleSubmit}>
+          <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '550px' }} component='form' onSubmit={handleSubmit}>
 
 
-              <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
 
-                {/* makine */}
-                <FormControl fullWidth>
-                  <InputLabel id="is_merkezi">Makine</InputLabel>
-                  <Select
-                    required
-                    labelId="is_merkezi"
-                    id="is_merkezi"
-                    name='is_merkezi'
-                    label="is_merkezi"
-                    value={info.is_merkezi}
-                    onChange={handleChange}
-                  >
-                    {
-                      workCenterCode?.filter(data => data.ISMERKEZI.includes('HM-SD')).map(({ ISMERKEZI, index }) => (
-                        <MenuItem key={index} value={ISMERKEZI}>{ISMERKEZI}</MenuItem>
-                      ))
-                    }
-                  </Select>
-                </FormControl>
+              {/* makine */}
+              <FormControl fullWidth>
+                <InputLabel id="is_merkezi">Makine</InputLabel>
+                <Select
+                  required
+                  labelId="is_merkezi"
+                  id="is_merkezi"
+                  name='is_merkezi'
+                  label="is_merkezi"
+                  value={info.is_merkezi}
+                  onChange={handleChange}
+                >
+                  {
+                    workCenterCode?.filter(data => data.ISMERKEZI.includes('HM-SD')).map(({ ISMERKEZI, index }) => (
+                      <MenuItem key={index} value={ISMERKEZI}>{ISMERKEZI}</MenuItem>
+                    ))
+                  }
+                </Select>
+              </FormControl>
 
-                {/* ürün kodu */}
-                {/* <FormControl fullWidth>
+              {/* ürün kodu */}
+              {/* <FormControl fullWidth>
                   <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
                   <Select
                     required
@@ -133,125 +133,136 @@ const GranulKontrolModal = ({ open, handleClose, info, setInfo }) => {
                   </Select>
                 </FormControl> */}
 
-              </Box>
+            </Box>
 
-              <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
-                <TextField
-                  fullWidth
-                  label="Granül Kodu"
-                  name="granulkodu"
-                  id="granulkodu"
-                  type="text"
-                  variant="outlined"
-                  value={info.granulkodu}
-                  onChange={handleChange}
-                />
-
-
-                <TextField
-                  fullWidth
-                  label="Bigbag Kodu"
-                  name="bigbagkodu"
-                  id="bigbagkodu"
-                  type="text"
-                  variant="outlined"
-                  value={info.bigbagkodu}
-                  onChange={handleChange}
-                />
-              </Box>
-
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
               <TextField
                 fullWidth
-                name="bigbagtarih"
-                id="bigbagtarih"
-                type="date"
-                variant="outlined"
-                value={info.bigbagtarih}
-                onChange={handleChange}
-              />
-
-              <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
-                <TextField
-                  fullWidth
-                  label="Hammadde Nem Ölçüm"
-                  name="hammaddenem"
-                  id="hammaddenem"
-                  type="text"
-                  variant="outlined"
-                  value={info.hammaddenem}
-                  onChange={handleChange}
-                />
-
-                <TextField
-                  fullWidth
-                  label="Proses Nem Ölçüm"
-                  name="prosesnem"
-                  id="prosesnem"
-                  type="text"
-                  variant="outlined"
-                  value={info.prosesnem}
-                  onChange={handleChange}
-                />
-              </Box>
-
-
-
-
-              <FormControl fullWidth>
-                <InputLabel id="redkabul">Red/Kabul/Şartlı Kabul</InputLabel>
-                <Select
-                  labelId="redkabul"
-                  id="redkabul"
-                  name='redkabul'
-                  label="redkabul"
-                  value={info.redkabul}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="RED">RED</MenuItem>
-                  <MenuItem value="KABUL">KABUL</MenuItem>
-                  <MenuItem value="ŞARTLI KABUL">ŞARTLI KABUL</MenuItem>
-                </Select>
-              </FormControl>
-
-
-
-              <TextField
-                multiline
-                fullWidth
-                label="Açıklama"
-                name="aciklama"
-                id="aciklama"
+                label="Granül Kodu"
+                name="granulkodu"
+                id="granulkodu"
                 type="text"
                 variant="outlined"
-                value={info.aciklama}
+                value={info.granulkodu}
+                onChange={handleChange}
+              />
+
+
+              <TextField
+                fullWidth
+                label="Bigbag Kodu"
+                name="bigbagkodu"
+                id="bigbagkodu"
+                type="text"
+                variant="outlined"
+                value={info.bigbagkodu}
                 onChange={handleChange}
               />
 
               <TextField
                 fullWidth
-                label="Vardiya Sorumlusu veya Operatör"
-                name="vardiyasorumlusu"
-                id="vardiyasorumlusu"
-                type="text"
+                name="bigbagsaati"
+                id="bigbagsaati"
+                type="time"
                 variant="outlined"
-
-                value={info.vardiyasorumlusu}
+                value={info.bigbagsaati}
                 onChange={handleChange}
               />
-
-
-
-              <Button
-                variant='contained'
-                fullWidth
-                type='submit'
-              >
-                {info?.id ? "Update Data" : "Add New Data"}
-              </Button>
-
 
             </Box>
-      
+
+            <TextField
+              fullWidth
+              name="bigbagtarih"
+              id="bigbagtarih"
+              type="date"
+              variant="outlined"
+              value={info.bigbagtarih}
+              onChange={handleChange}
+            />
+
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+              <TextField
+                fullWidth
+                label="Hammadde Nem Ölçüm"
+                name="hammaddenem"
+                id="hammaddenem"
+                type="text"
+                variant="outlined"
+                value={info.hammaddenem}
+                onChange={handleChange}
+              />
+
+              <TextField
+                fullWidth
+                label="Proses Nem Ölçüm"
+                name="prosesnem"
+                id="prosesnem"
+                type="text"
+                variant="outlined"
+                value={info.prosesnem}
+                onChange={handleChange}
+              />
+            </Box>
+
+
+
+
+            <FormControl fullWidth>
+              <InputLabel id="redkabul">Red/Kabul/Şartlı Kabul</InputLabel>
+              <Select
+                labelId="redkabul"
+                id="redkabul"
+                name='redkabul'
+                label="redkabul"
+                value={info.redkabul}
+                onChange={handleChange}
+              >
+                <MenuItem value="RED">RED</MenuItem>
+                <MenuItem value="KABUL">KABUL</MenuItem>
+                <MenuItem value="ŞARTLI KABUL">ŞARTLI KABUL</MenuItem>
+              </Select>
+            </FormControl>
+
+
+
+            <TextField
+              multiline
+              fullWidth
+              label="Açıklama"
+              name="aciklama"
+              id="aciklama"
+              type="text"
+              variant="outlined"
+              value={info.aciklama}
+              onChange={handleChange}
+            />
+
+            <TextField
+              fullWidth
+              label="Vardiya Sorumlusu veya Operatör"
+              name="vardiyasorumlusu"
+              id="vardiyasorumlusu"
+              type="text"
+              variant="outlined"
+
+              value={info.vardiyasorumlusu}
+              onChange={handleChange}
+            />
+
+
+
+            <Button
+              variant='contained'
+              fullWidth
+              type='submit'
+            >
+              {info?.id ? "Update Data" : "Add New Data"}
+            </Button>
+
+
+          </Box>
+
 
         </Box>
       </Modal>

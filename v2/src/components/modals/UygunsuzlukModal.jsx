@@ -68,8 +68,6 @@ const UygunsuzlukModal = ({ open, handleClose, info, setInfo }) => {
 
 
 
-  console.log(info)
-
   return (
     <div>
 

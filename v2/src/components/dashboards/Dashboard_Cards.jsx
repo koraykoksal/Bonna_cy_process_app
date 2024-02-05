@@ -7,17 +7,23 @@ import useArge from '../../hooks/useArge';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
-import { detailButtonStyle } from '../../styles/globalStyle';
+import { detailButtonStyle, paperDashboardStyle_ProsesPlan, paperDashboardStyle_ToplamKontrolEdilen, paperDashboardStyle_ToplamUygunsuzluk } from '../../styles/globalStyle';
+
+
+
+const typoStyle = {
+    fontSize: '15px',
+    color: '#ffffff',
+    fontWeight: '700',
+}
+
+
 
 const Dashboard_Cards = ({dashboardData,prosesPlanaUygunluk}) => {
 
     const navigate = useNavigate()
 
-    const typoStyle = {
-        fontSize: '15px',
-        color: '#ffffff',
-        fontWeight: '700',
-    }
+   
 
 
     return (
@@ -30,7 +36,7 @@ const Dashboard_Cards = ({dashboardData,prosesPlanaUygunluk}) => {
 
 
                 <Grid>
-                        <Paper sx={{ display: 'flex', alignItems: 'center', gap: 2, p: '1rem', width: '250px', height: '175px', flexDirection: 'column', backgroundColor: 'secondary.main' }}>
+                        <Paper sx={paperDashboardStyle_ProsesPlan}>
                             <Typography sx={typoStyle}>
                                 Proses Planına Uygunluk
                             </Typography>
@@ -41,19 +47,22 @@ const Dashboard_Cards = ({dashboardData,prosesPlanaUygunluk}) => {
                     </Grid>
 
                     <Grid>
-                        <Paper sx={{ display: 'flex', alignItems: 'center', gap: 2, p: '1rem', width: '250px', height: '175px', flexDirection: 'column', backgroundColor: 'error.main' }}>
+                        <Paper sx={paperDashboardStyle_ToplamUygunsuzluk}>
                             <Typography sx={typoStyle}>
                                 Toplam Uygunsuzluk Miktar
                             </Typography>
                             <Typography variant="h3" align='center'>
                                 {dashboardData.toplamUygunsuzlukMiktar}
                             </Typography>
-                            <Button variant='contained' color='info' size='small' sx={detailButtonStyle} onClick={() => navigate('/proses/uygunsuzluk')}>Detay</Button>
+
+                            {/* <Button color='info' size='small' sx={detailButtonStyle} onClick={() => navigate('/proses/uygunsuzluk')}>Detay</Button> */}
+                            <Button color='inherit' size='small' sx={{textTransform:'none'}} variant='contained' onClick={() => navigate('/proses/uygunsuzluk')}>Detay</Button>
+
                         </Paper>
                     </Grid>
 
                     <Grid>
-                        <Paper sx={{ display: 'flex', alignItems: 'center', gap: 2, p: '1rem', width: '250px', height: '175px', flexDirection: 'column', backgroundColor: 'info.main' }}>
+                        <Paper sx={paperDashboardStyle_ToplamKontrolEdilen}>
                             <Typography sx={typoStyle}>
                                 Toplam Kontrol Edilen Miktar
                             </Typography>

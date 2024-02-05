@@ -92,7 +92,7 @@ const GranulKontrol_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) =
     {
       field: "bigbagtarih",
       headerName: "BigBag Tarih",
-      minWidth: 150,
+      minWidth: 100,
       headerAlign: "center",
       align: "center",
       flex: 1,
@@ -100,7 +100,15 @@ const GranulKontrol_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) =
     {
       field: "bigbagkodu",
       headerName: "BigBag Kodu",
-      minWidth: 150,
+      minWidth: 100,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+    },
+    {
+      field: "bigbagsaati",
+      headerName: "BigBag Saati",
+      minWidth: 100,
       headerAlign: "center",
       align: "center",
       flex: 1,

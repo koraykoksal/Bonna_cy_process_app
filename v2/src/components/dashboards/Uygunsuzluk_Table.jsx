@@ -9,19 +9,27 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Box, Button } from '@mui/material';
 import { detailButtonStyle } from '../../styles/globalStyle';
+import DetailModal from '../detailModals/DetailModal';
+
+
+const tableCellStyle = {
+    color: '#ffffff',
+    fontWeight: '700'
+}
+
+const tableContainerStyle = {
+    maxHeight: '350px',
+    overflow: 'auto'
+}
 
 
 const Uygunsuzluk_Table = ({ tekrarlananAksyionTipleri, tekrarlananSorunTipleri }) => {
 
 
-    const tableCellStyle = {
-        color: '#ffffff',
-        fontWeight: '700'
-    }
-
-    const tableContainerStyle = {
-        maxHeight: '350px',
-        overflow: 'auto'
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => {
+        setOpen(false)
     }
 
 
@@ -53,7 +61,7 @@ const Uygunsuzluk_Table = ({ tekrarlananAksyionTipleri, tekrarlananSorunTipleri 
 
             <Box display={'flex'} flexDirection={'column'} gap={2}>
 
-                <Button variant='contained' color='info' sx={detailButtonStyle}>Detay</Button>
+                <Button variant='contained' color='info' sx={detailButtonStyle} onClick={handleOpen}>Detay</Button>
 
                 <TableContainer component={Paper} sx={tableContainerStyle}>
                     <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -76,6 +84,8 @@ const Uygunsuzluk_Table = ({ tekrarlananAksyionTipleri, tekrarlananSorunTipleri 
                     </Table>
                 </TableContainer>
             </Box>
+
+            <DetailModal open={open} handleClose={handleClose} handleOpen={handleOpen} tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} tekrarlananSorunTipleri={tekrarlananSorunTipleri}/>
 
         </Box>
     )

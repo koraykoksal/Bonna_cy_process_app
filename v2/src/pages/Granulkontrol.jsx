@@ -67,6 +67,7 @@ const Granulkontrol = () => {
       prosesnem: "",
       bigbagtarih: "",
       bigbagkodu: "",
+      bigbagsaati:"",
       granulkodu: "",
       redkabul: "",
       aciklama: "",
