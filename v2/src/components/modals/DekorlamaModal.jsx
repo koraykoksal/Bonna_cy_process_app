@@ -134,7 +134,7 @@ const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
                   onChange={handleChange}
                 >
                   {
-                    desenCodes?.map((item,index)=>(
+                    desenCodes?.map((item, index) => (
                       <MenuItem key={index} value={item}>{item}</MenuItem>
                     ))
                   }
@@ -251,6 +251,97 @@ const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
                   <MenuItem value="NOT">NOT</MenuItem>
                 </Select>
               </FormControl>
+
+            </Box>
+
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+
+              <TextField
+                fullWidth
+                label="Nem Değeri"
+                name="boyaNemDegeri"
+                id="boyaNemDegeri"
+                type="text"
+                variant="outlined"
+                value={info.boyaNemDegeri}
+                onChange={handleChange}
+              />
+
+
+              <TextField
+                fullWidth
+                label="Çalkalama Süresi"
+                name="boyaCalkalamaSuresi"
+                id="boyaCalkalamaSuresi"
+                type="number"
+                variant="outlined"
+                value={info.boyaCalkalamaSuresi}
+                onChange={handleChange}
+              />
+
+            </Box>
+
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+
+              <TextField
+                fullWidth
+                label="Çalkalama Hızı"
+                name="boyaCalkalamaHizi"
+                id="boyaCalkalamaHizi"
+                type="text"
+                variant="outlined"
+                value={info.boyaCalkalamaHizi}
+                onChange={handleChange}
+              />
+
+              <FormControl fullWidth>
+                <InputLabel id="uygulamaKontrol">Uygulama Kontrol</InputLabel>
+                <Select
+                  required
+                  labelId="uygulamaKontrol"
+                  id="uygulamaKontrol"
+                  name='uygulamaKontrol'
+                  label="uygulamaKontrol"
+                  value={info.uygulamaKontrol}
+                  onChange={handleChange}
+                >
+                  <MenuItem value="OK">OK</MenuItem>
+                  <MenuItem value="NOT">NOT</MenuItem>
+                </Select>
+              </FormControl>
+
+            </Box>
+
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+
+
+              <FormControl fullWidth>
+                <InputLabel id="turnetKalıpKontrol">Turnet Kalıp Kontrol</InputLabel>
+                <Select
+                  required
+                  labelId="turnetKalıpKontrol"
+                  id="turnetKalıpKontrol"
+                  name='turnetKalıpKontrol'
+                  label="turnetKalıpKontrol"
+                  value={info.turnetKalıpKontrol}
+                  onChange={handleChange}
+                >
+                  <MenuItem value="OK">OK</MenuItem>
+                  <MenuItem value="NOT">NOT</MenuItem>
+                </Select>
+              </FormControl>
+
+              <TextField
+                fullWidth
+                label="Turnet Kalıp Hızı"
+                name="turnetKalıpHızı"
+                id="turnetKalıpHızı"
+                type="number"
+                variant="outlined"
+                value={info.turnetKalıpHızı}
+                onChange={handleChange}
+              />
+
 
             </Box>
 

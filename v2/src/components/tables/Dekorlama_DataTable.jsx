@@ -34,7 +34,7 @@ const Dekorlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
     {
       field: "time",
       headerName: "Saat",
-      minWidth: 150,
+      minWidth: 80,
       headerAlign: "center",
       align: "center",
       flex: 1,
@@ -42,7 +42,7 @@ const Dekorlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
     {
       field: "vardiya",
       headerName: "Vardiya",
-      minWidth: 150,
+      minWidth: 80,
       headerAlign: "center",
       align: "center",
       flex: 1,
@@ -68,7 +68,7 @@ const Dekorlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
     {
       field: "silimsunger",
       headerName: "Silim Sünger",
-      minWidth: 150,
+      minWidth: 100,
       headerAlign: "center",
       align: "center",
       flex: 1,
@@ -77,7 +77,7 @@ const Dekorlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
     {
       field: "silimsuyu",
       headerName: "Silim Suyu",
-      minWidth: 150,
+      minWidth: 100,
       headerAlign: "center",
       align: "center",
       flex: 1,
@@ -85,7 +85,7 @@ const Dekorlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
     {
       field: "urunsilim",
       headerName: "Ürün Silim",
-      minWidth: 150,
+      minWidth: 100,
       headerAlign: "center",
       align: "center",
       flex: 1,
@@ -93,7 +93,7 @@ const Dekorlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
     {
       field: "boya_etiketi",
       headerName: "Boya Etiketi",
-      minWidth: 150,
+      minWidth: 100,
       headerAlign: "center",
       align: "center",
       flex: 1,
@@ -101,7 +101,7 @@ const Dekorlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
     {
       field: "boya_cokme",
       headerName: "Boya Çökme",
-      minWidth: 150,
+      minWidth: 100,
       headerAlign: "center",
       align: "center",
       flex: 1,
@@ -109,6 +109,54 @@ const Dekorlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
     {
       field: "boya_lekesi",
       headerName: "Boya Lekesi",
+      minWidth: 100,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+    },
+    {
+      field: "boyaNemDegeri",
+      headerName: "Boya Nem",
+      minWidth: 100,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+    },
+    {
+      field: "boyaCalkalamaSuresi",
+      headerName: "Boya Çalkalama Süresi",
+      minWidth: 150,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+    },
+    {
+      field: "boyaCalkalamaHizi",
+      headerName: "Boya Çalkalama Hızı",
+      minWidth: 150,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+    },
+    {
+      field: "uygulamaKontrol",
+      headerName: "Uygulama Kontrol",
+      minWidth: 150,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+    },
+    {
+      field: "turnetKalıpKontrol",
+      headerName: "Turnet Kalıp Kontrol",
+      minWidth: 150,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+    },
+    {
+      field: "turnetKalıpHızı",
+      headerName: "Turnet Kalıp Hızı",
       minWidth: 150,
       headerAlign: "center",
       align: "center",
@@ -140,6 +188,12 @@ const Dekorlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
           boya_etiketi,
           boya_cokme,
           boya_lekesi,
+          boyaNemDegeri,
+          boyaCalkalamaSuresi,
+          boyaCalkalamaHizi,
+          uygulamaKontrol,
+          turnetKalıpKontrol,
+          turnetKalıpHızı,
 
         } }) => {
         return [
@@ -150,7 +204,7 @@ const Dekorlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
             onClick={() => {
               handleOpen()
               setInfo({
-                id, 
+                id,
                 type: 'Dekorlama',
                 urun_kodu,
                 aciklama,
@@ -160,6 +214,12 @@ const Dekorlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
                 boya_etiketi,
                 boya_cokme,
                 boya_lekesi,
+                boyaNemDegeri,
+                boyaCalkalamaSuresi,
+                boyaCalkalamaHizi,
+                uygulamaKontrol,
+                turnetKalıpKontrol,
+                turnetKalıpHızı,
               })
             }}
 
@@ -195,11 +255,11 @@ const Dekorlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
         rows={dekorlama}
         initialState={{
           pagination: {
-              paginationModel: {
-                  pageSize: 10,
-              },
+            paginationModel: {
+              pageSize: 10,
+            },
           },
-      }}
+        }}
         pageSizeOptions={[10, 25, 50, 75, 100]}
         slots={{ toolbar: GridToolbar }}
         disableRowSelectionOnClick
