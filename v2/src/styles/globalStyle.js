@@ -25,7 +25,7 @@ export const homePattern = {
 export const detailButtonStyle = {
     // backgroundColor:'#F3B664',
     backgroundImage: 'linear-gradient(143deg, #e7ed6d 31%, #bec0d5 58%)',
-    width: '100px',
+    // width: '100px',
     color: 'black',
     textTransform: 'none',
     fontWeight: 700,

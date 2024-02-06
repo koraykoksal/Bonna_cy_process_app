@@ -33,6 +33,11 @@ const Uygunsuzluk_Table = ({ tekrarlananAksyionTipleri, tekrarlananSorunTipleri 
     }
 
 
+
+    
+
+
+
     return (
 
         <Box sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 3, mt: 5 }}>

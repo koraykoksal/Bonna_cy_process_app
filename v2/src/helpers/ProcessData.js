@@ -1,7 +1,7 @@
 
 export const aksiyonSahibi=[
     {
-        text:"ŞEKİLLENDİRME"
+        text:"SEKILLENDIRME"
     },
     {
         text:"HAMMADDE"
@@ -13,19 +13,19 @@ export const aksiyonSahibi=[
         text:"DEKOR"
     },
     {
-        text:"DİJİTAL BASKI"
+        text:"DIJITAL BASKI"
     },
     {
-        text:"DİJİTAL LOGO"
+        text:"DIJITAL LOGO"
     },
     {
-        text:"AYAK TAŞLAMA"
+        text:"AYAK TASLAMA"
     },
     {
         text:"FIRINLAR"
     },
     {
-        text:"KALİTE GÜVENCE"
+        text:"KALITE GUVENCE"
     },
 ]
 

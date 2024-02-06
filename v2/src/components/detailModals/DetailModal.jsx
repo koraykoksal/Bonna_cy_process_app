@@ -29,6 +29,10 @@ const DetailModal = ({ open, handleClose, handleOpen, tekrarlananAksyionTipleri,
 
     const { dashboardData, uygunsuzlukData, dbData } = useSelector((state) => state.arge)
 
+    const [matchedCounts, setMatchedCounts] = useState({});
+    const [uygunsuzlukOranlari, setUygunsuzlukOranlari] = useState([]);
+
+
     const [info, setInfo] = useState({
         dateFrom: "",
         dateTo: ""
@@ -39,24 +43,56 @@ const DetailModal = ({ open, handleClose, handleOpen, tekrarlananAksyionTipleri,
     }
 
 
+
+
+    //! tekrarlanan aksiyon tiplerinde kontrol sayısını çıkar
     useEffect(() => {
 
-        let dizi = []
-        const res = Object.values(uygunsuzlukData)
+        const tempResults = tekrarlananAksyionTipleri.map(action => {
 
-        tekrarlananAksyionTipleri.forEach(element => {
-            const data = res.filter(item => element.aksiyontipi === item.aksiyon_sahibi);
-            // Düz bir dizi oluşturmak için concat kullanıyoruz
-            dizi = dizi.concat(data);
-        });
+            const actionKey = action.aksiyontipi.replace(/\s+/g, '') // boşluık karakterini kaldır
+            let kontrolSayisi = 0;
 
-        console.log(dizi)
+            Object.keys(dbData).forEach(key => {
 
-    }, [tekrarlananAksyionTipleri])
+                // Eşleşme kontrolü
+                if (key.toUpperCase().includes(actionKey)) {
+                    kontrolSayisi += Object.keys(dbData[key]).length; // Eşleşen kayıtların sayısını hesapla
+                }
+            });
+
+            return {
+                aksiyonSahibi: action.aksiyontipi, // Orjinal aksiyon tipi
+                kontrolSayisi: kontrolSayisi // Hesaplanan kontrol sayısı
+            };
+        }).filter(result => result.kontrolSayisi > 0)// Sadece kontrol sayısı 0'dan büyük olanları filtrele
 
 
+        setMatchedCounts(tempResults)
 
-    // console.log(dbData)
+    }, [dbData])
+
+    useEffect(() => {
+
+        const sonuc = tekrarlananAksyionTipleri.map(tekrarlanan => {
+
+            const matched = matchedCounts.find(match => match.aksiyonSahibi == tekrarlanan.aksiyontipi)
+
+            if (matched) {
+                return {
+                    aksiyonSahibi: matched.aksiyonSahibi,
+                    uygunsuzlukOrani: Number(tekrarlanan.tekrar) / Number(matched.kontrolSayisi)
+                }
+            }
+
+            return null
+
+        }).filter(result => result !== null) // null değerleri filtrele
+
+        setUygunsuzlukOranlari(sonuc)
+
+    }, [matchedCounts])
+
 
 
     return (

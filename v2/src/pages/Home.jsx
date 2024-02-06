@@ -39,10 +39,6 @@ const Home = () => {
   const [farkliAksiyonTipiSayisi, setFarkliAksiyonTipiSayisi] = useState(0);
   const [tekrarlananAksyionTipleri, setTekrarlananAksiyonTipleri] = useState([]);
 
-  const [info, setInfo] = useState({
-    dateFrom: "",
-    dateTo: ""
-  })
 
   useEffect(() => {
 
@@ -114,38 +110,12 @@ const Home = () => {
   }, [uygunsuzlukData])
 
 
-  const handleChange = (e) => {
-    setInfo({ ...info, [e.target.name]: e.target.value })
-  }
-
-
-
-
   return (
 
 
 
 
     <Box pt={6}>
-
-      {/* <Box sx={{ display: 'flex', justifyContent: 'flex-start', gap: 1, alignItems: 'center', p: 2 }}>
-        <Typography>From</Typography>
-        <TextField
-          id='dateFrom'
-          name='dateFrom'
-          type='date'
-          onChange={handleChange}
-        />
-
-        <Typography>To</Typography>
-        <TextField
-          id='dateTo'
-          name='dateTo'
-          type='date'
-          onChange={handleChange}
-        />
-        <HiOutlineSearch size={30} cursor={'pointer'} style={{ marginLeft: 15 }} />
-      </Box> */}
 
       <Typography align='center' p={2} fontWeight={700} letterSpacing={5} fontSize={18}>Genel Özet</Typography>
 
