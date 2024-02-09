@@ -6,6 +6,13 @@ import { FaWindowClose } from "react-icons/fa";
 import { HiOutlineSearch } from "react-icons/hi";
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 
 const style = {
@@ -24,10 +31,21 @@ const style = {
 };
 
 
+const tableCellStyle = {
+    color: '#ffffff',
+    fontWeight: '700',
+    fontSize:16,
+}
 
-const DetailModal = ({ open, handleClose, handleOpen, tekrarlananAksyionTipleri, tekrarlananSorunTipleri }) => {
+const tableContainerStyle = {
+    maxHeight: '350px',
+    overflow: 'auto'
+}
 
-    const { dashboardData, uygunsuzlukData, dbData } = useSelector((state) => state.arge)
+
+
+const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyionTipleri, tekrarlananSorunTipleri }) => {
+
 
     const [matchedCounts, setMatchedCounts] = useState({});
     const [uygunsuzlukOranlari, setUygunsuzlukOranlari] = useState([]);
@@ -70,8 +88,10 @@ const DetailModal = ({ open, handleClose, handleOpen, tekrarlananAksyionTipleri,
 
         setMatchedCounts(tempResults)
 
-    }, [dbData])
+    }, [tekrarlananAksyionTipleri,dbData])
 
+
+    //! aksiyon sahibi uygunsuzluk oranını belirle
     useEffect(() => {
 
         const sonuc = tekrarlananAksyionTipleri.map(tekrarlanan => {
@@ -129,9 +149,36 @@ const DetailModal = ({ open, handleClose, handleOpen, tekrarlananAksyionTipleri,
                                 type='date'
                                 onChange={handleChange}
                             />
-                            <HiOutlineSearch size={30} cursor={'pointer'} style={{ marginLeft: 15 }} />
+                            <HiOutlineSearch size={30} color='blue' cursor={'pointer'} style={{ marginLeft: 15 }} />
                         </Box>
 
+                    </Box>
+
+
+                    <Box mt={5}>
+                        <Table size="small" aria-label="a dense table">
+                            <TableHead sx={{ backgroundColor: '#000000' }}>
+                                <TableRow>
+                                    <TableCell align='center' sx={tableCellStyle}>Aksiyon Sahibi</TableCell>
+                                    <TableCell align="center" sx={tableCellStyle}>Uygunsuzluk Oranı</TableCell>
+                                    <TableCell align="center" sx={tableCellStyle}></TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {uygunsuzlukOranlari.map((item, index) => (
+                                    <TableRow
+                                        key={index}
+                                    >
+                                        <TableCell align="center">{item.aksiyonSahibi}</TableCell>
+                                        <TableCell align="center">{item.uygunsuzlukOrani.toFixed(2)} %</TableCell>
+                                        <TableCell align="center">
+                                        <Button variant='contained' sx={{textTransform:'none',height:'100%'}} color='info'>Detay</Button>
+                                        </TableCell>
+                                        
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
                     </Box>
 
 

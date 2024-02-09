@@ -9,20 +9,33 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import { useNavigate } from 'react-router-dom';
-import { Avatar, Grid, Paper, TextField } from '@mui/material';
+import { Avatar, Container, Grid, Paper, TextField } from '@mui/material';
 import Dashboard_Cards from '../components/dashboards/Dashboard_Cards';
 import HataBazli_Uygunsuzluk from '../components/dashboards/HataBazli_Uygunsuzluk';
 import Uygunsuzluk_Table from '../components/dashboards/Uygunsuzluk_Table';
 import { HiOutlineSearch } from "react-icons/hi";
+import DetailModal from '../components/detailModals/DetailModal';
 
+
+const detailButtonStyle = {
+  p: 2,
+  textTransform: 'none',
+  letterSpacing: 5,
+  fontWeight: 700,
+  fontSize: 17
+}
 
 const Home = () => {
 
 
-  const navigate = useNavigate()
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false)
+  }
 
   const { readFireData, getFireData, getDesenCode, getWorkCenter, getMaterialCenter, hammaddeMaterialCode } = useArge()
-  const { dashboardData, uygunsuzlukData } = useSelector((state) => state.arge)
+  const { dashboardData, uygunsuzlukData, dbData } = useSelector((state) => state.arge)
 
   const [prosesPlanaUygunluk, setprosesPlanaUygunluk] = useState(0)
 
@@ -38,7 +51,6 @@ const Home = () => {
 
   const [farkliAksiyonTipiSayisi, setFarkliAksiyonTipiSayisi] = useState(0);
   const [tekrarlananAksyionTipleri, setTekrarlananAksiyonTipleri] = useState([]);
-
 
   useEffect(() => {
 
@@ -110,29 +122,37 @@ const Home = () => {
   }, [uygunsuzlukData])
 
 
+
+
   return (
 
 
+    <div>
 
+      <Box pt={6}>
 
-    <Box pt={6}>
+        <Typography align='center' p={2} fontWeight={700} letterSpacing={5} fontSize={18}>Genel Özet</Typography>
 
-      <Typography align='center' p={2} fontWeight={700} letterSpacing={5} fontSize={18}>Genel Özet</Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3 }}>
 
-      <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3 }}>
+          <Dashboard_Cards dashboardData={dashboardData} prosesPlanaUygunluk={prosesPlanaUygunluk} />
+          <HataBazli_Uygunsuzluk farkliSorunTipiSayisi={farkliSorunTipiSayisi} farkliAksiyonTipiSayisi={farkliAksiyonTipiSayisi} />
 
-        <Dashboard_Cards dashboardData={dashboardData} prosesPlanaUygunluk={prosesPlanaUygunluk} />
-        <HataBazli_Uygunsuzluk farkliSorunTipiSayisi={farkliSorunTipiSayisi} farkliAksiyonTipiSayisi={farkliAksiyonTipiSayisi} />
+        </Box>
+
+        <Box display={'flex'} justifyContent={'center'}>
+          <Button variant='outlined' sx={detailButtonStyle} color='success' onClick={handleOpen}>Aksiyon Sahipleri</Button>
+        </Box>
+
+        <Box>
+          <Uygunsuzluk_Table tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} tekrarlananSorunTipleri={tekrarlananSorunTipleri} />
+        </Box>
+
+        <DetailModal open={open} handleClose={handleClose} handleOpen={handleOpen} dbData={dbData} tekrarlananAksyionTipleri={tekrarlananAksyionTipleri}/>
 
       </Box>
 
-      <Box>
-        <Uygunsuzluk_Table tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} tekrarlananSorunTipleri={tekrarlananSorunTipleri} />
-      </Box>
-
-    </Box>
-
-
+    </div>
   )
 
 }

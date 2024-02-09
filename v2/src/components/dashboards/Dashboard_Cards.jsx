@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import { detailButtonStyle, paperDashboardStyle_ProsesPlan, paperDashboardStyle_ToplamKontrolEdilen, paperDashboardStyle_ToplamUygunsuzluk } from '../../styles/globalStyle';
-
+import {colors} from "../../styles/globalStyle"
 
 
 const typoStyle = {
@@ -20,10 +20,6 @@ const typoStyle = {
 
 
 const Dashboard_Cards = ({dashboardData,prosesPlanaUygunluk}) => {
-
-    const navigate = useNavigate()
-
-   
 
 
     return (
@@ -40,7 +36,7 @@ const Dashboard_Cards = ({dashboardData,prosesPlanaUygunluk}) => {
                             <Typography sx={typoStyle}>
                                 Proses Planına Uygunluk
                             </Typography>
-                            <Typography variant="h3" align='center'>
+                            <Typography variant="h3" align='center' color={colors.beyaz}>
                                 {prosesPlanaUygunluk} %
                             </Typography>
                         </Paper>
@@ -51,12 +47,11 @@ const Dashboard_Cards = ({dashboardData,prosesPlanaUygunluk}) => {
                             <Typography sx={typoStyle}>
                                 Toplam Uygunsuzluk Miktar
                             </Typography>
-                            <Typography variant="h3" align='center'>
+                            <Typography variant="h3" align='center' color={colors.beyaz}>
                                 {dashboardData.toplamUygunsuzlukMiktar}
                             </Typography>
 
-                            {/* <Button color='info' size='small' sx={detailButtonStyle} onClick={() => navigate('/proses/uygunsuzluk')}>Detay</Button> */}
-                            <Button color='inherit' size='small' sx={{textTransform:'none'}} variant='contained' onClick={() => navigate('/proses/uygunsuzluk')}>Detay</Button>
+                            {/* <Button color='inherit' size='small' sx={{textTransform:'none'}} variant='contained' onClick={() => navigate('/proses/uygunsuzluk')}>Detay</Button> */}
 
                         </Paper>
                     </Grid>
@@ -66,7 +61,7 @@ const Dashboard_Cards = ({dashboardData,prosesPlanaUygunluk}) => {
                             <Typography sx={typoStyle}>
                                 Toplam Kontrol Edilen Miktar
                             </Typography>
-                            <Typography variant="h3" align='center'>
+                            <Typography variant="h3" align='center' color={colors.beyaz}>
                                 {dashboardData.toplamKontrolMiktar}
                             </Typography>
                         </Paper>

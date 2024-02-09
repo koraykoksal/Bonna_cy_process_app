@@ -78,48 +78,38 @@ const Login = () => {
             mb={4}
             color="secondary.light"
           >
-            Login
+            Giriş
           </Typography>
 
-       
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }} component='form' onSubmit={handleSubmit}>
-              {/* <TextField
-                label="Email"
-                name="email"
-                id="email"
-                type="text"
-                variant="outlined"
-                value={info.username}
-                onChange={handleChange}
-              /> */}
-              <TextField
-                label="Username"
-                name="username"
-                id="username"
-                type="text"
-                variant="outlined"
-                value={info.username}
-                onChange={handleChange}
-              />
-              <TextField
-                label="Password"
-                name="password"
-                id="password"
-                type="password"
-                variant="outlined"
-                value={info.password}
-                onChange={handleChange}
-              />
-              <Button variant="contained" type="submit">
-                Submit
-              </Button>
 
-            </Box>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }} component='form' onSubmit={handleSubmit}>
 
+            <TextField
+              required
+              label="Kullanıcı Adı"
+              name="username"
+              id="username"
+              type="text"
+              variant="outlined"
+              value={info.username}
+              onChange={handleChange}
+            />
+            <TextField
+              required
+              label="Şifre"
+              name="password"
+              id="password"
+              type="password"
+              variant="outlined"
+              value={info.password}
+              onChange={handleChange}
+            />
+            <Button variant="contained" type="submit" sx={{ letterSpacing: 5, textTransform: 'none', fontWeight: 700 }}>
+              Giriş
+            </Button>
 
-          {/* <Box sx={{ textAlign: "center", mt: 2 }}>
-            <Link to="/register">Don't you have an account?</Link>
-          </Box> */}
+          </Box>
+
 
         </Grid>
 

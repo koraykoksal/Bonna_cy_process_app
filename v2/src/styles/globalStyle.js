@@ -1,12 +1,13 @@
-import bgPattern from "../assets/img/dashboardPattern.png"
+import pattern2 from "../assets/img/bg2.png"
 import bg1 from "../assets/img/bg1.jpeg"
 
 
-const colors={
+export const colors={
     mor:'#9C27B0',
     kırmızı:'#D32F2F',
     mavi:'#1488D1',
     gri:'#717171',
+    beyaz:'#ffffff'
 }
 
 
@@ -23,9 +24,8 @@ export const homePattern = {
 }
 
 export const detailButtonStyle = {
-    // backgroundColor:'#F3B664',
     backgroundImage: 'linear-gradient(143deg, #e7ed6d 31%, #bec0d5 58%)',
-    // width: '100px',
+    letterSpacing:10,
     color: 'black',
     textTransform: 'none',
     fontWeight: 700,
@@ -40,7 +40,8 @@ export const paperDashboardStyle_ProsesPlan={
     width: '250px', 
     height: '165px', 
     flexDirection: 'column',
-    backgroundColor: colors.mor
+    backgroundColor: colors.mor,
+    boxShadow: 5
 }
 export const paperDashboardStyle_ToplamUygunsuzluk={
     display: 'flex', 
@@ -50,7 +51,8 @@ export const paperDashboardStyle_ToplamUygunsuzluk={
     width: '250px', 
     height: '165px', 
     flexDirection: 'column',
-    backgroundColor: colors.kırmızı
+    backgroundColor: colors.kırmızı,
+    boxShadow: 5
 }
 export const paperDashboardStyle_ToplamKontrolEdilen={
     display: 'flex', 
@@ -60,7 +62,8 @@ export const paperDashboardStyle_ToplamKontrolEdilen={
     width: '250px', 
     height: '165px', 
     flexDirection: 'column',
-    backgroundColor: colors.mavi
+    backgroundColor: colors.mavi,
+    boxShadow: 5
 }
 export const paperDashboardStyle_Uygunsuzluk={
     display: 'flex', 
@@ -70,5 +73,17 @@ export const paperDashboardStyle_Uygunsuzluk={
     width: '250px', 
     height: '165px', 
     flexDirection: 'column',
-    backgroundColor: colors.gri
+    backgroundColor: colors.gri,
+    boxShadow: 5
+}
+
+
+export const homePageStyle={
+    width: "100%",
+    height: "100vh",
+    overflow:'auto',
+    backgroundImage: `url(${pattern2})`,
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
 }

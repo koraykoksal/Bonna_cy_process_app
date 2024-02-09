@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux'
 import { Box, Button, Grid, Paper, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
 import { paperDashboardStyle_Uygunsuzluk } from '../../styles/globalStyle'
+import { colors } from '../../styles/globalStyle'
+
 
 const HataBazli_Uygunsuzluk = ({farkliAksiyonTipiSayisi,farkliSorunTipiSayisi}) => {
 
@@ -16,6 +18,7 @@ const HataBazli_Uygunsuzluk = ({farkliAksiyonTipiSayisi,farkliSorunTipiSayisi}) 
     color: '#ffffff',
     fontWeight: '700',
   }
+
   const buttonStyle = {
     color: '#ffffff',
     fontWeight: '700'
@@ -33,7 +36,7 @@ const HataBazli_Uygunsuzluk = ({farkliAksiyonTipiSayisi,farkliSorunTipiSayisi}) 
             <Typography sx={typoStyle}>
               Uygunsuzluk Çeşidi Miktar
             </Typography>
-            <Typography variant="h3" align='center'>
+            <Typography variant="h3" align='center' color={colors.beyaz}>
               {farkliSorunTipiSayisi}
             </Typography>
           </Paper>
@@ -44,7 +47,7 @@ const HataBazli_Uygunsuzluk = ({farkliAksiyonTipiSayisi,farkliSorunTipiSayisi}) 
             <Typography sx={typoStyle}>
               Bölüm Uygunsuzluk Miktar
             </Typography>
-            <Typography variant="h3" align='center'>
+            <Typography variant="h3" align='center' color={colors.beyaz}>
               {farkliAksiyonTipiSayisi}
             </Typography>
           </Paper>
