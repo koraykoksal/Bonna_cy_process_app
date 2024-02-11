@@ -144,6 +144,14 @@ const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyion
     }, [matchedCounts])
 
 
+
+
+
+    // console.log("tekrarlananAksyionTipleri: ",tekrarlananAksyionTipleri)
+    // console.log("matched data: ", matchedCounts)
+    console.log(dbData)
+
+
     return (
 
 

@@ -14,6 +14,13 @@ import DokumHatti_DataTable from '../components/tables/DokumHatti_DataTable';
 const Dokumhatti = () => {
 
 
+  const [delOpen, setdelOpen] = React.useState(false);
+  const delHandleOpen = () => setdelOpen(true);
+  const delHandleClose = () => setdelOpen(false);
+
+  const { getMaterialCenter, getWorkCenter, getFireData } = useArge()
+
+
   let getVardiya = 0;
   const nowData = new Date()
   const currentdatetime = nowData.getDate() + "-" + (nowData.getMonth() + 1) + "-" + nowData.getFullYear()
@@ -104,11 +111,7 @@ const Dokumhatti = () => {
     })
   }
 
-  const [delOpen, setdelOpen] = React.useState(false);
-  const delHandleOpen = () => setdelOpen(true);
-  const delHandleClose = () => setdelOpen(false);
-
-  const { getMaterialCenter, getWorkCenter, getFireData } = useArge()
+ 
 
 
   useEffect(() => {
