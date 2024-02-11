@@ -13,6 +13,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { SekillendirmeData, SirlamaData } from '../../helpers/ProcessData';
 
 
 const style = {
@@ -34,7 +35,7 @@ const style = {
 const tableCellStyle = {
     color: '#ffffff',
     fontWeight: '700',
-    fontSize:16,
+    fontSize: 16,
 }
 
 const tableContainerStyle = {
@@ -71,24 +72,50 @@ const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyion
             const actionKey = action.aksiyontipi.replace(/\s+/g, '') // boşluık karakterini kaldır
             let kontrolSayisi = 0;
 
-            Object.keys(dbData).forEach(key => {
+            //! actionKey değeri SEKILLENDIRME VEYA SIRLAMA gelirse aşağıdaki condition bloğunu uygula
+            if (actionKey == "SEKILLENDIRME") {
 
-                // Eşleşme kontrolü
-                if (key.toUpperCase().includes(actionKey)) {
-                    kontrolSayisi += Object.keys(dbData[key]).length; // Eşleşen kayıtların sayısını hesapla
-                }
-            });
+                SekillendirmeData.forEach(eslesmeAnahtari => {
+                    if (Object.keys(dbData).includes(eslesmeAnahtari)) {
+                        kontrolSayisi += Object.keys(dbData[eslesmeAnahtari]).length;
+                    }
+                })
+            }
+            else if (actionKey == "SIRLAMA") {
+
+                SirlamaData.forEach(eslesmeAnahtari => {
+                    if (Object.keys(dbData).includes(eslesmeAnahtari)) {
+                        kontrolSayisi += Object.keys(dbData[eslesmeAnahtari]).length;
+                    }
+                })
+
+            }
+            else {
+                Object.keys(dbData).forEach(key => {
+
+                    const keys = key.replace(/\s+/g, '').toUpperCase()
+                    const text = actionKey.replace(/\s+/g, '').toUpperCase()
+
+                    if (keys === text) {
+
+                        kontrolSayisi += Object.keys(dbData[key]).length; // Eşleşen kayıtların sayısını hesapla
+                    }
+
+                });
+            }
 
             return {
-                aksiyonSahibi: action.aksiyontipi, // Orjinal aksiyon tipi
+                aksiyonSahibi: actionKey, // Orjinal aksiyon tipi
                 kontrolSayisi: kontrolSayisi // Hesaplanan kontrol sayısı
             };
-        }).filter(result => result.kontrolSayisi > 0)// Sadece kontrol sayısı 0'dan büyük olanları filtrele
 
+        }).filter(result => result.kontrolSayisi > 0)// Sadece kontrol sayısı 0'dan büyük olanları filtrele
 
         setMatchedCounts(tempResults)
 
-    }, [tekrarlananAksyionTipleri,dbData])
+    }, [tekrarlananAksyionTipleri, dbData])
+
+
 
 
     //! aksiyon sahibi uygunsuzluk oranını belirle
@@ -96,9 +123,12 @@ const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyion
 
         const sonuc = tekrarlananAksyionTipleri.map(tekrarlanan => {
 
-            const matched = matchedCounts.find(match => match.aksiyonSahibi == tekrarlanan.aksiyontipi)
+            const aksiyontipi = tekrarlanan.aksiyontipi.replace(/\s+/g, '').toUpperCase()
+
+            const matched = matchedCounts.find(match => match.aksiyonSahibi == aksiyontipi)
 
             if (matched) {
+
                 return {
                     aksiyonSahibi: matched.aksiyonSahibi,
                     uygunsuzlukOrani: Number(tekrarlanan.tekrar) / Number(matched.kontrolSayisi)
@@ -112,7 +142,6 @@ const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyion
         setUygunsuzlukOranlari(sonuc)
 
     }, [matchedCounts])
-
 
 
     return (
@@ -172,9 +201,9 @@ const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyion
                                         <TableCell align="center">{item.aksiyonSahibi}</TableCell>
                                         <TableCell align="center">{item.uygunsuzlukOrani.toFixed(2)} %</TableCell>
                                         <TableCell align="center">
-                                        <Button variant='contained' sx={{textTransform:'none',height:'100%'}} color='info'>Detay</Button>
+                                            <Button variant='contained' sx={{ textTransform: 'none', height: '100%' }} color='info'>Detay</Button>
                                         </TableCell>
-                                        
+
                                     </TableRow>
                                 ))}
                             </TableBody>

@@ -10,7 +10,7 @@ export const aksiyonSahibi=[
         text:"SIRLAMA"
     },
     {
-        text:"DEKOR"
+        text:"DEKORLAMA"
     },
     {
         text:"DIJITAL BASKI"
@@ -164,3 +164,28 @@ export const uygunsuzlukTipi=[
     {"text": "Yoğunluk Değeri"},
     {"text": "Zımpara Temizliği"}
 ]
+
+
+
+export const SekillendirmeData=[
+    "IzoStatikPresData", 
+    "OtomatikTorna", 
+    "ManDikTorna", 
+    "YuksekBasinc", 
+    "DokumHatti", 
+    "KulpDokum"
+]
+
+
+
+
+export const SirlamaData=[
+
+    "Astarlama", 
+    "YuksekBasinc", 
+    "DokumHatti", 
+    "GranulKontrol", 
+    "KulpDokum"
+]
+
+

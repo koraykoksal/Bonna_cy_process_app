@@ -104,7 +104,6 @@ const Home = () => {
     setTekrarlananSorunTipleri(tekrarlananSorunTipleri);
 
 
-
     // //! aksiyon sahibi tiplerinin tekrar sayılarını hesaplama
     const aksiyonSahibiTipiSayilari = {};
     aksiyonSahibiTipleriDizisi.forEach(aksiyonTipi => {
@@ -120,7 +119,6 @@ const Home = () => {
 
 
   }, [uygunsuzlukData])
-
 
 
 
