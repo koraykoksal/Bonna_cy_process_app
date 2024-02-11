@@ -26,15 +26,6 @@ const tableContainerStyle = {
 
 const Uygunsuzluk_Table = ({ tekrarlananAksyionTipleri, tekrarlananSorunTipleri }) => {
 
-
-    // const [open, setOpen] = useState(false)
-    // const handleOpen = () => setOpen(true);
-    // const handleClose = () => {
-    //     setOpen(false)
-    // }
-
-
-
     return (
 
         <Box sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 3, mt: 5 }}>

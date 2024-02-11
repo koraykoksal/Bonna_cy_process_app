@@ -14,6 +14,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { SekillendirmeData, SirlamaData } from '../../helpers/ProcessData';
+import ColorLensIcon from '@mui/icons-material/ColorLens';
 
 
 const style = {
@@ -42,7 +43,6 @@ const tableContainerStyle = {
     maxHeight: '350px',
     overflow: 'auto'
 }
-
 
 
 const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyionTipleri, tekrarlananSorunTipleri }) => {
@@ -145,13 +145,6 @@ const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyion
 
 
 
-
-
-    // console.log("tekrarlananAksyionTipleri: ",tekrarlananAksyionTipleri)
-    // console.log("matched data: ", matchedCounts)
-    console.log(dbData)
-
-
     return (
 
 
@@ -193,29 +186,31 @@ const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyion
 
 
                     <Box mt={5}>
-                        <Table size="small" aria-label="a dense table">
-                            <TableHead sx={{ backgroundColor: '#000000' }}>
-                                <TableRow>
-                                    <TableCell align='center' sx={tableCellStyle}>Aksiyon Sahibi</TableCell>
-                                    <TableCell align="center" sx={tableCellStyle}>Uygunsuzluk Oranı</TableCell>
-                                    <TableCell align="center" sx={tableCellStyle}></TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {uygunsuzlukOranlari.map((item, index) => (
-                                    <TableRow
-                                        key={index}
-                                    >
-                                        <TableCell align="center">{item.aksiyonSahibi}</TableCell>
-                                        <TableCell align="center">{item.uygunsuzlukOrani.toFixed(2)} %</TableCell>
-                                        <TableCell align="center">
-                                            <Button variant='contained' sx={{ textTransform: 'none', height: '100%' }} color='info'>Detay</Button>
-                                        </TableCell>
-
+                        <TableContainer component={Paper}>
+                            <Table size="small" aria-label="a dense table">
+                                <TableHead sx={{ backgroundColor: '#000000' }}>
+                                    <TableRow>
+                                        <TableCell align='center' sx={tableCellStyle}>Aksiyon Sahibi</TableCell>
+                                        <TableCell align="center" sx={tableCellStyle}>Uygunsuzluk Oranı</TableCell>
+                                        <TableCell align="center" sx={tableCellStyle}></TableCell>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+                                </TableHead>
+                                <TableBody>
+                                    {uygunsuzlukOranlari.map((item, index) => (
+                                        <TableRow
+                                            key={index}
+                                        >
+                                            <TableCell align="center">{item.aksiyonSahibi}</TableCell>
+                                            <TableCell align="center">{item.uygunsuzlukOrani.toFixed(2)} %</TableCell>
+                                            <TableCell align="center">
+                                                <Button variant='contained' sx={{ textTransform: 'none', height: '100%' }} color='info'>Detay</Button>
+                                            </TableCell>
+
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
                     </Box>
 
 
