@@ -9,7 +9,8 @@ export const colors={
     gri:'#717171',
     beyaz:'#ffffff',
     sarı:'#F3B95F',
-    turuncu:'#FD8D14'
+    turuncu:'#FD8D14',
+    siyah:'#000000'
 }
 
 

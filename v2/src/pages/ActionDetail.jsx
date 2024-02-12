@@ -7,6 +7,8 @@ import { SekillendirmeData, SirlamaData } from '../helpers/ProcessData';
 import { HiOutlineSearch } from "react-icons/hi";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { colors, paperDashboardStyle_ProsesPlan, paperDashboardStyle_ToplamKontrolEdilen, paperDashboardStyle_ToplamUygunsuzluk } from '../styles/globalStyle'
+import ActionDetail_Tables from '../components/detailTables/ActionDetail_Tables'
+import GraphicChart from '../components/GraphicChart'
 
 
 const typoStyle = {
@@ -19,12 +21,13 @@ const typoStyle = {
 const ActionDetail = () => {
 
     const { dashboardData, uygunsuzlukData, dbData } = useSelector((state) => state.arge)
+
     const { state } = useLocation()
     const { id } = useParams()
     const navigate = useNavigate()
     const [allData, setAllData] = useState([])
     const [uygunsuzlukCount, setUygunsuzlukCount] = useState([])
-
+    const [uygunsuzlukDataTable, setuygunsuzlukDataTable] = useState([])
 
     const [info, setInfo] = useState({
         dateFrom: "",
@@ -36,6 +39,7 @@ const ActionDetail = () => {
     }
 
 
+    //! useLocation dan gelen değere göre veriyi güncelle
     useEffect(() => {
 
         let geciciVeriSetleri = [];
@@ -73,8 +77,6 @@ const ActionDetail = () => {
                     geciciVeriSetleri.push(...veriSeti)
                 }
             })
-
-
         }
 
         setAllData(geciciVeriSetleri)
@@ -83,20 +85,19 @@ const ActionDetail = () => {
 
 
 
-
+    //! toplam uygunsuzluk sayısı
     useEffect(() => {
 
-        let uygunsuzluk=[]
+        let uygunsuzluk = []
         const data = Object.values(uygunsuzlukData)
 
         data.map(item => {
 
             const { aksiyon_sahibi } = item
-            
+
             if (state.aksiyonSahibi == aksiyon_sahibi.replace(/\s+/g, '').toUpperCase()) {
                 uygunsuzluk.push(item)
             }
-
         })
 
         setUygunsuzlukCount(uygunsuzluk)
@@ -105,6 +106,32 @@ const ActionDetail = () => {
 
 
 
+    //! uygunsuzluk açıklaması ve tekrar sayısı
+    useEffect(() => {
+
+        const countUygunsuzluk = uygunsuzlukCount.reduce((acc, item) => {
+            if (acc[item.sorun_tipi]) {
+                acc[item.sorun_tipi]++;
+            }
+            else {
+                acc[item.sorun_tipi] = 1;
+            }
+
+            return acc;
+
+        }, {})
+
+
+        const data = Object.keys(countUygunsuzluk).map(key => {
+            return {
+                title: key,
+                count: countUygunsuzluk[key]
+            }
+        })
+
+        setuygunsuzlukDataTable(data)
+
+    }, [uygunsuzlukCount])
 
 
 
@@ -115,9 +142,7 @@ const ActionDetail = () => {
 
                 <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
 
-                    {/* <Button variant='contained' color='info' sx={{ textTransform: 'none' }} onClick={() => navigate(-1)}>Geri</Button> */}
-
-                    <IoArrowBackCircle size={35} cursor={'pointer'} onClick={() => navigate(-1)} color={colors.turuncu} />
+                    <IoArrowBackCircle size={35} cursor={'pointer'} onClick={() => navigate(-1)} color={colors.siyah} />
 
                     <Box display={'flex'} justifyContent={'space-between'} gap={2} alignItems={'center'}>
 
@@ -137,7 +162,7 @@ const ActionDetail = () => {
                                 type='date'
                                 onChange={handleChange}
                             />
-                            <HiOutlineSearch size={30} color='blue' cursor={'pointer'} style={{ marginLeft: 15 }} />
+                            <HiOutlineSearch size={30} color='black' cursor={'pointer'} style={{ marginLeft: 15 }} />
                         </Box>
 
                     </Box>
@@ -146,7 +171,7 @@ const ActionDetail = () => {
 
                 <Typography align='center' letterSpacing={5} fontWeight={700}>{state.aksiyonSahibi} DETAY</Typography>
 
-                <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3, flexWrap: 'wrap', mt: 5 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'center', gap: 5, flexWrap: 'wrap', mt: 5 }}>
 
                     <Grid>
                         <Paper sx={paperDashboardStyle_ProsesPlan}>
@@ -180,6 +205,14 @@ const ActionDetail = () => {
                             </Typography>
                         </Paper>
                     </Grid>
+
+                </Box>
+
+                <Box display={'flex'} justifyContent={'center'} gap={5} alignItems={'center'} flexWrap={'wrap'}>
+
+                    <ActionDetail_Tables uygunsuzlukDataTable={uygunsuzlukDataTable} uygunsuzlukCount={uygunsuzlukCount} />
+
+                    <GraphicChart uygunsuzlukDataTable={uygunsuzlukDataTable} />
 
                 </Box>
 

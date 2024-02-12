@@ -181,7 +181,7 @@ const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyion
                                 type='date'
                                 onChange={handleChange}
                             />
-                            <HiOutlineSearch size={30} color='blue' cursor={'pointer'} style={{ marginLeft: 15 }} />
+                            <HiOutlineSearch size={30} color='black' cursor={'pointer'} style={{ marginLeft: 15 }} />
                         </Box>
 
                     </Box>

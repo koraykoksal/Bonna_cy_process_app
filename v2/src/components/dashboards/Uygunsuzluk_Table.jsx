@@ -54,8 +54,6 @@ const Uygunsuzluk_Table = ({ tekrarlananAksyionTipleri, tekrarlananSorunTipleri 
 
             <Box display={'flex'} flexDirection={'column'} gap={2}>
 
-                {/* <Button variant='contained' color='info' sx={detailButtonStyle} onClick={handleOpen}>Detay</Button> */}
-
                 <TableContainer component={Paper} sx={tableContainerStyle}>
                     <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                         <TableHead sx={{ backgroundColor: '#000000' }}>
@@ -77,8 +75,6 @@ const Uygunsuzluk_Table = ({ tekrarlananAksyionTipleri, tekrarlananSorunTipleri 
                     </Table>
                 </TableContainer>
             </Box>
-
-            {/* <DetailModal open={open} handleClose={handleClose} handleOpen={handleOpen} tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} tekrarlananSorunTipleri={tekrarlananSorunTipleri}/> */}
 
         </Box>
     )
