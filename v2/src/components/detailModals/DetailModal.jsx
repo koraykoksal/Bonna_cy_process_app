@@ -15,6 +15,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { SekillendirmeData, SirlamaData } from '../../helpers/ProcessData';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
+import { useNavigate } from 'react-router-dom';
 
 
 const style = {
@@ -47,6 +48,7 @@ const tableContainerStyle = {
 
 const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyionTipleri, tekrarlananSorunTipleri }) => {
 
+    const navigate=useNavigate()
 
     const [matchedCounts, setMatchedCounts] = useState({});
     const [uygunsuzlukOranlari, setUygunsuzlukOranlari] = useState([]);
@@ -203,7 +205,7 @@ const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyion
                                             <TableCell align="center">{item.aksiyonSahibi}</TableCell>
                                             <TableCell align="center">{item.uygunsuzlukOrani.toFixed(2)} %</TableCell>
                                             <TableCell align="center">
-                                                <Button variant='contained' sx={{ textTransform: 'none', height: '100%' }} color='info'>Detay</Button>
+                                                <Button variant='contained' sx={{ textTransform: 'none', height: '100%' }} color='info' onClick={()=>navigate(`/proses/${index}`,{state:item.aksiyonSahibi})}>Detay</Button>
                                             </TableCell>
 
                                         </TableRow>

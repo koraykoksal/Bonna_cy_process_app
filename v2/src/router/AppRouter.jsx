@@ -1,5 +1,5 @@
 import React from 'react'
-import {  Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { BrowserRouter } from 'react-router-dom'
 import Login from '../pages/Login'
 import Home from '../pages/Home'
@@ -25,6 +25,7 @@ import Nihaiurunkontrol from '../pages/Nihaiurunkontrol'
 import Ayaktaslama from '../pages/Ayaktaslama'
 import NotFound from '../pages/NotFound'
 import Dashboard from '../pages/Dashboard'
+import ActionDetail from '../pages/ActionDetail'
 
 
 
@@ -33,40 +34,42 @@ const AppRouter = () => {
 
 
   return (
-    
+
 
     <BrowserRouter>
 
       <Routes>
-        <Route path='/' element={<Login/>}/>
-        <Route path='register' element={<Register/>}/>
-       
-        <Route path='proses' element={<PrivateRouter/>}>
-          <Route path='' element={<Dashboard/>}>
-          <Route index element={<Home/>}/>
-          <Route path='uygunsuzluk' element={<Uygunsuzluk/>}/>
-          <Route path='reaktifstandart' element={<Reaktifstandart/>}/>
-          <Route path='izostatikpres' element={<Izostatikpres/>}/>
-          <Route path='otomatiktorna' element={<Otomatiktorna/>}/>
-          <Route path='mandiktornapres' element={<Mandiktornapres/>}/>
-          <Route path='yuksekbasinc' element={<Yuksekbasinc/>}/>
-          <Route path='dokumhatti' element={<Dokumhatti/>}/>
-          <Route path='kulpdokum' element={<Kulpdokum/>}/>
-          <Route path='granulkontrol' element={<Granulkontrol/>}/>
-          <Route path='astarlama' element={<Astarlama/>}/>
-          <Route path='reaktif' element={<Reaktif/>}/>
-          <Route path='triyaj' element={<Triyaj/>}/>
-          <Route path='sirlama' element={<Sirlama/>}/>
-          <Route path='dijitallogo' element={<Dijitallogo/>}/>
-          <Route path='dekorlama' element={<Dekorlama/>}/>
-          <Route path='dijitalbaski' element={<Dijitalbaski/>}/>
-          <Route path='nihaiurunkontrol' element={<Nihaiurunkontrol/>}/>
-          <Route path='ayaktaslama' element={<Ayaktaslama/>}/>
-          </Route>
-          
-        </Route>
+        <Route path='/' element={<Login />} />
+        <Route path='register' element={<Register />} />
 
-        <Route path='*' element={<NotFound/>}/>
+        <Route path='proses' element={<PrivateRouter />}>
+          <Route path='' element={<Dashboard />}>
+            <Route index element={<Home />} />
+            <Route path='uygunsuzluk' element={<Uygunsuzluk />} />
+            <Route path='reaktifstandart' element={<Reaktifstandart />} />
+            <Route path='izostatikpres' element={<Izostatikpres />} />
+            <Route path='otomatiktorna' element={<Otomatiktorna />} />
+            <Route path='mandiktornapres' element={<Mandiktornapres />} />
+            <Route path='yuksekbasinc' element={<Yuksekbasinc />} />
+            <Route path='dokumhatti' element={<Dokumhatti />} />
+            <Route path='kulpdokum' element={<Kulpdokum />} />
+            <Route path='granulkontrol' element={<Granulkontrol />} />
+            <Route path='astarlama' element={<Astarlama />} />
+            <Route path='reaktif' element={<Reaktif />} />
+            <Route path='triyaj' element={<Triyaj />} />
+            <Route path='sirlama' element={<Sirlama />} />
+            <Route path='dijitallogo' element={<Dijitallogo />} />
+            <Route path='dekorlama' element={<Dekorlama />} />
+            <Route path='dijitalbaski' element={<Dijitalbaski />} />
+            <Route path='nihaiurunkontrol' element={<Nihaiurunkontrol />} />
+            <Route path='ayaktaslama' element={<Ayaktaslama />} />
+            {/* proses pathi içerisinde tanımlamak için path bilgisini :id olarak belirtmek gerekir */}
+            <Route path=':id' element={<ActionDetail/>}/>
+          </Route>
+        </Route>
+        {/* proses pathi dışında tanımlamak için path bilgisini /:id olarak belirtmek gerekir */}
+        {/* <Route path='/:id' element={<ActionDetail/>}/> */}
+        <Route path='*' element={<NotFound />} />
 
       </Routes>
     </BrowserRouter>
