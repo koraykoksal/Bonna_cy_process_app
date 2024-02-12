@@ -3,7 +3,10 @@ import { Box, Typography, Container, Grid, Button } from "@mui/material"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList, Rectangle } from 'recharts';
 import { useState, useEffect } from 'react';
 
-const GraphicChart = ({ uygunsuzlukDataTable }) => {
+const GraphicChart = ({ uygunsuzlukDataTable, uygunsuzlukCount }) => {
+
+    console.log(uygunsuzlukDataTable)
+
 
     return (
 
@@ -28,7 +31,8 @@ const GraphicChart = ({ uygunsuzlukDataTable }) => {
                     <Tooltip />
                     <Legend />
                     <Bar dataKey="count" fill="#8884d8">
-                        <LabelList dataKey="title" position="insideTop" fill='#000000' fontSize={11} />
+                        <LabelList dataKey="title" position="insideTop" fill='#000000' fontSize={12} />
+                        <LabelList dataKey="percent" position="center" fill='#000000' fontSize={12} />
                     </Bar>
                 </BarChart>
                 {/* </ResponsiveContainer> */}

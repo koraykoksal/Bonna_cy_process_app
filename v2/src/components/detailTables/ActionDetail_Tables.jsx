@@ -35,6 +35,8 @@ const ActionDetail_Tables = ({ uygunsuzlukDataTable,uygunsuzlukCount }) => {
                                 <TableRow>
                                     <TableCell align='center' sx={tableCellStyle}>Hata Tipi</TableCell>
                                     <TableCell align="center" sx={tableCellStyle}>Adet</TableCell>
+                                    <TableCell align="center" sx={tableCellStyle}>Etki Yüzdesi</TableCell>
+                                    <TableCell align="center" sx={tableCellStyle}></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -44,6 +46,10 @@ const ActionDetail_Tables = ({ uygunsuzlukDataTable,uygunsuzlukCount }) => {
                                     >
                                         <TableCell align="center">{item.title}</TableCell>
                                         <TableCell align="center">{item.count}</TableCell>
+                                        <TableCell align="center">{item.percent} %</TableCell>
+                                        <TableCell align="center">
+                                            <Button variant='contained' color='info' sx={{textTransform:'none'}}>Detay</Button>
+                                        </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

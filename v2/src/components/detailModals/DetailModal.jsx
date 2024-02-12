@@ -203,7 +203,7 @@ const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyion
                                             key={index}
                                         >
                                             <TableCell align="center">{item.aksiyonSahibi}</TableCell>
-                                            <TableCell align="center">{item.uygunsuzlukOrani.toFixed(2)} %</TableCell>
+                                            <TableCell align="center">{item.uygunsuzlukOrani.toFixed(2) * 100} %</TableCell>
                                             <TableCell align="center">
                                                 <Button variant='contained' sx={{ textTransform: 'none', height: '100%' }} color='info' onClick={()=>navigate(`/proses/${index}`,
                                                 {

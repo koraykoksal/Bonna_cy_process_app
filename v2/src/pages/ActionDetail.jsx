@@ -126,13 +126,15 @@ const ActionDetail = () => {
         const data = Object.keys(countUygunsuzluk).map(key => {
             return {
                 title: key,
-                count: countUygunsuzluk[key]
+                count: countUygunsuzluk[key],
+                percent: (countUygunsuzluk[key] / uygunsuzlukCount.length) * 100
             }
         })
 
         setuygunsuzlukDataTable(data)
 
     }, [uygunsuzlukCount])
+
 
 
 
@@ -180,7 +182,7 @@ const ActionDetail = () => {
                                 Proses Planına Uygunluk
                             </Typography>
                             <Typography variant="h3" align='center' color={colors.beyaz}>
-                                {state.uygunsuzlukOrani} %
+                                {state.uygunsuzlukOrani * 100} %
                             </Typography>
                         </Paper>
                     </Grid>
@@ -213,8 +215,8 @@ const ActionDetail = () => {
 
                     <ActionDetail_Tables uygunsuzlukDataTable={uygunsuzlukDataTable} uygunsuzlukCount={uygunsuzlukCount} />
 
-                    <GraphicChart uygunsuzlukDataTable={uygunsuzlukDataTable} />
-                
+                    <GraphicChart uygunsuzlukDataTable={uygunsuzlukDataTable} uygunsuzlukCount={uygunsuzlukCount} />
+
                 </Box>
 
 
