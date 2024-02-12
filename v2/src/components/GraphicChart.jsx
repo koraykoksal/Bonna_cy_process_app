@@ -11,11 +11,10 @@ const GraphicChart = ({ uygunsuzlukDataTable }) => {
 
             <Box sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 3, mt: 5 }}>
 
-                {/* <Typography variant='subtitle2' fontWeight={700} align='center'>Grafik</Typography> */}
                 {/* <ResponsiveContainer width="100%" height="100%"> */}
                 <BarChart
                     width={700}
-                    height={300}
+                    height={400}
                     data={uygunsuzlukDataTable}
                     margin={{
                         top: 5,
@@ -28,10 +27,8 @@ const GraphicChart = ({ uygunsuzlukDataTable }) => {
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    {/* <Bar dataKey="count" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} /> */}
                     <Bar dataKey="count" fill="#8884d8">
-                        <LabelList dataKey="title" position="insideTop" fill='#000000' fontSize={13} />
-
+                        <LabelList dataKey="title" position="insideTop" fill='#000000' fontSize={11} />
                     </Bar>
                 </BarChart>
                 {/* </ResponsiveContainer> */}

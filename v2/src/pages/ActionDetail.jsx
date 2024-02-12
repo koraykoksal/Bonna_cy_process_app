@@ -9,6 +9,7 @@ import { IoArrowBackCircle } from "react-icons/io5";
 import { colors, paperDashboardStyle_ProsesPlan, paperDashboardStyle_ToplamKontrolEdilen, paperDashboardStyle_ToplamUygunsuzluk } from '../styles/globalStyle'
 import ActionDetail_Tables from '../components/detailTables/ActionDetail_Tables'
 import GraphicChart from '../components/GraphicChart'
+import { ResponsiveContainer } from 'recharts'
 
 
 const typoStyle = {
@@ -213,12 +214,11 @@ const ActionDetail = () => {
                     <ActionDetail_Tables uygunsuzlukDataTable={uygunsuzlukDataTable} uygunsuzlukCount={uygunsuzlukCount} />
 
                     <GraphicChart uygunsuzlukDataTable={uygunsuzlukDataTable} />
-
+                
                 </Box>
 
+
             </Box>
-
-
 
         </div>
     )
