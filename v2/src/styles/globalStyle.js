@@ -7,7 +7,9 @@ export const colors={
     kırmızı:'#D32F2F',
     mavi:'#1488D1',
     gri:'#717171',
-    beyaz:'#ffffff'
+    beyaz:'#ffffff',
+    sarı:'#F3B95F',
+    turuncu:'#FD8D14'
 }
 
 
@@ -43,6 +45,8 @@ export const paperDashboardStyle_ProsesPlan={
     backgroundColor: colors.mor,
     boxShadow: 5
 }
+
+
 export const paperDashboardStyle_ToplamUygunsuzluk={
     display: 'flex', 
     alignItems: 'center', 
@@ -54,6 +58,8 @@ export const paperDashboardStyle_ToplamUygunsuzluk={
     backgroundColor: colors.kırmızı,
     boxShadow: 5
 }
+
+
 export const paperDashboardStyle_ToplamKontrolEdilen={
     display: 'flex', 
     alignItems: 'center', 
@@ -65,6 +71,8 @@ export const paperDashboardStyle_ToplamKontrolEdilen={
     backgroundColor: colors.mavi,
     boxShadow: 5
 }
+
+
 export const paperDashboardStyle_Uygunsuzluk={
     display: 'flex', 
     alignItems: 'center', 
@@ -86,4 +94,10 @@ export const homePageStyle={
     backgroundPosition: "center",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
+}
+
+export const newBtnStyle={
+    textTransform:'none',
+    fontWeight:700,
+    letterSpacing:3
 }

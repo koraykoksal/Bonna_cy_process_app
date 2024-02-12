@@ -1,6 +1,6 @@
 import Typography from '@mui/material/Typography';
 import React from 'react'
-import { typoStyle } from "../styles/globalStyle"
+import { newBtnStyle, typoStyle } from "../styles/globalStyle"
 import { Box } from '@mui/material';
 import UygunsuzlukModal from '../components/modals/UygunsuzlukModal';
 import { Formik } from 'formik';
@@ -100,7 +100,7 @@ const Uygunsuzluk = () => {
         Uygunsuzluk
       </Typography>
 
-      <Button onClick={handleOpen} variant='outlined'>New</Button>
+      <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
 
       <UygunsuzlukModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} />
 

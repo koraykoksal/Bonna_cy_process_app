@@ -1,5 +1,5 @@
 import React from 'react'
-import { typoStyle } from "../styles/globalStyle"
+import { newBtnStyle, typoStyle } from "../styles/globalStyle"
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 import DijitalLogoKontrolModal from '../components/modals/DijitalLogoKontrolModal';
@@ -102,7 +102,7 @@ const Dijitallogo = () => {
         Dijital Logo
       </Typography>
 
-      <Button onClick={handleOpen} variant='outlined'>New</Button>
+      <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
 
       <DijitalLogoKontrolModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} />
 

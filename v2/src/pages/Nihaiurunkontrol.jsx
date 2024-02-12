@@ -1,5 +1,5 @@
 import React from 'react'
-import {typoStyle} from "../styles/globalStyle"
+import {newBtnStyle, typoStyle} from "../styles/globalStyle"
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 import NihaiUrunKontrolModal from '../components/modals/NihaiUrunKontrolModal';
@@ -123,7 +123,7 @@ const Nihaiurunkontrol = () => {
             Nihai Ürün Kontrol
         </Typography>
 
-        <Button onClick={handleOpen} variant='outlined'>New</Button>
+        <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
 
         <NihaiUrunKontrolModal open={open} handleClose={handleClose} info={info} setInfo={setInfo}/>
 

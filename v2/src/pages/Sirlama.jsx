@@ -1,5 +1,5 @@
 import React from 'react'
-import { typoStyle } from "../styles/globalStyle"
+import { newBtnStyle, typoStyle } from "../styles/globalStyle"
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 import SirlamaModal from '../components/modals/SirlamaModal';
@@ -154,7 +154,7 @@ const Sirlama = () => {
         Sırlama
       </Typography>
 
-      <Button variant='outlined' onClick={handleOpen}>New</Button>
+      <Button variant='outlined' onClick={handleOpen} sx={newBtnStyle}>New</Button>
 
       <SirlamaModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} />
 

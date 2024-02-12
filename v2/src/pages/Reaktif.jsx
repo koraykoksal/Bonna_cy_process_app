@@ -1,5 +1,5 @@
 import React from 'react'
-import { typoStyle } from "../styles/globalStyle"
+import { newBtnStyle, typoStyle } from "../styles/globalStyle"
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 import ReaktifModal from '../components/modals/ReaktifModal';
@@ -93,7 +93,7 @@ const Reaktif = () => {
         Reaktif
       </Typography>
 
-      <Button onClick={handleOpen} variant='outlined'>New</Button>
+      <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
 
       <ReaktifModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} />
 

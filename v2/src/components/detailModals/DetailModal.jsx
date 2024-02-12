@@ -205,7 +205,13 @@ const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyion
                                             <TableCell align="center">{item.aksiyonSahibi}</TableCell>
                                             <TableCell align="center">{item.uygunsuzlukOrani.toFixed(2)} %</TableCell>
                                             <TableCell align="center">
-                                                <Button variant='contained' sx={{ textTransform: 'none', height: '100%' }} color='info' onClick={()=>navigate(`/proses/${index}`,{state:item.aksiyonSahibi})}>Detay</Button>
+                                                <Button variant='contained' sx={{ textTransform: 'none', height: '100%' }} color='info' onClick={()=>navigate(`/proses/${index}`,
+                                                {
+                                                    state:{
+                                                        aksiyonSahibi:item.aksiyonSahibi,
+                                                        uygunsuzlukOrani:item.uygunsuzlukOrani.toFixed(2)
+                                                    }
+                                                })}>Detay</Button>
                                             </TableCell>
 
                                         </TableRow>

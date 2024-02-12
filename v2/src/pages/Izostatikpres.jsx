@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
-import { typoStyle } from "../styles/globalStyle"
+import { newBtnStyle, typoStyle } from "../styles/globalStyle"
 import IzostatikPresModal from '../components/modals/IzostatikPresModal';
 import useArge from '../hooks/useArge';
 import { useEffect } from 'react';
@@ -135,7 +135,7 @@ const Izostatikpres = () => {
         İzostatik Pres
       </Typography>
 
-      <Button onClick={handleOpen} variant='outlined'>New</Button>
+      <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
 
       <IzostatikPresModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} />
 

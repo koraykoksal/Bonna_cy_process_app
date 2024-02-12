@@ -78,6 +78,7 @@ const Home = () => {
     const sorunTipleriDizisi = data.map(kayit => kayit.sorun_tipi);
     setSorunTipleri(sorunTipleriDizisi);
 
+    //* new Set özelliği ile yalnızca benzersiz kayıtları al
     const benzersizSorunTipleri = new Set(sorunTipleriDizisi);
     setFarkliSorunTipiSayisi(benzersizSorunTipleri.size);
 
@@ -119,6 +120,7 @@ const Home = () => {
 
 
   }, [uygunsuzlukData])
+
 
 
 
