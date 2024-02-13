@@ -15,6 +15,7 @@ import HataBazli_Uygunsuzluk from '../components/dashboards/HataBazli_Uygunsuzlu
 import Uygunsuzluk_Table from '../components/dashboards/Uygunsuzluk_Table';
 import { HiOutlineSearch } from "react-icons/hi";
 import DetailModal from '../components/detailModals/DetailModal';
+import Dashboard_Graphic from '../components/dashboards/Dashboard_Graphic';
 
 
 const detailButtonStyle = {
@@ -128,7 +129,7 @@ const Home = () => {
 
     <div>
 
-      <Box pt={6}>
+      <Box py={6}>
 
         <Typography align='center' p={2} fontWeight={700} letterSpacing={5} fontSize={18}>Genel Özet</Typography>
 
@@ -143,13 +144,16 @@ const Home = () => {
           <Button variant='outlined' sx={detailButtonStyle} color='success' onClick={handleOpen}>Aksiyon Sahipleri</Button>
         </Box>
 
-        <Box>
-          <Uygunsuzluk_Table tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} tekrarlananSorunTipleri={tekrarlananSorunTipleri} />
-        </Box>
 
-        <DetailModal open={open} handleClose={handleClose} handleOpen={handleOpen} dbData={dbData} tekrarlananAksyionTipleri={tekrarlananAksyionTipleri}/>
+        <Uygunsuzluk_Table tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} tekrarlananSorunTipleri={tekrarlananSorunTipleri} />
 
       </Box>
+
+
+      <Dashboard_Graphic tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} tekrarlananSorunTipleri={tekrarlananSorunTipleri} />
+      
+
+      <DetailModal open={open} handleClose={handleClose} handleOpen={handleOpen} dbData={dbData} tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} />
 
     </div>
   )

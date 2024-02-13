@@ -5,43 +5,33 @@ import { useState, useEffect } from 'react';
 
 const GraphicChart = ({ uygunsuzlukDataTable, uygunsuzlukCount }) => {
 
-    console.log(uygunsuzlukDataTable)
-
 
     return (
 
-        <div>
 
-            <Box sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 3, mt: 5 }}>
 
-                {/* <ResponsiveContainer width="100%" height="100%"> */}
+        // <Box sx={{ display: 'flex', justifyContent: 'center'}} height={500}>
+
+            <ResponsiveContainer width="80%" height="60%">
                 <BarChart
-                    width={700}
-                    height={400}
                     data={uygunsuzlukDataTable}
-                    margin={{
-                        top: 5,
-                        right: 30,
-                        left: 20,
-                        bottom: 5,
-                    }}
                 >
                     <XAxis dataKey="count" />
                     <YAxis />
                     <Tooltip />
                     <Legend />
                     <Bar dataKey="count" fill="#8884d8">
-                        <LabelList dataKey="title" position="insideTop" fill='#000000' fontSize={12} />
-                        <LabelList dataKey="percent" position="center" fill='#000000' fontSize={12} />
+                        <LabelList dataKey="title" position="insideTop" fill='#ffffff' fontWeight={700} fontSize={12} />
+                        <LabelList dataKey="percent" position="center" fill='#ffffff' fontWeight={700} fontSize={12} />
                     </Bar>
                 </BarChart>
-                {/* </ResponsiveContainer> */}
+            </ResponsiveContainer>
 
 
-            </Box>
+        // </Box>
 
 
-        </div>
+
     )
 }
 

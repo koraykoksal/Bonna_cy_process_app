@@ -174,50 +174,59 @@ const ActionDetail = () => {
 
                 <Typography align='center' letterSpacing={5} fontWeight={700}>{state.aksiyonSahibi} DETAY</Typography>
 
-                <Box sx={{ display: 'flex', justifyContent: 'center', gap: 5, flexWrap: 'wrap', mt: 5 }}>
+                <Box display={'flex'} flexDirection={'column'} gap={5} my={5}>
 
-                    <Grid>
-                        <Paper sx={paperDashboardStyle_ProsesPlan}>
-                            <Typography sx={typoStyle}>
-                                Proses Planına Uygunluk
-                            </Typography>
-                            <Typography variant="h3" align='center' color={colors.beyaz}>
-                                {state.uygunsuzlukOrani * 100} %
-                            </Typography>
-                        </Paper>
-                    </Grid>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', gap: 5, flexWrap: 'wrap'}}>
 
-                    <Grid>
-                        <Paper sx={paperDashboardStyle_ToplamKontrolEdilen}>
-                            <Typography sx={typoStyle}>
-                                Toplam Kontrol Edilen Miktar
-                            </Typography>
-                            <Typography variant="h3" align='center' color={colors.beyaz}>
-                                {allData.length}
-                            </Typography>
-                        </Paper>
-                    </Grid>
+                        <Grid>
+                            <Paper sx={paperDashboardStyle_ProsesPlan}>
+                                <Typography sx={typoStyle}>
+                                    Proses Planına Uygunluk
+                                </Typography>
+                                <Typography variant="h3" align='center' color={colors.beyaz}>
+                                    {state.uygunsuzlukOrani} %
+                                </Typography>
+                            </Paper>
+                        </Grid>
 
-                    <Grid>
-                        <Paper sx={paperDashboardStyle_ToplamUygunsuzluk}>
-                            <Typography sx={typoStyle}>
-                                Toplam Uygunsuzluk Miktar
-                            </Typography>
-                            <Typography variant="h3" align='center' color={colors.beyaz}>
-                                {uygunsuzlukCount.length}
-                            </Typography>
-                        </Paper>
-                    </Grid>
+                        <Grid>
+                            <Paper sx={paperDashboardStyle_ToplamKontrolEdilen}>
+                                <Typography sx={typoStyle}>
+                                    Toplam Kontrol Edilen Miktar
+                                </Typography>
+                                <Typography variant="h3" align='center' color={colors.beyaz}>
+                                    {allData.length}
+                                </Typography>
+                            </Paper>
+                        </Grid>
+
+                        <Grid>
+                            <Paper sx={paperDashboardStyle_ToplamUygunsuzluk}>
+                                <Typography sx={typoStyle}>
+                                    Toplam Uygunsuzluk Miktar
+                                </Typography>
+                                <Typography variant="h3" align='center' color={colors.beyaz}>
+                                    {uygunsuzlukCount.length}
+                                </Typography>
+                            </Paper>
+                        </Grid>
+
+                    </Box>
+
+
+                    <Box sx={{ display: 'flex', justifyContent: 'space-evenly', gap: 5, alignItems: 'center', flexWrap: 'wrap' }} height={500}>
+
+                        <ActionDetail_Tables uygunsuzlukDataTable={uygunsuzlukDataTable} uygunsuzlukCount={uygunsuzlukCount} />
+
+                        <GraphicChart uygunsuzlukDataTable={uygunsuzlukDataTable} uygunsuzlukCount={uygunsuzlukCount} />
+
+
+                    </Box>
 
                 </Box>
 
-                <Box display={'flex'} justifyContent={'center'} gap={5} alignItems={'center'} flexWrap={'wrap'}>
 
-                    <ActionDetail_Tables uygunsuzlukDataTable={uygunsuzlukDataTable} uygunsuzlukCount={uygunsuzlukCount} />
 
-                    <GraphicChart uygunsuzlukDataTable={uygunsuzlukDataTable} uygunsuzlukCount={uygunsuzlukCount} />
-
-                </Box>
 
 
             </Box>

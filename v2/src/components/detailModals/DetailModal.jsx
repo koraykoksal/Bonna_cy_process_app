@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, Container, TextField, Typography } from '@mui/material';
 import { FaWindowClose } from "react-icons/fa";
 import { HiOutlineSearch } from "react-icons/hi";
 import { useState, useEffect } from 'react';
@@ -16,15 +16,15 @@ import Paper from '@mui/material/Paper';
 import { SekillendirmeData, SirlamaData } from '../../helpers/ProcessData';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import { useNavigate } from 'react-router-dom';
-
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList, Rectangle } from 'recharts';
 
 const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '80%',
-    height: '80%',
+    width: '90%',
+    height: '90%',
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -48,7 +48,7 @@ const tableContainerStyle = {
 
 const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyionTipleri, tekrarlananSorunTipleri }) => {
 
-    const navigate=useNavigate()
+    const navigate = useNavigate()
 
     const [matchedCounts, setMatchedCounts] = useState({});
     const [uygunsuzlukOranlari, setUygunsuzlukOranlari] = useState([]);
@@ -133,7 +133,7 @@ const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyion
 
                 return {
                     aksiyonSahibi: matched.aksiyonSahibi,
-                    uygunsuzlukOrani: Number(tekrarlanan.tekrar) / Number(matched.kontrolSayisi)
+                    uygunsuzlukOrani: (Number(tekrarlanan.tekrar) / Number(matched.kontrolSayisi) * 100).toFixed(2)
                 }
             }
 
@@ -144,6 +144,7 @@ const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyion
         setUygunsuzlukOranlari(sonuc)
 
     }, [matchedCounts])
+
 
 
 
@@ -187,8 +188,8 @@ const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyion
                     </Box>
 
 
-                    <Box mt={5}>
-                        <TableContainer component={Paper}>
+                    <Box marginY={5}>
+                        <TableContainer component={Paper} sx={tableContainerStyle}>
                             <Table size="small" aria-label="a dense table">
                                 <TableHead sx={{ backgroundColor: '#000000' }}>
                                     <TableRow>
@@ -203,15 +204,15 @@ const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyion
                                             key={index}
                                         >
                                             <TableCell align="center">{item.aksiyonSahibi}</TableCell>
-                                            <TableCell align="center">{item.uygunsuzlukOrani.toFixed(2) * 100} %</TableCell>
+                                            <TableCell align="center">{item.uygunsuzlukOrani} %</TableCell>
                                             <TableCell align="center">
-                                                <Button variant='contained' sx={{ textTransform: 'none', height: '100%' }} color='info' onClick={()=>navigate(`/proses/${index}`,
-                                                {
-                                                    state:{
-                                                        aksiyonSahibi:item.aksiyonSahibi,
-                                                        uygunsuzlukOrani:item.uygunsuzlukOrani.toFixed(2)
-                                                    }
-                                                })}>Detay</Button>
+                                                <Button variant='contained' sx={{ textTransform: 'none', height: '100%' }} color='info' onClick={() => navigate(`/proses/${index}`,
+                                                    {
+                                                        state: {
+                                                            aksiyonSahibi: item.aksiyonSahibi,
+                                                            uygunsuzlukOrani: item.uygunsuzlukOrani
+                                                        }
+                                                    })}>Detay</Button>
                                             </TableCell>
 
                                         </TableRow>
@@ -222,6 +223,24 @@ const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyion
                     </Box>
 
 
+
+                    <Box display={'flex'} justifyContent={'center'} gap={2} alignItems={'center'} height={500}>
+
+                        <ResponsiveContainer width="90%" height="75%">
+                        <BarChart
+                            data={uygunsuzlukOranlari}
+                        >
+                            <XAxis dataKey="uygunsuzlukOrani" />
+                            <YAxis />
+                            <Tooltip />
+                            <Legend />
+                            <Bar dataKey="uygunsuzlukOrani" fill="#8884d8">
+                                <LabelList dataKey="aksiyonSahibi" position="center" fill='#ffffff' fontSize={12} fontWeight={700} />
+                            </Bar>
+                        </BarChart>
+                        </ResponsiveContainer>
+
+                    </Box>
 
                 </Box>
 
