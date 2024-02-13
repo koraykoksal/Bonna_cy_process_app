@@ -120,7 +120,7 @@ const DeepDetail_Modal = ({ open, handleClose, uygunsuzlukDataTable, state, info
                             <Table size="small" aria-label="a dense table">
                                 <TableHead sx={{ backgroundColor: '#000000' }}>
                                     <TableRow>
-                                        <TableCell align='center' sx={tableCellStyle}>Ürün Kodu</TableCell>
+                                        <TableCell align='center' sx={tableCellStyle}>Kod</TableCell>
                                         <TableCell align='center' sx={tableCellStyle}>Tarih</TableCell>
                                     </TableRow>
                                 </TableHead>
@@ -129,7 +129,34 @@ const DeepDetail_Modal = ({ open, handleClose, uygunsuzlukDataTable, state, info
                                         <TableRow
                                             key={index}
                                         >
-                                            <TableCell align="center">{item.urun_kodu}</TableCell>
+                                            {
+                                                state.aksiyonSahibi == "SEKILLENDIRME" && <TableCell align="center">{item.urun_kodu}</TableCell>
+                                            }
+                                            {
+                                                state.aksiyonSahibi == "SIRLAMA" && <TableCell align="center">{item.is_merkezi}</TableCell>
+                                            }
+                                            {
+                                                state.aksiyonSahibi == "DEKORLAMA" && <TableCell align="center">{item.renk_kodu}</TableCell>
+                                            }
+                                            {
+                                                state.aksiyonSahibi == "HAMMADDE" && <TableCell align="center">{item.is_merkezi}</TableCell>
+                                            }
+                                            {
+                                                state.aksiyonSahibi == "DIJITALLOGO" && <TableCell align="center">{item.urun_kodu}</TableCell>
+                                            }
+                                            {
+                                                state.aksiyonSahibi == "DIJITALBASKI" && <TableCell align="center">{item.urun_kodu}</TableCell>
+                                            }
+                                            {
+                                                state.aksiyonSahibi == "AYAKTASLAMA" && <TableCell align="center">{item.urun_kodu}</TableCell>
+                                            }
+                                            {
+                                                state.aksiyonSahibi == "KALITEGUVENCE" && <TableCell align="center">{item.urun_kodu}</TableCell>
+                                            }
+                                            {
+                                                state.aksiyonSahibi == "FIRINLAR" && <TableCell align="center">{item.urun_kodu}</TableCell>
+                                            }
+                                            
                                             <TableCell align="center">{item.date}</TableCell>
                                         </TableRow>
                                     ))}
