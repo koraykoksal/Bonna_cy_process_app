@@ -8,7 +8,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Box, Button } from '@mui/material';
 import GraphicChart from '../GraphicChart';
-
+import DeepDetail_Modal from '../detailModals/DeepDetail_Modal';
+import { useEffect,useState } from 'react';
 
 const tableCellStyle = {
     color: '#ffffff',
@@ -22,7 +23,18 @@ const tableContainerStyle = {
 }
 
 
-const ActionDetail_Tables = ({ uygunsuzlukDataTable, uygunsuzlukCount }) => {
+const ActionDetail_Tables = ({ uygunsuzlukDataTable, uygunsuzlukCount, state }) => {
+
+
+    const [info, setInfo] = useState("")
+
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => {
+        setOpen(false)
+    }
+
+
 
 
     return (
@@ -49,7 +61,10 @@ const ActionDetail_Tables = ({ uygunsuzlukDataTable, uygunsuzlukCount }) => {
                                     <TableCell align="center">{item.count}</TableCell>
                                     <TableCell align="center">{item.percent} %</TableCell>
                                     <TableCell align="center">
-                                        <Button variant='contained' color='info' sx={{ textTransform: 'none' }}>Detay</Button>
+                                        <Button variant='contained' color='info' sx={{ textTransform: 'none' }} onClick={()=>{
+                                            setInfo(item.title)
+                                            handleOpen()
+                                        }}>Detay</Button>
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -59,6 +74,8 @@ const ActionDetail_Tables = ({ uygunsuzlukDataTable, uygunsuzlukCount }) => {
 
 
             </Box>
+
+            <DeepDetail_Modal open={open} handleClose={handleClose} uygunsuzlukDataTable={uygunsuzlukDataTable} state={state} info={info}/>
 
         </div>
     )

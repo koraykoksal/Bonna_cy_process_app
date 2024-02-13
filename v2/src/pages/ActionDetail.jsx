@@ -9,7 +9,7 @@ import { IoArrowBackCircle } from "react-icons/io5";
 import { colors, paperDashboardStyle_ProsesPlan, paperDashboardStyle_ToplamKontrolEdilen, paperDashboardStyle_ToplamUygunsuzluk } from '../styles/globalStyle'
 import ActionDetail_Tables from '../components/detailTables/ActionDetail_Tables'
 import GraphicChart from '../components/GraphicChart'
-import { ResponsiveContainer } from 'recharts'
+
 
 
 const typoStyle = {
@@ -22,13 +22,13 @@ const typoStyle = {
 const ActionDetail = () => {
 
     const { dashboardData, uygunsuzlukData, dbData } = useSelector((state) => state.arge)
-
     const { state } = useLocation()
     const { id } = useParams()
     const navigate = useNavigate()
     const [allData, setAllData] = useState([])
     const [uygunsuzlukCount, setUygunsuzlukCount] = useState([])
     const [uygunsuzlukDataTable, setuygunsuzlukDataTable] = useState([])
+
 
     const [info, setInfo] = useState({
         dateFrom: "",
@@ -66,9 +66,9 @@ const ActionDetail = () => {
                 }
             });
         }
-        else if(state.aksiyonSahibi == "FIRINLAR"){
+        else if (state.aksiyonSahibi == "FIRINLAR") {
 
-            Object.keys(dbData).forEach(element=>{
+            Object.keys(dbData).forEach(element => {
 
                 const stateName = 'Triyaj'
                 const dbName = element
@@ -78,12 +78,12 @@ const ActionDetail = () => {
                     geciciVeriSetleri.push(...veriSeti)
                 }
 
-               
+
             })
         }
-        else if(state.aksiyonSahibi == "KALITEGUVENCE"){
+        else if (state.aksiyonSahibi == "KALITEGUVENCE") {
 
-            Object.keys(dbData).forEach(element=>{
+            Object.keys(dbData).forEach(element => {
 
                 const stateName = 'NihaiUrunKontrol'
                 const dbName = element
@@ -93,7 +93,7 @@ const ActionDetail = () => {
                     geciciVeriSetleri.push(...veriSeti)
                 }
 
-               
+
             })
         }
         else {
@@ -157,7 +157,7 @@ const ActionDetail = () => {
             return {
                 title: key,
                 count: countUygunsuzluk[key],
-                percent: (countUygunsuzluk[key] / uygunsuzlukCount.length) * 100
+                percent: ((countUygunsuzluk[key] / uygunsuzlukCount.length) * 100).toFixed(2)
             }
         })
 
@@ -207,7 +207,7 @@ const ActionDetail = () => {
 
                 <Box display={'flex'} flexDirection={'column'} gap={5} my={5}>
 
-                    <Box sx={{ display: 'flex', justifyContent: 'center', gap: 5, flexWrap: 'wrap'}}>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', gap: 5, flexWrap: 'wrap' }}>
 
                         <Grid>
                             <Paper sx={paperDashboardStyle_ProsesPlan}>
@@ -247,18 +247,12 @@ const ActionDetail = () => {
 
                     <Box sx={{ display: 'flex', justifyContent: 'space-evenly', gap: 5, alignItems: 'center', flexWrap: 'wrap' }} height={500}>
 
-                        <ActionDetail_Tables uygunsuzlukDataTable={uygunsuzlukDataTable} uygunsuzlukCount={uygunsuzlukCount} />
-
+                        <ActionDetail_Tables uygunsuzlukDataTable={uygunsuzlukDataTable} uygunsuzlukCount={uygunsuzlukCount} state={state}/>
                         <GraphicChart uygunsuzlukDataTable={uygunsuzlukDataTable} uygunsuzlukCount={uygunsuzlukCount} />
-
 
                     </Box>
 
                 </Box>
-
-
-
-
 
             </Box>
 

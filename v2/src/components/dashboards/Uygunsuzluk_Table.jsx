@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Box, Button } from '@mui/material';
 import { detailButtonStyle } from '../../styles/globalStyle';
-import DetailModal from '../detailModals/DetailModal';
+import DetailModal from '../detailModals/ActionDetail_Modal';
 import { useSelector } from 'react-redux';
 
 

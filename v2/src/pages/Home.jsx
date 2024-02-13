@@ -14,7 +14,7 @@ import Dashboard_Cards from '../components/dashboards/Dashboard_Cards';
 import HataBazli_Uygunsuzluk from '../components/dashboards/HataBazli_Uygunsuzluk';
 import Uygunsuzluk_Table from '../components/dashboards/Uygunsuzluk_Table';
 import { HiOutlineSearch } from "react-icons/hi";
-import DetailModal from '../components/detailModals/DetailModal';
+import ActionDetail_Modal from '../components/detailModals/ActionDetail_Modal';
 import Dashboard_Graphic from '../components/dashboards/Dashboard_Graphic';
 
 
@@ -123,6 +123,7 @@ const Home = () => {
   }, [uygunsuzlukData])
 
   
+
   return (
 
 
@@ -152,7 +153,7 @@ const Home = () => {
       <Dashboard_Graphic tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} tekrarlananSorunTipleri={tekrarlananSorunTipleri} />
       
 
-      <DetailModal open={open} handleClose={handleClose} handleOpen={handleOpen} dbData={dbData} tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} />
+      <ActionDetail_Modal open={open} handleClose={handleClose} handleOpen={handleOpen} dbData={dbData} tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} />
 
     </div>
   )

@@ -46,7 +46,7 @@ const tableContainerStyle = {
 }
 
 
-const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyionTipleri, tekrarlananSorunTipleri }) => {
+const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyionTipleri, tekrarlananSorunTipleri }) => {
 
     const navigate = useNavigate()
 
@@ -268,4 +268,4 @@ const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyion
     )
 }
 
-export default DetailModal
+export default ActionDetail_Modal
