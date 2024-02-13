@@ -122,8 +122,7 @@ const Home = () => {
 
   }, [uygunsuzlukData])
 
-
-
+  
   return (
 
 

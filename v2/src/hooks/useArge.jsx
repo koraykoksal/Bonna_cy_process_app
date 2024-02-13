@@ -53,9 +53,8 @@ const useArge = () => {
 
         try {
 
-            const res = await axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${desen}`)
-
-            // console.log("desen kodu: ",res?.data)
+            
+            const res = await axios(`${process.env.REACT_APP_ERP_BASEADDRESS}=${desen}`)
 
             if (res?.data == null || res?.data == undefined) {
                 console.log("design code not found")
@@ -84,9 +83,7 @@ const useArge = () => {
 
         try {
 
-            const res = await axios.get(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${workcenter}`)
-
-            // console.log("iş merkezi : ",res?.data)
+            const res = await axios(`${process.env.REACT_APP_ERP_BASEADDRESS}=${workcenter}`)
 
             if (res?.data == null || res?.data == undefined) {
                 console.log("workcenter code not found")
@@ -114,10 +111,7 @@ const useArge = () => {
 
 
         try {
-
-            const res = await axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${material}`)
-
-            // console.log("material kodu: ",res?.data)
+            const res = await axios(`${process.env.REACT_APP_ERP_BASEADDRESS}=${material}`)
 
             if (res?.data == null || res?.data == undefined) {
                 console.log("material code not found")
@@ -136,16 +130,13 @@ const useArge = () => {
     }
 
 
-
     const hammaddeMaterialCode = async () => {
 
         dispatch(fetchStart())
 
         try {
 
-            const res = await axios(`http://172.41.11.5:3019/butunbiApi/getArges?PARAMS=${argeMaterial}`)
-
-            // console.log("hammadde kodu: ",res?.data)
+            const res = await axios(`${process.env.REACT_APP_ERP_BASEADDRESS}=${argeMaterial}`)
 
             if (res?.data == null || res?.data == undefined) {
                 console.log("hammadde code not found")
@@ -166,8 +157,6 @@ const useArge = () => {
 
     //! firebase data gönder
     const postFireData = async (address, info) => {
-
-        // console.log("info", info)
 
         dispatch(fetchStart())
 

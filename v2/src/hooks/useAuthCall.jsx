@@ -44,57 +44,59 @@ const useAuthCall = () => {
 
     // }
 
+
     //* LOGIN
-    const signIn = async ({ email, password }) => {
+    // const signIn = async ({ email, password }) => {
 
-        dispatch(fetchStart())
+    //     dispatch(fetchStart())
 
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
+    //     signInWithEmailAndPassword(auth, email, password)
+    //         .then((userCredential) => {
 
-                const user = userCredential.user;
-                console.log(user)
-                dispatch(loginSuccess(user))
+    //             const user = userCredential.user;
+    //             console.log(user)
+    //             dispatch(loginSuccess(user))
 
-                navigate('/proses')
-                toastSuccessNotify("Login Success")
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                dispatch(fetchFail(error))
-                toastErrorNotify(`${error.code}`)
-            });
-
-
+    //             navigate('/proses')
+    //             toastSuccessNotify("Login Success")
+    //         })
+    //         .catch((error) => {
+    //             const errorCode = error.code;
+    //             const errorMessage = error.message;
+    //             dispatch(fetchFail(error))
+    //             toastErrorNotify(`${error.code}`)
+    //         });
 
 
-    }
+
+
+    // }
+
 
     //* LOGOUT
-    const signOut = async () => {
+    // const signOut = async () => {
 
 
-        dispatch(fetchStart())
+    //     dispatch(fetchStart())
 
-        try {
+    //     try {
 
-            // await signOut(auth)
-            // navigate('/')
-            // toastSuccessNotify("Logout Success")
+    //         // await signOut(auth)
+    //         // navigate('/')
+    //         // toastSuccessNotify("Logout Success")
 
-            dispatch(logoutSuccess())
-            navigate('/')
-            toastSuccessNotify('Logout Successful.')
-
-
-        } catch (error) {
-            dispatch(fetchFail())
-            toastErrorNotify('Register Fault !')
-        }
+    //         dispatch(logoutSuccess())
+    //         navigate('/')
+    //         toastSuccessNotify('Logout Successful.')
 
 
-    }
+    //     } catch (error) {
+    //         dispatch(fetchFail())
+    //         toastErrorNotify('Register Fault !')
+    //     }
+
+
+    // }
 
 
 
@@ -147,8 +149,6 @@ const useAuthCall = () => {
 
 
     return {
-        signIn,
-        signOut,
         login,
         logout
     }

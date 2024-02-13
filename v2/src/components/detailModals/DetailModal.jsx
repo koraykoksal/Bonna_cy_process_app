@@ -71,7 +71,7 @@ const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyion
 
         const tempResults = tekrarlananAksyionTipleri.map(action => {
 
-            const actionKey = action.aksiyontipi.replace(/\s+/g, '') // boşluık karakterini kaldır
+            const actionKey = action.aksiyontipi.replace(/\s+/g, '').toUpperCase() // boşluık karakterini kaldır
             let kontrolSayisi = 0;
 
             //! actionKey değeri SEKILLENDIRME VEYA SIRLAMA gelirse aşağıdaki condition bloğunu uygula
@@ -91,6 +91,22 @@ const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyion
                     }
                 })
 
+            }
+            else if (actionKey == "FIRINLAR") {
+
+                Object.keys(dbData).forEach(key => {
+                    
+                    const keys = "Triyaj"
+                    kontrolSayisi += Object.keys(dbData[keys]).length
+                })
+            }
+            else if (actionKey == "KALITEGUVENCE") {
+
+                Object.keys(dbData).forEach(key => {
+
+                    const keys = "NihaiUrunKontrol"
+                    kontrolSayisi += Object.keys(dbData[keys]).length
+                })
             }
             else {
                 Object.keys(dbData).forEach(key => {
@@ -227,17 +243,17 @@ const DetailModal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyion
                     <Box display={'flex'} justifyContent={'center'} gap={2} alignItems={'center'} height={500}>
 
                         <ResponsiveContainer width="90%" height="75%">
-                        <BarChart
-                            data={uygunsuzlukOranlari}
-                        >
-                            <XAxis dataKey="uygunsuzlukOrani" />
-                            <YAxis />
-                            <Tooltip />
-                            <Legend />
-                            <Bar dataKey="uygunsuzlukOrani" fill="#8884d8">
-                                <LabelList dataKey="aksiyonSahibi" position="center" fill='#ffffff' fontSize={12} fontWeight={700} />
-                            </Bar>
-                        </BarChart>
+                            <BarChart
+                                data={uygunsuzlukOranlari}
+                            >
+                                <XAxis dataKey="uygunsuzlukOrani" />
+                                <YAxis />
+                                <Tooltip />
+                                <Legend />
+                                <Bar dataKey="uygunsuzlukOrani" fill="#8884d8">
+                                    <LabelList dataKey="aksiyonSahibi" position="center" fill='#ffffff' fontSize={12} fontWeight={700} />
+                                </Bar>
+                            </BarChart>
                         </ResponsiveContainer>
 
                     </Box>

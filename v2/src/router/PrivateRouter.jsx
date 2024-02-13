@@ -7,6 +7,7 @@ const PrivateRouter = () => {
 
   const {currentUser} = useSelector((state)=>state.auth)
 
+  // const currentUser = 'Koray'
 
   return (
 

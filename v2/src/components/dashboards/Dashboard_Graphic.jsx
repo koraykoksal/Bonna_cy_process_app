@@ -20,8 +20,8 @@ const Dashboard_Graphic = ({ tekrarlananAksyionTipleri, tekrarlananSorunTipleri 
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="tekrar" fill="#8884d8">
-                        <LabelList dataKey="aksiyontipi" position="insideTop" fill='#ffffff' fontWeight={700} fontSize={12} />
+                    <Bar dataKey="tekrar" fill="#F3B95F">
+                        <LabelList dataKey="aksiyontipi" position="insideTop" fill='#000000' fontWeight={700} fontSize={12} />
 
                     </Bar>
 
@@ -40,8 +40,8 @@ const Dashboard_Graphic = ({ tekrarlananAksyionTipleri, tekrarlananSorunTipleri 
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="tekrar" fill="#8884d8">
-                        <LabelList dataKey="soruntipi" position="insideTop" fill='#ffffff' fontWeight={700} fontSize={12} />
+                    <Bar dataKey="tekrar" fill="#FF6868">
+                        <LabelList dataKey="soruntipi" position="insideTop" fill='#000000' fontWeight={700} fontSize={12} />
                     </Bar>
                 </BarChart>
             </ResponsiveContainer>

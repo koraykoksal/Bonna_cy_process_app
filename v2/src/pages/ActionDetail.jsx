@@ -66,6 +66,36 @@ const ActionDetail = () => {
                 }
             });
         }
+        else if(state.aksiyonSahibi == "FIRINLAR"){
+
+            Object.keys(dbData).forEach(element=>{
+
+                const stateName = 'Triyaj'
+                const dbName = element
+
+                if (stateName == dbName) {
+                    const veriSeti = Object.values(dbData[element])
+                    geciciVeriSetleri.push(...veriSeti)
+                }
+
+               
+            })
+        }
+        else if(state.aksiyonSahibi == "KALITEGUVENCE"){
+
+            Object.keys(dbData).forEach(element=>{
+
+                const stateName = 'NihaiUrunKontrol'
+                const dbName = element
+
+                if (stateName == dbName) {
+                    const veriSeti = Object.values(dbData[element])
+                    geciciVeriSetleri.push(...veriSeti)
+                }
+
+               
+            })
+        }
         else {
 
             Object.keys(dbData).forEach(element => {
@@ -134,6 +164,7 @@ const ActionDetail = () => {
         setuygunsuzlukDataTable(data)
 
     }, [uygunsuzlukCount])
+
 
 
 

@@ -113,7 +113,7 @@ const Triyaj = () => {
   }, [])
 
 
-  console.log(info)
+
 
   return (
 
