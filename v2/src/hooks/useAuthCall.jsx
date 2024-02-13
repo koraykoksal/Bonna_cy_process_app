@@ -74,29 +74,29 @@ const useAuthCall = () => {
 
 
     //* LOGOUT
-    // const signOut = async () => {
+    const signOut = async () => {
 
 
-    //     dispatch(fetchStart())
+        dispatch(fetchStart())
 
-    //     try {
+        try {
 
-    //         // await signOut(auth)
-    //         // navigate('/')
-    //         // toastSuccessNotify("Logout Success")
+            // await signOut(auth)
+            // navigate('/')
+            // toastSuccessNotify("Logout Success")
 
-    //         dispatch(logoutSuccess())
-    //         navigate('/')
-    //         toastSuccessNotify('Logout Successful.')
-
-
-    //     } catch (error) {
-    //         dispatch(fetchFail())
-    //         toastErrorNotify('Register Fault !')
-    //     }
+            dispatch(logoutSuccess())
+            navigate('/')
+            toastSuccessNotify('Logout Successful.')
 
 
-    // }
+        } catch (error) {
+            dispatch(fetchFail())
+            toastErrorNotify('Register Fault !')
+        }
+
+
+    }
 
 
 
@@ -150,7 +150,8 @@ const useAuthCall = () => {
 
     return {
         login,
-        logout
+        logout,
+        signOut
     }
 }
 
