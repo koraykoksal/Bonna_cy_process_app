@@ -163,7 +163,6 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
 
 
 
-
     return (
 
 
@@ -242,7 +241,7 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
 
                     <Box display={'flex'} justifyContent={'center'} gap={2} alignItems={'center'} height={500}>
 
-                        <ResponsiveContainer width="90%" height="75%">
+                        <ResponsiveContainer width="100%" height="75%">
                             <BarChart
                                 data={uygunsuzlukOranlari}
                             >
@@ -251,7 +250,7 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
                                 <Tooltip />
                                 <Legend />
                                 <Bar dataKey="uygunsuzlukOrani" fill="#8884d8">
-                                    <LabelList dataKey="aksiyonSahibi" position="center" fill='#ffffff' fontSize={12} fontWeight={700} />
+                                    <LabelList dataKey="aksiyonSahibi" position="insideTop" fill='#000000' fontSize={12} fontWeight={700} />
                                 </Bar>
                             </BarChart>
                         </ResponsiveContainer>

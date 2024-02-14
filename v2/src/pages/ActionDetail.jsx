@@ -9,6 +9,7 @@ import { IoArrowBackCircle } from "react-icons/io5";
 import { colors, paperDashboardStyle_ProsesPlan, paperDashboardStyle_ToplamKontrolEdilen, paperDashboardStyle_ToplamUygunsuzluk } from '../styles/globalStyle'
 import ActionDetail_Tables from '../components/detailTables/ActionDetail_Tables'
 import GraphicChart from '../components/GraphicChart'
+import useArge from '../hooks/useArge'
 
 
 
@@ -21,6 +22,7 @@ const typoStyle = {
 
 const ActionDetail = () => {
 
+    const { readFireData, getFireData } = useArge()
     const { dashboardData, uygunsuzlukData, dbData } = useSelector((state) => state.arge)
     const { state } = useLocation()
     const { id } = useParams()
@@ -38,6 +40,12 @@ const ActionDetail = () => {
     const handleChange = (e) => {
         setInfo({ ...info, [e.target.name]: e.target.value })
     }
+
+
+    useEffect(() => {
+        readFireData()
+        getFireData('Uygunsuzluk')
+    }, [])
 
 
     //! useLocation dan gelen değere göre veriyi güncelle
@@ -247,7 +255,7 @@ const ActionDetail = () => {
 
                     <Box sx={{ display: 'flex', justifyContent: 'space-evenly', gap: 5, alignItems: 'center', flexWrap: 'wrap' }} height={500}>
 
-                        <ActionDetail_Tables uygunsuzlukDataTable={uygunsuzlukDataTable} uygunsuzlukCount={uygunsuzlukCount} state={state}/>
+                        <ActionDetail_Tables uygunsuzlukDataTable={uygunsuzlukDataTable} uygunsuzlukCount={uygunsuzlukCount} state={state} />
                         <GraphicChart uygunsuzlukDataTable={uygunsuzlukDataTable} uygunsuzlukCount={uygunsuzlukCount} />
 
                     </Box>

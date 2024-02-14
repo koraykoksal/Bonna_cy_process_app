@@ -9,7 +9,8 @@ import Paper from '@mui/material/Paper';
 import { Box, Button } from '@mui/material';
 import GraphicChart from '../GraphicChart';
 import DeepDetail_Modal from '../detailModals/DeepDetail_Modal';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const tableCellStyle = {
     color: '#ffffff',
@@ -25,8 +26,10 @@ const tableContainerStyle = {
 
 const ActionDetail_Tables = ({ uygunsuzlukDataTable, uygunsuzlukCount, state }) => {
 
-
+    const { uygunsuzlukData, dbData } = useSelector((state) => state.arge)
     const [info, setInfo] = useState("")
+    const [deepData, setDeepData] = useState([])
+
 
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true);
@@ -34,6 +37,15 @@ const ActionDetail_Tables = ({ uygunsuzlukDataTable, uygunsuzlukCount, state }) 
         setOpen(false)
     }
 
+
+    const handleFind = (title) => {
+        //! aksiyon sahibi bilgisinde boşlık karakterini sil ve büyük harfe çevir. State den gelen aksiyonSahibi bilgisi bu şekilde
+        if (title) {
+            const data = Object.values(uygunsuzlukData).filter(item => item.aksiyon_sahibi.replace(/\s+/g, '').toUpperCase() == state.aksiyonSahibi && item.sorun_tipi == title)
+
+            setDeepData(data)
+        }
+    }
 
 
 
@@ -53,7 +65,7 @@ const ActionDetail_Tables = ({ uygunsuzlukDataTable, uygunsuzlukCount, state }) 
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {uygunsuzlukDataTable.map((item, index) => (
+                            {uygunsuzlukDataTable?.map((item, index) => (
                                 <TableRow
                                     key={index}
                                 >
@@ -61,8 +73,9 @@ const ActionDetail_Tables = ({ uygunsuzlukDataTable, uygunsuzlukCount, state }) 
                                     <TableCell align="center">{item.count}</TableCell>
                                     <TableCell align="center">{item.percent} %</TableCell>
                                     <TableCell align="center">
-                                        <Button variant='contained' color='info' sx={{ textTransform: 'none' }} onClick={()=>{
+                                        <Button variant='contained' color='info' sx={{ textTransform: 'none' }} onClick={() => {
                                             setInfo(item.title)
+                                            handleFind(item.title)
                                             handleOpen()
                                         }}>Detay</Button>
                                     </TableCell>
@@ -75,7 +88,7 @@ const ActionDetail_Tables = ({ uygunsuzlukDataTable, uygunsuzlukCount, state }) 
 
             </Box>
 
-            <DeepDetail_Modal open={open} handleClose={handleClose} uygunsuzlukDataTable={uygunsuzlukDataTable} state={state} info={info}/>
+            <DeepDetail_Modal open={open} handleClose={handleClose} state={state} info={info} uygunsuzlukData={uygunsuzlukData} deepData={deepData} />
 
         </div>
     )

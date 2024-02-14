@@ -45,10 +45,10 @@ const tableContainerStyle = {
 }
 
 
-const DeepDetail_Modal = ({ open, handleClose, uygunsuzlukDataTable, state, info }) => {
+const DeepDetail_Modal = ({ open, handleClose, state, info, uygunsuzlukData, deepData }) => {
 
-    const { dashboardData, uygunsuzlukData, dbData } = useSelector((state) => state.arge)
-    const [deepData, setDeepData] = useState([])
+
+    
 
 
     const [filterData, setFilterData] = useState({
@@ -60,18 +60,19 @@ const DeepDetail_Modal = ({ open, handleClose, uygunsuzlukDataTable, state, info
         setFilterData({ ...filterData, [e.target.name]: e.target.value })
     }
 
-    useEffect(() => {
 
-        if (info) {
-            const data = Object.values(uygunsuzlukData).filter(item => item.aksiyon_sahibi == state.aksiyonSahibi && item.sorun_tipi == info)
-            setDeepData(data)
-        }
+    // useEffect(() => {
 
-    }, [uygunsuzlukDataTable, state, info])
+    //     //! aksiyon sahibi bilgisinde boşlık karakterini sil ve büyük harfe çevir. State den gelen aksiyonSahibi bilgisi bu şekilde
+    //     if (info) {
+    //         const data = Object.values(uygunsuzlukData).filter(item => item.aksiyon_sahibi.replace(/\s+/g, '').toUpperCase() == state.aksiyonSahibi && item.sorun_tipi == info)
+    //         setDeepData(data)
+    //     }
+
+    // }, [uygunsuzlukData])
 
 
     console.log(deepData)
-
 
     return (
         <div>
@@ -125,7 +126,7 @@ const DeepDetail_Modal = ({ open, handleClose, uygunsuzlukDataTable, state, info
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {deepData.map((item, index) => (
+                                    {deepData?.map((item, index) => (
                                         <TableRow
                                             key={index}
                                         >
@@ -156,7 +157,7 @@ const DeepDetail_Modal = ({ open, handleClose, uygunsuzlukDataTable, state, info
                                             {
                                                 state.aksiyonSahibi == "FIRINLAR" && <TableCell align="center">{item.urun_kodu}</TableCell>
                                             }
-                                            
+
                                             <TableCell align="center">{item.date}</TableCell>
                                         </TableRow>
                                     ))}
