@@ -16,7 +16,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList, Rectangle } from 'recharts';
 
 
 
@@ -26,6 +26,8 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '80%',
+    overflow: 'scroll',
+    maxHeight: '90%',
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -41,14 +43,12 @@ const tableCellStyle = {
 const tableContainerStyle = {
     maxHeight: '350px',
     overflow: 'auto',
-    width: '700px'
+    width: '100%'
 }
 
 
-const DeepDetail_Modal = ({ open, handleClose, state, info, uygunsuzlukData, deepData }) => {
+const DeepDetail_Modal = ({ open, handleClose, state, info, uygunsuzlukData, deepData, graphicDataInfo }) => {
 
-
-    
 
 
     const [filterData, setFilterData] = useState({
@@ -61,18 +61,6 @@ const DeepDetail_Modal = ({ open, handleClose, state, info, uygunsuzlukData, dee
     }
 
 
-    // useEffect(() => {
-
-    //     //! aksiyon sahibi bilgisinde boşlık karakterini sil ve büyük harfe çevir. State den gelen aksiyonSahibi bilgisi bu şekilde
-    //     if (info) {
-    //         const data = Object.values(uygunsuzlukData).filter(item => item.aksiyon_sahibi.replace(/\s+/g, '').toUpperCase() == state.aksiyonSahibi && item.sorun_tipi == info)
-    //         setDeepData(data)
-    //     }
-
-    // }, [uygunsuzlukData])
-
-
-    console.log(deepData)
 
     return (
         <div>
@@ -115,59 +103,84 @@ const DeepDetail_Modal = ({ open, handleClose, state, info, uygunsuzlukData, dee
 
                     <Typography align='center' fontWeight={700}>{info} Datası</Typography>
 
-                    <Box sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 3, mt: 5 }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
 
-                        <TableContainer component={Paper} sx={tableContainerStyle}>
-                            <Table size="small" aria-label="a dense table">
-                                <TableHead sx={{ backgroundColor: '#000000' }}>
-                                    <TableRow>
-                                        <TableCell align='center' sx={tableCellStyle}>Kod</TableCell>
-                                        <TableCell align='center' sx={tableCellStyle}>Tarih</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {deepData?.map((item, index) => (
-                                        <TableRow
-                                            key={index}
-                                        >
-                                            {
-                                                state.aksiyonSahibi == "SEKILLENDIRME" && <TableCell align="center">{item.urun_kodu}</TableCell>
-                                            }
-                                            {
-                                                state.aksiyonSahibi == "SIRLAMA" && <TableCell align="center">{item.is_merkezi}</TableCell>
-                                            }
-                                            {
-                                                state.aksiyonSahibi == "DEKORLAMA" && <TableCell align="center">{item.renk_kodu}</TableCell>
-                                            }
-                                            {
-                                                state.aksiyonSahibi == "HAMMADDE" && <TableCell align="center">{item.is_merkezi}</TableCell>
-                                            }
-                                            {
-                                                state.aksiyonSahibi == "DIJITALLOGO" && <TableCell align="center">{item.urun_kodu}</TableCell>
-                                            }
-                                            {
-                                                state.aksiyonSahibi == "DIJITALBASKI" && <TableCell align="center">{item.urun_kodu}</TableCell>
-                                            }
-                                            {
-                                                state.aksiyonSahibi == "AYAKTASLAMA" && <TableCell align="center">{item.urun_kodu}</TableCell>
-                                            }
-                                            {
-                                                state.aksiyonSahibi == "KALITEGUVENCE" && <TableCell align="center">{item.urun_kodu}</TableCell>
-                                            }
-                                            {
-                                                state.aksiyonSahibi == "FIRINLAR" && <TableCell align="center">{item.urun_kodu}</TableCell>
-                                            }
+                        <Box sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 3, mt: 5 }}>
 
-                                            <TableCell align="center">{item.date}</TableCell>
+                            <TableContainer component={Paper} sx={tableContainerStyle}>
+                                <Table aria-label="a dense table">
+                                    <TableHead sx={{ backgroundColor: '#000000' }}>
+                                        <TableRow>
+                                            <TableCell align='center' sx={tableCellStyle}>Kod</TableCell>
+                                            <TableCell align='center' sx={tableCellStyle}>Tarih</TableCell>
+                                            <TableCell align='center' sx={tableCellStyle}>Vardiya</TableCell>
+                                            <TableCell align='center' sx={tableCellStyle}>Açıklama</TableCell>
+                                            <TableCell align='center' sx={tableCellStyle}>Kontroleden Kişi</TableCell>
                                         </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
+                                    </TableHead>
+                                    <TableBody>
+                                        {deepData?.map((item, index) => (
+                                            <TableRow
+                                                key={index}
+                                            >
+                                                {
+                                                    state.aksiyonSahibi == "SEKILLENDIRME" && <TableCell align="center">{item.urun_kodu}</TableCell>
+                                                }
+                                                {
+                                                    state.aksiyonSahibi == "SIRLAMA" && <TableCell align="center">{item.is_merkezi}</TableCell>
+                                                }
+                                                {
+                                                    state.aksiyonSahibi == "DEKORLAMA" && <TableCell align="center">{item.renk_kodu}</TableCell>
+                                                }
+                                                {
+                                                    state.aksiyonSahibi == "HAMMADDE" && <TableCell align="center">{item.is_merkezi}</TableCell>
+                                                }
+                                                {
+                                                    state.aksiyonSahibi == "DIJITALLOGO" && <TableCell align="center">{item.urun_kodu}</TableCell>
+                                                }
+                                                {
+                                                    state.aksiyonSahibi == "DIJITALBASKI" && <TableCell align="center">{item.urun_kodu}</TableCell>
+                                                }
+                                                {
+                                                    state.aksiyonSahibi == "AYAKTASLAMA" && <TableCell align="center">{item.urun_kodu}</TableCell>
+                                                }
+                                                {
+                                                    state.aksiyonSahibi == "KALITEGUVENCE" && <TableCell align="center">{item.urun_kodu}</TableCell>
+                                                }
+                                                {
+                                                    state.aksiyonSahibi == "FIRINLAR" && <TableCell align="center">{item.urun_kodu}</TableCell>
+                                                }
 
+                                                <TableCell align="center">{item.date}</TableCell>
+                                                <TableCell align="center">{item.vardiya}</TableCell>
+                                                <TableCell align="center">{item.aciklama}</TableCell>
+                                                <TableCell align="center">{item.kontroleden_kisi}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
 
+                        </Box>
+
+                        <Box height={500} display={'flex'} justifyContent={'center'}>
+                            <ResponsiveContainer width="80%" height="60%">
+                                {/* <Typography align='center' variant='subtitle1' sx={{ height: '20px', fontWeight: 700 }}>grafik</Typography> */}
+                                <BarChart
+                                    data={graphicDataInfo}
+                                >
+                                    <XAxis dataKey="count" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Bar dataKey="count" fill="#FF6868">
+                                        <LabelList dataKey="title" position="insideTop" fill='#000000' fontWeight={700} fontSize={12} />
+                                        <LabelList dataKey="percent" position="center" fill='#000000' fontWeight={700} fontSize={12} />
+                                    </Bar>
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </Box>
                     </Box>
-
 
                 </Box>
             </Modal>

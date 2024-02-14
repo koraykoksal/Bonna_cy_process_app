@@ -29,12 +29,6 @@ const detailButtonStyle = {
 const Home = () => {
 
 
-  const [open, setOpen] = useState(false)
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-    setOpen(false)
-  }
-
   const { readFireData, getFireData, getDesenCode, getWorkCenter, getMaterialCenter, hammaddeMaterialCode } = useArge()
   const { dashboardData, uygunsuzlukData, dbData } = useSelector((state) => state.arge)
 
@@ -52,6 +46,26 @@ const Home = () => {
 
   const [farkliAksiyonTipiSayisi, setFarkliAksiyonTipiSayisi] = useState(0);
   const [tekrarlananAksyionTipleri, setTekrarlananAksiyonTipleri] = useState([]);
+
+
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  const [info, setInfo] = useState({
+    dateFrom: "",
+    dateTo: ""
+  })
+
+
+
+  const handleChange = (e) => {
+    setInfo({ ...info, [e.target.name]: e.target.value })
+  }
+
+
 
   useEffect(() => {
 
@@ -122,6 +136,20 @@ const Home = () => {
 
   }, [uygunsuzlukData])
 
+
+
+  const handleRefresh = () => {
+    setInfo({
+      dateFrom: "",
+      dateTo: ""
+    })
+  }
+
+
+  const handleDateFilter = () => {
+
+  }
+
   
 
   return (
@@ -151,9 +179,9 @@ const Home = () => {
 
 
       <Dashboard_Graphic tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} tekrarlananSorunTipleri={tekrarlananSorunTipleri} />
-      
 
-      <ActionDetail_Modal open={open} handleClose={handleClose} handleOpen={handleOpen} dbData={dbData} tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} />
+
+      <ActionDetail_Modal open={open} handleClose={handleClose} handleOpen={handleOpen} dbData={dbData} tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} handleChange={handleChange} info={info} setInfo={setInfo} handleRefresh={handleRefresh} handleDateFilter={handleDateFilter} />
 
     </div>
   )
