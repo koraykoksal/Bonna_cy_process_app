@@ -72,7 +72,7 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
 
                 SekillendirmeData.forEach(eslesmeAnahtari => {
                     if (Object.keys(dbData).includes(eslesmeAnahtari)) {
-                        
+
                         //! dbData[eslesmeAnahtari] dinamik olduğu için += işlemi ile toplayarak length bilgisine ulaşır
                         kontrolSayisi += Object.keys(dbData[eslesmeAnahtari]).length;
                     }
@@ -165,11 +165,6 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
 
 
 
-
-
-    console.log(tekrarlananAksyionTipleri)
-    console.log("dbData: ",dbData)
-    console.log("matchedCounts: ",matchedCounts)
 
     return (
 
