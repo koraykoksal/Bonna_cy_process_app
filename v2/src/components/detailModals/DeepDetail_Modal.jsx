@@ -51,17 +51,6 @@ const DeepDetail_Modal = ({ open, handleClose, state, info, uygunsuzlukData, dee
 
 
 
-    const [filterData, setFilterData] = useState({
-        dateFrom: "",
-        dateTo: ""
-    })
-
-    const handleChange = (e) => {
-        setFilterData({ ...filterData, [e.target.name]: e.target.value })
-    }
-
-
-
     return (
         <div>
 
@@ -74,32 +63,7 @@ const DeepDetail_Modal = ({ open, handleClose, state, info, uygunsuzlukData, dee
             >
                 <Box sx={style}>
 
-
-                    <Box display={'flex'} justifyContent={'space-between'} gap={2} alignItems={'center'}>
-
-                        <FaWindowClose size={30} color='red' cursor={'pointer'} onClick={handleClose} />
-
-                        <Box sx={{ display: 'flex', justifyContent: 'flex-start', gap: 1, alignItems: 'center', p: 2 }}>
-                            <Typography>From</Typography>
-                            <TextField
-                                id='dateFrom'
-                                name='dateFrom'
-                                type='date'
-                                onChange={handleChange}
-                            />
-
-                            <Typography>To</Typography>
-                            <TextField
-                                id='dateTo'
-                                name='dateTo'
-                                type='date'
-                                onChange={handleChange}
-                            />
-                            <HiOutlineSearch size={30} color='black' cursor={'pointer'} style={{ marginLeft: 15 }} />
-                        </Box>
-
-                    </Box>
-
+                    <FaWindowClose size={30} color='red' cursor={'pointer'} onClick={handleClose} />
 
                     <Typography align='center' fontWeight={700}>{info} Datası</Typography>
 

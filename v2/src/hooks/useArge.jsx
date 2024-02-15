@@ -227,7 +227,7 @@ const useArge = () => {
                     return itemDate >= startDate && itemDate <= endDate
                 }) : res
 
-                console.log(data)
+              
 
                 if (data == null || data == undefined) {
                     console.log("machine data null geliyor:", data)
@@ -343,9 +343,6 @@ const useArge = () => {
             const res = snapshot.val();
 
             const data = dateFrom && dateTo ? filterDataByDateRange(res,dateFrom,dateTo) : res
-
-            console.log("res: ",res)
-            console.log("data: ",data)
 
             const tt = Object.keys(data).forEach(element => {
 

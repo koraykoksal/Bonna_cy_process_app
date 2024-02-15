@@ -51,15 +51,12 @@ const tableContainerStyle = {
 }
 
 
-const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyionTipleri, tekrarlananSorunTipleri, handleChange, info, setInfo, handleRefresh }) => {
+const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyionTipleri }) => {
 
     const navigate = useNavigate()
 
     const [matchedCounts, setMatchedCounts] = useState({});
     const [uygunsuzlukOranlari, setUygunsuzlukOranlari] = useState([]);
-
-
-    
 
 
     //! tekrarlanan aksiyon tiplerinde kontrol sayısını çıkar
@@ -75,7 +72,9 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
 
                 SekillendirmeData.forEach(eslesmeAnahtari => {
                     if (Object.keys(dbData).includes(eslesmeAnahtari)) {
-                        kontrolSayisi = Object.keys(dbData[eslesmeAnahtari]).length;
+                        
+                        //! dbData[eslesmeAnahtari] dinamik olduğu için += işlemi ile toplayarak length bilgisine ulaşır
+                        kontrolSayisi += Object.keys(dbData[eslesmeAnahtari]).length;
                     }
                 })
             }
@@ -83,7 +82,9 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
 
                 SirlamaData.forEach(eslesmeAnahtari => {
                     if (Object.keys(dbData).includes(eslesmeAnahtari)) {
-                        kontrolSayisi = Object.keys(dbData[eslesmeAnahtari]).length;
+
+                        //! dbData[eslesmeAnahtari] dinamik olduğu için += işlemi ile toplayarak length bilgisine ulaşır
+                        kontrolSayisi += Object.keys(dbData[eslesmeAnahtari]).length;
                     }
                 })
 
@@ -91,6 +92,8 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
             else if (actionKey == "FIRINLAR") {
 
                 Object.keys(dbData).forEach(key => {
+
+                     //! dbData[keys] statik olarak belirtildiği için doğrudan length değerine ulaşılır
 
                     const keys = "Triyaj"
                     kontrolSayisi = Object.keys(dbData[keys]).length
@@ -101,6 +104,7 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
 
                 Object.keys(dbData).forEach(key => {
 
+                    //! dbData[keys] statik olarak belirtildiği için doğrudan length değerine ulaşılır
                     const keys = "NihaiUrunKontrol"
                     kontrolSayisi = Object.keys(dbData[keys]).length
                 })
@@ -113,7 +117,7 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
 
                     if (keys === text) {
 
-                        kontrolSayisi = Object.keys(dbData[key]).length; // Eşleşen kayıtların sayısını hesapla
+                        kontrolSayisi += Object.keys(dbData[key]).length; // Eşleşen kayıtların sayısını hesapla
                     }
 
                 });
@@ -147,20 +151,25 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
 
                 return {
                     aksiyonSahibi: matched.aksiyonSahibi,
-                    uygunsuzlukOrani: (Number(tekrarlanan.tekrar) / Number(matched.kontrolSayisi) ).toFixed(2)
+                    uygunsuzlukOrani: (Number(tekrarlanan.tekrar) / Number(matched.kontrolSayisi)).toFixed(2)
                 }
             }
 
             return null
 
         }).filter(result => result !== null) // null değerleri filtrele
-        
+
         setUygunsuzlukOranlari(sonuc)
 
     }, [matchedCounts])
 
 
 
+
+
+    console.log(tekrarlananAksyionTipleri)
+    console.log("dbData: ",dbData)
+    console.log("matchedCounts: ",matchedCounts)
 
     return (
 
@@ -176,39 +185,11 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
             >
                 <Box sx={style}>
 
-                    <Box display={'flex'} justifyContent={'space-between'} gap={2} alignItems={'center'}>
+                    <FaWindowClose size={30} color='red' cursor={'pointer'} onClick={handleClose} />
 
-                        <FaWindowClose size={30} color='red' cursor={'pointer'} onClick={handleClose} />
-
-                        <Box sx={{ display: 'flex', justifyContent: 'flex-start', gap: 1, alignItems: 'center', p: 2 }}>
-                            <Typography>From</Typography>
-                            <TextField
-                                required
-                                id='dateFrom'
-                                name='dateFrom'
-                                type='date'
-                                value={info.dateFrom}
-                                onChange={handleChange}
-                            />
-
-                            <Typography>To</Typography>
-                            <TextField
-                                required
-                                id='dateTo'
-                                name='dateTo'
-                                type='date'
-                                value={info.dateTo}
-                                onChange={handleChange}
-                            />
-                            <HiOutlineSearch size={30} color='black'  cursor={'pointer'} style={{ marginLeft: 15 }} />
-                        </Box>
-
-                    </Box>
-
+                    <Typography align='center' fontWeight={700} p={1}>Aksiyon Sahipleri ve Uygunsuzlukları</Typography>
 
                     <Box marginY={5}>
-
-                        <SlRefresh size={20} color='green' cursor={'pointer'} onClick={handleRefresh} />
 
                         <TableContainer component={Paper} sx={tableContainerStyle}>
                             <Table size="small" aria-label="a dense table">

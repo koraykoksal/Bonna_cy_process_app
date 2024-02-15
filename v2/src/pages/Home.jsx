@@ -70,8 +70,8 @@ const Home = () => {
 
   useEffect(() => {
 
-    readFireData(info.dateFrom,info.dateTo)
-    getFireData('Uygunsuzluk', info.dateFrom,info.dateTo)
+    readFireData(info.dateFrom, info.dateTo)
+    getFireData('Uygunsuzluk', info.dateFrom, info.dateTo)
 
   }, [])
 
@@ -145,14 +145,8 @@ const Home = () => {
 
     if (info.dateFrom && info.dateTo) {
 
-      if (new Date(info.dateFrom) < new Date(info.dateTo)) {
-
-        getFireData('Uygunsuzluk', info.dateFrom,info.dateTo)
-        readFireData(info.dateFrom,info.dateTo)
-      }
-      else {
-        toastWarnNotify('Tarih formatını kontrol ediniz !')
-      }
+      getFireData('Uygunsuzluk', info.dateFrom, info.dateTo)
+      readFireData(info.dateFrom, info.dateTo)
 
     }
     else {
@@ -171,9 +165,10 @@ const Home = () => {
 
     // useState işlemlerinde set işlemi asenkron çalışıyor 
     // getFireData fonksiyonunu hemen çalıştırmak için info bilgisini string değer olarak göndermek daha uygun bir çözümdür
-    getFireData('Uygunsuzluk', "","")
-    readFireData("","")
+    getFireData('Uygunsuzluk', "", "")
+    readFireData("", "")
   }
+
 
 
 
@@ -241,7 +236,7 @@ const Home = () => {
       <Dashboard_Graphic tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} tekrarlananSorunTipleri={tekrarlananSorunTipleri} />
 
 
-      <ActionDetail_Modal open={open} handleClose={handleClose} handleOpen={handleOpen} dbData={dbData} tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} handleChange={handleChange} info={info} setInfo={setInfo} />
+      <ActionDetail_Modal open={open} handleClose={handleClose} handleOpen={handleOpen} dbData={dbData} tekrarlananAksyionTipleri={tekrarlananAksyionTipleri} />
 
     </div>
   )

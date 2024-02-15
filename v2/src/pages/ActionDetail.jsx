@@ -6,10 +6,12 @@ import { useSelector } from 'react-redux'
 import { SekillendirmeData, SirlamaData } from '../helpers/ProcessData';
 import { HiOutlineSearch } from "react-icons/hi";
 import { IoArrowBackCircle } from "react-icons/io5";
+import { SlRefresh } from "react-icons/sl";
 import { colors, paperDashboardStyle_ProsesPlan, paperDashboardStyle_ToplamKontrolEdilen, paperDashboardStyle_ToplamUygunsuzluk } from '../styles/globalStyle'
 import ActionDetail_Tables from '../components/detailTables/ActionDetail_Tables'
 import GraphicChart from '../components/GraphicChart'
 import useArge from '../hooks/useArge'
+import { toastWarnNotify } from '../helpers/ToastNotify'
 
 
 
@@ -45,6 +47,8 @@ const ActionDetail = () => {
     useEffect(() => {
         readFireData()
         getFireData('Uygunsuzluk')
+        // readFireData(info.dateFrom, info.dateTo)
+        // getFireData('Uygunsuzluk', info.dateFrom, info.dateTo)
     }, [])
 
 
@@ -174,6 +178,35 @@ const ActionDetail = () => {
     }, [uygunsuzlukCount])
 
 
+    // const handleDateFilter = () => {
+
+    //     if (info.dateFrom && info.dateTo) {
+
+    //         getFireData('Uygunsuzluk', info.dateFrom, info.dateTo)
+    //         readFireData(info.dateFrom, info.dateTo)
+
+    //     }
+    //     else {
+    //         toastWarnNotify('Tarih bilgisini kontrol ediniz !')
+    //     }
+
+    // }
+
+
+    // const handleRefresh = () => {
+
+    //     setInfo({
+    //         dateFrom: "",
+    //         dateTo: ""
+    //     })
+
+    //     // useState işlemlerinde set işlemi asenkron çalışıyor 
+    //     // getFireData fonksiyonunu hemen çalıştırmak için info bilgisini string değer olarak göndermek daha uygun bir çözümdür
+    //     getFireData('Uygunsuzluk', "", "")
+    //     readFireData("", "")
+    // }
+
+
 
 
 
@@ -184,16 +217,21 @@ const ActionDetail = () => {
 
                 <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
 
-                    <IoArrowBackCircle size={35} cursor={'pointer'} onClick={() => navigate(-1)} color={colors.siyah} />
+                    <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3, alignItems: 'center' }}>
+                        <IoArrowBackCircle size={35} cursor={'pointer'} onClick={() => navigate(-1)} color={colors.siyah} />
+                        {/* <SlRefresh size={25} color='green' cursor={'pointer'} onClick={handleRefresh} /> */}
+                    </Box>
 
-                    <Box display={'flex'} justifyContent={'space-between'} gap={2} alignItems={'center'}>
 
+
+                    {/* <Box display={'flex'} justifyContent={'space-between'} gap={2} alignItems={'center'}>
                         <Box sx={{ display: 'flex', justifyContent: 'flex-start', gap: 1, alignItems: 'center', p: 2 }}>
                             <Typography>From</Typography>
                             <TextField
                                 id='dateFrom'
                                 name='dateFrom'
                                 type='date'
+                                value={info.dateFrom}
                                 onChange={handleChange}
                             />
 
@@ -202,12 +240,13 @@ const ActionDetail = () => {
                                 id='dateTo'
                                 name='dateTo'
                                 type='date'
+                                value={info.dateTo}
                                 onChange={handleChange}
                             />
-                            <HiOutlineSearch size={30} color='black' cursor={'pointer'} style={{ marginLeft: 15 }} />
+                            <HiOutlineSearch size={30} color='black' cursor={'pointer'} style={{ marginLeft: 15 }} onClick={handleDateFilter}/>
                         </Box>
 
-                    </Box>
+                    </Box> */}
 
                 </Box>
 
