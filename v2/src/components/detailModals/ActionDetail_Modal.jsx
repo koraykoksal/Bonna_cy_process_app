@@ -51,7 +51,7 @@ const tableContainerStyle = {
 }
 
 
-const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyionTipleri, tekrarlananSorunTipleri, handleChange, info, setInfo, handleRefresh, handleDateFilter }) => {
+const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlananAksyionTipleri, tekrarlananSorunTipleri, handleChange, info, setInfo, handleRefresh }) => {
 
     const navigate = useNavigate()
 
@@ -75,7 +75,7 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
 
                 SekillendirmeData.forEach(eslesmeAnahtari => {
                     if (Object.keys(dbData).includes(eslesmeAnahtari)) {
-                        kontrolSayisi += Object.keys(dbData[eslesmeAnahtari]).length;
+                        kontrolSayisi = Object.keys(dbData[eslesmeAnahtari]).length;
                     }
                 })
             }
@@ -83,7 +83,7 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
 
                 SirlamaData.forEach(eslesmeAnahtari => {
                     if (Object.keys(dbData).includes(eslesmeAnahtari)) {
-                        kontrolSayisi += Object.keys(dbData[eslesmeAnahtari]).length;
+                        kontrolSayisi = Object.keys(dbData[eslesmeAnahtari]).length;
                     }
                 })
 
@@ -93,7 +93,8 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
                 Object.keys(dbData).forEach(key => {
 
                     const keys = "Triyaj"
-                    kontrolSayisi += Object.keys(dbData[keys]).length
+                    kontrolSayisi = Object.keys(dbData[keys]).length
+
                 })
             }
             else if (actionKey == "KALITEGUVENCE") {
@@ -101,7 +102,7 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
                 Object.keys(dbData).forEach(key => {
 
                     const keys = "NihaiUrunKontrol"
-                    kontrolSayisi += Object.keys(dbData[keys]).length
+                    kontrolSayisi = Object.keys(dbData[keys]).length
                 })
             }
             else {
@@ -112,7 +113,7 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
 
                     if (keys === text) {
 
-                        kontrolSayisi += Object.keys(dbData[key]).length; // Eşleşen kayıtların sayısını hesapla
+                        kontrolSayisi = Object.keys(dbData[key]).length; // Eşleşen kayıtların sayısını hesapla
                     }
 
                 });
@@ -132,9 +133,6 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
     }, [tekrarlananAksyionTipleri, dbData])
 
 
-    console.log(matchedCounts)
-  
-
 
     //! aksiyon sahibi uygunsuzluk oranını belirle
     useEffect(() => {
@@ -149,7 +147,7 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
 
                 return {
                     aksiyonSahibi: matched.aksiyonSahibi,
-                    uygunsuzlukOrani: (Number(tekrarlanan.tekrar) / Number(matched.kontrolSayisi) * 100).toFixed(2)
+                    uygunsuzlukOrani: (Number(tekrarlanan.tekrar) / Number(matched.kontrolSayisi) ).toFixed(2)
                 }
             }
 
@@ -160,121 +158,6 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
         setUygunsuzlukOranlari(sonuc)
 
     }, [matchedCounts])
-
-
- 
-
-
-    // const handleDateFilter = () => {
-
-
-    //     if(info.dateFrom && info.dateTo){
-
-    //         if(new Date(info.dateFrom) < new Date(info.dateTo)){
-
-    //             const tempResults = tekrarlananAksyionTipleri.map(action => {
-
-    //                 const actionKey = action.aksiyontipi.replace(/\s+/g, '').toUpperCase() // boşluık karakterini kaldır
-    //                 let kontrolSayisi = 0;
-        
-    //                 //! actionKey değeri SEKILLENDIRME VEYA SIRLAMA gelirse aşağıdaki condition bloğunu uygula
-    //                 if (actionKey == "SEKILLENDIRME") {
-        
-    //                     SekillendirmeData.forEach(eslesmeAnahtari => {
-    //                         if (Object.keys(dbData).includes(eslesmeAnahtari)) {
-    //                             kontrolSayisi += Object.keys(dbData[eslesmeAnahtari]).length;
-    //                         }
-    //                     })
-    //                 }
-    //                 else if (actionKey == "SIRLAMA") {
-        
-    //                     SirlamaData.forEach(eslesmeAnahtari => {
-    //                         if (Object.keys(dbData).includes(eslesmeAnahtari)) {
-    //                             kontrolSayisi += Object.keys(dbData[eslesmeAnahtari]).length;
-    //                         }
-    //                     })
-        
-    //                 }
-    //                 else if (actionKey == "FIRINLAR") {
-        
-    //                     Object.keys(dbData).forEach(key => {
-        
-    //                         const keys = "Triyaj"
-    //                         kontrolSayisi += Object.keys(dbData[keys]).length
-    //                     })
-    //                 }
-    //                 else if (actionKey == "KALITEGUVENCE") {
-        
-    //                     Object.keys(dbData).forEach(key => {
-        
-    //                         const keys = "NihaiUrunKontrol"
-    //                         kontrolSayisi += Object.keys(dbData[keys]).length
-    //                     })
-    //                 }
-    //                 else {
-    //                     Object.keys(dbData).forEach(key => {
-        
-    //                         const keys = key.replace(/\s+/g, '').toUpperCase()
-    //                         const text = actionKey.replace(/\s+/g, '').toUpperCase()
-        
-    //                         if (keys === text) {
-        
-    //                             kontrolSayisi += Object.keys(dbData[key]).length; // Eşleşen kayıtların sayısını hesapla
-    //                         }
-        
-    //                     });
-    //                 }
-        
-    //                 return {
-    //                     aksiyonSahibi: actionKey, // Orjinal aksiyon tipi
-    //                     kontrolSayisi: kontrolSayisi // Hesaplanan kontrol sayısı
-    //                 };
-        
-    //             }).filter(result => result.kontrolSayisi > 0)// Sadece kontrol sayısı 0'dan büyük olanları filtrele
-        
-    //             setMatchedCounts(tempResults)
-    //         }
-    //         else{
-    //             toastWarnNotify('Tarih formatını kontrol ediniz !')
-    //         }
-            
-    //     }
-    //     else{
-    //         toastWarnNotify('Tarih bilgisini kontrol ediniz !')
-    //     }
-
-    // }
-
-
-
-
-    // const handleRefresh = () => {
-
-    //     setInfo({
-    //         dateFrom: "",
-    //         dateTo: ""
-    //     })
-
-    //     const sonuc = tekrarlananAksyionTipleri.map(tekrarlanan => {
-
-    //         const aksiyontipi = tekrarlanan.aksiyontipi.replace(/\s+/g, '').toUpperCase()
-
-    //         const matched = matchedCounts.find(match => match.aksiyonSahibi == aksiyontipi)
-
-    //         if (matched) {
-
-    //             return {
-    //                 aksiyonSahibi: matched.aksiyonSahibi,
-    //                 uygunsuzlukOrani: (Number(tekrarlanan.tekrar) / Number(matched.kontrolSayisi) * 100).toFixed(2)
-    //             }
-    //         }
-
-    //         return null
-
-    //     }).filter(result => result !== null) // null değerleri filtrele
-
-    //     setUygunsuzlukOranlari(sonuc)
-    // }
 
 
 
@@ -317,7 +200,7 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
                                 value={info.dateTo}
                                 onChange={handleChange}
                             />
-                            <HiOutlineSearch size={30} color='black' onClick={handleDateFilter} cursor={'pointer'} style={{ marginLeft: 15 }} />
+                            <HiOutlineSearch size={30} color='black'  cursor={'pointer'} style={{ marginLeft: 15 }} />
                         </Box>
 
                     </Box>

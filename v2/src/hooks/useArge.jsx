@@ -46,6 +46,38 @@ const useArge = () => {
     const dispatch = useDispatch();
 
 
+    //! filter işleminde gönderilen tarih bilgisini "DD-MM-YYYY" formatına dönüştürmek için kullanılır
+    function formatDate(dateString) {
+        const parts = dateString.split('-')
+        return `${parts[2]}-${parts[1]}-${parts[0]}`
+    }
+
+
+    function filterDataByDateRange(data, dateFrom, dateTo) {
+        const startDate = formatDate(dateFrom)
+        const endDate = formatDate(dateTo)
+
+        // Ana objenin her bir alt objesi üzerinde döngü yap
+        const filteredData = Object.keys(data).reduce((acc, key) => {
+            // Her bir alt objedeki kayıtları filtrele
+            const filteredRecords = Object.entries(data[key]).filter(([recordId, record]) => {
+                const recordDate = record.date
+                return recordDate >= startDate && recordDate <= endDate;
+            }).reduce((acc, [recordId, record]) => {
+                // Filtrelenen kayıtları yeni bir objeye ekle
+                acc[recordId] = record;
+                return acc;
+            }, {});
+
+            // Filtrelenen kayıtları içeren yeni alt objeyi ana objeye ekle
+            acc[key] = filteredRecords;
+            return acc;
+        }, {});
+
+        return filteredData;
+    }
+
+
 
     const getDesenCode = async () => {
 
@@ -53,7 +85,7 @@ const useArge = () => {
 
         try {
 
-            
+
             const res = await axios(`${process.env.REACT_APP_ERP_BASEADDRESS}=${desen}`)
 
             if (res?.data == null || res?.data == undefined) {
@@ -176,7 +208,7 @@ const useArge = () => {
 
 
     //! firebase data çek
-    const getFireData = async (address) => {
+    const getFireData = async (address, dateFrom, dateTo) => {
 
         dispatch(fetchStart())
 
@@ -185,7 +217,17 @@ const useArge = () => {
             const db = getDatabase();
             const starCountRef = ref(db, `${address}/`);
             onValue(starCountRef, (snapshot) => {
-                const data = snapshot.val();
+
+                const res = snapshot.val()
+
+                const data = dateFrom && dateTo ? Object.values(res).filter((item) => {
+                    const itemDate = item.date
+                    const startDate = formatDate(dateFrom)
+                    const endDate = formatDate(dateTo)
+                    return itemDate >= startDate && itemDate <= endDate
+                }) : res
+
+                console.log(data)
 
                 if (data == null || data == undefined) {
                     console.log("machine data null geliyor:", data)
@@ -284,20 +326,12 @@ const useArge = () => {
 
 
     //! tüm veritabanı bilgileri
-    const readFireData = async () => {
+    const readFireData = async (dateFrom, dateTo) => {
 
         const allDashboard_Data = {
             uygunsuzlukControl_Count: 0,
             totalControlCount: 0,
-            totalControlDetail: {},
-            // total:{
-            //     controlCount:0,
-            //     title:""
-            // },
-            // uygunsuzluk:{
-            //     controlCount:0,
-            //     title:""
-            // }
+            totalControlDetail: {}
         }
 
 
@@ -306,7 +340,12 @@ const useArge = () => {
 
         onValue(databaseRef, (snapshot) => {
 
-            const data = snapshot.val();
+            const res = snapshot.val();
+
+            const data = dateFrom && dateTo ? filterDataByDateRange(res,dateFrom,dateTo) : res
+
+            console.log("res: ",res)
+            console.log("data: ",data)
 
             const tt = Object.keys(data).forEach(element => {
 
@@ -390,7 +429,6 @@ const useArge = () => {
                 }
             })
 
-
             //! kontrol edilen tüm proses verilerini çek
             //! Uygunsuzluk datası hariç diğer dataların verilerini al
             const kontrolEdilenVeriler = Object.keys(data).reduce((acc, key) => {
@@ -415,9 +453,9 @@ const useArge = () => {
 
             const toplamKayitSayisi = toplamKontrolEdilen.reduce((toplam, sayi) => toplam + sayi, 0);
 
-            allDashboard_Data.totalControlCount=toplamKayitSayisi
+            allDashboard_Data.totalControlCount = toplamKayitSayisi
 
-            allDashboard_Data.totalControlDetail=data
+            allDashboard_Data.totalControlDetail = data
 
             dispatch(fetchDashboardData(allDashboard_Data))
 
