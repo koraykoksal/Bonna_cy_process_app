@@ -151,7 +151,7 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
 
                 return {
                     aksiyonSahibi: matched.aksiyonSahibi,
-                    uygunsuzlukOrani: (Number(tekrarlanan.tekrar) / Number(matched.kontrolSayisi)).toFixed(2)
+                    uygunsuzlukOrani: ((Number(tekrarlanan.tekrar) / Number(matched.kontrolSayisi)) * 100).toFixed(2)
                 }
             }
 
