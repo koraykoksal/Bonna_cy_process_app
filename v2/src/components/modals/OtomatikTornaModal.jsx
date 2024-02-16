@@ -24,7 +24,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 525,
+  width: '80%',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -32,14 +32,14 @@ const style = {
 
 };
 
-const OtomatikTornaModal = ({ open, handleClose, info, setInfo  }) => {
+const OtomatikTornaModal = ({ open, handleClose, info, setInfo }) => {
 
 
   const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value })
   }
 
-  const { getFireData, putFireData,postFireData } = useArge()
+  const { getFireData, putFireData, postFireData } = useArge()
   const { workCenterCode, materialCode } = useSelector((state) => state.arge)
 
   const handleSubmit = (e) => {
@@ -51,7 +51,7 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo  }) => {
       getFireData("OtomatikTorna")
     }
     else {
-      postFireData("OtomatikTorna",info)
+      postFireData("OtomatikTorna", info)
       getFireData("OtomatikTorna")
     }
 
@@ -62,11 +62,11 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo  }) => {
 
   return (
     <div>
-      
+
       <Modal
         keepMounted
         open={open}
-        onClose={()=>{
+        onClose={() => {
           handleClose()
         }}
         aria-labelledby="keep-mounted-modal-title"
@@ -85,7 +85,7 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo  }) => {
             </IconButton>
           </Box>
 
-    
+
           <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '550px' }} component='form' onSubmit={handleSubmit}>
 
 
@@ -95,7 +95,7 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo  }) => {
               <FormControl fullWidth>
                 <InputLabel id="is_merkezi">Makine</InputLabel>
                 <Select
-                required
+                  required
                   labelId="is_merkezi"
                   id="is_merkezi"
                   name='is_merkezi'
@@ -116,7 +116,7 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo  }) => {
               <FormControl fullWidth>
                 <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
                 <Select
-                required
+                  required
                   labelId="urun_kodu"
                   id="urun_kodu"
                   name='urun_kodu'
@@ -125,11 +125,11 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo  }) => {
                   onChange={handleChange}
                 >
                   {
-                    materialCode?.map(({MALZEMEKODU,index})=>(
+                    materialCode?.map(({ MALZEMEKODU, index }) => (
                       <MenuItem key={index} value={MALZEMEKODU}>{MALZEMEKODU}</MenuItem>
                     ))
                   }
-                  
+
                   <MenuItem value="BNC02CT">BNC02CT</MenuItem>
                   <MenuItem value="VNT22KS">VNT22KS</MenuItem>
                 </Select>
@@ -348,33 +348,40 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo  }) => {
             </Box>
 
             {/* aksiyon sahibi */}
-            <FormControl fullWidth>
-              <InputLabel id="uygunsuzluktipi">Uygunsuzluk Tipi</InputLabel>
-              <Select
-                labelId="uygunsuzluktipi"
-                id="uygunsuzluktipi"
-                name='uygunsuzluktipi'
-                label="uygunsuzluktipi"
-                value={info.uygunsuzluktipi}
-                onChange={handleChange}
-                MenuProps={{
-                  PaperProps: {
-                    style: {
-                      maxHeight: 300, // Bu değeri istediğiniz maksimum yüksekliğe göre ayarlayabilirsiniz
-                      overflow: 'auto',
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}>
+              <FormControl fullWidth>
+                <InputLabel id="uygunsuzluktipi">Uygunsuzluk Tipi</InputLabel>
+                <Select
+                  labelId="uygunsuzluktipi"
+                  id="uygunsuzluktipi"
+                  name='uygunsuzluktipi'
+                  label="uygunsuzluktipi"
+                  value={info.uygunsuzluktipi}
+                  onChange={handleChange}
+                  MenuProps={{
+                    PaperProps: {
+                      style: {
+                        maxHeight: 300, // Bu değeri istediğiniz maksimum yüksekliğe göre ayarlayabilirsiniz
+                        overflow: 'auto',
+                      },
                     },
-                  },
-                }}
-              >
-                {
-                  uygunsuzlukTipi.map((item) => (
-                    <MenuItem value={item.text}>{item.text}</MenuItem>
-                  ))
-                }
+                  }}
+                >
+                  {
+                    uygunsuzlukTipi.map((item) => (
+                      <MenuItem value={item.text}>{item.text}</MenuItem>
+                    ))
+                  }
 
-              </Select>
-            </FormControl>
+                </Select>
+              </FormControl>
 
+              {/* select içinde selçilen değeri resetlemek için kullanılan buton */}
+              <Button variant='contained' size='small' sx={{ textTransform: 'none' }} onClick={() => setInfo(prevInfo => ({ ...prevInfo, uygunsuzluktipi: '' }))}>Reset</Button>
+
+
+
+            </Box>
 
 
 
@@ -414,7 +421,7 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo  }) => {
 
 
           </Box>
-        
+
 
         </Box>
       </Modal>

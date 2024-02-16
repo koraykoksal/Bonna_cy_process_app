@@ -24,7 +24,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 525,
+  width: '80%',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -289,33 +289,39 @@ const ManDikTornaPresModal = ({ open, handleClose, info, setInfo }) => {
             </Box>
 
             {/* aksiyon sahibi */}
-            <FormControl fullWidth>
-              <InputLabel id="uygunsuzluktipi">Uygunsuzluk Tipi</InputLabel>
-              <Select
-                labelId="uygunsuzluktipi"
-                id="uygunsuzluktipi"
-                name='uygunsuzluktipi'
-                label="uygunsuzluktipi"
-                value={info.uygunsuzluktipi}
-                onChange={handleChange}
-                MenuProps={{
-                  PaperProps: {
-                    style: {
-                      maxHeight: 300, // Bu değeri istediğiniz maksimum yüksekliğe göre ayarlayabilirsiniz
-                      overflow: 'auto',
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}>
+              <FormControl fullWidth>
+                <InputLabel id="uygunsuzluktipi">Uygunsuzluk Tipi</InputLabel>
+                <Select
+                  labelId="uygunsuzluktipi"
+                  id="uygunsuzluktipi"
+                  name='uygunsuzluktipi'
+                  label="uygunsuzluktipi"
+                  value={info.uygunsuzluktipi}
+                  onChange={handleChange}
+                  MenuProps={{
+                    PaperProps: {
+                      style: {
+                        maxHeight: 300, // Bu değeri istediğiniz maksimum yüksekliğe göre ayarlayabilirsiniz
+                        overflow: 'auto',
+                      },
                     },
-                  },
-                }}
-              >
-                {
-                  uygunsuzlukTipi.map((item) => (
-                    <MenuItem value={item.text}>{item.text}</MenuItem>
-                  ))
-                }
+                  }}
+                >
+                  {
+                    uygunsuzlukTipi.map((item) => (
+                      <MenuItem value={item.text}>{item.text}</MenuItem>
+                    ))
+                  }
 
-              </Select>
-            </FormControl>
+                </Select>
+              </FormControl>
 
+              {/* select içinde selçilen değeri resetlemek için kullanılan buton */}
+              <Button variant='contained' size='small' sx={{ textTransform: 'none' }} onClick={() => setInfo(prevInfo => ({ ...prevInfo, uygunsuzluktipi: '' }))}>Reset</Button>
+
+
+            </Box>
 
             <TextField
               multiline

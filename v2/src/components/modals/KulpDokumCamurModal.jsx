@@ -24,7 +24,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 525,
+  width: '80%',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -254,33 +254,40 @@ const KulpDokumCamurModal = ({ open, handleClose, info, setInfo }) => {
 
             </Box>
 
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
 
-            <FormControl fullWidth>
-              <InputLabel id="uygunsuzluktipi">Uygunsuzluk Tipi</InputLabel>
-              <Select
-                labelId="uygunsuzluktipi"
-                id="uygunsuzluktipi"
-                name='uygunsuzluktipi'
-                label="uygunsuzluktipi"
-                value={info.uygunsuzluktipi}
-                onChange={handleChange}
-                MenuProps={{
-                  PaperProps: {
-                    style: {
-                      maxHeight: 300, // Bu değeri istediğiniz maksimum yüksekliğe göre ayarlayabilirsiniz
-                      overflow: 'auto',
+              <FormControl fullWidth>
+                <InputLabel id="uygunsuzluktipi">Uygunsuzluk Tipi</InputLabel>
+                <Select
+                  labelId="uygunsuzluktipi"
+                  id="uygunsuzluktipi"
+                  name='uygunsuzluktipi'
+                  label="uygunsuzluktipi"
+                  value={info.uygunsuzluktipi}
+                  onChange={handleChange}
+                  MenuProps={{
+                    PaperProps: {
+                      style: {
+                        maxHeight: 300, // Bu değeri istediğiniz maksimum yüksekliğe göre ayarlayabilirsiniz
+                        overflow: 'auto',
+                      },
                     },
-                  },
-                }}
-              >
-                {
-                  uygunsuzlukTipi.map((item) => (
-                    <MenuItem value={item.text}>{item.text}</MenuItem>
-                  ))
-                }
+                  }}
+                >
+                  {
+                    uygunsuzlukTipi.map((item) => (
+                      <MenuItem value={item.text}>{item.text}</MenuItem>
+                    ))
+                  }
 
-              </Select>
-            </FormControl>
+                </Select>
+              </FormControl>
+
+              <Button variant='contained' size='small' sx={{ textTransform: 'none' }} onClick={() => setInfo(prevInfo => ({ ...prevInfo, uygunsuzluktipi: '' }))}>Reset</Button>
+
+
+
+            </Box>
 
             <FormControl fullWidth>
               <InputLabel id="redkabul">Red/Kabul/Şartlı Kabul</InputLabel>

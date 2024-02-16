@@ -24,7 +24,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 725,
+  width: '80%',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -55,7 +55,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
       getFireData("IzoStatikPresData")
     }
     else {
-      postFireData("IzoStatikPresData",info)
+      postFireData("IzoStatikPresData", info)
       getFireData("IzoStatikPresData")
     }
 
@@ -63,7 +63,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
 
   }
 
- 
+
 
   return (
     <div>
@@ -88,7 +88,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
             </IconButton>
           </Box>
 
-      
+
           <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'scroll', maxHeight: '550px' }} component='form' onSubmit={handleSubmit}>
 
 
@@ -330,33 +330,37 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
             </Box>
 
             {/* aksiyon sahibi */}
-            <FormControl fullWidth>
-              <InputLabel id="uygunsuzluktipi">Uygunsuzluk Tipi</InputLabel>
-              <Select
-                labelId="uygunsuzluktipi"
-                id="uygunsuzluktipi"
-                name='uygunsuzluktipi'
-                label="uygunsuzluktipi"
-                value={info?.uygunsuzluktipi}
-                onChange={handleChange}
-                MenuProps={{
-                  PaperProps: {
-                    style: {
-                      maxHeight: 300, // Bu değeri istediğiniz maksimum yüksekliğe göre ayarlayabilirsiniz
-                      overflow: 'auto',
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}>
+              <FormControl fullWidth>
+                <InputLabel id="uygunsuzluktipi">Uygunsuzluk Tipi</InputLabel>
+                <Select
+                  labelId="uygunsuzluktipi"
+                  id="uygunsuzluktipi"
+                  name='uygunsuzluktipi'
+                  label="uygunsuzluktipi"
+                  value={info?.uygunsuzluktipi}
+                  onChange={handleChange}
+                  MenuProps={{
+                    PaperProps: {
+                      style: {
+                        maxHeight: 300, // Bu değeri istediğiniz maksimum yüksekliğe göre ayarlayabilirsiniz
+                        overflow: 'auto',
+                      },
                     },
-                  },
-                }}
-              >
-                {
-                  uygunsuzlukTipi.map((item, index) => (
-                    <MenuItem key={index} value={item.text}>{item.text}</MenuItem>
-                  ))
-                }
+                  }}
+                >
+                  {
+                    uygunsuzlukTipi.map((item, index) => (
+                      <MenuItem key={index} value={item.text}>{item.text}</MenuItem>
+                    ))
+                  }
 
-              </Select>
-            </FormControl>
+                </Select>
+              </FormControl>
 
+              {/* select içinde selçilen değeri resetlemek için kullanılan buton */}
+              <Button variant='contained' size='small' sx={{ textTransform: 'none' }} onClick={() => setInfo(prevInfo => ({ ...prevInfo, uygunsuzluktipi: '' }))}>Reset</Button>
+            </Box>
 
 
             <TextField
@@ -396,7 +400,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
 
 
           </Box>
-        
+
 
         </Box>
       </Modal>

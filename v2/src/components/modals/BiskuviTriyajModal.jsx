@@ -23,7 +23,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 525,
+  width: '80%',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -86,7 +86,7 @@ const BiskuviTriyajModal = ({ open, handleClose, info, setInfo }) => {
 
     control()
 
-  }, [info.hataliUrunSayisi,info.ayakcatlagi,info.kenarCatlagi,info.firinKirigi,info.diger])
+  }, [info.hataliUrunSayisi, info.ayakcatlagi, info.kenarCatlagi, info.firinKirigi, info.diger])
 
 
   return (
@@ -252,25 +252,21 @@ const BiskuviTriyajModal = ({ open, handleClose, info, setInfo }) => {
             </Box>
 
 
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
 
-              <Textarea
-                name='aciklama'
+              <TextField
                 fullWidth
+                name='aciklama'
                 placeholder='Açıklama'
-                minRows={2}
-                maxRows={2}
                 sx={{ overflow: 'auto' }}
                 value={info?.aciklama}
                 onChange={handleChange}
               />
 
-              <Textarea
-                name='aksiyon'
+              <TextField
                 fullWidth
+                name='aksiyon'
                 placeholder='Aksiyon'
-                minRows={2}
-                maxRows={2}
                 sx={{ overflow: 'auto' }}
                 value={info?.aksiyon}
                 onChange={handleChange}

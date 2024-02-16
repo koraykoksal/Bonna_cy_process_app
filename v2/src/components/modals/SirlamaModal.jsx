@@ -24,7 +24,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 525,
+  width: '80%',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -71,7 +71,7 @@ const SirlamaModal=({open, handleClose, info, setInfo})=>{
 
   }, [designCode])
   
-  console.log(desenCodes)
+
 
   return (
     <div>
@@ -616,6 +616,8 @@ const SirlamaModal=({open, handleClose, info, setInfo})=>{
                 
                 </Select>
             </FormControl>
+
+            <Button variant='contained' size='small' sx={{textTransform:'none'}} onClick={()=>setInfo(prevInfo => ({ ...prevInfo, uygunsuzlukTipi: '' }))}>Reset</Button>
 
             <TextField
             multiline
