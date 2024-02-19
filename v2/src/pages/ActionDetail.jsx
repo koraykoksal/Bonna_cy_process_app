@@ -3,7 +3,7 @@ import React from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { SekillendirmeData, SirlamaData } from '../helpers/ProcessData';
+import { SekillendirmeData, HammaddeData } from '../helpers/ProcessData';
 import { HiOutlineSearch } from "react-icons/hi";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { SlRefresh } from "react-icons/sl";
@@ -67,9 +67,9 @@ const ActionDetail = () => {
                 }
             });
         }
-        else if (state.aksiyonSahibi == "SIRLAMA") {
+        else if (state.aksiyonSahibi == "HAMMADDE") {
 
-            SirlamaData.forEach(element => {
+            HammaddeData.forEach(element => {
                 if (Object.keys(dbData).includes(element)) {
 
                     const veriSeti = Object.values(dbData[element])
@@ -77,6 +77,21 @@ const ActionDetail = () => {
                     geciciVeriSetleri.push(...veriSeti)
                 }
             });
+        }
+        else if (state.aksiyonSahibi == "SIRLAMA") {
+
+            Object.keys(dbData).forEach(element => {
+
+                const stateName = 'Sirlama'
+                const dbName = element
+
+                if (stateName == dbName) {
+                    const veriSeti = Object.values(dbData[element])
+                    geciciVeriSetleri.push(...veriSeti)
+                }
+
+
+            })
         }
         else if (state.aksiyonSahibi == "FIRINLAR") {
 

@@ -179,7 +179,7 @@ const Dashboard = () => {
 
       <Drawer variant="permanent" open={open} >
 
-        <DrawerHeader sx={{ background: '#000000' }}>
+        <DrawerHeader sx={{ background: '#000000'}}>
           <IconButton onClick={handleDrawerClose} >
             {theme.direction === 'rtl' ? <ChevronRightIcon sx={{ background: '#ffffff' }} /> : <ChevronLeftIcon sx={{ background: '#ffffff' }} />}
           </IconButton>
@@ -188,14 +188,14 @@ const Dashboard = () => {
         {/* ÇİZGİ */}
         <Divider />
 
-        <List sx={{ background: '#000000' }}>
+        <List sx={{ background: '#000000'}}>
           <FirstMenu handleDrawerClose={handleDrawerClose} />
         </List>
 
         {/* ÇİZGİ */}
         <Divider />
 
-        <List sx={{ background: '#000000' }}>
+        <List sx={{ background: '#000000',height:'100%' }}>
           <SecondMenu handleDrawerClose={handleDrawerClose} />
         </List>
 

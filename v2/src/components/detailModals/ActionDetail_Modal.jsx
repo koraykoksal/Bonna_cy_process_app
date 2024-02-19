@@ -13,12 +13,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { SekillendirmeData, SirlamaData } from '../../helpers/ProcessData';
+import { SekillendirmeData, HammaddeData } from '../../helpers/ProcessData';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import { useNavigate } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList, Rectangle } from 'recharts';
-import { SlRefresh } from "react-icons/sl";
-import { toastWarnNotify } from '../../helpers/ToastNotify';
+
 
 
 
@@ -78,9 +77,9 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
                     }
                 })
             }
-            else if (actionKey == "SIRLAMA") {
+            else if (actionKey == "HAMMADDE") {
 
-                SirlamaData.forEach(eslesmeAnahtari => {
+                HammaddeData.forEach(eslesmeAnahtari => {
                     if (Object.keys(dbData).includes(eslesmeAnahtari)) {
 
                         //! dbData[eslesmeAnahtari] dinamik olduğu için += işlemi ile toplayarak length bilgisine ulaşır
@@ -89,11 +88,34 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
                 })
 
             }
+            // else if (actionKey == "SIRLAMA") {
+
+            //     HammaddeData.forEach(eslesmeAnahtari => {
+            //         if (Object.keys(dbData).includes(eslesmeAnahtari)) {
+
+            //             //! dbData[eslesmeAnahtari] dinamik olduğu için += işlemi ile toplayarak length bilgisine ulaşır
+            //             kontrolSayisi += Object.keys(dbData[eslesmeAnahtari]).length;
+            //         }
+            //     })
+
+            // }
+            else if (actionKey == "SIRLAMA") {
+
+                Object.keys(dbData).forEach(key => {
+
+                    //! dbData[keys] statik olarak belirtildiği için doğrudan length değerine ulaşılır
+
+                    const keys = "Sirlama"
+                    kontrolSayisi = Object.keys(dbData[keys]).length
+
+                })
+
+            }
             else if (actionKey == "FIRINLAR") {
 
                 Object.keys(dbData).forEach(key => {
 
-                     //! dbData[keys] statik olarak belirtildiği için doğrudan length değerine ulaşılır
+                    //! dbData[keys] statik olarak belirtildiği için doğrudan length değerine ulaşılır
 
                     const keys = "Triyaj"
                     kontrolSayisi = Object.keys(dbData[keys]).length
@@ -165,7 +187,6 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
 
 
 
-
     return (
 
 
@@ -232,7 +253,7 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
                                 <Tooltip />
                                 <Legend />
                                 <Bar dataKey="uygunsuzlukOrani" fill="#8884d8">
-                                    <LabelList dataKey="aksiyonSahibi" position="insideTop" fill='#000000' fontSize={12} fontWeight={700} />
+                                    <LabelList dataKey="aksiyonSahibi" position="insideBottom" fill='#000000' fontSize={11} fontWeight={700} />
                                 </Bar>
                             </BarChart>
                         </ResponsiveContainer>

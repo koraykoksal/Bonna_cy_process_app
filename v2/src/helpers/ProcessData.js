@@ -179,7 +179,7 @@ export const SekillendirmeData=[
 
 
 
-export const SirlamaData=[
+export const HammaddeData=[
 
     "Astarlama", 
     "YuksekBasinc", 
