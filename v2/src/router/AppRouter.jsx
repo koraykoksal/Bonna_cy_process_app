@@ -26,6 +26,7 @@ import Ayaktaslama from '../pages/Ayaktaslama'
 import NotFound from '../pages/NotFound'
 import Dashboard from '../pages/Dashboard'
 import ActionDetail from '../pages/ActionDetail'
+import GranulTaneBoyut from '../pages/GranulTaneBoyut'
 
 
 
@@ -63,6 +64,7 @@ const AppRouter = () => {
             <Route path='dijitalbaski' element={<Dijitalbaski />} />
             <Route path='nihaiurunkontrol' element={<Nihaiurunkontrol />} />
             <Route path='ayaktaslama' element={<Ayaktaslama />} />
+            <Route path='granultaneboyut' element={<GranulTaneBoyut />} />
             {/* proses pathi içerisinde tanımlamak için path bilgisini :id olarak belirtmek gerekir */}
             <Route path=':id' element={<ActionDetail/>}/>
           </Route>

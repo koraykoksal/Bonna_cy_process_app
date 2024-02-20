@@ -25,6 +25,7 @@ import ShapeLineIcon from '@mui/icons-material/ShapeLine';
 import CameraIcon from '@mui/icons-material/Camera';
 import InvertColorsIcon from '@mui/icons-material/InvertColors';
 import PatternIcon from '@mui/icons-material/Pattern';
+import HubIcon from '@mui/icons-material/Hub';
 
 export const secondMenu=[
 
@@ -62,6 +63,11 @@ export const secondMenu=[
         icon:<ShapeLineIcon/>,
         title:"Hammadde Granül Kontrol",
         url:"/proses/granulkontrol"
+    },
+    {
+        icon:<HubIcon/>,
+        title:"Granül Tane Boyut",
+        url:"/proses/granultaneboyut"
     },
     {
         icon:<FormatPaintIcon/>,

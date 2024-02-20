@@ -185,6 +185,7 @@ export const HammaddeData=[
     "YuksekBasinc", 
     "DokumHatti", 
     "GranulKontrol", 
+    "GranulTaneKontrol",
     "KulpDokum"
 ]
 

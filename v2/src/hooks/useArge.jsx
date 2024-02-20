@@ -23,7 +23,7 @@ import {
     fetchDijitalBaskiData,
     fetchNihaiUrunKontrolData,
     fetchAyakTaslamaData,
-    fetchUygunsuzlukData, fetchDashboardData
+    fetchUygunsuzlukData, fetchDashboardData, fetchGranulTaneKontrolData
 
 } from '../features/argeSlice'
 import { toastErrorNotify, toastSuccessNotify } from '../helpers/ToastNotify'
@@ -285,6 +285,9 @@ const useArge = () => {
                         }
                         else if (address === 'Uygunsuzluk') {
                             dispatch(fetchUygunsuzlukData(data))
+                        }
+                        else if (address === 'GranulTaneKontrol') {
+                            dispatch(fetchGranulTaneKontrolData(data))
                         }
 
                     }

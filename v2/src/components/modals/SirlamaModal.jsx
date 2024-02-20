@@ -191,6 +191,16 @@ const SirlamaModal=({open, handleClose, info, setInfo})=>{
             value={info.sirSicaklik}
             onChange={handleChange}
             />
+            <TextField
+            fullWidth
+            label="Ph Değeri"
+            name="ph"
+            id="ph"
+            type="text"
+            variant="outlined"
+            value={info.ph}
+            onChange={handleChange}
+            />
             </Box>
 
             <Box>

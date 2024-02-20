@@ -15,6 +15,7 @@ const initialState = {
     dokumHattiData: [],
     kulpDokumData: [],
     granulKontrolData: [],
+    granulTaneKontrolData: [],
     astarlamaData: [],
     reaktifData: [],
     triyajData: [],
@@ -181,6 +182,11 @@ const argeSlice = createSlice({
             state.dbData = payload?.totalControlDetail
 
         },
+        fetchGranulTaneKontrolData: (state, { payload }) => {
+            state.loading = false;
+            state.error = false
+            state.granulTaneKontrolData = payload
+        },
         fetchFail: (state) => {
             state.loading = false;
             state.error = true;
@@ -215,7 +221,8 @@ export const {
     fetchNihaiUrunKontrolData,
     fetchAyakTaslamaData,
     fetchUygunsuzlukData,
-    fetchDashboardData
+    fetchDashboardData,
+    fetchGranulTaneKontrolData
 
 
 } = argeSlice.actions

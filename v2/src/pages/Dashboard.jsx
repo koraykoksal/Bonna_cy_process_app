@@ -153,7 +153,7 @@ const Dashboard = () => {
           </IconButton>
 
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            Proses Kontrol
+            Çayırova Proses Kontrol
           </Typography>
 
           <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 2, alignItems: 'center' }}>

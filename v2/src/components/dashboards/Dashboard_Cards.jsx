@@ -34,7 +34,7 @@ const Dashboard_Cards = ({ dashboardData, prosesPlanaUygunluk }) => {
                 <Grid>
                     <Paper sx={paperDashboardStyle_ProsesPlan}>
                         <Typography sx={typoStyle}>
-                            Proses Planına Uygunluk
+                            Proses Planı Uygunsuzluk
                         </Typography>
                         <Typography variant="h3" align='center' color={colors.beyaz}>
                             {prosesPlanaUygunluk} %

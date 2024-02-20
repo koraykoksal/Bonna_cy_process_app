@@ -104,6 +104,14 @@ const Sirlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
       flex: 1,
     },
     {
+      field: "ph",
+      headerName: "Ph Değeri",
+      minWidth: 100,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+    },
+    {
       field: "viskozite_v1",
       headerName: "Viskozite v1",
       minWidth: 150,
@@ -346,6 +354,7 @@ const Sirlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
       renderCell: ({ id,
         row: {
           renkKodu,
+          ph,
           urun_kodu,
           uretimyeri,
           yogunluk,
@@ -392,6 +401,7 @@ const Sirlama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
                 id,
                 type: 'Sirlama',
                 renkKodu,
+                ph,
                 urun_kodu,
                 uretimyeri,
                 yogunluk,
