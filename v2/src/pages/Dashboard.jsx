@@ -177,7 +177,7 @@ const Dashboard = () => {
 
 
 
-      <Drawer variant="permanent" open={open} >
+      <Drawer variant="permanent" open={open}>
 
         <DrawerHeader sx={{ background: '#000000'}}>
           <IconButton onClick={handleDrawerClose} >
@@ -195,7 +195,7 @@ const Dashboard = () => {
         {/* ÇİZGİ */}
         <Divider />
 
-        <List sx={{ background: '#000000',height:'100%' }}>
+        <List sx={{ background: '#000000' }}>
           <SecondMenu handleDrawerClose={handleDrawerClose} />
         </List>
 
