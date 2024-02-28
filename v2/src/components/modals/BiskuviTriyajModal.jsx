@@ -245,7 +245,7 @@ const BiskuviTriyajModal = ({ open, handleClose, info, setInfo }) => {
                   onChange={handleChange}
                 >
                   <MenuItem value="C600">C600</MenuItem>
-                  <MenuItem value="C400">C400</MenuItem>
+                  <MenuItem value="C603">C603</MenuItem>
                 </Select>
               </FormControl>
 

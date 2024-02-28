@@ -66,14 +66,16 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
             const actionKey = action.aksiyontipi.replace(/\s+/g, '').toUpperCase() // boşluık karakterini kaldır
             let kontrolSayisi = 0;
 
-            //! actionKey değeri SEKILLENDIRME VEYA SIRLAMA gelirse aşağıdaki condition bloğunu uygula
+            //! actionKey değeri SEKILLENDIRME gelirse aşağıdaki condition bloğunu uygula
             if (actionKey == "SEKILLENDIRME") {
 
                 SekillendirmeData.forEach(eslesmeAnahtari => {
                     if (Object.keys(dbData).includes(eslesmeAnahtari)) {
 
+                        //! şekillendirmeye ait uygunsuzluk miktarını hesaplar
                         //! dbData[eslesmeAnahtari] dinamik olduğu için += işlemi ile toplayarak length bilgisine ulaşır
                         kontrolSayisi += Object.keys(dbData[eslesmeAnahtari]).length;
+
                     }
                 })
             }
@@ -88,17 +90,6 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
                 })
 
             }
-            // else if (actionKey == "SIRLAMA") {
-
-            //     HammaddeData.forEach(eslesmeAnahtari => {
-            //         if (Object.keys(dbData).includes(eslesmeAnahtari)) {
-
-            //             //! dbData[eslesmeAnahtari] dinamik olduğu için += işlemi ile toplayarak length bilgisine ulaşır
-            //             kontrolSayisi += Object.keys(dbData[eslesmeAnahtari]).length;
-            //         }
-            //     })
-
-            // }
             else if (actionKey == "SIRLAMA") {
 
                 Object.keys(dbData).forEach(key => {
@@ -154,8 +145,6 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
 
         setMatchedCounts(tempResults)
 
-
-
     }, [tekrarlananAksyionTipleri, dbData])
 
 
@@ -184,6 +173,7 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
         setUygunsuzlukOranlari(sonuc)
 
     }, [matchedCounts])
+
 
 
 
@@ -228,7 +218,8 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
                                                     {
                                                         state: {
                                                             aksiyonSahibi: item.aksiyonSahibi,
-                                                            uygunsuzlukOrani: item.uygunsuzlukOrani
+                                                            uygunsuzlukOrani: item.uygunsuzlukOrani,
+                                                            aksiyonSahib : tekrarlananAksyionTipleri
                                                         }
                                                     })}>Detay</Button>
                                             </TableCell>
