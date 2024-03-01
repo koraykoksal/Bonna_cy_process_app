@@ -47,21 +47,42 @@ const useArge = () => {
 
 
     //! filter işleminde gönderilen tarih bilgisini "DD-MM-YYYY" formatına dönüştürmek için kullanılır
-    function formatDate(dateString) {
+    function formatDate2(dateString) {
         const parts = dateString.split('-')
         return `${parts[2]}-${parts[1]}-${parts[0]}`
     }
 
 
+    function formatDate(dateStr) {
+        // Tarih stringini parçalara ayır
+        const parts = dateStr.split("-");
+        
+        // Gün, ay ve yıl için parçaları al
+        let day = parts[0];
+        let month = parts[1];
+        let year = parts[2];
+        
+        // Gün ve ay tek haneli ise başına sıfır ekle
+        day = day.length === 1 ? `0${day}` : day;
+        month = month.length === 1 ? `0${month}` : month;
+        
+        // yyyy-mm-dd formatına dönüştür
+        return `${day}-${month}-${year}`;
+    }
+
+
+
+
     function filterDataByDateRange(data, dateFrom, dateTo) {
-        const startDate = formatDate(dateFrom)
-        const endDate = formatDate(dateTo)
+        const startDate = formatDate2(dateFrom)
+        const endDate = formatDate2(dateTo)
 
         // Ana objenin her bir alt objesi üzerinde döngü yap
         const filteredData = Object.keys(data).reduce((acc, key) => {
             // Her bir alt objedeki kayıtları filtrele
             const filteredRecords = Object.entries(data[key]).filter(([recordId, record]) => {
-                const recordDate = record.date
+          
+                const recordDate = formatDate(record.date)
                 return recordDate >= startDate && recordDate <= endDate;
             }).reduce((acc, [recordId, record]) => {
                 // Filtrelenen kayıtları yeni bir objeye ekle
@@ -223,13 +244,15 @@ const useArge = () => {
                 if (res) {
 
                     const data = dateFrom && dateTo ? Object.values(res).filter((item) => {
-                        const itemDate = item.date
-                        const startDate = formatDate(dateFrom)
-                        const endDate = formatDate(dateTo)
+                        const itemDate = formatDate(item.date)
+                        const startDate = formatDate2(dateFrom)
+                        const endDate = formatDate2(dateTo)
+
                         return itemDate >= startDate && itemDate <= endDate
                     }) : res
 
 
+                    console.log("getFireData: ",data)
 
                     if (data == null || data == undefined) {
                         console.log("machine data null geliyor:", data)
@@ -354,6 +377,9 @@ const useArge = () => {
 
                 const data = dateFrom && dateTo ? filterDataByDateRange(res, dateFrom, dateTo) : res
 
+
+                console.log("readFire data: ",data)
+
                 const tt = Object.keys(data).forEach(element => {
 
                     if (element === 'OtomatikTorna') {
@@ -435,7 +461,6 @@ const useArge = () => {
 
                     }
                 })
-
 
                 //! kontrol edilen tüm proses verilerini çek
                 //! Uygunsuzluk datası hariç diğer dataların verilerini al
