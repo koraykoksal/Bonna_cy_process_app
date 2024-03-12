@@ -19,4 +19,11 @@ Install Bonna_cy_process_app
   npm start or yarn start or pnpm dev&start
 ```
 
+## Images
 
+![](./pictures/loginPage.png)
+![](./pictures/dashboardPage.png)
+![](./pictures/aksiyonSahipleriModal.png)
+![](./pictures/sirlamaDetayPage.png)
+![](./pictures/dataEntyModal.png)
+![](./pictures/uygunsulukGrafik.png)
