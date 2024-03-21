@@ -30,12 +30,15 @@ const Izostatikpres = () => {
   const nowData = new Date()
   const currentdatetime = nowData.getDate() + "-" + (nowData.getMonth() + 1) + "-" + nowData.getFullYear()
   const currentTime = nowData.getHours() + ":" + nowData.getMinutes()
-
+  const { getFireData, getMaterialCenter, getWorkCenter } = useArge()
   const { currentUser } = useSelector((state) => state.auth)
+  const { workCenterCode, materialCode } = useSelector((state) => state.arge)
+  
+
 
   const getShift = () => {
     //! padStart(2,'0') metodu ile hedefUzunluk ve eklenecek karakterler olarak iki parametre alır.
-    const hour = new Date().getHours().toString().padStart(2,'0')
+    const hour = new Date().getHours().toString().padStart(2, '0')
 
     if (hour > 8 && hour < 16) {
       getVardiya = 2
@@ -52,8 +55,8 @@ const Izostatikpres = () => {
   }
 
   const [info, setInfo] = useState({
-    department:"Sekillendirme",
-    type:"IzoStatikPresData",
+    department: "Sekillendirme",
+    type: "IzoStatikPresData",
     is_merkezi: "",
     agirlik: "",
     taban: "",
@@ -64,7 +67,7 @@ const Izostatikpres = () => {
     kapamabasinc: "",
     vakumdegeri: "",
     dolumsuresi: "",
-    granulturu:"",
+    granulturu: "",
     urun_kodu: "",
     catlakkontrol: "",
     rotuskontrol: "",
@@ -73,7 +76,7 @@ const Izostatikpres = () => {
     uygunsuzluktipi: "",
     aciklama: "",
     vardiyasorumlusu: "",
-    vardiya: getShift().toString(),
+    vardiya: getShift(),
     date: currentdatetime.toString(),
     time: currentTime.toString(),
     kontroleden_kisi: currentUser
@@ -84,7 +87,7 @@ const Izostatikpres = () => {
   const handleClose = () => {
     setOpen(false)
     setInfo({
-      type:"IzoStatikPresData",
+      type: "IzoStatikPresData",
       is_merkezi: "",
       agirlik: "",
       taban: "",
@@ -95,7 +98,7 @@ const Izostatikpres = () => {
       kapamabasinc: "",
       vakumdegeri: "",
       dolumsuresi: "",
-      granulturu:"",
+      granulturu: "",
       urun_kodu: "",
       catlakkontrol: "",
       rotuskontrol: "",
@@ -115,18 +118,15 @@ const Izostatikpres = () => {
   const delHandleOpen = () => setdelOpen(true);
   const delHandleClose = () => setdelOpen(false);
 
-  const { getMaterialCenter, getWorkCenter, getFireData } = useArge()
-
 
   useEffect(() => {
 
-    getMaterialCenter()
-    getWorkCenter()
+    getMaterialCenter() //makine isimlerini çek
+    getWorkCenter() //ürün kodlarını çek
 
-    getFireData("IzoStatikPresData")
+    getFireData("IzoStatikPresData") //firebase den verileri getir
 
   }, [])
-
 
 
   return (
@@ -138,7 +138,7 @@ const Izostatikpres = () => {
 
       <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
 
-      <IzostatikPresModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} />
+      <IzostatikPresModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} workCenterCode={workCenterCode} materialCode={materialCode}/>
 
       <DeleteModals delOpen={delOpen} delHandleClose={delHandleClose} delHandleOpen={delHandleOpen} setdelOpen={setdelOpen} info={info} />
 

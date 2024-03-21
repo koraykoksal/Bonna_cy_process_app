@@ -214,13 +214,20 @@ const DijitalLogo_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => 
     const dizi = Object.keys(dijitalLogoData).map(key => { return { id: key, ...dijitalLogoData[key] } })
     dizi.sort((a, b) => {
       const convertDateTime = (date, time) => {
-          const [day, month, year] = date.split('-').map(num => num.padStart(2, '0')); // Gün ve ayı iki haneli yap
-          const [hours, minutes] = time.split(':').map(num => num.padStart(2, '0')); // Saati iki haneli yap
-          return new Date(`${year}-${month}-${day}T${hours}:${minutes}:00`);
-      };
+        if (!date || !time) {
+            // Eğer date veya time undefined veya boş string ise, geçerli bir tarih döndürmeyebilir.
+            // Bu durumu ele almak için bir alternatif dönüş değeri sağlayabilirsiniz.
+            // Örneğin, çok geçmiş veya gelecek bir tarih olabilir.
+            // Burada örnek olarak Unix Epoch başlangıcını kullanıyoruz.
+            return new Date(0); // 1 Ocak 1970
+        }
+        const [day, month, year] = date.split('-').map(num => num.padStart(2, '0'));
+        const [hours, minutes] = time.split(':').map(num => num.padStart(2, '0'));
+        return new Date(`${year}-${month}-${day}T${hours}:${minutes}:00`);
+    };
 
-      const dateTimeA = convertDateTime(a.date, a.time);
-      const dateTimeB = convertDateTime(b.date, b.time);
+    const dateTimeA = convertDateTime(a.date, a.time);
+    const dateTimeB = convertDateTime(b.date, b.time);
 
       return dateTimeB - dateTimeA;
   })

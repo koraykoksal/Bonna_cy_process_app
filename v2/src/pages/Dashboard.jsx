@@ -28,7 +28,7 @@ import MenuItem from '@mui/material/MenuItem';
 import useArge from '../hooks/useArge';
 import { useEffect, useState } from 'react';
 import { FiLogOut } from "react-icons/fi";
-import { RiLogoutCircleRLine } from "react-icons/ri";
+import { CgLogOff } from "react-icons/cg";
 import { homePageStyle } from '../styles/globalStyle';
 
 
@@ -163,7 +163,7 @@ const Dashboard = () => {
 
             {/* <Button variant='contained' color='error' onClick={() => signOut()}>Logout</Button> */}
 
-            <RiLogoutCircleRLine size={27} color='red' cursor='pointer' onClick={() => signOut()} />
+            <CgLogOff size={27} color='#f90000ed' cursor='pointer' onClick={() => signOut()} />
 
             {/* <IconButton onClick={()=>logout()}>
             <LogoutIcon sx={{'&hover':{cursor:'pointer'},color:'#000000'}}/>

@@ -218,10 +218,16 @@ const useArge = () => {
             const uID = uid()
             const db = getDatabase();
             set(ref(db, `${address}/` + uID), info);
-            toastSuccessNotify('Data Added ✅')
+            toastSuccessNotify('Data Added')
+
+            // kayıt sonrası iş merkezi, ürün kodu, desen kodu ve hammadde bilgilerini listele
+            getWorkCenter()
+            getMaterialCenter()
+            getDesenCode()
+            hammaddeMaterialCode()
 
         } catch (error) {
-            toastErrorNotify('No Add Izo Statik Press Data ❌')
+            toastErrorNotify('No Add Izo Statik Press Data')
         }
 
 
@@ -332,11 +338,17 @@ const useArge = () => {
 
             const db = getDatabase()
             update(ref(db, `${address}/` + info.id), info)
-            toastSuccessNotify('Updated Data ✅')
+            toastSuccessNotify('Updated Data')
+
+            // güncelleme sonrası iş merkezi, ürün kodu, desen kodu ve hammadde bilgilerini listele
+            getWorkCenter()
+            getMaterialCenter()
+            getDesenCode()
+            hammaddeMaterialCode()
 
         } catch (error) {
             console.log("Update error :", error)
-            toastErrorNotify('Not OK Update ❌')
+            toastErrorNotify('Not OK Update')
         }
     }
 
@@ -346,9 +358,16 @@ const useArge = () => {
         try {
             const db = getDatabase();
             remove(ref(db, `${address}/${id}`))
-            toastSuccessNotify('Data Deleted ✅')
+            toastSuccessNotify('Data Deleted')
+
+            // kayıt sonrası iş merkezi, ürün kodu, desen kodu ve hammadde bilgilerini listele
+            getWorkCenter()
+            getMaterialCenter()
+            getDesenCode()
+            hammaddeMaterialCode()
+            
         } catch (error) {
-            toastErrorNotify('No Delete Data ❌')
+            toastErrorNotify('No Delete Data')
         }
     }
 

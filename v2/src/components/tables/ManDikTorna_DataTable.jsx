@@ -256,8 +256,15 @@ const ManDikTorna_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => 
         const dizi = Object.keys(manDikTornaData).map(key => { return { id: key, ...manDikTornaData[key] } })
         dizi.sort((a, b) => {
             const convertDateTime = (date, time) => {
-                const [day, month, year] = date.split('-').map(num => num.padStart(2, '0')); // Gün ve ayı iki haneli yap
-                const [hours, minutes] = time.split(':').map(num => num.padStart(2, '0')); // Saati iki haneli yap
+                if (!date || !time) {
+                    // Eğer date veya time undefined veya boş string ise, geçerli bir tarih döndürmeyebilir.
+                    // Bu durumu ele almak için bir alternatif dönüş değeri sağlayabilirsiniz.
+                    // Örneğin, çok geçmiş veya gelecek bir tarih olabilir.
+                    // Burada örnek olarak Unix Epoch başlangıcını kullanıyoruz.
+                    return new Date(0); // 1 Ocak 1970
+                }
+                const [day, month, year] = date.split('-').map(num => num.padStart(2, '0'));
+                const [hours, minutes] = time.split(':').map(num => num.padStart(2, '0'));
                 return new Date(`${year}-${month}-${day}T${hours}:${minutes}:00`);
             };
 

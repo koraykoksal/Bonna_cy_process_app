@@ -32,19 +32,14 @@ const style = {
 
 };
 
-const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
+const IzostatikPresModal = ({ open, handleClose, info, setInfo,workCenterCode,materialCode}) => {
 
   const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value })
   }
 
-
-  const { getFireData, putFireData } = useArge()
-  const { workCenterCode, materialCode } = useSelector((state) => state.arge)
-
-
-  const { postFireData } = useArge()
-
+  const { getFireData, putFireData,postFireData } = useArge()
+  
 
   const handleSubmit = (e) => {
 
@@ -53,10 +48,12 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo }) => {
     if (info.id) {
       putFireData('IzoStatikPresData', info)
       getFireData("IzoStatikPresData")
+     
     }
     else {
       postFireData("IzoStatikPresData", info)
       getFireData("IzoStatikPresData")
+  
     }
 
     handleClose()
