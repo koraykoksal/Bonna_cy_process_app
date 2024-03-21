@@ -17,7 +17,8 @@ const Kulpdokum = () => {
   const nowData = new Date()
   const currentdatetime = nowData.getDate() + "-" + (nowData.getMonth() + 1) + "-" + nowData.getFullYear()
   const currentTime = nowData.getHours() + ":" + nowData.getMinutes()
-
+  const { getMaterialCenter, getWorkCenter, getFireData } = useArge()
+  const { workCenterCode, materialCode } = useSelector((state) => state.arge)
   const { currentUser } = useSelector((state) => state.auth)
 
   const getShift = () => {
@@ -100,7 +101,7 @@ const Kulpdokum = () => {
   const delHandleOpen = () => setdelOpen(true);
   const delHandleClose = () => setdelOpen(false);
 
-  const { getMaterialCenter, getWorkCenter, getFireData } = useArge()
+ 
 
 
   useEffect(() => {
@@ -122,7 +123,7 @@ const Kulpdokum = () => {
 
       <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
 
-      <KulpDokumCamurModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} />
+      <KulpDokumCamurModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} workCenterCode={workCenterCode} materialCode={materialCode}/>
 
       <DeleteModals delOpen={delOpen} delHandleClose={delHandleClose} delHandleOpen={delHandleOpen} setdelOpen={setdelOpen} info={info} />
 

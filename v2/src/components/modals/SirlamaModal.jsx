@@ -37,6 +37,8 @@ const SirlamaModal = ({ open, handleClose, info, setInfo }) => {
 
   const [searchUrunKodu, setSearchUrunKodu] = useState(null)
   const [searchRenkKodu, setSearchRenkKodu] = useState(null)
+  const [searchSorunTipi, setSearchSorunTipi] = useState(null)
+
 
   const handleChange = (e, newValue, fieldName) => {
     // setInfo({ ...info, [e.target.name]: e.target.value, ['urun_kodu']: search ? search.MALZEMEKODU : ""  })
@@ -45,7 +47,7 @@ const SirlamaModal = ({ open, handleClose, info, setInfo }) => {
     if (fieldName) {
       setInfo(prevInfo => ({
         ...prevInfo,
-        [fieldName]: newValue?.MALZEMEKODU || newValue || ""
+        [fieldName]: newValue?.MALZEMEKODU || newValue?.text || newValue || ""
       }));
     }
     // TextField'tan gelen olaylar için
@@ -89,7 +91,6 @@ const SirlamaModal = ({ open, handleClose, info, setInfo }) => {
 
   }, [designCode])
 
-  console.log(info)
 
   return (
     <div>
@@ -606,34 +607,21 @@ const SirlamaModal = ({ open, handleClose, info, setInfo }) => {
 
             <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
 
-              <FormControl fullWidth>
-                <InputLabel id="uygunsuzlukTipi">Uygunsuzluk Tipi</InputLabel>
-                <Select
-                  labelId="uygunsuzlukTipi"
-                  id="uygunsuzlukTipi"
-                  name='uygunsuzlukTipi'
-                  label="uygunsuzlukTipi"
-                  value={info.uygunsuzlukTipi}
-                  onChange={handleChange}
-                  MenuProps={{
-                    PaperProps: {
-                      style: {
-                        maxHeight: 300, // Bu değeri istediğiniz maksimum yüksekliğe göre ayarlayabilirsiniz
-                        overflow: 'auto',
-                      },
-                    },
-                  }}
-                >
-                  {
-                    uygunsuzlukTipi.map((item) => (
-                      <MenuItem value={item.text}>{item.text}</MenuItem>
-                    ))
-                  }
+            <Autocomplete
+                fullWidth
+                value={searchSorunTipi}
+                name='uygunsuzlukTipi'
+                onChange={(event, newValue) => {
+                  setSearchSorunTipi(newValue);
+                  handleChange(event, newValue, 'uygunsuzlukTipi')
+                }}
+                id="search-select-demo"
+                options={uygunsuzlukTipi}
+                getOptionLabel={(option) => option.text}
+                renderInput={(params) => <TextField required {...params} label="Sorun Tipi" />}
+              />
 
-                </Select>
-              </FormControl>
-
-              <Button variant='contained' size='small' sx={{ textTransform: 'none' }} onClick={() => setInfo(prevInfo => ({ ...prevInfo, uygunsuzlukTipi: '' }))}>Reset</Button>
+              {/* <Button variant='contained' size='small' sx={{ textTransform: 'none' }} onClick={() => setInfo(prevInfo => ({ ...prevInfo, uygunsuzlukTipi: '' }))}>Reset</Button> */}
 
               <TextField
                 multiline

@@ -32,10 +32,12 @@ const style = {
 
 };
 
-const KulpDokumCamurModal = ({ open, handleClose, info, setInfo }) => {
+const KulpDokumCamurModal = ({ open, handleClose, info, setInfo,workCenterCode, materialCode }) => {
 
+  const { getFireData, putFireData, postFireData } = useArge()
+  
   const [search, setSearch] = useState(null)
-
+  const [searchSorunTipi, setSearchSorunTipi] = useState(null)
 
   const handleChange = (e,newValue,fieldName) => {
     // setInfo({ ...info, [e.target.name]: e.target.value, ['urun_kodu']: search ? search.MALZEMEKODU : ""  })
@@ -44,7 +46,7 @@ const KulpDokumCamurModal = ({ open, handleClose, info, setInfo }) => {
     if (fieldName) {
       setInfo(prevInfo => ({
         ...prevInfo,
-        [fieldName]: newValue?.MALZEMEKODU || ""
+        [fieldName]: newValue?.MALZEMEKODU || newValue?.text || ""
       }));
     }
     // TextField'tan gelen olaylar için
@@ -57,8 +59,8 @@ const KulpDokumCamurModal = ({ open, handleClose, info, setInfo }) => {
     }
   }
 
-  const { getFireData, putFireData, postFireData } = useArge()
-  const { workCenterCode, materialCode } = useSelector((state) => state.arge)
+  
+  
 
 
   const handleSubmit = (e) => {
@@ -267,34 +269,22 @@ const KulpDokumCamurModal = ({ open, handleClose, info, setInfo }) => {
 
             <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
 
-              <FormControl fullWidth>
-                <InputLabel id="uygunsuzluktipi">Uygunsuzluk Tipi</InputLabel>
-                <Select
-                  labelId="uygunsuzluktipi"
-                  id="uygunsuzluktipi"
-                  name='uygunsuzluktipi'
-                  label="uygunsuzluktipi"
-                  value={info.uygunsuzluktipi}
-                  onChange={handleChange}
-                  MenuProps={{
-                    PaperProps: {
-                      style: {
-                        maxHeight: 300, // Bu değeri istediğiniz maksimum yüksekliğe göre ayarlayabilirsiniz
-                        overflow: 'auto',
-                      },
-                    },
-                  }}
-                >
-                  {
-                    uygunsuzlukTipi.map((item) => (
-                      <MenuItem value={item.text}>{item.text}</MenuItem>
-                    ))
-                  }
+            <Autocomplete
+                fullWidth
+                value={searchSorunTipi}
+                name='uygunsuzluktipi'
+                onChange={(event, newValue) => {
+                  setSearchSorunTipi(newValue);
+                  handleChange(event, newValue, 'uygunsuzluktipi')
+                }}
+                id="search-select-demo"
+                options={uygunsuzlukTipi}
+                getOptionLabel={(option) => option.text}
+                renderInput={(params) => <TextField required {...params} label="Sorun Tipi" />}
+              />
+              
 
-                </Select>
-              </FormControl>
-
-              <Button variant='contained' size='small' sx={{ textTransform: 'none' }} onClick={() => setInfo(prevInfo => ({ ...prevInfo, uygunsuzluktipi: '' }))}>Reset</Button>
+              {/* <Button variant='contained' size='small' sx={{ textTransform: 'none' }} onClick={() => setInfo(prevInfo => ({ ...prevInfo, uygunsuzluktipi: '' }))}>Reset</Button> */}
 
 
 
