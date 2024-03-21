@@ -25,6 +25,57 @@ const Ayaktaslama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => 
     //     flex: 1,
     // },
     {
+      field: "actions",
+      headerName: "#",
+      minWidth: 120,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+      renderCell: ({ id,
+        row: {
+          urun_kodu,
+          renkkodu,
+          kontrolAdet,
+          uygunsuzAdet,
+          uygunsuzlukOrani,
+          makineParametreKontrolu,
+          aciklama,
+        } }) => {
+        return [
+          <GridActionsCellItem
+            key={"edit"}
+            icon={<AiFillEdit size={25} style={{ color: '#0802A3' }} cursor='pointer' />}
+            label="Edit"
+            onClick={() => {
+              handleOpen()
+              setInfo({
+                id,
+                type: 'AyakTaslama',
+                urun_kodu,
+                renkkodu,
+                kontrolAdet,
+                uygunsuzAdet,
+                uygunsuzlukOrani,
+                makineParametreKontrolu,
+                aciklama,
+              })
+            }}
+
+          />,
+          <GridActionsCellItem
+            key={"delete"}
+            icon={<MdDelete size={25} style={{ color: '#D80032' }} cursor='pointer' />}
+            label="Delete"
+            onClick={() => {
+              delHandleOpen()
+              setInfo({ id, type: 'AyakTaslama' })
+            }}
+
+          />,
+        ]
+      },
+    },
+    {
       field: "date",
       headerName: "Tarih",
       minWidth: 150,
@@ -113,63 +164,25 @@ const Ayaktaslama_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => 
       align: "center",
       flex: 1,
     },
-    {
-      field: "actions",
-      headerName: "#",
-      minWidth: 120,
-      headerAlign: "center",
-      align: "center",
-      flex: 1,
-      renderCell: ({ id,
-        row: {
-          urun_kodu,
-          renkkodu,
-          kontrolAdet,
-          uygunsuzAdet,
-          uygunsuzlukOrani,
-          makineParametreKontrolu,
-          aciklama,
-        } }) => {
-        return [
-          <GridActionsCellItem
-            key={"edit"}
-            icon={<AiFillEdit size={25} style={{ color: '#0802A3' }} cursor='pointer' />}
-            label="Edit"
-            onClick={() => {
-              handleOpen()
-              setInfo({
-                id,
-                type: 'AyakTaslama',
-                urun_kodu,
-                renkkodu,
-                kontrolAdet,
-                uygunsuzAdet,
-                uygunsuzlukOrani,
-                makineParametreKontrolu,
-                aciklama,
-              })
-            }}
-
-          />,
-          <GridActionsCellItem
-            key={"delete"}
-            icon={<MdDelete size={25} style={{ color: '#D80032' }} cursor='pointer' />}
-            label="Delete"
-            onClick={() => {
-              delHandleOpen()
-              setInfo({ id, type: 'AyakTaslama' })
-            }}
-
-          />,
-        ]
-      },
-    },
+   
 
   ];
 
 
   useEffect(() => {
     const dizi = Object.keys(ayakTaslamaData).map(key => { return { id: key, ...ayakTaslamaData[key] } })
+    dizi.sort((a, b) => {
+      const convertDateTime = (date, time) => {
+          const [day, month, year] = date.split('-').map(num => num.padStart(2, '0')); // Gün ve ayı iki haneli yap
+          const [hours, minutes] = time.split(':').map(num => num.padStart(2, '0')); // Saati iki haneli yap
+          return new Date(`${year}-${month}-${day}T${hours}:${minutes}:00`);
+      };
+
+      const dateTimeA = convertDateTime(a.date, a.time);
+      const dateTimeB = convertDateTime(b.date, b.time);
+
+      return dateTimeB - dateTimeA;
+  })
     setayakTaslama(dizi)
   }, [ayakTaslamaData])
 

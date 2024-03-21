@@ -111,7 +111,6 @@ const GranulTaneBoyut = () => {
 
 
 
-    console.log(info)
 
     return (
         <div>

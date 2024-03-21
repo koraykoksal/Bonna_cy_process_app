@@ -251,9 +251,6 @@ const useArge = () => {
                         return itemDate >= startDate && itemDate <= endDate
                     }) : res
 
-
-                    console.log("getFireData: ",data)
-
                     if (data == null || data == undefined) {
                         console.log("machine data null geliyor:", data)
                     }
@@ -376,9 +373,6 @@ const useArge = () => {
             if (res) {
 
                 const data = dateFrom && dateTo ? filterDataByDateRange(res, dateFrom, dateTo) : res
-
-
-                console.log("readFire data: ",data)
 
                 const tt = Object.keys(data).forEach(element => {
 

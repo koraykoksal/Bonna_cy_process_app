@@ -7,9 +7,9 @@ const Dashboard_Graphic = ({ tekrarlananAksyionTipleri, tekrarlananSorunTipleri 
 
 
     return (
-        <Box height={600} display={'flex'} justifyContent={'center'} gap={3} flexWrap={'wrap'}>
+        <Box height={600} display={'flex'} justifyContent={'center'} gap={8} flexWrap={'wrap'}>
 
-            <ResponsiveContainer width="80%" height="60%">
+            <ResponsiveContainer width="100%" height="100%">
                 <Typography align='center' variant='subtitle1' sx={{height:'20px',fontWeight:700}}>Bölüm Uygunsuzluk</Typography>
                 <BarChart
                     // width={600}
@@ -21,7 +21,7 @@ const Dashboard_Graphic = ({ tekrarlananAksyionTipleri, tekrarlananSorunTipleri 
                     <Tooltip />
                     <Legend />
                     <Bar dataKey="tekrar" fill="#F3B95F">
-                        <LabelList dataKey="aksiyontipi" position="insideTop" fill='#000000' fontWeight={700} fontSize={12} />
+                        <LabelList dataKey="aksiyontipi" position="insideTop" fill='#000000' fontSize={12} />
 
                     </Bar>
 
@@ -29,19 +29,20 @@ const Dashboard_Graphic = ({ tekrarlananAksyionTipleri, tekrarlananSorunTipleri 
             </ResponsiveContainer>
 
 
-            <ResponsiveContainer width="80%" height="60%">
+            <ResponsiveContainer width="100%" height="100%">
             <Typography align='center' variant='subtitle1' sx={{height:'20px',fontWeight:700}}>Uygunsuzluk Çeşidi</Typography>
                 <BarChart
                     // width={600}
                     // height={400}
                     data={tekrarlananSorunTipleri}
                 >
-                    <XAxis dataKey="tekrar" />
+                    {/* <XAxis dataKey="tekrar" /> */}
+                    <XAxis dataKey="soruntipi" />
                     <YAxis />
                     <Tooltip />
                     <Legend />
                     <Bar dataKey="tekrar" fill="#FF6868">
-                        <LabelList dataKey="soruntipi" position="insideTop" fill='#000000' fontWeight={700} fontSize={12} />
+                        <LabelList dataKey="tekrar" position="insideTop" fill='#000000' fontSize={14} />
                     </Bar>
                 </BarChart>
             </ResponsiveContainer>
