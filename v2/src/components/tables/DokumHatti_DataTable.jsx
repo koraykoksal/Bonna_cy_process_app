@@ -300,7 +300,7 @@ const DokumHatti_DataTable = ({ setInfo, info, delHandleOpen, handleOpen }) => {
       flex: 1,
     },
     {
-      field: "vardiyasorumlusu",
+      field: "vardiyaSorumlusu",
       headerName: "Vardiya Sorumlusu",
       minWidth: 150,
       headerAlign: "center",

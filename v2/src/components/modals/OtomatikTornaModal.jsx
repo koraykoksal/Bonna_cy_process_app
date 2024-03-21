@@ -37,7 +37,8 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo, workCenterCode, 
   const { getFireData, putFireData, postFireData } = useArge()
 
   const [search, setSearch] = useState(null)
-
+  const [searchSorunTipi, setSearchSorunTipi] = useState(null)
+  
   const handleChange = (e,newValue,fieldName) => {
     // setInfo({ ...info, [e.target.name]: e.target.value,['urun_kodu']:search ? search.MALZEMEKODU : ""  })
 
@@ -45,7 +46,7 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo, workCenterCode, 
     if (fieldName) {
       setInfo(prevInfo => ({
         ...prevInfo,
-        [fieldName]: newValue?.MALZEMEKODU || newValue || ""
+        [fieldName]: newValue?.MALZEMEKODU || newValue?.text || newValue || ""
       }));
     }
     // TextField'tan gelen olaylar için
@@ -365,37 +366,26 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo, workCenterCode, 
 
             </Box>
 
+
             {/* aksiyon sahibi */}
             <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}>
-              <FormControl fullWidth>
-                <InputLabel id="uygunsuzluktipi">Uygunsuzluk Tipi</InputLabel>
-                <Select
-                  labelId="uygunsuzluktipi"
-                  id="uygunsuzluktipi"
-                  name='uygunsuzluktipi'
-                  label="uygunsuzluktipi"
-                  value={info.uygunsuzluktipi}
-                  onChange={handleChange}
-                  MenuProps={{
-                    PaperProps: {
-                      style: {
-                        maxHeight: 300, // Bu değeri istediğiniz maksimum yüksekliğe göre ayarlayabilirsiniz
-                        overflow: 'auto',
-                      },
-                    },
-                  }}
-                >
-                  {
-                    uygunsuzlukTipi.map((item) => (
-                      <MenuItem value={item.text}>{item.text}</MenuItem>
-                    ))
-                  }
 
-                </Select>
-              </FormControl>
+            <Autocomplete
+                fullWidth
+                value={searchSorunTipi}
+                name='uygunsuzluktipi'
+                onChange={(event, newValue) => {
+                  setSearchSorunTipi(newValue);
+                  handleChange(event, newValue, 'uygunsuzluktipi')
+                }}
+                id="search-select-demo"
+                options={uygunsuzlukTipi}
+                getOptionLabel={(option) => option.text}
+                renderInput={(params) => <TextField required {...params} label="Sorun Tipi" />}
+              />
 
               {/* select içinde selçilen değeri resetlemek için kullanılan buton */}
-              <Button variant='contained' size='small' sx={{ textTransform: 'none' }} onClick={() => setInfo(prevInfo => ({ ...prevInfo, uygunsuzluktipi: '' }))}>Reset</Button>
+              {/* <Button variant='contained' size='small' sx={{ textTransform: 'none' }} onClick={() => setInfo(prevInfo => ({ ...prevInfo, uygunsuzluktipi: '' }))}>Reset</Button> */}
 
 
 

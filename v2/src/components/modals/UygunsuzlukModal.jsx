@@ -36,6 +36,7 @@ const UygunsuzlukModal = ({ open, handleClose, info, setInfo }) => {
   const [searchUrunKodu, setSearchUrunKodu] = useState(null)
   const [searchRenkKodu, setSearchRenkKodu] = useState(null)
   const [searchMakineKodu, setSearchMakineKodu] = useState(null)
+  const [searchSorunTipi, setSearchSorunTipi] = useState(null)
 
   const handleChange = (e, newValue, fieldName) => {
 
@@ -43,7 +44,7 @@ const UygunsuzlukModal = ({ open, handleClose, info, setInfo }) => {
     if (fieldName) {
       setInfo(prevInfo => ({
         ...prevInfo,
-        [fieldName]: newValue?.ISMERKEZI || newValue?.MALZEMEKODU || newValue || ""
+        [fieldName]: newValue?.ISMERKEZI || newValue?.MALZEMEKODU || newValue?.text || newValue || ""
       }));
     }
     // TextField'tan gelen olaylar için
@@ -86,7 +87,6 @@ const UygunsuzlukModal = ({ open, handleClose, info, setInfo }) => {
     setdesenCodes(dataSort)
 
   }, [designCode])
-
 
 
 
@@ -171,35 +171,25 @@ const UygunsuzlukModal = ({ open, handleClose, info, setInfo }) => {
 
             {/* sorun tipi */}
             <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}>
-              <FormControl fullWidth>
-                <InputLabel id="sorun_tipi">Sorun Tipi</InputLabel>
-                <Select
-                  labelId="sorun_tipi"
-                  id="sorun_tipi"
-                  name='sorun_tipi'
-                  label="sorun_tipi"
-                  value={info.sorun_tipi}
-                  onChange={handleChange}
-                  MenuProps={{
-                    PaperProps: {
-                      style: {
-                        maxHeight: 300, // Bu değeri istediğiniz maksimum yüksekliğe göre ayarlayabilirsiniz
-                        overflow: 'auto',
-                      },
-                    },
-                  }}
-                >
-                  {
-                    uygunsuzlukTipi.map((item) => (
-                      <MenuItem value={item.text}>{item.text}</MenuItem>
-                    ))
-                  }
 
-                </Select>
-              </FormControl>
+              <Autocomplete
+                fullWidth
+                value={searchSorunTipi}
+                name='sorun_tipi'
+                onChange={(event, newValue) => {
+                  setSearchSorunTipi(newValue);
+                  handleChange(event, newValue, 'sorun_tipi')
+                }}
+                id="search-select-demo"
+                options={uygunsuzlukTipi}
+                getOptionLabel={(option) => option.text}
+                renderInput={(params) => <TextField required {...params} label="Sorun Tipi" />}
+              />
 
+
+              {/* RESET BUTTON */}
               {/* select içinde selçilen değeri resetlemek için kullanılan buton */}
-              <Button variant='contained' size='small' sx={{ textTransform: 'none' }} onClick={() => setInfo(prevInfo => ({ ...prevInfo, sorun_tipi: '' }))}>Reset</Button>
+              {/* <Button variant='contained' size='small' sx={{ textTransform: 'none' }} onClick={() => setInfo(prevInfo => ({ ...prevInfo, ['sorun_tipi']: '' }))}>Reset</Button> */}
 
             </Box>
 
