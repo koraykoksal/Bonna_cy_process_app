@@ -4,7 +4,7 @@ import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Formik, Form } from 'formik';
-import { Container, IconButton, TextField, TextareaAutosize } from '@mui/material';
+import { Autocomplete, Container, IconButton, TextField, TextareaAutosize } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -34,12 +34,13 @@ const style = {
 
 const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
 
+  const [search, setSearch] = useState(null)
 
   const { materialCode, designCode } = useSelector((state) => state.arge)
   const [desenCodes, setdesenCodes] = useState([])
 
   const handleChange = (e) => {
-    setInfo({ ...info, [e.target.name]: e.target.value })
+    setInfo({ ...info, [e.target.name]: e.target.value, ['urun_kodu']: search.MALZEMEKODU })
   }
 
   const { getFireData, putFireData, postFireData } = useArge()
@@ -103,7 +104,7 @@ const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
 
             <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
 
-              <FormControl fullWidth>
+              {/* <FormControl fullWidth>
                 <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
                 <Select
                   required
@@ -120,7 +121,20 @@ const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
                     ))
                   }
                 </Select>
-              </FormControl>
+              </FormControl> */}
+
+              <Autocomplete
+                fullWidth
+                value={search}
+                onChange={(event, newValue) => {
+                  setSearch(newValue);
+                }}
+                id="search-select-demo"
+                options={materialCode}
+                getOptionLabel={(option) => option.MALZEMEKODU}
+                // style={{ width: 500 }}
+                renderInput={(params) => <TextField {...params} label="Ürün Kodu" />}
+              />
 
               <FormControl fullWidth>
                 <InputLabel id="renk_kodu">Renk Kodu</InputLabel>

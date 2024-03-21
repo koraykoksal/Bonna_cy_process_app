@@ -17,7 +17,8 @@ import { useState, useEffect } from 'react';
 import { uygunsuzlukTipi } from "../../helpers/ProcessData"
 import { useSelector } from "react-redux"
 import useArge from '../../hooks/useArge';
-import { uid } from 'uid';
+import Autocomplete from '@mui/material/Autocomplete';
+
 
 const style = {
   position: 'absolute',
@@ -32,14 +33,16 @@ const style = {
 
 };
 
-const IzostatikPresModal = ({ open, handleClose, info, setInfo,workCenterCode,materialCode}) => {
+const IzostatikPresModal = ({ open, handleClose, info, setInfo, workCenterCode, materialCode }) => {
+
+  const [search, setSearch] = useState(null)
 
   const handleChange = (e) => {
-    setInfo({ ...info, [e.target.name]: e.target.value })
+    setInfo({ ...info, [e.target.name]: e.target.value ,['urun_kodu']:search.MALZEMEKODU})
   }
 
-  const { getFireData, putFireData,postFireData } = useArge()
-  
+  const { getFireData, putFireData, postFireData } = useArge()
+
 
   const handleSubmit = (e) => {
 
@@ -48,18 +51,17 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo,workCenterCode,ma
     if (info.id) {
       putFireData('IzoStatikPresData', info)
       getFireData("IzoStatikPresData")
-     
+
     }
     else {
       postFireData("IzoStatikPresData", info)
       getFireData("IzoStatikPresData")
-  
+
     }
 
     handleClose()
 
   }
-
 
 
   return (
@@ -103,18 +105,27 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo,workCenterCode,ma
                   label="is_merkezi"
                   value={info?.is_merkezi}
                   onChange={handleChange}
+                  MenuProps={{
+                    PaperProps: {
+                      style: {
+                        maxHeight: 300,
+                        overflow: 'auto'
+                      }
+                    }
+                  }}
                 >
                   {
                     workCenterCode?.filter(data => data?.ISMERKEZI?.includes('SK-KP')).map(({ ISMERKEZI, index }) => (
                       <MenuItem key={index} value={ISMERKEZI}>{ISMERKEZI}</MenuItem>
                     ))
                   }
+
                 </Select>
 
               </FormControl>
 
               {/* ürün kodu */}
-              <FormControl fullWidth>
+              {/* <FormControl fullWidth>
 
                 <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
                 <Select
@@ -125,6 +136,14 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo,workCenterCode,ma
                   label="urun_kodu"
                   value={info?.urun_kodu}
                   onChange={handleChange}
+                  MenuProps={{
+                    PaperProps: {
+                      style: {
+                        maxHeight: 300,
+                        overflow: 'auto'
+                      }
+                    }
+                  }}
                 >
                   {
                     materialCode?.map(({ MALZEMEKODU, index }) => (
@@ -132,7 +151,20 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo,workCenterCode,ma
                     ))
                   }
                 </Select>
-              </FormControl>
+              </FormControl> */}
+
+              <Autocomplete
+              fullWidth
+                value={search}
+                onChange={(event, newValue) => {
+                  setSearch(newValue);
+                }}
+                id="search-select-demo"
+                options={materialCode}
+                getOptionLabel={(option) => option.MALZEMEKODU}
+                // style={{ width: 300 }}
+                renderInput={(params) => <TextField {...params} label="Ürün Kodu" />}
+              />
 
             </Box>
 

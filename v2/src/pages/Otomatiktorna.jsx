@@ -17,6 +17,8 @@ const Otomatiktorna = () => {
   const nowData = new Date()
   const currentdatetime = nowData.getDate() + "-" + (nowData.getMonth() + 1) + "-" + nowData.getFullYear()
   const currentTime = nowData.getHours() + ":" + nowData.getMinutes()
+  const { getMaterialCenter, getWorkCenter, getFireData } = useArge()
+  const { workCenterCode, materialCode } = useSelector((state) => state.arge)
 
   const { currentUser } = useSelector((state) => state.auth)
 
@@ -104,8 +106,7 @@ const Otomatiktorna = () => {
   const delHandleOpen = () => setdelOpen(true);
   const delHandleClose = () => setdelOpen(false);
 
-  const { getMaterialCenter, getWorkCenter, getFireData } = useArge()
-
+  
 
   useEffect(() => {
 
@@ -128,7 +129,7 @@ const Otomatiktorna = () => {
 
       <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
 
-      <OtomatikTornaModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} />
+      <OtomatikTornaModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} workCenterCode={workCenterCode} materialCode={materialCode}/>
 
       <DeleteModals delOpen={delOpen} delHandleClose={delHandleClose} delHandleOpen={delHandleOpen} setdelOpen={setdelOpen} info={info} />
 

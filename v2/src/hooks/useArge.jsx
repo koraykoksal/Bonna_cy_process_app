@@ -54,6 +54,10 @@ const useArge = () => {
 
 
     function formatDate(dateStr) {
+
+        if(!dateStr){
+            return
+        }
         // Tarih stringini parçalara ayır
         const parts = dateStr.split("-");
         
@@ -69,8 +73,6 @@ const useArge = () => {
         // yyyy-mm-dd formatına dönüştür
         return `${day}-${month}-${year}`;
     }
-
-
 
 
     function filterDataByDateRange(data, dateFrom, dateTo) {
