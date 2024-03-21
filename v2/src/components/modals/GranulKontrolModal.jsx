@@ -32,7 +32,7 @@ const style = {
 
 };
 
-const GranulKontrolModal = ({ open, handleClose, info, setInfo }) => {
+const GranulKontrolModal = ({ open, handleClose, info, setInfo,workCenterCode }) => {
 
   const [search, setSearch] = useState(null)
   
@@ -41,7 +41,7 @@ const GranulKontrolModal = ({ open, handleClose, info, setInfo }) => {
   }
 
   const { getFireData, putFireData, postFireData } = useArge()
-  const { workCenterCode, hammaddeCode } = useSelector((state) => state.arge)
+  
 
 
   const handleSubmit = (e) => {
@@ -113,26 +113,6 @@ const GranulKontrolModal = ({ open, handleClose, info, setInfo }) => {
                   }
                 </Select>
               </FormControl>
-
-              {/* ürün kodu */}
-              {/* <FormControl fullWidth>
-                  <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
-                  <Select
-                    required
-                    labelId="urun_kodu"
-                    id="urun_kodu"
-                    name='urun_kodu'
-                    label="urun_kodu"
-                    value={info.urun_kodu}
-                    onChange={handleChange}
-                  >
-                    {
-                      hammaddeCode?.map(({ HAMMADDEKODU, index }) => (
-                        <MenuItem key={index} value={HAMMADDEKODU}>{HAMMADDEKODU}</MenuItem>
-                      ))
-                    }
-                  </Select>
-                </FormControl> */}
 
             </Box>
 

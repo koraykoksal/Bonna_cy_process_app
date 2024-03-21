@@ -19,7 +19,7 @@ const Dokumhatti = () => {
   const delHandleClose = () => setdelOpen(false);
 
   const { getMaterialCenter, getWorkCenter, getFireData } = useArge()
-
+  const { workCenterCode, materialCode } = useSelector((state) => state.arge)
 
   let getVardiya = 0;
   const nowData = new Date()
@@ -135,7 +135,7 @@ const Dokumhatti = () => {
 
       <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
 
-      <DokumHattiModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} />
+      <DokumHattiModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} workCenterCode={workCenterCode} materialCode={materialCode}/>
 
       <DeleteModals delOpen={delOpen} delHandleClose={delHandleClose} delHandleOpen={delHandleOpen} setdelOpen={setdelOpen} info={info}/>
 

@@ -16,7 +16,8 @@ const Nihaiurunkontrol = () => {
   const nowData = new Date()
   const currentdatetime = nowData.getDate() + "-" + (nowData.getMonth() + 1) + "-" + nowData.getFullYear()
   const currentTime = nowData.getHours() + ":" + nowData.getMinutes()
-
+  const { getMaterialCenter, getDesenCode, getFireData } = useArge()
+  const { materialCode, designCode } = useSelector((state) => state.arge)
   const { currentUser } = useSelector((state) => state.auth)
 
   const getShift = () => {
@@ -103,8 +104,7 @@ const Nihaiurunkontrol = () => {
   const delHandleOpen = () => setdelOpen(true);
   const delHandleClose = () => setdelOpen(false);
 
-  const { getMaterialCenter, getDesenCode, getFireData } = useArge()
-
+ 
 
   useEffect(() => {
 
@@ -126,7 +126,7 @@ const Nihaiurunkontrol = () => {
 
         <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
 
-        <NihaiUrunKontrolModal open={open} handleClose={handleClose} info={info} setInfo={setInfo}/>
+        <NihaiUrunKontrolModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} materialCode={materialCode} designCode={designCode}/>
 
         <DeleteModals delOpen={delOpen} delHandleClose={delHandleClose} delHandleOpen={delHandleOpen} setdelOpen={setdelOpen} info={info}/>
 

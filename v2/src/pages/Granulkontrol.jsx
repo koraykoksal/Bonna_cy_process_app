@@ -17,7 +17,8 @@ const Granulkontrol = () => {
   const nowData = new Date()
   const currentdatetime = nowData.getDate() + "-" + (nowData.getMonth() + 1) + "-" + nowData.getFullYear()
   const currentTime = nowData.getHours() + ":" + nowData.getMinutes()
-
+  const { hammaddeMaterialCode, getWorkCenter, getFireData } = useArge()
+  const { workCenterCode, hammaddeCode } = useSelector((state) => state.arge)
   const { currentUser } = useSelector((state) => state.auth)
 
   const getShift = () => {
@@ -86,8 +87,7 @@ const Granulkontrol = () => {
   const delHandleOpen = () => setdelOpen(true);
   const delHandleClose = () => setdelOpen(false);
 
-  const { hammaddeMaterialCode, getWorkCenter, getFireData } = useArge()
-
+  
 
   useEffect(() => {
 
@@ -109,7 +109,7 @@ const Granulkontrol = () => {
 
       <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
 
-      <GranulKontrolModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} />
+      <GranulKontrolModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} workCenterCode={workCenterCode}/>
 
       <DeleteModals delOpen={delOpen} delHandleClose={delHandleClose} delHandleOpen={delHandleOpen} setdelOpen={setdelOpen} info={info} />
 

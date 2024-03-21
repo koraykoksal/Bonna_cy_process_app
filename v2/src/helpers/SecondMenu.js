@@ -61,7 +61,7 @@ export const secondMenu=[
     },
     {
         icon:<ShapeLineIcon/>,
-        title:"Hammadde Granül Kontrol",
+        title:"Granül Kontrol",
         url:"/proses/granulkontrol"
     },
     {

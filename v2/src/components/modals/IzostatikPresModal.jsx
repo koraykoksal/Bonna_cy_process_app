@@ -37,8 +37,25 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo, workCenterCode, 
 
   const [search, setSearch] = useState(null)
 
-  const handleChange = (e) => {
-    setInfo({ ...info, [e.target.name]: e.target.value ,['urun_kodu']:search ? search.MALZEMEKODU : "" })
+  const handleChange = (e, newValue, fieldName) => {
+
+    // setInfo({ ...info, [e.target.name]: e.target.value ,['urun_kodu']:search ? search.MALZEMEKODU : "" })
+
+    // Autocomplete'ten gelen olaylar için
+    if (fieldName) {
+      setInfo(prevInfo => ({
+        ...prevInfo,
+        [fieldName]: newValue?.MALZEMEKODU || ""
+      }));
+    }
+    // TextField'tan gelen olaylar için
+    else if (e?.target) {
+      const { name, value } = e.target;
+      setInfo(prevInfo => ({
+        ...prevInfo,
+        [name]: value
+      }));
+    }
   }
 
   const { getFireData, putFireData, postFireData } = useArge()
@@ -125,45 +142,18 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo, workCenterCode, 
               </FormControl>
 
               {/* ürün kodu */}
-              {/* <FormControl fullWidth>
-
-                <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
-                <Select
-                  required
-                  labelId="urun_kodu"
-                  id="urun_kodu"
-                  name='urun_kodu'
-                  label="urun_kodu"
-                  value={info?.urun_kodu}
-                  onChange={handleChange}
-                  MenuProps={{
-                    PaperProps: {
-                      style: {
-                        maxHeight: 300,
-                        overflow: 'auto'
-                      }
-                    }
-                  }}
-                >
-                  {
-                    materialCode?.map(({ MALZEMEKODU, index }) => (
-                      <MenuItem key={index} value={MALZEMEKODU}>{MALZEMEKODU}</MenuItem>
-                    ))
-                  }
-                </Select>
-              </FormControl> */}
-
               <Autocomplete
-              fullWidth
+                fullWidth
                 value={search}
+                name='urun_kodu'
                 onChange={(event, newValue) => {
                   setSearch(newValue);
+                  handleChange(event, newValue, 'urun_kodu')
                 }}
                 id="search-select-demo"
                 options={materialCode}
                 getOptionLabel={(option) => option.MALZEMEKODU}
-                // style={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Ürün Kodu" />}
+                renderInput={(params) => <TextField required {...params} label="Ürün Kodu" />}
               />
 
             </Box>

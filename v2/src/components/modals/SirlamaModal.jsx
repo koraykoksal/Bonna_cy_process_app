@@ -35,10 +35,27 @@ const style = {
 const SirlamaModal = ({ open, handleClose, info, setInfo }) => {
 
 
-  const [search, setSearch] = useState(null)
+  const [searchUrunKodu, setSearchUrunKodu] = useState(null)
+  const [searchRenkKodu, setSearchRenkKodu] = useState(null)
 
-  const handleChange = (e) => {
-    setInfo({ ...info, [e.target.name]: e.target.value, ['urun_kodu']: search ? search.MALZEMEKODU : ""  })
+  const handleChange = (e, newValue, fieldName) => {
+    // setInfo({ ...info, [e.target.name]: e.target.value, ['urun_kodu']: search ? search.MALZEMEKODU : ""  })
+
+    // Autocomplete'ten gelen olaylar için
+    if (fieldName) {
+      setInfo(prevInfo => ({
+        ...prevInfo,
+        [fieldName]: newValue?.MALZEMEKODU || newValue || ""
+      }));
+    }
+    // TextField'tan gelen olaylar için
+    else if (e?.target) {
+      const { name, value } = e.target;
+      setInfo(prevInfo => ({
+        ...prevInfo,
+        [name]: value
+      }));
+    }
   }
 
 
@@ -72,7 +89,7 @@ const SirlamaModal = ({ open, handleClose, info, setInfo }) => {
 
   }, [designCode])
 
-
+  console.log(info)
 
   return (
     <div>
@@ -125,58 +142,33 @@ const SirlamaModal = ({ open, handleClose, info, setInfo }) => {
                 </Select>
               </FormControl>
 
-              {/* ürün kodu */}
-              {/* <FormControl fullWidth>
-                <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
-                <Select
-                required
-                labelId="urun_kodu"
-                id="urun_kodu"
-                name='urun_kodu'
-                label="urun_kodu"
-                value={info.urun_kodu}
-                onChange={handleChange}
-                >
-                {
-                  materialCode?.map(({MALZEMEKODU,index})=>(
-                    <MenuItem key={index} value={MALZEMEKODU}>{MALZEMEKODU}</MenuItem>
-                  ))
-                }
-                </Select>
-            </FormControl> */}
-
               <Autocomplete
-              fullWidth
-                value={search}
+                fullWidth
+                value={searchUrunKodu}
+                name='urun_kodu'
                 onChange={(event, newValue) => {
-                  setSearch(newValue);
+                  setSearchUrunKodu(newValue);
+                  handleChange(event, newValue, 'urun_kodu')
                 }}
                 id="search-select-demo"
                 options={materialCode}
                 getOptionLabel={(option) => option.MALZEMEKODU}
-                // style={{ width: 500 }}
                 renderInput={(params) => <TextField {...params} label="Ürün Kodu" />}
               />
 
-              {/* ürün kodu */}
-              <FormControl fullWidth>
-                <InputLabel id="renkKodu">Renk Kodu</InputLabel>
-                <Select
-                  required
-                  labelId="renkKodu"
-                  id="renkKodu"
-                  name='renkKodu'
-                  label="renkKodu"
-                  value={info.renkKodu}
-                  onChange={handleChange}
-                >
-                  {
-                    desenCodes?.map((item, index) => (
-                      <MenuItem key={index} value={item}>{item}</MenuItem>
-                    ))
-                  }
-                </Select>
-              </FormControl>
+              <Autocomplete
+                fullWidth
+                value={searchRenkKodu}
+                name='renkKodu'
+                onChange={(event, newValue) => {
+                  setSearchRenkKodu(newValue);
+                  handleChange(event, newValue, 'renkKodu')
+                }}
+                id="search-select-demo"
+                options={desenCodes}
+                getOptionLabel={(option) => option}
+                renderInput={(params) => <TextField {...params} label="Renk Kodu" />}
+              />
 
             </Box>
 

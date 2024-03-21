@@ -38,18 +38,32 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo, workCenterCode, 
 
   const [search, setSearch] = useState(null)
 
-  const handleChange = (e) => {
+  const handleChange = (e,newValue,fieldName) => {
     // setInfo({ ...info, [e.target.name]: e.target.value,['urun_kodu']:search ? search.MALZEMEKODU : ""  })
-    setInfo(prevInfo => {
-      const newInfo = { ...prevInfo, [e.target.name]: e.target.value, ['urun_kodu']: search ? search.MALZEMEKODU : "" }
 
-      const kesilenSucukAgirligi = newInfo.kesilensucuk
-      const urunAgirligi = newInfo.agirlik
+    // Autocomplete'ten gelen olaylar için
+    if (fieldName) {
+      setInfo(prevInfo => ({
+        ...prevInfo,
+        [fieldName]: newValue?.MALZEMEKODU || newValue || ""
+      }));
+    }
+    // TextField'tan gelen olaylar için
+    else if (e?.target) {
+      const { name, value } = e.target;
+      setInfo(prevInfo => {
 
-      newInfo.kirpintimiktar = (((kesilenSucukAgirligi - urunAgirligi) / kesilenSucukAgirligi)*100).toFixed(2)
+        const newInfo = { ...prevInfo, [name]: value, ['urun_kodu']: search ? search.MALZEMEKODU : "" }
+        const kesilenSucukAgirligi = newInfo.kesilensucuk
+        const urunAgirligi = newInfo.agirlik
 
-      return newInfo
-    })
+        newInfo.kirpintimiktar = (((kesilenSucukAgirligi - urunAgirligi) / kesilenSucukAgirligi) * 100).toFixed(2)
+
+        return newInfo
+
+      });
+    }
+
   }
 
   const handleSubmit = (e) => {
@@ -68,6 +82,7 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo, workCenterCode, 
     handleClose()
 
   }
+
 
 
   return (
@@ -122,34 +137,13 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo, workCenterCode, 
                 </Select>
               </FormControl>
 
-              {/* ürün kodu */}
-              {/* <FormControl fullWidth>
-                <InputLabel id="urun_kodu">Ürün Kodu</InputLabel>
-                <Select
-                  required
-                  labelId="urun_kodu"
-                  id="urun_kodu"
-                  name='urun_kodu'
-                  label="urun_kodu"
-                  value={info.urun_kodu}
-                  onChange={handleChange}
-                >
-                  {
-                    materialCode?.map(({ MALZEMEKODU, index }) => (
-                      <MenuItem key={index} value={MALZEMEKODU}>{MALZEMEKODU}</MenuItem>
-                    ))
-                  }
-
-                  <MenuItem value="BNC02CT">BNC02CT</MenuItem>
-                  <MenuItem value="VNT22KS">VNT22KS</MenuItem>
-                </Select>
-              </FormControl> */}
-
               <Autocomplete
                 fullWidth
                 value={search}
+                name='urun_kodu'
                 onChange={(event, newValue) => {
                   setSearch(newValue);
+                  handleChange(event,newValue,'urun_kodu')
                 }}
                 id="search-select-demo"
                 options={materialCode}
