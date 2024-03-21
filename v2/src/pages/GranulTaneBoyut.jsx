@@ -28,21 +28,22 @@ const GranulTaneBoyut = () => {
 
 
     const getShift = () => {
-        const now = new Date().getHours()
-
-        if (now > 8 && now < 16) {
-            getVardiya = 2
+        //! padStart(2,'0') metodu ile hedefUzunluk ve eklenecek karakterler olarak iki parametre alır.
+        const hour = new Date().getHours().toString().padStart(2,'0')
+    
+        if (hour > 8 && hour < 16) {
+          getVardiya = 2
         }
-        else if (now > 16 && now < 23) {
-            getVardiya = 3
+        else if (hour > 16 && hour < 23) {
+          getVardiya = 3
         }
         else {
-            getVardiya = 1
+          getVardiya = 1
         }
-
+    
         return getVardiya
-
-    }
+    
+      }
 
     const [info, setInfo] = useState({
         department: "Hammadde",

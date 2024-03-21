@@ -21,12 +21,13 @@ const Kulpdokum = () => {
   const { currentUser } = useSelector((state) => state.auth)
 
   const getShift = () => {
-    const now = new Date().getHours()
+    //! padStart(2,'0') metodu ile hedefUzunluk ve eklenecek karakterler olarak iki parametre alır.
+    const hour = new Date().getHours().toString().padStart(2,'0')
 
-    if (now > 8 && now < 16) {
+    if (hour > 8 && hour < 16) {
       getVardiya = 2
     }
-    else if (now > 16 && now < 23) {
+    else if (hour > 16 && hour < 23) {
       getVardiya = 3
     }
     else {
