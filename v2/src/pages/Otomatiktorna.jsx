@@ -40,6 +40,8 @@ const Otomatiktorna = () => {
 
   }
 
+
+
   const [info, setInfo] = useState({
     department:"Sekillendirme",
     type:"OtomatikTorna",
@@ -68,6 +70,7 @@ const Otomatiktorna = () => {
     time: currentTime.toString(),
     kontroleden_kisi: currentUser
   })
+
 
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true);
@@ -107,6 +110,7 @@ const Otomatiktorna = () => {
   const delHandleClose = () => setdelOpen(false);
 
   
+
 
   useEffect(() => {
 

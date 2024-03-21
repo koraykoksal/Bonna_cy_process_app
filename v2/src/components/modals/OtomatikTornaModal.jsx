@@ -34,15 +34,23 @@ const style = {
 
 const OtomatikTornaModal = ({ open, handleClose, info, setInfo, workCenterCode, materialCode }) => {
 
+  const { getFireData, putFireData, postFireData } = useArge()
 
   const [search, setSearch] = useState(null)
 
   const handleChange = (e) => {
-    setInfo({ ...info, [e.target.name]: e.target.value,['urun_kodu']:search ? search.MALZEMEKODU : ""  })
+    // setInfo({ ...info, [e.target.name]: e.target.value,['urun_kodu']:search ? search.MALZEMEKODU : ""  })
+    setInfo(prevInfo => {
+      const newInfo = { ...prevInfo, [e.target.name]: e.target.value, ['urun_kodu']: search ? search.MALZEMEKODU : "" }
+
+      const kesilenSucukAgirligi = newInfo.kesilensucuk
+      const urunAgirligi = newInfo.agirlik
+
+      newInfo.kirpintimiktar = (((kesilenSucukAgirligi - urunAgirligi) / kesilenSucukAgirligi)*100).toFixed(2)
+
+      return newInfo
+    })
   }
-
-  const { getFireData, putFireData, postFireData } = useArge()
-
 
   const handleSubmit = (e) => {
 
@@ -138,7 +146,7 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo, workCenterCode, 
               </FormControl> */}
 
               <Autocomplete
-              fullWidth
+                fullWidth
                 value={search}
                 onChange={(event, newValue) => {
                   setSearch(newValue);
@@ -250,6 +258,7 @@ const OtomatikTornaModal = ({ open, handleClose, info, setInfo, workCenterCode, 
               />
               <TextField
                 fullWidth
+                disabled
                 label="% Kırpıntı Miktarı"
                 name="kirpintimiktar"
                 id="kirpintimiktar"
