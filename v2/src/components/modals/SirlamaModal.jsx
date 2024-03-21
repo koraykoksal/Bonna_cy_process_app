@@ -38,7 +38,7 @@ const SirlamaModal = ({ open, handleClose, info, setInfo }) => {
   const [search, setSearch] = useState(null)
 
   const handleChange = (e) => {
-    setInfo({ ...info, [e.target.name]: e.target.value, ['urun_kodu']: search.MALZEMEKODU })
+    setInfo({ ...info, [e.target.name]: e.target.value, ['urun_kodu']: search ? search.MALZEMEKODU : ""  })
   }
 
 
