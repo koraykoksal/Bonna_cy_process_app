@@ -90,8 +90,8 @@ const Home = () => {
 
     const data = Object.values(uygunsuzlukData)
 
-    //! sorun tiplerini ayrıştır
-    const sorunTipleriDizisi = data.map(kayit => kayit.sorun_tipi);
+    //! Sorun tiplerini ayrıştır, boş string değerlerini elem
+    const sorunTipleriDizisi = data.filter(kayit => kayit.sorun_tipi !== '').map(kayit => kayit.sorun_tipi);
     setSorunTipleri(sorunTipleriDizisi);
 
     //* new Set özelliği ile yalnızca benzersiz kayıtları al
@@ -117,7 +117,7 @@ const Home = () => {
     const tekrarlananSorunTipleri = Object.keys(sorunTipiSayilari).map(key => ({
       soruntipi: key,
       tekrar: sorunTipiSayilari[key]
-    }));
+    }))
     setTekrarlananSorunTipleri(tekrarlananSorunTipleri);
 
 
@@ -167,6 +167,7 @@ const Home = () => {
     getFireData('Uygunsuzluk', "", "")
     readFireData("", "")
   }
+
 
 
 
