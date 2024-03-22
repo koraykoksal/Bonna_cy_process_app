@@ -7,6 +7,7 @@
 ##### The data recorded in the application is kept in the Firebase database.
 ##### The project was deployed on docker as on premise.
 ##### The project was made with react and material UI was used.
+##### Autocomplete was used to search for parameters such as material code or color code.
 
 ## Installation
 
@@ -26,4 +27,5 @@ Install Bonna_cy_process_app
 ![](./pictures/aksiyonSahipleriModal.png)
 ![](./pictures/sirlamaDetayPage.png)
 ![](./pictures/dataEntyModal.png)
+![](./pictures/autoComplete.png)
 ![](./pictures/uygunsulukGrafik.png)
