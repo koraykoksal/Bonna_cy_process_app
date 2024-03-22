@@ -12,6 +12,9 @@ import DijitalLogo_DataTable from '../components/tables/DijitalLogo_DataTable';
 
 const Dijitallogo = () => {
 
+  const { getFireData,getMaterialCenter } = useArge()
+  const { materialCode } = useSelector((state) => state.arge)
+
   let getVardiya = 0;
   const nowData = new Date()
   const currentdatetime = nowData.getDate() + "-" + (nowData.getMonth() + 1) + "-" + nowData.getFullYear()
@@ -83,8 +86,6 @@ const Dijitallogo = () => {
   const delHandleOpen = () => setdelOpen(true);
   const delHandleClose = () => setdelOpen(false);
 
-  const { getFireData,getMaterialCenter } = useArge()
-
 
   useEffect(() => {
 
@@ -105,7 +106,7 @@ const Dijitallogo = () => {
 
       <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
 
-      <DijitalLogoKontrolModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} />
+      <DijitalLogoKontrolModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} materialCode={materialCode}/>
 
       <DeleteModals delOpen={delOpen} delHandleClose={delHandleClose} delHandleOpen={delHandleOpen} setdelOpen={setdelOpen} info={info} />
 

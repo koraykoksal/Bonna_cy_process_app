@@ -32,7 +32,7 @@ const style = {
 
 };
 
-const AyakTaslamaModal = ({ open, handleClose, info, setInfo }) => {
+const AyakTaslamaModal = ({ open, handleClose, info, setInfo,materialCode, designCode }) => {
 
   const [searchUrunKodu, setSearchUrunKodu] = useState(null)
   const [searchRenkKodu, setSearchRenkKodu] = useState(null)
@@ -60,7 +60,6 @@ const AyakTaslamaModal = ({ open, handleClose, info, setInfo }) => {
 
 
   const { getFireData, putFireData, postFireData } = useArge()
-  const { materialCode, designCode } = useSelector((state) => state.arge)
   const [desenCodes, setdesenCodes] = useState([])
 
   const handleSubmit = (e) => {

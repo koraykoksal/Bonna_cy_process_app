@@ -80,7 +80,6 @@ const DokumHattiModal = ({ open, handleClose, info, setInfo, workCenterCode, mat
 
   }
 
-console.log(info)
 
   return (
     <div>

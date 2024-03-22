@@ -32,7 +32,7 @@ const style = {
 
 };
 
-const SirlamaModal = ({ open, handleClose, info, setInfo }) => {
+const SirlamaModal = ({ open, handleClose, info, setInfo,workCenterCode, materialCode, designCode }) => {
 
 
   const [searchUrunKodu, setSearchUrunKodu] = useState(null)
@@ -62,7 +62,6 @@ const SirlamaModal = ({ open, handleClose, info, setInfo }) => {
 
 
   const { getFireData, putFireData, postFireData } = useArge()
-  const { workCenterCode, materialCode, designCode } = useSelector((state) => state.arge)
   const [desenCodes, setdesenCodes] = useState([])
 
   const handleSubmit = (e) => {

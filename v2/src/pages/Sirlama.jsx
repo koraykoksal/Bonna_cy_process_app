@@ -12,6 +12,8 @@ import DeleteModals from '../components/deleteModals/DeleteModals';
 
 const Sirlama = () => {
 
+  const { getMaterialCenter, getWorkCenter, getDesenCode, getFireData } = useArge()
+  const { workCenterCode, materialCode, designCode } = useSelector((state) => state.arge)
 
   let getVardiya = 0;
   const nowData = new Date()
@@ -136,8 +138,7 @@ const Sirlama = () => {
   const delHandleOpen = () => setdelOpen(true);
   const delHandleClose = () => setdelOpen(false);
 
-  const { getMaterialCenter, getWorkCenter, getDesenCode, getFireData } = useArge()
-
+ 
 
   useEffect(() => {
 
@@ -159,7 +160,7 @@ const Sirlama = () => {
 
       <Button variant='outlined' onClick={handleOpen} sx={newBtnStyle}>New</Button>
 
-      <SirlamaModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} />
+      <SirlamaModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} workCenterCode={workCenterCode} materialCode={materialCode} designCode={designCode}/>
 
 
       <DeleteModals delOpen={delOpen} delHandleClose={delHandleClose} delHandleOpen={delHandleOpen} setdelOpen={setdelOpen} info={info}/>

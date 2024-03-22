@@ -22,6 +22,7 @@ const Uygunsuzluk = () => {
   const { currentUser } = useSelector((state) => state.auth)
 
   const {getFireData,getMaterialCenter, getWorkCenter,getDesenCode} = useArge()
+  const { workCenterCode, materialCode, designCode } = useSelector((state) => state.arge)
 
   const getShift = () => {
     //! padStart(2,'0') metodu ile hedefUzunluk ve eklenecek karakterler olarak iki parametre alır.
@@ -103,7 +104,7 @@ const Uygunsuzluk = () => {
 
       <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
 
-      <UygunsuzlukModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} />
+      <UygunsuzlukModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} workCenterCode={workCenterCode} materialCode={materialCode} designCode={designCode}/>
 
       <DeleteModals delOpen={delOpen} delHandleClose={delHandleClose} delHandleOpen={delHandleOpen} setdelOpen={setdelOpen} info={info}/>
 

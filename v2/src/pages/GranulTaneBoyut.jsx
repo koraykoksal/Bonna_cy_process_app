@@ -14,6 +14,8 @@ const GranulTaneBoyut = () => {
 
 
     const { hammaddeMaterialCode, getWorkCenter, getFireData } = useArge()
+    const { workCenterCode, hammaddeCode } = useSelector((state) => state.arge)
+
     const { currentUser } = useSelector((state) => state.auth)
 
     let getVardiya = 0;
@@ -124,7 +126,7 @@ const GranulTaneBoyut = () => {
 
             <DeleteModals delOpen={delOpen} delHandleClose={delHandleClose} delHandleOpen={delHandleOpen} setdelOpen={setdelOpen} info={info} />
 
-            <GranulTaneKontrolModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} />
+            <GranulTaneKontrolModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} workCenterCode={workCenterCode}/>
 
             <GranulTaneKontrol_DataTable handleOpen={handleOpen} delHandleOpen={delHandleOpen} setInfo={setInfo} info={info} />
 

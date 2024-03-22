@@ -47,7 +47,7 @@ const Login = () => {
 
     <Container maxWidth="lg" >
 
-      <Typography variant='h4' align='center' p={3} fontWeight={700} color='#BA68C8'>Bonna Proses</Typography>
+      <Typography variant='h4' align='center' p={3} fontWeight={700} color='#BA68C8'>Bonna Çayırova Proses</Typography>
 
       <Grid
         container

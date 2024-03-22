@@ -32,7 +32,7 @@ const style = {
 
 };
 
-const DijitalBaskiModal = ({ open, handleClose, info, setInfo }) => {
+const DijitalBaskiModal = ({ open, handleClose, info, setInfo,materialCode, designCode }) => {
 
 
   const [searchUrunKodu, setSearchUrunKodu] = useState(null)
@@ -59,7 +59,6 @@ const DijitalBaskiModal = ({ open, handleClose, info, setInfo }) => {
 
   }
   const { getFireData, putFireData, postFireData } = useArge()
-  const { materialCode, designCode } = useSelector((state) => state.arge)
   const [desenCodes, setdesenCodes] = useState([])
 
   const handleSubmit = (e) => {

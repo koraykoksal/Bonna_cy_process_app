@@ -32,7 +32,7 @@ const style = {
 
 };
 
-const ReaktifModal = ({ open, handleClose, info, setInfo }) => {
+const ReaktifModal = ({ open, handleClose, info, setInfo,materialCode }) => {
 
   const [search, setSearch] = useState(null)
 
@@ -57,7 +57,6 @@ const ReaktifModal = ({ open, handleClose, info, setInfo }) => {
   }
 
   const { getFireData, putFireData, postFireData } = useArge()
-  const { materialCode } = useSelector((state) => state.arge)
 
 
   const handleSubmit = (e) => {

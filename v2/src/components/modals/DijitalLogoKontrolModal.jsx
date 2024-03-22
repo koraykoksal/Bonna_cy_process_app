@@ -32,7 +32,7 @@ const style = {
 
 };
 
-const DijitalLogoKontrolModal = ({ open, handleClose, info, setInfo }) => {
+const DijitalLogoKontrolModal = ({ open, handleClose, info, setInfo,materialCode }) => {
 
   const [search, setSearch] = useState(null)
 
@@ -57,7 +57,6 @@ const DijitalLogoKontrolModal = ({ open, handleClose, info, setInfo }) => {
   }
 
   const { getFireData, putFireData, postFireData, getMaterialCenter } = useArge()
-  const { materialCode } = useSelector((state) => state.arge)
 
 
   const handleSubmit = (e) => {

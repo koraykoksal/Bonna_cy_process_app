@@ -32,7 +32,7 @@ const style = {
 
 };
 
-const ManDikTornaPresModal = ({ open, handleClose, info, setInfo }) => {
+const ManDikTornaPresModal = ({ open, handleClose, info, setInfo,workCenterCode, materialCode }) => {
 
   const [search, setSearch] = useState(null)
   const [searchSorunTipi, setSearchSorunTipi] = useState(null)
@@ -58,7 +58,6 @@ const ManDikTornaPresModal = ({ open, handleClose, info, setInfo }) => {
   }
 
   const { getFireData, putFireData } = useArge()
-  const { workCenterCode, materialCode } = useSelector((state) => state.arge)
 
   const { postFireData } = useArge()
 

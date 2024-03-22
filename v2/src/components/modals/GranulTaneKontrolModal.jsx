@@ -32,7 +32,7 @@ const style = {
 };
 
 
-const GranulTaneKontrolModal = ({ open, handleClose, info, setInfo }) => {
+const GranulTaneKontrolModal = ({ open, handleClose, info, setInfo,workCenterCode }) => {
 
 
     const [search, setSearch] = useState(null)
@@ -42,7 +42,6 @@ const GranulTaneKontrolModal = ({ open, handleClose, info, setInfo }) => {
     }
 
     const { getFireData, putFireData, postFireData } = useArge()
-    const { workCenterCode, hammaddeCode } = useSelector((state) => state.arge)
 
 
     const handleSubmit = (e) => {

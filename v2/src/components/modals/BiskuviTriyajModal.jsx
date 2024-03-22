@@ -31,7 +31,7 @@ const style = {
 
 };
 
-const BiskuviTriyajModal = ({ open, handleClose, info, setInfo }) => {
+const BiskuviTriyajModal = ({ open, handleClose, info, setInfo,materialCode }) => {
 
   const [search, setSearch] = useState(null)
 
@@ -58,7 +58,6 @@ const BiskuviTriyajModal = ({ open, handleClose, info, setInfo }) => {
 
 
   const { getFireData, putFireData, postFireData } = useArge()
-  const { materialCode } = useSelector((state) => state.arge)
 
 
   const handleSubmit = (e) => {

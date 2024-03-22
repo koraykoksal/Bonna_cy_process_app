@@ -32,12 +32,11 @@ const style = {
 
 };
 
-const DekorlamaModal = ({ open, handleClose, info, setInfo }) => {
+const DekorlamaModal = ({ open, handleClose, info, setInfo,materialCode, designCode }) => {
 
   const [searchUrunKodu, setSearchUrunKodu] = useState(null)
   const [searchRenkKodu, setSearchRenkKodu] = useState(null)
 
-  const { materialCode, designCode } = useSelector((state) => state.arge)
   const [desenCodes, setdesenCodes] = useState([])
 
   const handleChange = (e,newValue,fieldName) => {

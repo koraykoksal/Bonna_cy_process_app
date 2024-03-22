@@ -12,6 +12,8 @@ import Ayaktaslama_DataTable from '../components/tables/Ayaktaslama_DataTable';
 
 const Ayaktaslama = () => {
 
+  const { getMaterialCenter, getDesenCode, getFireData } = useArge()
+  const { materialCode, designCode } = useSelector((state) => state.arge)
 
   let getVardiya = 0;
   const nowData = new Date()
@@ -78,7 +80,7 @@ const Ayaktaslama = () => {
   const delHandleOpen = () => setdelOpen(true);
   const delHandleClose = () => setdelOpen(false);
 
-  const { getMaterialCenter, getDesenCode, getFireData } = useArge()
+  
 
 
   useEffect(() => {
@@ -101,7 +103,7 @@ const Ayaktaslama = () => {
 
       <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
 
-      <AyakTaslamaModal  open={open} handleClose={handleClose} info={info} setInfo={setInfo}  />
+      <AyakTaslamaModal  open={open} handleClose={handleClose} info={info} setInfo={setInfo} materialCode={materialCode} designCode={designCode} />
 
       <DeleteModals  delOpen={delOpen} delHandleClose={delHandleClose} delHandleOpen={delHandleOpen} setdelOpen={setdelOpen} info={info}/>
 

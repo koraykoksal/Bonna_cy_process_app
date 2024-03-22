@@ -13,6 +13,9 @@ import Reaktif_DataTable from '../components/tables/Reaktif_DataTable';
 
 const Reaktif = () => {
 
+  const { getMaterialCenter, getFireData } = useArge()
+  const { materialCode } = useSelector((state) => state.arge)
+
   let getVardiya = 0;
   const nowData = new Date()
   const currentdatetime = nowData.getDate() + "-" + (nowData.getMonth() + 1) + "-" + nowData.getFullYear()
@@ -76,8 +79,6 @@ const Reaktif = () => {
   const delHandleOpen = () => setdelOpen(true);
   const delHandleClose = () => setdelOpen(false);
 
-  const { getMaterialCenter, getFireData } = useArge()
-
 
   useEffect(() => {
 
@@ -96,7 +97,7 @@ const Reaktif = () => {
 
       <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
 
-      <ReaktifModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} />
+      <ReaktifModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} materialCode={materialCode}/>
 
       <DeleteModals delOpen={delOpen} delHandleClose={delHandleClose} delHandleOpen={delHandleOpen} setdelOpen={setdelOpen} info={info}/>
 

@@ -13,6 +13,8 @@ import DijitalBaski_DataTable from '../components/tables/DijitalBaski_DataTable'
 
 const Dijitalbaski = () => {
 
+  const { getMaterialCenter, getDesenCode, getFireData } = useArge()
+  const { materialCode, designCode } = useSelector((state) => state.arge)
 
   let getVardiya = 0;
   const nowData = new Date()
@@ -97,9 +99,7 @@ const Dijitalbaski = () => {
   const delHandleOpen = () => setdelOpen(true);
   const delHandleClose = () => setdelOpen(false);
 
-  const { getMaterialCenter, getDesenCode, getFireData } = useArge()
-
-
+ 
   useEffect(() => {
 
     getMaterialCenter()
@@ -120,7 +120,7 @@ const Dijitalbaski = () => {
 
       <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
 
-      <DijitalBaskiModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} />
+      <DijitalBaskiModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} materialCode={materialCode} designCode={designCode}/>
 
       <DeleteModals delOpen={delOpen} delHandleClose={delHandleClose} delHandleOpen={delHandleOpen} setdelOpen={setdelOpen} info={info} />
 

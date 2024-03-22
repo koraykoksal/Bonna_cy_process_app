@@ -14,6 +14,10 @@ import Triyaj_DataTable from '../components/tables/Triyaj_DataTable';
 const Triyaj = () => {
 
 
+  const { getMaterialCenter, getFireData } = useArge()
+  const { materialCode } = useSelector((state) => state.arge)
+
+
   let getVardiya = 0;
   const nowData = new Date()
   const currentdatetime = nowData.getDate() + "-" + (nowData.getMonth() + 1) + "-" + nowData.getFullYear()
@@ -103,8 +107,6 @@ const Triyaj = () => {
   const delHandleOpen = () => setdelOpen(true);
   const delHandleClose = () => setdelOpen(false);
 
-  const { getMaterialCenter, getFireData } = useArge()
-
 
   useEffect(() => {
 
@@ -125,7 +127,7 @@ const Triyaj = () => {
 
       <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
 
-      <BiskuviTriyajModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} />
+      <BiskuviTriyajModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} materialCode={materialCode}/>
 
       <DeleteModals delOpen={delOpen} delHandleClose={delHandleClose} delHandleOpen={delHandleOpen} setdelOpen={setdelOpen} info={info} />
 

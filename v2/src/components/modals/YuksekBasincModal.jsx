@@ -32,7 +32,7 @@ const style = {
 
 };
 
-const YuksekBasincModal = ({ open, handleClose, info, setInfo }) => {
+const YuksekBasincModal = ({ open, handleClose, info, setInfo,workCenterCode, materialCode }) => {
 
   const [search, setSearch] = useState(null)
   const [searchSorunTipi, setSearchSorunTipi] = useState(null)
@@ -59,7 +59,6 @@ const YuksekBasincModal = ({ open, handleClose, info, setInfo }) => {
   }
 
   const { getFireData, putFireData, postFireData } = useArge()
-  const { workCenterCode, materialCode } = useSelector((state) => state.arge)
 
 
   const handleSubmit = (e) => {
