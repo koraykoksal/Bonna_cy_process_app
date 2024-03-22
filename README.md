@@ -26,6 +26,6 @@ Install Bonna_cy_process_app
 ![](./pictures/dashboardPage.png)
 ![](./pictures/aksiyonSahipleriModal.png)
 ![](./pictures/sirlamaDetayPage.png)
-![](./pictures/dataEntyModal.png)
+![](./pictures/uygunsuzlukDataEntyModal.png)
 ![](./pictures/autoComplete.png)
 ![](./pictures/uygunsulukGrafik.png)
