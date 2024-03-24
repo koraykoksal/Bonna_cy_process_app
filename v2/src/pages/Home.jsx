@@ -70,9 +70,22 @@ const Home = () => {
 
   useEffect(() => {
 
-    readFireData(info.dateFrom, info.dateTo)
-    getFireData('Uygunsuzluk', info.dateFrom, info.dateTo)
+    const storedInfo = JSON.parse(localStorage.getItem('lastSelectedDate'));
 
+    if (storedInfo) {
+
+      setInfo({...info,dateFrom:storedInfo.dateFrom,dateTo:storedInfo.dateTo})
+
+      getFireData('Uygunsuzluk', storedInfo.dateFrom, storedInfo.dateTo)
+      readFireData(storedInfo.dateFrom, storedInfo.dateTo)
+    }
+    else {
+      readFireData(info.dateFrom, info.dateTo)
+      getFireData('Uygunsuzluk', info.dateFrom, info.dateTo)
+    }
+    // readFireData(info.dateFrom, info.dateTo)
+    // getFireData('Uygunsuzluk', info.dateFrom, info.dateTo)
+  
   }, [])
 
 
@@ -135,14 +148,19 @@ const Home = () => {
     setTekrarlananAksiyonTipleri(tekrarlananAksiyonTipleri);
 
 
+
+
+
   }, [uygunsuzlukData])
 
 
 
   const handleDateFilter = () => {
 
-
     if (info.dateFrom && info.dateTo) {
+
+      //! tarih filtreleme işleminde son seçilen sarih bilgisi localStorage taragında saklanır.
+      localStorage.setItem('lastSelectedDate', JSON.stringify(info))
 
       getFireData('Uygunsuzluk', info.dateFrom, info.dateTo)
       readFireData(info.dateFrom, info.dateTo)
@@ -161,6 +179,9 @@ const Home = () => {
       dateFrom: "",
       dateTo: ""
     })
+
+    //! tarih filtresini temizlediğinde localstorage kayıtlı olan tarih bilgisini boşalt
+    localStorage.setItem('lastSelectedDate', JSON.stringify(""))
 
     // useState işlemlerinde set işlemi asenkron çalışıyor 
     // getFireData fonksiyonunu hemen çalıştırmak için info bilgisini string değer olarak göndermek daha uygun bir çözümdür
