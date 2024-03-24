@@ -162,7 +162,7 @@ const UygunsuzlukModal = ({ open, handleClose, info, setInfo,workCenterCode, mat
                 id="search-select-demo"
                 options={materialCode}
                 getOptionLabel={(option) => option.MALZEMEKODU}
-                renderInput={(params) => <TextField required {...params} label="Ürün Kodu" />}
+                renderInput={(params) => <TextField {...params} label="Ürün Kodu" />}
               />
 
             </Box>
