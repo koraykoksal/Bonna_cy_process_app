@@ -382,7 +382,7 @@ const DokumHattiModal = ({ open, handleClose, info, setInfo, workCenterCode, mat
                 id="search-select-demo"
                 options={uygunsuzlukTipi}
                 getOptionLabel={(option) => option.text}
-                renderInput={(params) => <TextField required {...params} label="Uygunsuzluk Tipi" />}
+                renderInput={(params) => <TextField {...params} label="Sorun Tipi"/>}
               />
 
               {/* <Button variant='contained' size='small' sx={{ textTransform: 'none' }} onClick={() => setInfo(prevInfo => ({ ...prevInfo, uygunsuzlukTipi: '' }))}>Reset</Button> */}

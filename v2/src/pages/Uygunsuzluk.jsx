@@ -1,7 +1,7 @@
 import Typography from '@mui/material/Typography';
 import React from 'react'
 import { newBtnStyle, typoStyle } from "../styles/globalStyle"
-import { Box } from '@mui/material';
+import { Box,TextField } from '@mui/material';
 import UygunsuzlukModal from '../components/modals/UygunsuzlukModal';
 import { Formik } from 'formik';
 import Button from '@mui/material/Button';
@@ -10,6 +10,8 @@ import Uygunsuzluk_DataTable from '../components/tables/Uygunsuzluk_DataTable';
 import { useSelector } from 'react-redux';
 import { useState,useEffect } from 'react';
 import useArge from '../hooks/useArge';
+import { HiOutlineSearch } from "react-icons/hi";
+import { toastWarnNotify } from '../helpers/ToastNotify';
 
 const Uygunsuzluk = () => {
 
@@ -18,8 +20,12 @@ const Uygunsuzluk = () => {
   const nowData = new Date()
   const currentdatetime = nowData.getDate() + "-" + (nowData.getMonth() + 1) + "-" + nowData.getFullYear()
   const currentTime = nowData.getHours() + ":" + nowData.getMinutes()
-
   const { currentUser } = useSelector((state) => state.auth)
+
+  const [infoDate, setInfoDate] = useState({
+    dateFrom: "",
+    dateTo: ""
+  })
 
   const {getFireData,getMaterialCenter, getWorkCenter,getDesenCode} = useArge()
   const { workCenterCode, materialCode, designCode } = useSelector((state) => state.arge)
@@ -92,7 +98,26 @@ const Uygunsuzluk = () => {
 
   }, [])
   
+  const handleChangeDate = (e) => {
+    const { name, value } = e.target
+    setInfoDate({ ...infoDate, [name]: value })
+  }
 
+  const handleDateFilter = () => {
+
+    if (infoDate.dateFrom && infoDate.dateTo) {
+
+      //! tarih filtreleme işleminde son seçilen sarih bilgisi localStorage taragında saklanır.
+      // localStorage.setItem('lastSelectedDate', JSON.stringify(info))
+
+      getFireData('Uygunsuzluk', infoDate.dateFrom, infoDate.dateTo)
+
+    }
+    else {
+      toastWarnNotify('Tarih bilgisini kontrol ediniz !')
+    }
+
+  }
 
   return (
 
@@ -102,7 +127,37 @@ const Uygunsuzluk = () => {
         Uygunsuzluk
       </Typography>
 
-      <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+
+        <Box>
+          <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
+        </Box>
+
+
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', gap: 1, alignItems: 'center', p: 2 }}>
+          <Typography>From</Typography>
+          <TextField
+            required
+            id='dateFrom'
+            name='dateFrom'
+            type='date'
+            value={infoDate.dateFrom}
+            onChange={handleChangeDate}
+          />
+
+          <Typography>To</Typography>
+          <TextField
+            required
+            id='dateTo'
+            name='dateTo'
+            type='date'
+            value={infoDate.dateTo}
+            onChange={handleChangeDate}
+          />
+          <HiOutlineSearch size={30} color='black' onClick={handleDateFilter} cursor={'pointer'} style={{ marginLeft: 15 }} />
+        </Box>
+
+      </Box>
 
       <UygunsuzlukModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} workCenterCode={workCenterCode} materialCode={materialCode} designCode={designCode}/>
 

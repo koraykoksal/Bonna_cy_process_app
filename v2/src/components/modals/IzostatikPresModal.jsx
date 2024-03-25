@@ -363,7 +363,7 @@ const IzostatikPresModal = ({ open, handleClose, info, setInfo, workCenterCode, 
                 id="search-select-demo"
                 options={uygunsuzlukTipi}
                 getOptionLabel={(option) => option.text}
-                renderInput={(params) => <TextField required {...params} label="Sorun Tipi" />}
+                renderInput={(params) => <TextField {...params} label="Sorun Tipi" />}
               />
 
               {/* RESET BUTTON */}

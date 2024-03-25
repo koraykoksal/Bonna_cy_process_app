@@ -312,7 +312,7 @@ const ManDikTornaPresModal = ({ open, handleClose, info, setInfo,workCenterCode,
                 id="search-select-demo"
                 options={uygunsuzlukTipi}
                 getOptionLabel={(option) => option.text}
-                renderInput={(params) => <TextField required {...params} label="Uygunsuzluk Tipi" />}
+                renderInput={(params) => <TextField {...params} label="Uygunsuzluk Tipi" />}
               />
 
 

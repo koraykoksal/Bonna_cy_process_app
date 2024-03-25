@@ -617,7 +617,7 @@ const SirlamaModal = ({ open, handleClose, info, setInfo,workCenterCode, materia
                 id="search-select-demo"
                 options={uygunsuzlukTipi}
                 getOptionLabel={(option) => option.text}
-                renderInput={(params) => <TextField required {...params} label="Sorun Tipi" />}
+                renderInput={(params) => <TextField {...params} label="Sorun Tipi" />}
               />
 
               {/* <Button variant='contained' size='small' sx={{ textTransform: 'none' }} onClick={() => setInfo(prevInfo => ({ ...prevInfo, uygunsuzlukTipi: '' }))}>Reset</Button> */}

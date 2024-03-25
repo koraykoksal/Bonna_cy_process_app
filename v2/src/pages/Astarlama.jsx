@@ -1,7 +1,7 @@
 import React from 'react'
 import { newBtnStyle, typoStyle } from "../styles/globalStyle"
 import Typography from '@mui/material/Typography';
-import { Box } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import AstarlamaModal from '../components/modals/AstarlamaModal';
 import Button from '@mui/material/Button';
 import DeleteModals from '../components/deleteModals/DeleteModals';
@@ -9,7 +9,8 @@ import Astarlama_DataTable from '../components/tables/Astarlama_DataTable';
 import { useState,useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useArge from '../hooks/useArge';
-
+import { toastWarnNotify } from '../helpers/ToastNotify';
+import { HiOutlineSearch } from "react-icons/hi";
 
 
 const Astarlama = () => {
@@ -22,6 +23,10 @@ const Astarlama = () => {
   const { currentUser } = useSelector((state) => state.auth)
   const {getFireData}=useArge()
 
+  const [infoDate, setInfoDate] = useState({
+    dateFrom: "",
+    dateTo: ""
+  })
 
   const getShift = () => {
     //! padStart(2,'0') metodu ile hedefUzunluk ve eklenecek karakterler olarak iki parametre alır.
@@ -93,6 +98,28 @@ const Astarlama = () => {
   }, [])
   
 
+  const handleChangeDate = (e) => {
+    const { name, value } = e.target
+    setInfoDate({ ...infoDate, [name]: value })
+  }
+
+  const handleDateFilter = () => {
+
+    if (infoDate.dateFrom && infoDate.dateTo) {
+
+      //! tarih filtreleme işleminde son seçilen sarih bilgisi localStorage taragında saklanır.
+      // localStorage.setItem('lastSelectedDate', JSON.stringify(info))
+
+      getFireData('Astarlama', infoDate.dateFrom, infoDate.dateTo)
+
+    }
+    else {
+      toastWarnNotify('Tarih bilgisini kontrol ediniz !')
+    }
+
+  }
+
+
   return (
 
     <div>
@@ -100,7 +127,37 @@ const Astarlama = () => {
         Astarlama
       </Typography>
 
-      <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+
+        <Box>
+          <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
+        </Box>
+
+
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', gap: 1, alignItems: 'center', p: 2 }}>
+          <Typography>From</Typography>
+          <TextField
+            required
+            id='dateFrom'
+            name='dateFrom'
+            type='date'
+            value={infoDate.dateFrom}
+            onChange={handleChangeDate}
+          />
+
+          <Typography>To</Typography>
+          <TextField
+            required
+            id='dateTo'
+            name='dateTo'
+            type='date'
+            value={infoDate.dateTo}
+            onChange={handleChangeDate}
+          />
+          <HiOutlineSearch size={30} color='black' onClick={handleDateFilter} cursor={'pointer'} style={{ marginLeft: 15 }} />
+        </Box>
+
+      </Box>
 
       <AstarlamaModal open={open} handleClose={handleClose} info={info} setInfo={setInfo}/>
 

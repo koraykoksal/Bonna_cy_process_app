@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box, TextField, Typography } from '@mui/material'
 import React from 'react'
 import { newBtnStyle, typoStyle } from "../styles/globalStyle"
 import IzostatikPresModal from '../components/modals/IzostatikPresModal';
@@ -7,21 +7,10 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import { AiFillEdit } from "react-icons/ai";
-import { MdDelete } from "react-icons/md";
 import DeleteModals from '../components/deleteModals/DeleteModals';
-import { DataGrid, GridToolbar, GridActionsCellItem } from '@mui/x-data-grid';
 import IzoStatikPres_DataTable from '../components/tables/IzoStatikPres_DataTable';
-import { toastErrorNotify, toastInfoNotify, toastWarnNotify } from '../helpers/ToastNotify';
-
+import { HiOutlineSearch } from "react-icons/hi";
+import { toastWarnNotify } from '../helpers/ToastNotify';
 
 
 const Izostatikpres = () => {
@@ -33,8 +22,11 @@ const Izostatikpres = () => {
   const { getFireData, getMaterialCenter, getWorkCenter } = useArge()
   const { currentUser } = useSelector((state) => state.auth)
   const { workCenterCode, materialCode } = useSelector((state) => state.arge)
-  
 
+  const [infoDate, setInfoDate] = useState({
+    dateFrom: "",
+    dateTo: ""
+  })
 
   const getShift = () => {
     //! padStart(2,'0') metodu ile hedefUzunluk ve eklenecek karakterler olarak iki parametre alır.
@@ -128,6 +120,27 @@ const Izostatikpres = () => {
 
   }, [])
 
+  const handleChangeDate = (e) => {
+    const { name, value } = e.target
+    setInfoDate({ ...infoDate, [name]: value })
+  }
+
+  const handleDateFilter = () => {
+
+    if (infoDate.dateFrom && infoDate.dateTo) {
+
+      //! tarih filtreleme işleminde son seçilen sarih bilgisi localStorage taragında saklanır.
+      // localStorage.setItem('lastSelectedDate', JSON.stringify(info))
+
+      getFireData('IzoStatikPresData', infoDate.dateFrom, infoDate.dateTo)
+
+    }
+    else {
+      toastWarnNotify('Tarih bilgisini kontrol ediniz !')
+    }
+
+  }
+
 
   return (
 
@@ -136,9 +149,40 @@ const Izostatikpres = () => {
         İzostatik Pres
       </Typography>
 
-      <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
 
-      <IzostatikPresModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} workCenterCode={workCenterCode} materialCode={materialCode}/>
+        <Box>
+          <Button onClick={handleOpen} variant='outlined' sx={newBtnStyle}>New</Button>
+        </Box>
+
+
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', gap: 1, alignItems: 'center', p: 2 }}>
+          <Typography>From</Typography>
+          <TextField
+            required
+            id='dateFrom'
+            name='dateFrom'
+            type='date'
+            value={infoDate.dateFrom}
+            onChange={handleChangeDate}
+          />
+
+          <Typography>To</Typography>
+          <TextField
+            required
+            id='dateTo'
+            name='dateTo'
+            type='date'
+            value={infoDate.dateTo}
+            onChange={handleChangeDate}
+          />
+          <HiOutlineSearch size={30} color='black' onClick={handleDateFilter} cursor={'pointer'} style={{ marginLeft: 15 }} />
+        </Box>
+
+      </Box>
+
+
+      <IzostatikPresModal open={open} handleClose={handleClose} info={info} setInfo={setInfo} workCenterCode={workCenterCode} materialCode={materialCode} />
 
       <DeleteModals delOpen={delOpen} delHandleClose={delHandleClose} delHandleOpen={delHandleOpen} setdelOpen={setdelOpen} info={info} />
 
