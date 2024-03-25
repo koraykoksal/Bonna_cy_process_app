@@ -34,16 +34,6 @@ const ActionDetail = () => {
     const [uygunsuzlukDataTable, setuygunsuzlukDataTable] = useState([])
 
 
-    const [info, setInfo] = useState({
-        dateFrom: "",
-        dateTo: ""
-    })
-
-    const handleChange = (e) => {
-        setInfo({ ...info, [e.target.name]: e.target.value })
-    }
-
-
     //! home sayfasında filter işlemi uygulandığı zaman burada tekrar hook çalıştırmaya gerek yok
     //! home sayfasında uygulanan hook filter işleminde hook tarafından gelen data kullanılıyor.
     //! burada tekrar çalıştırırsak filtrelenmiş veri gönmez
@@ -60,8 +50,9 @@ const ActionDetail = () => {
         if (state.aksiyonSahibi == "SEKILLENDIRME") {
 
             SekillendirmeData.forEach(element => {
+         
                 if (Object.keys(dbData).includes(element)) {
-
+               
                     const veriSeti = Object.values(dbData[element])
                     //* Spread operatörü ile veri setini geciciVeriSetleri'ne tek seviyeli olarak ekle
                     geciciVeriSetleri.push(...veriSeti)
@@ -153,7 +144,7 @@ const ActionDetail = () => {
         data.map(item => {
 
             const { aksiyon_sahibi } = item
-
+           
             if (state.aksiyonSahibi == aksiyon_sahibi.replace(/\s+/g, '').toUpperCase()) {
                 uygunsuzluk.push(item)
             }
@@ -181,7 +172,7 @@ const ActionDetail = () => {
         }, {})
 
 
-        const data = Object.keys(countUygunsuzluk).map(key => {
+        const data = Object.keys(countUygunsuzluk).filter(item=>item !== '').map(key => {
             return {
                 title: key,
                 count: countUygunsuzluk[key],
@@ -190,7 +181,6 @@ const ActionDetail = () => {
         })
 
         setuygunsuzlukDataTable(data)
-
     }, [uygunsuzlukCount])
 
 

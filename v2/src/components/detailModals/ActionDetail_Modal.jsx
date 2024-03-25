@@ -70,6 +70,7 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
             if (actionKey == "SEKILLENDIRME") {
 
                 SekillendirmeData.forEach(eslesmeAnahtari => {
+                 
                     if (Object.keys(dbData).includes(eslesmeAnahtari)) {
 
                         //! şekillendirmeye ait uygunsuzluk miktarını hesaplar
