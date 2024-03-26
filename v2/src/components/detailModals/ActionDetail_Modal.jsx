@@ -59,122 +59,184 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
 
 
     //! tekrarlanan aksiyon tiplerinde kontrol sayısını çıkar
+    // useEffect(() => {
+
+    //     const tempResults = tekrarlananAksyionTipleri.map(action => {
+
+    //         const actionKey = action.aksiyontipi.replace(/\s+/g, '').toUpperCase() // boşluık karakterini kaldır
+    //         let kontrolSayisi = 0;
+
+    //         //! actionKey değeri SEKILLENDIRME gelirse aşağıdaki condition bloğunu uygula
+    //         if (actionKey == "SEKILLENDIRME") {
+
+    //             SekillendirmeData.forEach(eslesmeAnahtari => {
+
+    //                 if (Object.keys(dbData).includes(eslesmeAnahtari)) {
+
+    //                     //! şekillendirmeye ait uygunsuzluk miktarını hesaplar
+    //                     //! dbData[eslesmeAnahtari] dinamik olduğu için += işlemi ile toplayarak length bilgisine ulaşır
+    //                     kontrolSayisi += Object.keys(dbData[eslesmeAnahtari]).length;
+
+    //                 }
+    //             })
+    //         }
+    //         else if (actionKey == "HAMMADDE") {
+
+    //             HammaddeData.forEach(eslesmeAnahtari => {
+    //                 if (Object.keys(dbData).includes(eslesmeAnahtari)) {
+
+    //                     //! dbData[eslesmeAnahtari] dinamik olduğu için += işlemi ile toplayarak length bilgisine ulaşır
+    //                     kontrolSayisi += Object.keys(dbData[eslesmeAnahtari]).length;
+    //                 }
+    //             })
+
+    //         }
+    //         else if (actionKey == "SIRLAMA") {
+
+    //             Object.keys(dbData).forEach(key => {
+
+    //                 //! dbData[keys] statik olarak belirtildiği için doğrudan length değerine ulaşılır
+
+    //                 const keys = "Sirlama"
+    //                 kontrolSayisi = Object.keys(dbData[keys]).length
+
+    //             })
+
+    //         }
+    //         else if (actionKey == "FIRINLAR") {
+
+    //             Object.keys(dbData).forEach(key => {
+
+    //                 //! dbData[keys] statik olarak belirtildiği için doğrudan length değerine ulaşılır
+
+    //                 const keys = "Triyaj"
+    //                 kontrolSayisi = Object.keys(dbData[keys]).length
+
+    //             })
+    //         }
+    //         else if (actionKey == "KALITEGUVENCE") {
+
+    //             Object.keys(dbData).forEach(key => {
+
+    //                 //! dbData[keys] statik olarak belirtildiği için doğrudan length değerine ulaşılır
+    //                 const keys = "NihaiUrunKontrol"
+    //                 kontrolSayisi = Object.keys(dbData[keys]).length
+    //             })
+    //         }
+    //         else {
+    //             Object.keys(dbData).forEach(key => {
+
+    //                 const keys = key.replace(/\s+/g, '').toUpperCase()
+    //                 const text = actionKey.replace(/\s+/g, '').toUpperCase()
+
+    //                 if (keys === text) {
+
+    //                     kontrolSayisi += Object.keys(dbData[key]).length; // Eşleşen kayıtların sayısını hesapla
+    //                 }
+
+    //             });
+    //         }
+
+    //         return {
+    //             aksiyonSahibi: actionKey, // Orjinal aksiyon tipi
+    //             kontrolSayisi: kontrolSayisi // Hesaplanan kontrol sayısı
+    //         };
+
+    //     }).filter(result => result.kontrolSayisi > 0)// Sadece kontrol sayısı 0'dan büyük olanları filtrele
+
+    //     setMatchedCounts(tempResults)
+
+    // }, [tekrarlananAksyionTipleri, dbData])
+
     useEffect(() => {
+        // Sabit değerler için bir eşleme nesnesi kullanarak kod tekrarını azaltabiliriz.
+        const actionMappings = {
+            SEKILLENDIRME: SekillendirmeData,
+            HAMMADDE: HammaddeData,
+            SIRLAMA: ['Sirlama'], // Sabit bir dizi olarak belirleyebiliriz.
+            FIRINLAR: ['Triyaj'],
+            KALITEGUVENCE: ['NihaiUrunKontrol'],
+        };
 
         const tempResults = tekrarlananAksyionTipleri.map(action => {
-
-            const actionKey = action.aksiyontipi.replace(/\s+/g, '').toUpperCase() // boşluık karakterini kaldır
+            const actionKey = action.aksiyontipi.replace(/\s+/g, '').toUpperCase();
             let kontrolSayisi = 0;
 
-            //! actionKey değeri SEKILLENDIRME gelirse aşağıdaki condition bloğunu uygula
-            if (actionKey == "SEKILLENDIRME") {
+            // Eşleşme listesini actionMappings'den almak.
+            const eslesmeListesi = actionMappings[actionKey] || [];
 
-                SekillendirmeData.forEach(eslesmeAnahtari => {
-                 
-                    if (Object.keys(dbData).includes(eslesmeAnahtari)) {
+            eslesmeListesi.forEach(eslesmeAnahtari => {
+                if (dbData.hasOwnProperty(eslesmeAnahtari)) {
+                    // Eşleşen anahtarın length'ini toplama
+                    kontrolSayisi += Object.keys(dbData[eslesmeAnahtari]).length;
+                }
+            });
 
-                        //! şekillendirmeye ait uygunsuzluk miktarını hesaplar
-                        //! dbData[eslesmeAnahtari] dinamik olduğu için += işlemi ile toplayarak length bilgisine ulaşır
-                        kontrolSayisi += Object.keys(dbData[eslesmeAnahtari]).length;
-
+            // Özel durumlar için genel bir işlem yapısı.
+            if (!eslesmeListesi.length) {
+                Object.keys(dbData).forEach(key => {
+                    if (key.replace(/\s+/g, '').toUpperCase() === actionKey) {
+                        kontrolSayisi += Object.keys(dbData[key]).length;
                     }
-                })
-            }
-            else if (actionKey == "HAMMADDE") {
-
-                HammaddeData.forEach(eslesmeAnahtari => {
-                    if (Object.keys(dbData).includes(eslesmeAnahtari)) {
-
-                        //! dbData[eslesmeAnahtari] dinamik olduğu için += işlemi ile toplayarak length bilgisine ulaşır
-                        kontrolSayisi += Object.keys(dbData[eslesmeAnahtari]).length;
-                    }
-                })
-
-            }
-            else if (actionKey == "SIRLAMA") {
-
-                Object.keys(dbData).forEach(key => {
-
-                    //! dbData[keys] statik olarak belirtildiği için doğrudan length değerine ulaşılır
-
-                    const keys = "Sirlama"
-                    kontrolSayisi = Object.keys(dbData[keys]).length
-
-                })
-
-            }
-            else if (actionKey == "FIRINLAR") {
-
-                Object.keys(dbData).forEach(key => {
-
-                    //! dbData[keys] statik olarak belirtildiği için doğrudan length değerine ulaşılır
-
-                    const keys = "Triyaj"
-                    kontrolSayisi = Object.keys(dbData[keys]).length
-
-                })
-            }
-            else if (actionKey == "KALITEGUVENCE") {
-
-                Object.keys(dbData).forEach(key => {
-
-                    //! dbData[keys] statik olarak belirtildiği için doğrudan length değerine ulaşılır
-                    const keys = "NihaiUrunKontrol"
-                    kontrolSayisi = Object.keys(dbData[keys]).length
-                })
-            }
-            else {
-                Object.keys(dbData).forEach(key => {
-
-                    const keys = key.replace(/\s+/g, '').toUpperCase()
-                    const text = actionKey.replace(/\s+/g, '').toUpperCase()
-
-                    if (keys === text) {
-
-                        kontrolSayisi += Object.keys(dbData[key]).length; // Eşleşen kayıtların sayısını hesapla
-                    }
-
                 });
             }
 
             return {
-                aksiyonSahibi: actionKey, // Orjinal aksiyon tipi
-                kontrolSayisi: kontrolSayisi // Hesaplanan kontrol sayısı
+                aksiyonSahibi: actionKey,
+                kontrolSayisi: kontrolSayisi,
             };
+        }).filter(result => result.kontrolSayisi > 0);
 
-        }).filter(result => result.kontrolSayisi > 0)// Sadece kontrol sayısı 0'dan büyük olanları filtrele
+        setMatchedCounts(tempResults);
+    }, [tekrarlananAksyionTipleri, dbData]);
 
-        setMatchedCounts(tempResults)
-
-    }, [tekrarlananAksyionTipleri, dbData])
 
 
 
     //! aksiyon sahibi uygunsuzluk oranını belirle
+    // useEffect(() => {
+
+    //     const sonuc = tekrarlananAksyionTipleri.map(tekrarlanan => {
+
+    //         const aksiyontipi = tekrarlanan.aksiyontipi.replace(/\s+/g, '').toUpperCase()
+
+    //         const matched = matchedCounts.find(match => match.aksiyonSahibi == aksiyontipi)
+
+    //         if (matched) {
+
+    //             return {
+    //                 aksiyonSahibi: matched.aksiyonSahibi,
+    //                 uygunsuzlukOrani: ((Number(tekrarlanan.tekrar) / Number(matched.kontrolSayisi)) * 100).toFixed(2)
+    //             }
+    //         }
+
+    //         return null
+
+    //     }).filter(result => result !== null) // null değerleri filtrele
+
+    //     setUygunsuzlukOranlari(sonuc)
+
+    // }, [matchedCounts])
+
+
     useEffect(() => {
-
-        const sonuc = tekrarlananAksyionTipleri.map(tekrarlanan => {
-
-            const aksiyontipi = tekrarlanan.aksiyontipi.replace(/\s+/g, '').toUpperCase()
-
-            const matched = matchedCounts.find(match => match.aksiyonSahibi == aksiyontipi)
+        const sonuc = tekrarlananAksyionTipleri.reduce((acc, { aksiyontipi, tekrar }) => {
+            const actionTypeCleaned = aksiyontipi.replace(/\s+/g, '').toUpperCase();
+            const matched = matchedCounts.find(({ aksiyonSahibi }) => aksiyonSahibi === actionTypeCleaned);
 
             if (matched) {
-
-                return {
+                const uygunsuzlukOrani = ((Number(tekrar) / Number(matched.kontrolSayisi)) * 100).toFixed(2);
+                acc.push({
                     aksiyonSahibi: matched.aksiyonSahibi,
-                    uygunsuzlukOrani: ((Number(tekrarlanan.tekrar) / Number(matched.kontrolSayisi)) * 100).toFixed(2)
-                }
+                    uygunsuzlukOrani
+                });
             }
 
-            return null
+            return acc;
+        }, []);
 
-        }).filter(result => result !== null) // null değerleri filtrele
-
-        setUygunsuzlukOranlari(sonuc)
-
-    }, [matchedCounts])
-
+        setUygunsuzlukOranlari(sonuc);
+    }, [matchedCounts, tekrarlananAksyionTipleri]);
 
 
 
@@ -220,7 +282,7 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
                                                         state: {
                                                             aksiyonSahibi: item.aksiyonSahibi,
                                                             uygunsuzlukOrani: item.uygunsuzlukOrani,
-                                                            aksiyonSahib : tekrarlananAksyionTipleri
+                                                            aksiyonSahib: tekrarlananAksyionTipleri
                                                         }
                                                     })}>Detay</Button>
                                             </TableCell>

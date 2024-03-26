@@ -43,147 +43,194 @@ const ActionDetail = () => {
     // }, [])
 
 
+
     //! useLocation dan gelen değere göre veriyi güncelle
+    // useEffect(() => {
+
+    //     let geciciVeriSetleri = [];
+    //     if (state.aksiyonSahibi == "SEKILLENDIRME") {
+
+    //         SekillendirmeData.forEach(element => {
+
+    //             if (Object.keys(dbData).includes(element)) {
+
+    //                 const veriSeti = Object.values(dbData[element])
+    //                 //* Spread operatörü ile veri setini geciciVeriSetleri'ne tek seviyeli olarak ekle
+    //                 geciciVeriSetleri.push(...veriSeti)
+    //             }
+    //         });
+    //     }
+    //     else if (state.aksiyonSahibi == "HAMMADDE") {
+
+    //         HammaddeData.forEach(element => {
+    //             if (Object.keys(dbData).includes(element)) {
+
+    //                 const veriSeti = Object.values(dbData[element])
+    //                 //* Spread operatörü ile veri setini geciciVeriSetleri'ne tek seviyeli olarak ekle
+    //                 geciciVeriSetleri.push(...veriSeti)
+    //             }
+    //         });
+    //     }
+    //     else if (state.aksiyonSahibi == "SIRLAMA") {
+
+    //         Object.keys(dbData).forEach(element => {
+
+    //             const stateName = 'Sirlama'
+    //             const dbName = element
+
+    //             if (stateName == dbName) {
+    //                 const veriSeti = Object.values(dbData[element])
+    //                 geciciVeriSetleri.push(...veriSeti)
+    //             }
+
+
+    //         })
+    //     }
+    //     else if (state.aksiyonSahibi == "FIRINLAR") {
+
+    //         Object.keys(dbData).forEach(element => {
+
+    //             const stateName = 'Triyaj'
+    //             const dbName = element
+
+    //             if (stateName == dbName) {
+    //                 const veriSeti = Object.values(dbData[element])
+    //                 geciciVeriSetleri.push(...veriSeti)
+    //             }
+
+
+    //         })
+    //     }
+    //     else if (state.aksiyonSahibi == "KALITEGUVENCE") {
+
+    //         Object.keys(dbData).forEach(element => {
+
+    //             const stateName = 'NihaiUrunKontrol'
+    //             const dbName = element
+
+    //             if (stateName == dbName) {
+    //                 const veriSeti = Object.values(dbData[element])
+    //                 geciciVeriSetleri.push(...veriSeti)
+    //             }
+
+
+    //         })
+    //     }
+    //     else {
+
+    //         Object.keys(dbData).forEach(element => {
+
+    //             const stateName = state.aksiyonSahibi.toUpperCase()
+    //             const dbName = element.toUpperCase()
+
+    //             if (stateName == dbName) {
+    //                 const veriSeti = Object.values(dbData[element])
+    //                 geciciVeriSetleri.push(...veriSeti)
+    //             }
+    //         })
+    //     }
+
+    //     setAllData(geciciVeriSetleri)
+
+    // }, [state,dbData])
+
+
+
     useEffect(() => {
+        const actionMappings = {
+            SEKILLENDIRME: SekillendirmeData,
+            HAMMADDE: HammaddeData,
+            SIRLAMA: ['Sirlama'],
+            FIRINLAR: ['Triyaj'],
+            KALITEGUVENCE: ['NihaiUrunKontrol'],
+        };
 
-        let geciciVeriSetleri = [];
-        if (state.aksiyonSahibi == "SEKILLENDIRME") {
+        // Aksiyon sahibine göre veri setini bul ve işle
+        const aksiyonSahibi = state.aksiyonSahibi.toUpperCase();
+        const dataSetKeys = actionMappings[aksiyonSahibi] || [aksiyonSahibi]; // Eğer özel bir eşleme yoksa, doğrudan state'den gelen aksiyon sahibini kullan
 
-            SekillendirmeData.forEach(element => {
-         
-                if (Object.keys(dbData).includes(element)) {
-               
-                    const veriSeti = Object.values(dbData[element])
-                    //* Spread operatörü ile veri setini geciciVeriSetleri'ne tek seviyeli olarak ekle
-                    geciciVeriSetleri.push(...veriSeti)
-                }
-            });
-        }
-        else if (state.aksiyonSahibi == "HAMMADDE") {
+        const geciciVeriSetleri = dataSetKeys.reduce((acc, key) => {
+            const veriSeti = dbData[key] ? Object.values(dbData[key]) : [];
+            return [...acc, ...veriSeti];
+        }, []);
 
-            HammaddeData.forEach(element => {
-                if (Object.keys(dbData).includes(element)) {
-
-                    const veriSeti = Object.values(dbData[element])
-                    //* Spread operatörü ile veri setini geciciVeriSetleri'ne tek seviyeli olarak ekle
-                    geciciVeriSetleri.push(...veriSeti)
-                }
-            });
-        }
-        else if (state.aksiyonSahibi == "SIRLAMA") {
-
-            Object.keys(dbData).forEach(element => {
-
-                const stateName = 'Sirlama'
-                const dbName = element
-
-                if (stateName == dbName) {
-                    const veriSeti = Object.values(dbData[element])
-                    geciciVeriSetleri.push(...veriSeti)
-                }
-
-
-            })
-        }
-        else if (state.aksiyonSahibi == "FIRINLAR") {
-
-            Object.keys(dbData).forEach(element => {
-
-                const stateName = 'Triyaj'
-                const dbName = element
-
-                if (stateName == dbName) {
-                    const veriSeti = Object.values(dbData[element])
-                    geciciVeriSetleri.push(...veriSeti)
-                }
-
-
-            })
-        }
-        else if (state.aksiyonSahibi == "KALITEGUVENCE") {
-
-            Object.keys(dbData).forEach(element => {
-
-                const stateName = 'NihaiUrunKontrol'
-                const dbName = element
-
-                if (stateName == dbName) {
-                    const veriSeti = Object.values(dbData[element])
-                    geciciVeriSetleri.push(...veriSeti)
-                }
-
-
-            })
-        }
-        else {
-
-            Object.keys(dbData).forEach(element => {
-
-                const stateName = state.aksiyonSahibi.toUpperCase()
-                const dbName = element.toUpperCase()
-
-                if (stateName == dbName) {
-                    const veriSeti = Object.values(dbData[element])
-                    geciciVeriSetleri.push(...veriSeti)
-                }
-            })
-        }
-
-        setAllData(geciciVeriSetleri)
-
-    }, [state,dbData])
+        setAllData(geciciVeriSetleri);
+    }, [state, dbData]);
 
 
 
     //! toplam uygunsuzluk sayısı
+    // useEffect(() => {
+
+    //     let uygunsuzluk = []
+    //     const data = Object.values(uygunsuzlukData)
+
+    //     data.map(item => {
+
+    //         const { aksiyon_sahibi } = item
+
+    //         if (state.aksiyonSahibi == aksiyon_sahibi.replace(/\s+/g, '').toUpperCase()) {
+    //             uygunsuzluk.push(item)
+    //         }
+    //     })
+
+    //     setUygunsuzlukCount(uygunsuzluk)
+
+    // }, [state, uygunsuzlukData])
+
+
+
     useEffect(() => {
-
-        let uygunsuzluk = []
-        const data = Object.values(uygunsuzlukData)
-
-        data.map(item => {
-
-            const { aksiyon_sahibi } = item
-           
-            if (state.aksiyonSahibi == aksiyon_sahibi.replace(/\s+/g, '').toUpperCase()) {
-                uygunsuzluk.push(item)
-            }
-        })
-
-        setUygunsuzlukCount(uygunsuzluk)
-
-    }, [state, uygunsuzlukData])
-
+        const filteredData = Object.values(uygunsuzlukData).filter(({ aksiyon_sahibi }) =>
+            state.aksiyonSahibi === aksiyon_sahibi.replace(/\s+/g, '').toUpperCase()
+        );
+        setUygunsuzlukCount(filteredData);
+    }, [state.aksiyonSahibi, uygunsuzlukData]); // Bağımlılık listesinde direkt state.aksiyonSahibi kullanımı daha spesifik bir bağımlılık takibi sağlar.
 
 
     //! uygunsuzluk açıklaması ve tekrar sayısı
+    // useEffect(() => {
+
+    //     const countUygunsuzluk = uygunsuzlukCount.reduce((acc, item) => {
+    //         if (acc[item.sorun_tipi]) {
+    //             acc[item.sorun_tipi]++;
+    //         }
+    //         else {
+    //             acc[item.sorun_tipi] = 1;
+    //         }
+
+    //         return acc;
+
+    //     }, {})
+
+
+    //     const data = Object.keys(countUygunsuzluk).filter(item => item !== '').map(key => {
+    //         return {
+    //             title: key,
+    //             count: countUygunsuzluk[key],
+    //             percent: ((countUygunsuzluk[key] / uygunsuzlukCount.length) * 100).toFixed(2)
+    //         }
+    //     })
+
+    //     setuygunsuzlukDataTable(data)
+    // }, [uygunsuzlukCount])
+
     useEffect(() => {
-
-        const countUygunsuzluk = uygunsuzlukCount.reduce((acc, item) => {
-            if (acc[item.sorun_tipi]) {
-                acc[item.sorun_tipi]++;
-            }
-            else {
-                acc[item.sorun_tipi] = 1;
-            }
-
+        const sorunTipleriCount = uygunsuzlukCount.reduce((acc, item) => {
+            const tip = item.sorun_tipi || 'Belirsiz'; // Sorun tipi boş ise 'Belirsiz' olarak işaretle
+            acc[tip] = (acc[tip] || 0) + 1;
             return acc;
+        }, {});
 
-        }, {})
+        const totalUygunsuzluk = uygunsuzlukCount.length;
+        const data = Object.keys(sorunTipleriCount).map(key => {
+            const count = sorunTipleriCount[key];
+            const percent = totalUygunsuzluk > 0 ? ((count / totalUygunsuzluk) * 100).toFixed(2) : '0.00';
+            return { title: key, count, percent };
+        });
 
-
-        const data = Object.keys(countUygunsuzluk).filter(item=>item !== '').map(key => {
-            return {
-                title: key,
-                count: countUygunsuzluk[key],
-                percent: ((countUygunsuzluk[key] / uygunsuzlukCount.length) * 100).toFixed(2)
-            }
-        })
-
-        setuygunsuzlukDataTable(data)
-    }, [uygunsuzlukCount])
-
-
+        setuygunsuzlukDataTable(data);
+    }, [uygunsuzlukCount]);
 
 
     return (

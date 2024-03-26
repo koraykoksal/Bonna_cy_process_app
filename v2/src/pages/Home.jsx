@@ -5,16 +5,11 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import { useNavigate } from 'react-router-dom';
 import { Avatar, Container, Grid, Paper, TextField } from '@mui/material';
 import Dashboard_Cards from '../components/dashboards/Dashboard_Cards';
 import HataBazli_Uygunsuzluk from '../components/dashboards/HataBazli_Uygunsuzluk';
 import Uygunsuzluk_Table from '../components/dashboards/Uygunsuzluk_Table';
 import { HiOutlineSearch } from "react-icons/hi";
-import { FaWindowClose } from "react-icons/fa";
 import ActionDetail_Modal from '../components/detailModals/ActionDetail_Modal';
 import Dashboard_Graphic from '../components/dashboards/Dashboard_Graphic';
 import { toastWarnNotify } from '../helpers/ToastNotify';
@@ -68,13 +63,14 @@ const Home = () => {
 
 
 
+  //sayfa render olduğu zaman çalıştır
   useEffect(() => {
 
     const storedInfo = JSON.parse(localStorage.getItem('lastSelectedDate'));
 
     if (storedInfo) {
 
-      setInfo({...info,dateFrom:storedInfo.dateFrom,dateTo:storedInfo.dateTo})
+      setInfo({ ...info, dateFrom: storedInfo.dateFrom, dateTo: storedInfo.dateTo })
 
       getFireData('Uygunsuzluk', storedInfo.dateFrom, storedInfo.dateTo)
       readFireData(storedInfo.dateFrom, storedInfo.dateTo)
@@ -85,7 +81,7 @@ const Home = () => {
     }
     // readFireData(info.dateFrom, info.dateTo)
     // getFireData('Uygunsuzluk', info.dateFrom, info.dateTo)
-  
+
   }, [])
 
 
@@ -99,62 +95,89 @@ const Home = () => {
 
 
 
+  // useEffect(() => {
+
+  //   const data = Object.values(uygunsuzlukData)
+
+  //   //! Sorun tiplerini ayrıştır, boş string değerlerini elem
+  //   const sorunTipleriDizisi = data.filter(kayit => kayit.sorun_tipi !== '').map(kayit => kayit.sorun_tipi);
+  //   setSorunTipleri(sorunTipleriDizisi);
+
+  //   //* new Set özelliği ile yalnızca benzersiz kayıtları al
+  //   const benzersizSorunTipleri = new Set(sorunTipleriDizisi);
+  //   setFarkliSorunTipiSayisi(benzersizSorunTipleri.size);
+
+
+  //   // //! aksiyon sahibi tiplerini ayrıştır
+  //   const aksiyonSahibiTipleriDizisi = data.map(kayit => kayit.aksiyon_sahibi);
+  //   setaksiyonSahibi(aksiyonSahibiTipleriDizisi)
+
+  //   const benzersizAksiyonTipleri = new Set(aksiyonSahibiTipleriDizisi)
+  //   setFarkliAksiyonTipiSayisi(benzersizAksiyonTipleri.size)
+
+
+  //   //! Sorun tiplerinin tekrar sayılarını hesaplama
+  //   const sorunTipiSayilari = {};
+  //   sorunTipleriDizisi.forEach(sorunTipi => {
+  //     sorunTipiSayilari[sorunTipi] = (sorunTipiSayilari[sorunTipi] || 0) + 1;
+  //   });
+
+  //   //! İstenen formatta tekrarlanan sorun tiplerini ayarlama
+  //   const tekrarlananSorunTipleri = Object.keys(sorunTipiSayilari).map(key => ({
+  //     soruntipi: key,
+  //     tekrar: sorunTipiSayilari[key]
+  //   }))
+  //   setTekrarlananSorunTipleri(tekrarlananSorunTipleri);
+
+
+  //   // //! aksiyon sahibi tiplerinin tekrar sayılarını hesaplama
+  //   const aksiyonSahibiTipiSayilari = {};
+  //   aksiyonSahibiTipleriDizisi.forEach(aksiyonTipi => {
+  //     aksiyonSahibiTipiSayilari[aksiyonTipi] = (aksiyonSahibiTipiSayilari[aksiyonTipi] || 0) + 1;
+  //   });
+
+  //   // //! İstenen formatta tekrarlanan sorun tiplerini ayarlama
+  //   const tekrarlananAksiyonTipleri = Object.keys(aksiyonSahibiTipiSayilari).map(key => ({
+  //     aksiyontipi: key,
+  //     tekrar: aksiyonSahibiTipiSayilari[key]
+  //   }));
+  //   setTekrarlananAksiyonTipleri(tekrarlananAksiyonTipleri);
+
+  // }, [uygunsuzlukData])
+
+
   useEffect(() => {
+    // Verileri Object.values kullanarak diziye dönüştürme
+    const data = Object.values(uygunsuzlukData);
 
-    const data = Object.values(uygunsuzlukData)
+    // Sorun tiplerini ve aksiyon sahiplerini filtreleyerek ve benzersiz hale getirme
+    const benzersizSorunTipleri = [...new Set(data.filter(kayit => kayit.sorun_tipi !== '').map(kayit => kayit.sorun_tipi))];
+    const benzersizAksiyonSahipleri = [...new Set(data.map(kayit => kayit.aksiyon_sahibi))];
 
-    //! Sorun tiplerini ayrıştır, boş string değerlerini elem
-    const sorunTipleriDizisi = data.filter(kayit => kayit.sorun_tipi !== '').map(kayit => kayit.sorun_tipi);
-    setSorunTipleri(sorunTipleriDizisi);
+    // Benzersiz değerlerin sayısını state'e aktarma
+    setFarkliSorunTipiSayisi(benzersizSorunTipleri.length);
+    setFarkliAksiyonTipiSayisi(benzersizAksiyonSahipleri.length);
 
-    //* new Set özelliği ile yalnızca benzersiz kayıtları al
-    const benzersizSorunTipleri = new Set(sorunTipleriDizisi);
-    setFarkliSorunTipiSayisi(benzersizSorunTipleri.size);
+    // Tekrar sayılarını hesaplama işlemini bir fonksiyona çıkarma
+    const hesaplaTekrarSayilari = (dizi) => {
+      return dizi.reduce((acc, cur) => {
+        acc[cur] = (acc[cur] || 0) + 1;
+        return acc;
+      }, {});
+    };
 
+    // Sorun tipleri ve aksiyon sahipleri için tekrar sayılarını hesaplama
+    const sorunTipiSayilari = hesaplaTekrarSayilari(data.filter(kayit => kayit.sorun_tipi !== '').map(kayit => kayit.sorun_tipi));
+    const aksiyonSahibiSayilari = hesaplaTekrarSayilari(data.map(kayit => kayit.aksiyon_sahibi));
 
-    // //! aksiyon sahibi tiplerini ayrıştır
-    const aksiyonSahibiTipleriDizisi = data.map(kayit => kayit.aksiyon_sahibi);
-    setaksiyonSahibi(aksiyonSahibiTipleriDizisi)
-
-    const benzersizAksiyonTipleri = new Set(aksiyonSahibiTipleriDizisi)
-    setFarkliAksiyonTipiSayisi(benzersizAksiyonTipleri.size)
-
-
-    //! Sorun tiplerinin tekrar sayılarını hesaplama
-    const sorunTipiSayilari = {};
-    sorunTipleriDizisi.forEach(sorunTipi => {
-      sorunTipiSayilari[sorunTipi] = (sorunTipiSayilari[sorunTipi] || 0) + 1;
-    });
-
-    //! İstenen formatta tekrarlanan sorun tiplerini ayarlama
-    const tekrarlananSorunTipleri = Object.keys(sorunTipiSayilari).map(key => ({
-      soruntipi: key,
-      tekrar: sorunTipiSayilari[key]
-    }))
-    setTekrarlananSorunTipleri(tekrarlananSorunTipleri);
-
-
-    // //! aksiyon sahibi tiplerinin tekrar sayılarını hesaplama
-    const aksiyonSahibiTipiSayilari = {};
-    aksiyonSahibiTipleriDizisi.forEach(aksiyonTipi => {
-      aksiyonSahibiTipiSayilari[aksiyonTipi] = (aksiyonSahibiTipiSayilari[aksiyonTipi] || 0) + 1;
-    });
-
-    // //! İstenen formatta tekrarlanan sorun tiplerini ayarlama
-    const tekrarlananAksiyonTipleri = Object.keys(aksiyonSahibiTipiSayilari).map(key => ({
-      aksiyontipi: key,
-      tekrar: aksiyonSahibiTipiSayilari[key]
-    }));
-    setTekrarlananAksiyonTipleri(tekrarlananAksiyonTipleri);
-
-
-
-
-
+    // Hesaplanan tekrar sayılarını istenen formatta state'e aktarma
+    setTekrarlananSorunTipleri(Object.entries(sorunTipiSayilari).map(([soruntipi, tekrar]) => ({ soruntipi, tekrar })));
+    setTekrarlananAksiyonTipleri(Object.entries(aksiyonSahibiSayilari).map(([aksiyontipi, tekrar]) => ({ aksiyontipi, tekrar })));
   }, [uygunsuzlukData])
 
 
 
+  // tarih filtreleme işlemini yap
   const handleDateFilter = () => {
 
     if (info.dateFrom && info.dateTo) {
@@ -173,6 +196,7 @@ const Home = () => {
   }
 
 
+  //tarih filtresini resetle
   const handleRefresh = () => {
 
     setInfo({
