@@ -307,7 +307,7 @@ const ActionDetail_Modal = ({ open, handleClose, handleOpen, dbData, tekrarlanan
                                 <Tooltip />
                                 <Legend />
                                 <Bar dataKey="uygunsuzlukOrani" fill="#8884d8">
-                                    <LabelList dataKey="aksiyonSahibi" position="insideBottom" fill='#000000' fontSize={11} fontWeight={700} />
+                                    <LabelList dataKey="aksiyonSahibi" position="insideBottom" fill='#ffffff' fontSize={11} fontWeight={700} />
                                 </Bar>
                             </BarChart>
                         </ResponsiveContainer>

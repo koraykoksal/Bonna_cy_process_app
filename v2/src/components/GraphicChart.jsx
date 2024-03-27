@@ -12,7 +12,7 @@ const GraphicChart = ({ uygunsuzlukDataTable, uygunsuzlukCount }) => {
 
         // <Box sx={{ display: 'flex', justifyContent: 'center'}} height={500}>
 
-            <ResponsiveContainer width="80%" height="60%">
+            <ResponsiveContainer width="80%" height="100%">
                 <BarChart
                     data={uygunsuzlukDataTable}
                 >
@@ -21,8 +21,8 @@ const GraphicChart = ({ uygunsuzlukDataTable, uygunsuzlukCount }) => {
                     <Tooltip />
                     <Legend />
                     <Bar dataKey="count" fill="#8884d8">
-                        <LabelList dataKey="title" position="insideTop" fill='#ffffff' fontWeight={700} fontSize={12} />
-                        <LabelList dataKey="percent" position="center" fill='#ffffff' fontWeight={700} fontSize={12} />
+                        <LabelList dataKey="title" position="insideTop" fill='#000000'  fontSize={12} />
+                        <LabelList dataKey="percent" position="center" fill='#ffffff'  fontSize={12} />
                     </Bar>
                 </BarChart>
             </ResponsiveContainer>

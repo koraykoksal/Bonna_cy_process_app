@@ -49,6 +49,32 @@ const tableContainerStyle = {
 
 const DeepDetail_Modal = ({ open, handleClose, state, info, uygunsuzlukData, deepData, graphicDataInfo }) => {
 
+    const [shortData, setShortData] = useState([])
+
+    useEffect(() => {
+
+        const sortDataResult = deepData.sort((a, b) => {
+            const convertDateTime = (date, time) => {
+                if (!date || !time) {
+                    // Eğer date veya time undefined veya boş string ise, geçerli bir tarih döndürmeyebilir.
+                    // Bu durumu ele almak için bir alternatif dönüş değeri sağlayabilirsiniz.
+                    // Örneğin, çok geçmiş veya gelecek bir tarih olabilir.
+                    // Burada örnek olarak Unix Epoch başlangıcını kullanıyoruz.
+                    return new Date(0); // 1 Ocak 1970
+                }
+                const [day, month, year] = date.split('-').map(num => num.padStart(2, '0'));
+                const [hours, minutes] = time.split(':').map(num => num.padStart(2, '0'));
+                return new Date(`${year}-${month}-${day}T${hours}:${minutes}:00`);
+            };
+
+            const dateTimeA = convertDateTime(a.date, a.time);
+            const dateTimeB = convertDateTime(b.date, b.time);
+
+            return dateTimeB - dateTimeA;
+        })
+        setShortData(sortDataResult)
+
+    }, [deepData])
 
 
     return (
@@ -83,7 +109,7 @@ const DeepDetail_Modal = ({ open, handleClose, state, info, uygunsuzlukData, dee
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {deepData?.map((item, index) => (
+                                        {shortData?.map((item, index) => (
                                             <TableRow
                                                 key={index}
                                             >
@@ -128,7 +154,7 @@ const DeepDetail_Modal = ({ open, handleClose, state, info, uygunsuzlukData, dee
                         </Box>
 
                         <Box height={500} display={'flex'} justifyContent={'center'}>
-                            <ResponsiveContainer width="80%" height="60%">
+                            <ResponsiveContainer width="80%" height="100%" >
                                 {/* <Typography align='center' variant='subtitle1' sx={{ height: '20px', fontWeight: 700 }}>grafik</Typography> */}
                                 <BarChart
                                     data={graphicDataInfo}
@@ -138,8 +164,8 @@ const DeepDetail_Modal = ({ open, handleClose, state, info, uygunsuzlukData, dee
                                     <Tooltip />
                                     <Legend />
                                     <Bar dataKey="count" fill="#FF6868">
-                                        <LabelList dataKey="title" position="insideTop" fill='#000000' fontWeight={700} fontSize={12} />
-                                        <LabelList dataKey="percent" position="center" fill='#000000' fontWeight={700} fontSize={12} />
+                                        <LabelList dataKey="title" position="insideTop" fill='#000000' fontSize={12} />
+                                        <LabelList dataKey="percent" position="center" fill='#000000' fontSize={12} />
                                     </Bar>
                                 </BarChart>
                             </ResponsiveContainer>

@@ -41,218 +41,248 @@ const ActionDetail_Tables = ({ uygunsuzlukDataTable, uygunsuzlukCount, state }) 
 
     function formatDate2(dateString) {
         const parts = dateString.split('-')
-        return `${parts[2]}-${parts[1]}-${parts[0]}`
+        return `${parts[0]}-${parts[1]}-${parts[2]}`
     }
 
-
-    function formatDate(dateStr) {
-
-        if (!dateStr) {
-            return
-        }
-        // Tarih stringini parçalara ayır
-        const parts = dateStr.split("-");
-
-        // Gün, ay ve yıl için parçaları al
+    function formatDate(dateString) {
+        const parts = dateString.split('-');
         let day = parts[0];
         let month = parts[1];
         let year = parts[2];
 
-        // Gün ve ay tek haneli ise başına sıfır ekle
         day = day.length === 1 ? `0${day}` : day;
         month = month.length === 1 ? `0${month}` : month;
 
-        // yyyy-mm-dd formatına dönüştür
-        return `${day}-${month}-${year}`;
+        return `${year}-${month}-${day}`; // yyyy-mm-dd formatında dönüş yap
     }
+
+  
 
 
     const handleFind = (title) => {
         //! aksiyon sahibi bilgisinde boşlık karakterini sil ve büyük harfe çevir. State den gelen aksiyonSahibi bilgisi bu şekilde
-        // if (title) {
-
-        //     const data = Object.values(uygunsuzlukData).filter(item => item.aksiyon_sahibi.replace(/\s+/g, '').toUpperCase() == state.aksiyonSahibi && item.sorun_tipi == title)
-
-
-        //     const d1 = uygunsuzlukDataTable.filter(item => item.title == title).map(data => data.count)
-
-        //     const graphicdata = data.reduce((acc, item) => {
-
-        //         if (item.aksiyon_sahibi == "SEKILLENDIRME") {
-
-        //             if (acc[item.urun_kodu]) {
-        //                 acc[item.urun_kodu]++;
-        //             }
-        //             else {
-        //                 acc[item.urun_kodu] = 1;
-        //             }
-
-        //             return acc;
-        //         }
-        //         else if (item.aksiyon_sahibi == "SIRLAMA") {
-
-        //             if (acc[item.is_merkezi]) {
-        //                 acc[item.is_merkezi]++;
-        //             }
-        //             else {
-        //                 acc[item.is_merkezi] = 1;
-        //             }
-
-        //             return acc;
-        //         }
-        //         else if (item.aksiyon_sahibi == "DIJITAL LOGO") {
-
-        //             if (acc[item.urun_kodu]) {
-        //                 acc[item.urun_kodu]++;
-        //             }
-        //             else {
-        //                 acc[item.urun_kodu] = 1;
-        //             }
-
-        //             return acc;
-        //         }
-        //         else if (item.aksiyon_sahibi == "DIJITAL BASKI") {
-
-        //             if (acc[item.urun_kodu]) {
-        //                 acc[item.urun_kodu]++;
-        //             }
-        //             else {
-        //                 acc[item.urun_kodu] = 1;
-        //             }
-
-        //             return acc;
-        //         }
-        //         else if (item.aksiyon_sahibi == "AYAKTASLAMA") {
-
-        //             if (acc[item.urun_kodu]) {
-        //                 acc[item.urun_kodu]++;
-        //             }
-        //             else {
-        //                 acc[item.urun_kodu] = 1;
-        //             }
-
-        //             return acc;
-        //         }
-        //         else if (item.aksiyon_sahibi == "KALITE GUVENCE") {
-
-        //             if (acc[item.urun_kodu]) {
-        //                 acc[item.urun_kodu]++;
-        //             }
-        //             else {
-        //                 acc[item.urun_kodu] = 1;
-        //             }
-
-        //             return acc;
-        //         }
-        //         else if (item.aksiyon_sahibi == "FIRINLAR") {
-
-        //             if (acc[item.urun_kodu]) {
-        //                 acc[item.urun_kodu]++;
-        //             }
-        //             else {
-        //                 acc[item.urun_kodu] = 1;
-        //             }
-
-        //             return acc;
-        //         }
-        //         else if (item.aksiyon_sahibi == "DEKORLAMA") {
-
-        //             if (acc[item.renk_kodu]) {
-        //                 acc[item.renk_kodu]++;
-        //             }
-        //             else {
-        //                 acc[item.renk_kodu] = 1;
-        //             }
-
-        //             return acc;
-        //         }
-        //         else if (item.aksiyon_sahibi == "HAMMADDE") {
-
-        //             if (acc[item.is_merkezi]) {
-        //                 acc[item.is_merkezi]++;
-        //             }
-        //             else {
-        //                 acc[item.is_merkezi] = 1;
-        //             }
-
-        //             return acc;
-        //         }
-
-        //     }, {})
-
-
-
-        //     const deger = Object.keys(graphicdata).map(key => {
-        //         return {
-        //             title: key,
-        //             count: graphicdata[key],
-        //             sorunTipiAdet: d1[0],
-        //             percent: (Number(graphicdata[key]) / Number(d1[0]) * 100).toFixed(2)
-        //         }
-        //     })
-
-        //     setGraphicDataInfo(deger)
-        //     setDeepData(data)
-
-        // }
-
         if (title) {
-            //! deep detay sayfasında local storage de tarih bilgisi varsa var olan tarih bilgisine göre filtreleme yap yoksa var olan data kaydına göre filtreleme yap
-            // const filteredData = Object.values(uygunsuzlukData).filter(item =>
-            //     item.aksiyon_sahibi.replace(/\s+/g, '').toUpperCase() === state.aksiyonSahibi &&
-            //     item.sorun_tipi === title
-            // );
 
-            const filteredData = Object.values(uygunsuzlukData).filter(item => {
-                // Aksiyon sahibi ve sorun tipi filtresi
+            // const data = Object.values(uygunsuzlukData).filter(item => item.aksiyon_sahibi.replace(/\s+/g, '').toUpperCase() == state.aksiyonSahibi && item.sorun_tipi == title)
+
+            const data = Object.values(uygunsuzlukData).filter(item => {
                 const actionSahibiMatch = item.aksiyon_sahibi.replace(/\s+/g, '').toUpperCase() === state.aksiyonSahibi;
                 const sorunTipiMatch = item.sorun_tipi === title;
 
-                // Eğer dates bilgisi varsa ve geçerliyse, ek olarak tarih filtresi de uygula
                 if (dates && dates.dateFrom && dates.dateTo) {
-                    // date bilgileri aynı formatta olması için convert işlemi yapıldı.
-                    const itemDate = formatDate(item.date); // item.date'yi Date objesine dönüştür
+                    const itemDate = formatDate(item.date);
                     const dateFrom = formatDate2(dates.dateFrom);
                     const dateTo = formatDate2(dates.dateTo);
 
-                    // Tarih aralığı filtresi (item.date, dateFrom ve dateTo aralığında olmalı)
                     const isWithinDateRange = itemDate >= dateFrom && itemDate <= dateTo;
 
                     return actionSahibiMatch && sorunTipiMatch && isWithinDateRange;
                 }
 
-                // Eğer dates bilgisi yoksa veya geçersizse, sadece aksiyon sahibi ve sorun tipi filtresini uygula
                 return actionSahibiMatch && sorunTipiMatch;
             });
 
-            const totalCount = uygunsuzlukDataTable.find(item => item.title === title)?.count || 0;
+            const d1 = uygunsuzlukDataTable.filter(item => item.title == title).map(data => data.count)
 
-            const keyMappings = {
-                SEKILLENDIRME: "urun_kodu",
-                SIRLAMA: "is_merkezi",
-                // Diğer aksiyon sahipleri için benzer eşlemeler...
-                DEKORLAMA: "renk_kodu",
-                HAMMADDE: "is_merkezi",
-                // Varsayılan eşleme
-                default: "urun_kodu"
-            };
+            const graphicdata = data.reduce((acc, item) => {
 
-            const graphicdata = filteredData.reduce((acc, item) => {
-                const key = keyMappings[item.aksiyon_sahibi] || keyMappings.default;
-                acc[key] = (acc[key] || 0) + 1;
-                return acc;
-            }, {});
+                if (item.aksiyon_sahibi == "SEKILLENDIRME") {
 
-            const deger = Object.keys(graphicdata).map(key => ({
-                title: key,
-                count: graphicdata[key],
-                sorunTipiAdet: totalCount,
-                percent: ((graphicdata[key] / totalCount) * 100).toFixed(2)
-            }));
+                    if (acc[item.urun_kodu]) {
+                        acc[item.urun_kodu]++;
+                    }
+                    else {
+                        acc[item.urun_kodu] = 1;
+                    }
 
-            setGraphicDataInfo(deger);
-            setDeepData(filteredData);
+                    return acc;
+                }
+                else if (item.aksiyon_sahibi == "SIRLAMA") {
+
+                    if (acc[item.is_merkezi]) {
+                        acc[item.is_merkezi]++;
+                    }
+                    else {
+                        acc[item.is_merkezi] = 1;
+                    }
+
+                    return acc;
+                }
+                else if (item.aksiyon_sahibi == "DIJITAL LOGO") {
+
+                    if (acc[item.urun_kodu]) {
+                        acc[item.urun_kodu]++;
+                    }
+                    else {
+                        acc[item.urun_kodu] = 1;
+                    }
+
+                    return acc;
+                }
+                else if (item.aksiyon_sahibi == "DIJITAL BASKI") {
+
+                    if (acc[item.urun_kodu]) {
+                        acc[item.urun_kodu]++;
+                    }
+                    else {
+                        acc[item.urun_kodu] = 1;
+                    }
+
+                    return acc;
+                }
+                else if (item.aksiyon_sahibi == "AYAKTASLAMA") {
+
+                    if (acc[item.urun_kodu]) {
+                        acc[item.urun_kodu]++;
+                    }
+                    else {
+                        acc[item.urun_kodu] = 1;
+                    }
+
+                    return acc;
+                }
+                else if (item.aksiyon_sahibi == "KALITE GUVENCE") {
+
+                    if (acc[item.urun_kodu]) {
+                        acc[item.urun_kodu]++;
+                    }
+                    else {
+                        acc[item.urun_kodu] = 1;
+                    }
+
+                    return acc;
+                }
+                else if (item.aksiyon_sahibi == "FIRINLAR") {
+
+                    if (acc[item.urun_kodu]) {
+                        acc[item.urun_kodu]++;
+                    }
+                    else {
+                        acc[item.urun_kodu] = 1;
+                    }
+
+                    return acc;
+                }
+                else if (item.aksiyon_sahibi == "DEKORLAMA") {
+
+                    if (acc[item.renk_kodu]) {
+                        acc[item.renk_kodu]++;
+                    }
+                    else {
+                        acc[item.renk_kodu] = 1;
+                    }
+
+                    return acc;
+                }
+                else if (item.aksiyon_sahibi == "HAMMADDE") {
+
+                    if (acc[item.is_merkezi]) {
+                        acc[item.is_merkezi]++;
+                    }
+                    else {
+                        acc[item.is_merkezi] = 1;
+                    }
+
+                    return acc;
+                }
+
+            }, {})
+
+
+            const deger = Object.keys(graphicdata).map(key => {
+                return {
+                    title: key,
+                    count: graphicdata[key],
+                    sorunTipiAdet: d1[0],
+                    percent: (Number(graphicdata[key]) / Number(d1[0]) * 100).toFixed(2)
+                }
+            })
+
+            setGraphicDataInfo(deger)
+            setDeepData(data)
+
         }
+
+        // if (title) {
+        //! deep detay sayfasında local storage de tarih bilgisi varsa var olan tarih bilgisine göre filtreleme yap yoksa var olan data kaydına göre filtreleme yap
+        // const filteredData = Object.values(uygunsuzlukData).filter(item =>
+        //     item.aksiyon_sahibi.replace(/\s+/g, '').toUpperCase() === state.aksiyonSahibi &&
+        //     item.sorun_tipi === title
+        // );
+
+        // const filteredData = Object.values(uygunsuzlukData).filter(item => {
+        //     // Aksiyon sahibi ve sorun tipi filtresi
+        //     const actionSahibiMatch = item.aksiyon_sahibi.replace(/\s+/g, '').toUpperCase() === state.aksiyonSahibi;
+        //     const sorunTipiMatch = item.sorun_tipi === title;
+
+        //     // Eğer dates bilgisi varsa ve geçerliyse, ek olarak tarih filtresi de uygula
+        //     if (dates && dates.dateFrom && dates.dateTo) {
+        //         // date bilgileri aynı formatta olması için convert işlemi yapıldı.
+        //         const itemDate = formatDate(item.date); // item.date'yi Date objesine dönüştür
+        //         const dateFrom = formatDate2(dates.dateFrom);
+        //         const dateTo = formatDate2(dates.dateTo);
+
+        //         // Tarih aralığı filtresi (item.date, dateFrom ve dateTo aralığında olmalı)
+        //         const isWithinDateRange = itemDate >= dateFrom && itemDate <= dateTo;
+
+        //         return actionSahibiMatch && sorunTipiMatch && isWithinDateRange;
+        //     }
+
+        //     // Eğer dates bilgisi yoksa veya geçersizse, sadece aksiyon sahibi ve sorun tipi filtresini uygula
+        //     return actionSahibiMatch && sorunTipiMatch;
+        // });
+
+        // const totalCount = uygunsuzlukDataTable.find(item => item.title === title)?.count || 0;
+
+        // const keyMappings = {
+        //     SEKILLENDIRME: "urun_kodu",
+        //     SIRLAMA: "is_merkezi",
+        //     // Diğer aksiyon sahipleri için benzer eşlemeler...
+        //     DEKORLAMA: "renk_kodu",
+        //     HAMMADDE: "is_merkezi",
+        //     // Varsayılan eşleme
+        //     default: "urun_kodu"
+        // };
+
+        // const graphicdata = filteredData.reduce((acc, item) => {
+        //     const key = keyMappings[item.aksiyon_sahibi] || keyMappings.default;
+        //     acc[key] = (acc[key] || 0) + 1;
+        //     return acc;
+        // }, {});
+
+        // const deger = Object.keys(graphicdata).map(key => ({
+        //     title: key,
+        //     count: graphicdata[key],
+        //     sorunTipiAdet: totalCount,
+        //     percent: ((graphicdata[key] / totalCount) * 100).toFixed(2)
+        // }));
+
+        // // reduce kullanarak her bir isMerkezi için toplam sayıyı bul
+        // const isMerkeziCounts = filteredData.reduce((acc, item) => {
+        //     if (acc[item.is_merkezi]) {
+        //         acc[item.is_merkezi]++;
+        //     } else {
+        //         acc[item.is_merkezi] = 1;
+        //     }
+        //     return acc;
+        // }, {});
+
+
+        // Şimdi, map işlemi ile her bir isMerkezi için bu sayıyı kullanalım.
+        // const graphicData2 = Object.keys(graphicdata).map(key => {
+        //     return {
+        //         isMerkezi: key,
+        //         count: graphicdata[key]
+        //     };
+        // });
+
+        // console.log(graphicDataInfo)
+        // console.log(deger)
+        // console.log(graphicData2)
+
+        // setGraphicDataInfo(graphicData);
+        // setDeepData(filteredData);
+        // }
 
 
     }

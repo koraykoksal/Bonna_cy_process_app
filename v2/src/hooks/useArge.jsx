@@ -49,7 +49,9 @@ const useArge = () => {
     //! filter işleminde gönderilen tarih bilgisini "DD-MM-YYYY" formatına dönüştürmek için kullanılır
     function formatDate2(dateString) {
         const parts = dateString.split('-')
-        return `${parts[2]}-${parts[1]}-${parts[0]}`
+        // return `${parts[2]}-${parts[1]}-${parts[0]}`
+        return `${parts[0]}-${parts[1]}-${parts[2]}`
+
     }
 
 
@@ -71,8 +73,10 @@ const useArge = () => {
         month = month.length === 1 ? `0${month}` : month;
         
         // yyyy-mm-dd formatına dönüştür
-        return `${day}-${month}-${year}`;
+        // return `${day}-${month}-${year}`;
+        return `${year}-${month}-${day}`; // yyyy-mm-dd formatında dönüş yap
     }
+
 
 
     function filterDataByDateRange(data, dateFrom, dateTo) {
